@@ -187,14 +187,14 @@ class _multiDeleteState extends State<multiDelete> {
               );
             }),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blueGrey[900],
+          backgroundColor: Colors.blue[600],
           onPressed: () {},
           child: IconButton(
             iconSize: 40,
             onPressed: () {
               _showChoiceDialog_add(context);
             },
-            color: Colors.blueGrey[900],
+            color: Colors.blue[600],
             icon: Icon(
               Icons.add,
               color: Colors.teal,
@@ -205,7 +205,7 @@ class _multiDeleteState extends State<multiDelete> {
 
   getAppBar() {
     return AppBar(
-      backgroundColor: Colors.blueGrey[900],
+      backgroundColor: Colors.blue[600],
       title: Text(selectedList.length < 1
           ? "Documents"
           : "${selectedList.length} item selected"),

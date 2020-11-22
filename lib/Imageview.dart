@@ -6,7 +6,6 @@ import 'Filterview.dart';
 import 'Home.dart';
 import 'Providers/ImageList.dart';
 
-
 class Imageview extends StatefulWidget {
   File file;
   ImageList list;
@@ -17,15 +16,13 @@ class Imageview extends StatefulWidget {
 }
 
 class _ImageviewState extends State<Imageview> {
-
   File cropped;
 
   cropimage(file) async {
-    if(file != null){
-        cropped = await ImageCropper.cropImage(
+    if (file != null) {
+      cropped = await ImageCropper.cropImage(
         sourcePath: file.path,
-        aspectRatio: CropAspectRatio(
-            ratioX: 1, ratioY: 1),
+        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
         compressQuality: 80,
       );
       setState(() {
@@ -57,80 +54,103 @@ class _ImageviewState extends State<Imageview> {
                   flex: 1,
                   child: Container(
                     height: 65,
-                    color: Colors.blueGrey[900],
+                    color: Colors.blue[600],
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              FlatButton(
-                                onPressed: (){
-                                  Navigator.of(context).pop();
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          FlatButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
 //                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
 //                                      builder: (context) => Home()));
-                                },
-                                color: Colors.blueGrey[900],
-                                child: Column(
-                                  children: <Widget>[
-                                    Icon(Icons.arrow_back, color: Colors.white,),
-                                    Text("Back", style: TextStyle(color: Colors.white),),
-                                  ],
+                            },
+                            color: Colors.blue[600],
+                            child: Column(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
                                 ),
-                              ),
-
-                              FlatButton(
-                                onPressed: (){
+                                Text(
+                                  "Back",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
 //                                  Navigator.of(context).pop();
-                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
                                       builder: (context) =>
                                           Imageview(widget.file, widget.list)));
-                                },
-                                color: Colors.blueGrey[900],
-                                child: Column(
-                                  children: <Widget>[
-                                    Icon(Icons.undo, color: Colors.white,),
-                                    Text("Undo", style: TextStyle(color: Colors.white),),
-                                  ],
+                            },
+                            color: Colors.blue[600],
+                            child: Column(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.undo,
+                                  color: Colors.white,
                                 ),
-                              ),
-
-                              FlatButton(
-                                onPressed: (){
-                                  cropimage(widget.file);
-                                },
-                                color: Colors.blueGrey[900],
-                                child: Column(
-                                  children: <Widget>[
-                                    Icon(Icons.crop_rotate, color: Colors.white,),
-                                    Text("Crop", style: TextStyle(color: Colors.white),),
-                                  ],
+                                Text(
+                                  "Undo",
+                                  style: TextStyle(color: Colors.white),
                                 ),
-                              ),
-
-                              FlatButton(
-                                onPressed: (){
-                                  if (cropped != null ) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => filter_image(cropped, widget.list))
-                                    );
-                                  }
-                                  else {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => filter_image(widget.file, widget.list))
-                                    );
-                                  }
-                                },
-                                color: Colors.blueGrey[900],
-                                child: Column(
-                                  children: <Widget>[
-                                    Icon(Icons.arrow_forward, color: Colors.white,),
-                                    Text("Next", style: TextStyle(color: Colors.white),),
-                                  ],
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              cropimage(widget.file);
+                            },
+                            color: Colors.blue[600],
+                            child: Column(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.crop_rotate,
+                                  color: Colors.white,
                                 ),
-                              ),
-                            ],
+                                Text(
+                                  "Crop",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              if (cropped != null) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => filter_image(
+                                            cropped, widget.list)));
+                              } else {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => filter_image(
+                                            widget.file, widget.list)));
+                              }
+                            },
+                            color: Colors.blue[600],
+                            child: Column(
+                              children: <Widget>[
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
+                                ),
+                                Text(
+                                  "Next",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

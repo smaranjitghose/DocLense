@@ -33,7 +33,7 @@ class _HomeState extends State<Home> {
       backgroundColor: Colors.blueGrey[100],
       drawer: MainDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey[900],
+        backgroundColor: Colors.blue[600],
         title: Center(
           child: Text(
             'DocLense',
@@ -52,14 +52,14 @@ class _HomeState extends State<Home> {
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.blueGrey[900],
+        backgroundColor: Colors.blue[600],
         onPressed: () {},
         label: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             IconButton(
               iconSize: 30,
-              color: Colors.blueGrey[900],
+              color: Colors.blue[600],
               icon: Icon(
                 Icons.camera_alt,
                 color: Colors.white,
@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
             ),
             IconButton(
               iconSize: 30,
-              color: Colors.blueGrey[900],
+              color: Colors.blue[600],
               icon: Icon(
                 Icons.image,
                 color: Colors.white,

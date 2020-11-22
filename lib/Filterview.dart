@@ -35,7 +35,7 @@ class _filterimageState extends State<filter_image> {
       context,
       new MaterialPageRoute(
         builder: (context) => new PhotoFilterSelector(
-          appBarColor: Colors.blueGrey[900],
+          appBarColor: Colors.blue[600],
           title: Text("Apply Filter"),
           image: image,
           filters: presetFiltersList,
@@ -80,7 +80,7 @@ class _filterimageState extends State<filter_image> {
                   flex: 1,
                   child: Container(
                     height: 65,
-                    color: Colors.blueGrey[900],
+                    color: Colors.blue[600],
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Row(
@@ -90,7 +90,7 @@ class _filterimageState extends State<filter_image> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            color: Colors.blueGrey[900],
+                            color: Colors.blue[600],
                             child: Column(
                               children: <Widget>[
                                 Icon(
@@ -108,7 +108,7 @@ class _filterimageState extends State<filter_image> {
                             onPressed: () {
                               getImage(context);
                             },
-                            color: Colors.blueGrey[900],
+                            color: Colors.blue[600],
                             child: Column(
                               children: <Widget>[
                                 Icon(
@@ -132,7 +132,7 @@ class _filterimageState extends State<filter_image> {
                                       builder: (context) =>
                                           multiDelete(widget.list)));
                             },
-                            color: Colors.blueGrey[900],
+                            color: Colors.blue[600],
                             child: Column(
                               children: <Widget>[
                                 Icon(

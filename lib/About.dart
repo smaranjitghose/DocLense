@@ -11,7 +11,7 @@ class About extends StatelessWidget {
           "About App",
           style: TextStyle(fontSize: 24, color: Colors.white),
         ),
-        backgroundColor: Colors.blueGrey[900],
+        backgroundColor: Colors.blue[600],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -21,7 +21,7 @@ class About extends StatelessWidget {
             child: Text(
               "DocLense is the one place for all your documents. \nYou can now click, upload, crop, rotate and do so much more!\n\nSo whether it is your college assignment or the office document you want to digitalize, stop worrying and just use DocLense!",
               style: TextStyle(
-                color: Colors.blueGrey[900],
+                color: Colors.blue[600],
                 fontSize: 18,
               ),
             ),
@@ -38,7 +38,7 @@ class About extends StatelessWidget {
                 child: Text(
                   "Made with ❤ by Open Source",
                   style: TextStyle(
-                    color: Colors.blueGrey[900],
+                    color: Colors.blue[600],
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),

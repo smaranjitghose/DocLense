@@ -67,7 +67,7 @@ class _PDFConversion extends State<PDFConversion> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey[900],
+        backgroundColor: Colors.blue[600],
         title: Text(
           'Name Your PDF',
           style: TextStyle(color: Colors.white, fontSize: 22),
@@ -90,7 +90,7 @@ class _PDFConversion extends State<PDFConversion> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blueGrey[900],
+        backgroundColor: Colors.blue[600],
         child: IconButton(
           iconSize: 40,
           onPressed: () {
@@ -104,7 +104,7 @@ class _PDFConversion extends State<PDFConversion> {
             // } else
             _pushSaved();
           },
-          color: Colors.blueGrey[900],
+          color: Colors.blue[600],
           icon: Icon(
             Icons.arrow_forward,
             color: Colors.teal,
