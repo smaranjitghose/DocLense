@@ -6,5 +6,6 @@
 ![Stars](https://img.shields.io/github/stars/smaranjitghose/DocLense)
 ![License](https://img.shields.io/github/license/smaranjitghose/DocLense)
 <hr>
-**DocLense :** It is an application which can can be used to scan the documents via your phone.
+
+**DocLense** : It is an application which can can be used to scan the documents via your phone.
 <p align="center"><img src="assets/doclense.png" width=45%></p>
