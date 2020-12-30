@@ -18,6 +18,16 @@ class Imageview extends StatefulWidget {
 class _ImageviewState extends State<Imageview> {
   File cropped;
 
+  List<File> files = [];
+  int index;
+
+  @override
+  void initState() { 
+    super.initState();
+    files.add(widget.file);
+    index = 0;
+  }
+
   cropimage(file) async {
     if (file != null) {
       cropped = await ImageCropper.cropImage(
@@ -27,6 +37,8 @@ class _ImageviewState extends State<Imageview> {
       );
       setState(() {
         file = cropped;
+        files.add(file);
+        index++;
       });
     }
   }
@@ -44,9 +56,7 @@ class _ImageviewState extends State<Imageview> {
                 flex: 4,
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                  child: cropped == null
-                      ? Image.file(widget.file)
-                      : Image.file(cropped),
+                  child: Image.file(files[index]),
                 ),
               ),
               SafeArea(
@@ -83,10 +93,15 @@ class _ImageviewState extends State<Imageview> {
                           FlatButton(
                             onPressed: () {
 //                                  Navigator.of(context).pop();
-                              Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          Imageview(widget.file, widget.list)));
+                              if(index == 0) {
+                                
+                              }
+                              else {
+                                setState(() {
+                                  index--;
+                                  files.removeLast();
+                                });
+                              }
                             },
                             color: Colors.blue[600],
                             child: Column(
