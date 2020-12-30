@@ -5,23 +5,26 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey[100],
+      backgroundColor: Colors.lightBlue[200],
       appBar: AppBar(
         title: Text(
           "About App",
-          style: TextStyle(fontSize: 24, color: Colors.white),
+          style: TextStyle(fontSize: 24, color: Colors.black),
         ),
-        backgroundColor: Colors.blue[600],
+      leading: IconButton(icon: Image.asset('assets/images/scanlogo.png'),
+                onPressed: () {},), 
+      backgroundColor: Colors.blue[50],
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
             child: Text(
               "DocLense is the one place for all your documents. \nYou can now click, upload, crop, rotate and do so much more!\n\nSo whether it is your college assignment or the office document you want to digitalize, stop worrying and just use DocLense!",
               style: TextStyle(
-                color: Colors.blue[600],
+                color: Colors.black,
                 fontSize: 18,
               ),
             ),
@@ -30,6 +33,7 @@ class About extends StatelessWidget {
             height: 200,
           ),
           Row(
+            
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
@@ -38,7 +42,7 @@ class About extends StatelessWidget {
                 child: Text(
                   "Made with ❤ by Open Source",
                   style: TextStyle(
-                    color: Colors.blue[600],
+                    color: Colors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),

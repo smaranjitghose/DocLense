@@ -1,6 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:doclense/About.dart';
+import 'package:doclense/Home.dart';
 import 'package:flutter/material.dart';
-import 'SplashScreen.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'dart:ui';
 
 void main() {
   runApp(new MaterialApp(
@@ -8,16 +10,19 @@ void main() {
   ));
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SplashScreen(),
+      debugShowCheckedModeBanner: false,
+      home: AnimatedSplashScreen(
+        splash: Image.asset('assets/images/logos.png'),
+        nextScreen: About(),
+        splashTransition: SplashTransition.rotationTransition,
+        
+        duration: 4000,
+      ),
     );
   }
 }
+
