@@ -1,3 +1,4 @@
+import 'package:doclense/MainDrawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -5,19 +6,22 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightBlue[200],
+      
+      backgroundColor: Colors.white,
+      drawer: MainDrawer(),
       appBar: AppBar(
         title: Text(
           "About App",
-          style: TextStyle(fontSize: 24, color: Colors.black),
+          style: TextStyle(fontSize: 24, color: Colors.white),
         ),
-      leading: IconButton(icon: Image.asset('assets/images/scanlogo.png'),
-                onPressed: () {},), 
-      backgroundColor: Colors.blue[50],
+     
+      backgroundColor: Colors.black,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          
+          Image.asset('assets/images/logos.png',width: 200,height: 100,),
           
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
@@ -37,6 +41,8 @@ class About extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
+              
+              
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                 child: Text(
