@@ -33,22 +33,6 @@ class _HomeState extends State<Home> {
     
       }
 
-
-  // void chooseImage(ImageSource source) async {
-
-
-  //   File fileGallery = await ImagePicker.pickImage(source: source);
-  //   if (fileGallery != null) {
-  //     imageFile = fileGallery;
-  //     final appDir = await syspaths.getApplicationDocumentsDirectory();
-  //     final fileName = path.basename(fileGallery.path);
-  //     final savedImage = await fileGallery.copy('${appDir.path}/$fileName');
-      
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //         builder: (context) => Imageview(fileGallery, images)));
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
 //    return ChangeNotifierProvider.value(
