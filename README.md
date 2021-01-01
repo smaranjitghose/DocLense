@@ -55,4 +55,12 @@
   <img src="https://contrib.rocks/image?repo=smaranjitghose/DocLense" />
 </a>
 
+## Code of Conduct
+
+You can find our Code of Conduct [here](/CODE_OF_CONDUCT.md).
+
+## License
+
+This project follows the [CC0-1.0 License](/LICENSE).
+
 
