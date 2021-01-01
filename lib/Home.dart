@@ -5,6 +5,8 @@ import 'package:image_picker/image_picker.dart';
 import 'Imageview.dart';
 import 'Providers/ImageList.dart';
 import 'MainDrawer.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart' as syspaths;
 
 class Home extends StatefulWidget {
   @override
@@ -14,16 +16,38 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   ImageList images = new ImageList();
 
-  File imageFile;
+  // File imageFile;
 
-  void chooseImage(ImageSource source) async {
-    File fileGallery = await ImagePicker.pickImage(source: source);
-    if (fileGallery != null) {
-      imageFile = fileGallery;
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Imageview(fileGallery, images)));
-    }
-  }
+  final picker =ImagePicker();
+
+  void getImage(ImageSource imageSource) async{
+    PickedFile imageFile = await picker.getImage(source: imageSource);
+    if (imageFile == null) return;
+    File tmpFile = File(imageFile.path);
+    final appDir = await syspaths.getApplicationDocumentsDirectory();
+    final fileName = path.basename(imageFile.path);
+    final localFile = await tmpFile.copy('${appDir.path}/$fileName');
+
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => Imageview(tmpFile, images)));
+    
+      }
+
+
+  // void chooseImage(ImageSource source) async {
+
+
+  //   File fileGallery = await ImagePicker.pickImage(source: source);
+  //   if (fileGallery != null) {
+  //     imageFile = fileGallery;
+  //     final appDir = await syspaths.getApplicationDocumentsDirectory();
+  //     final fileName = path.basename(fileGallery.path);
+  //     final savedImage = await fileGallery.copy('${appDir.path}/$fileName');
+      
+  //     Navigator.of(context).push(MaterialPageRoute(
+  //         builder: (context) => Imageview(fileGallery, images)));
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +89,7 @@ class _HomeState extends State<Home> {
                 color: Colors.white,
               ),
               onPressed: () {
-                chooseImage(ImageSource.camera);
+                getImage(ImageSource.camera);
               },
             ),
             SizedBox(
@@ -87,7 +111,7 @@ class _HomeState extends State<Home> {
                 color: Colors.white,
               ),
               onPressed: () {
-                chooseImage(ImageSource.gallery);
+                getImage(ImageSource.gallery);
               },
             )
           ],
