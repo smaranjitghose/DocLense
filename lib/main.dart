@@ -17,12 +17,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
         splash: Image.asset('assets/images/logos.png'),
-        nextScreen: About(),
+        nextScreen: Home(),
         splashTransition: SplashTransition.rotationTransition,
-        
         duration: 4000,
       ),
     );
   }
 }
-
