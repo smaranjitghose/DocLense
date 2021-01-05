@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Home.dart';
+//import 'Home.dart';
 import 'About.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -21,13 +21,12 @@ class MainDrawer extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 60,
-                    child: Icon(
-                      Icons.description,
-                      color: Colors.teal,
-                      size: 70,
+                    child: 
+                      Image.asset('assets/images/scanlogo.png',),
+                      
                     ),
                   ),
-                ),
+                
                 Text(
                   "One Place For All \n Your Documents!",
                   style: TextStyle(fontSize: 20, color: Colors.white),
