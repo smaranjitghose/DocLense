@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Home.dart';
+//import 'Home.dart';
 import 'About.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -26,6 +26,7 @@ class MainDrawer extends StatelessWidget {
                       
                     ),
                   ),
+
                 Text(
                   "One Place For All \n Your Documents!",
                   style: TextStyle(fontSize: 20, color: Colors.white),
