@@ -8,6 +8,8 @@ import 'MainDrawer.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 
+import 'search.dart';
+
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -51,7 +53,7 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () async {},
+            onPressed: () => MyFileList(),
           ),
           IconButton(
             icon: Icon(Icons.more_vert),
