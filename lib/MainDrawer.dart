@@ -1,6 +1,7 @@
+import 'package:doclense/GooglePixel44XL1.dart';
 import 'package:flutter/material.dart';
 //import 'Home.dart';
-import 'About.dart';
+
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -59,7 +60,7 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => About()));
+                  context, MaterialPageRoute(builder: (context) => GooglePixel44XL1()));
             },
             leading: Icon(Icons.info),
             title: Text(

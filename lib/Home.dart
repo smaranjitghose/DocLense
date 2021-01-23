@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () => MyFileList(),
+            onPressed: () {},
           ),
           IconButton(
             icon: Icon(Icons.more_vert),
