@@ -45,6 +45,8 @@ dependencies:
   flutter_full_pdf_viewer: ^1.0.6
   path: ^1.7.0
   storage_path: ^0.2.0
+  flutter_file_manager: ^0.2.0
+  path_provider_ex: ^1.0.0+1
 
 dev_dependencies:
   flutter_test:
