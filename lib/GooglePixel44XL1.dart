@@ -33,10 +33,13 @@ class _GooglePixel44XL1State extends State<GooglePixel44XL1> {
               ),
             ),
           ),
+          
           Transform.translate(
+            
             offset: Offset(0.0, 250.0),
             child: Container(
-              
+              width: MediaQuery.of(context).size.width*1,
+              height: MediaQuery.of(context).size.height*1,
               decoration: BoxDecoration(
                 image: DecorationImage(
                   
@@ -46,11 +49,12 @@ class _GooglePixel44XL1State extends State<GooglePixel44XL1> {
               ),
             ),
           ),
+
           Transform.translate(
             offset: Offset(39.0, 290.0),
             child: SizedBox(
-              width: 328.0,
-              height: 286.0,
+              width: MediaQuery.of(context).size.width*0.8,
+              height: MediaQuery.of(context).size.height*1,
               child: Text(
                 'DocLense is the one place for all your documents..It has some amazing features like you can now click, upload, crop, rotate and do so much more!  \nSo whether it is your college assignment or the office document you want to digitalize we can do it in just one click ',
                 style: TextStyle(
@@ -67,7 +71,8 @@ class _GooglePixel44XL1State extends State<GooglePixel44XL1> {
           Transform.translate(
             offset: Offset(-32.9, 430.5),
             child: SizedBox(
-              width: 413.0,
+              width: MediaQuery.of(context).size.width*1,
+              height: MediaQuery.of(context).size.height*1,
               child: Text.rich(
                 TextSpan(
                   style: TextStyle(
@@ -76,14 +81,16 @@ class _GooglePixel44XL1State extends State<GooglePixel44XL1> {
                     color: const Color(0xff0c0101),
                   ),
                   children: [
+                    
                     TextSpan(
-                      text: '              \n\n\n\n\n\n\n\n\n                ',
+                      text: '              \n\n\n\n\n\n\n\n               ',
                       style: TextStyle(
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     TextSpan(
+                      
                       text: 'Made with ❤ by Open Source',
                       style: TextStyle(
                         fontSize: 18,
@@ -98,12 +105,12 @@ class _GooglePixel44XL1State extends State<GooglePixel44XL1> {
             ),
           ),
           Transform.translate(
-            offset: Offset(182.0, 535.0),
+            offset: Offset(183.0, 533.0),
             child: BlendMask(
               blendMode: BlendMode.multiply,
               child: Container(
-                width: 49.0,
-                height: 49.0,
+                width: MediaQuery.of(context).size.width*0.11,
+              height: MediaQuery.of(context).size.height*0.05,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
                   image: DecorationImage(
@@ -119,8 +126,8 @@ class _GooglePixel44XL1State extends State<GooglePixel44XL1> {
             child:
                 // Adobe XD layer: '1' (shape)
                 Container(
-              width: 400.0,
-              height: 230.0,
+              width: MediaQuery.of(context).size.width*1,
+              height: MediaQuery.of(context).size.height*0.35,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(78.0),
                 image: DecorationImage(

@@ -53,7 +53,11 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pop();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => MyFileList()));
+            },
           ),
           IconButton(
             icon: Icon(Icons.more_vert),

@@ -42,7 +42,9 @@ dependencies:
   provider: ^3.0.0
   pdf: 1.9.0
   #image: ^2.1.4
-  path_provider: ^1.6.24
+  path_provider: ^1.6.27
+  path_provider_ex: ^1.0.1
+  flutter_file_manager: ^0.2.0
   flutter_full_pdf_viewer: ^1.0.6
   path: ^1.7.0
   storage_path: ^0.2.0

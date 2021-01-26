@@ -1,4 +1,5 @@
 import 'package:doclense/GooglePixel44XL1.dart';
+import 'package:doclense/Home.dart';
 import 'package:flutter/material.dart';
 //import 'Home.dart';
 
@@ -41,7 +42,10 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               Navigator.of(context).pop();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Home()));
             },
+            
             leading: Icon(Icons.home),
             title: Text(
               "Home",

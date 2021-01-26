@@ -1,11 +1,28 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-//import 'package:flutter_file_manager/flutter_file_manager.dart';
-//import 'package:path_provider_ex/path_provider_ex.dart';
+import 'package:flutter_file_manager/flutter_file_manager.dart';
+import 'package:path_provider_ex/path_provider_ex.dart';
 
+class  TextBox extends StatefulWidget {
+  @override
+  _TextBoxState createState() => _TextBoxState();
+}
 
+class _TextBoxState extends State<TextBox> {
+  @override
 
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.centerLeft,
+      color: Colors.white,
+      child: TextField(
+        decoration:
+            InputDecoration(border: InputBorder.none, hintText: 'Search'),
+      ),
+    );
+  }
+}
 
 class MyFileList extends StatefulWidget{
   @override
@@ -17,8 +34,9 @@ class MyFileList extends StatefulWidget{
 class _MyFileList extends State<MyFileList>{
   var files;
    bool typing = false;
+   
 
- 
+
   void getFiles() async { //asyn function to get list of files
       List<StorageInfo> storageInfo = await PathProviderEx.getStorageInfo();
       var root = storageInfo[0].rootDir; //storageInfo[1] for SD card, geting the root directory
@@ -67,20 +85,6 @@ class _MyFileList extends State<MyFileList>{
                     );
               },
           )
-    );
-  }
-}
-
-class TextBox extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      color: Colors.white,
-      child: TextField(
-        decoration:
-            InputDecoration(border: InputBorder.none, hintText: 'Search'),
-      ),
     );
   }
 }
