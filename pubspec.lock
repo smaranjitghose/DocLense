@@ -270,7 +270,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.27"
-<<<<<<< HEAD
+
   path_provider_ex:
     dependency: "direct main"
     description:
@@ -278,8 +278,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-=======
->>>>>>> d4b6759937d2976b75c2080e055918d7ddb4c2f1
+
   path_provider_linux:
     dependency: transitive
     description:
