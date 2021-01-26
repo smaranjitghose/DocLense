@@ -1,6 +1,9 @@
+import 'package:doclense/GooglePixel44XL1.dart';
+import 'package:doclense/Home.dart';
 import 'package:flutter/material.dart';
-//import 'Home.dart';
-import 'About.dart';
+import 'Home.dart';
+
+
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -21,12 +24,11 @@ class MainDrawer extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 60,
-                    child: 
-                      Image.asset('assets/images/scanlogo.png',),
-                      
+                    child: Image.asset(
+                      'assets/images/scanlogo.png',
                     ),
                   ),
-                
+                ),
                 Text(
                   "One Place For All \n Your Documents!",
                   style: TextStyle(fontSize: 20, color: Colors.white),
@@ -40,7 +42,10 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               Navigator.of(context).pop();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Home()));
             },
+            
             leading: Icon(Icons.home),
             title: Text(
               "Home",
@@ -59,7 +64,7 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => About()));
+                  context, MaterialPageRoute(builder: (context) => GooglePixel44XL1()));
             },
             leading: Icon(Icons.info),
             title: Text(
