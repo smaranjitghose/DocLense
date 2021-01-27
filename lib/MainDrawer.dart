@@ -1,3 +1,4 @@
+import 'package:doclense/settings.dart';
 import 'package:flutter/material.dart';
 import 'Home.dart';
 import 'About.dart';
@@ -69,7 +70,9 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen(),));
+            },
             leading: Icon(Icons.settings),
             title: Text(
               "Settings",
