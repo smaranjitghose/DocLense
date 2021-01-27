@@ -7,6 +7,9 @@ import 'Providers/ImageList.dart';
 import 'MainDrawer.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
+import 'package:share/share.dart';
+
+enum IconOptions { Share }
 
 class Home extends StatefulWidget {
   @override
@@ -18,9 +21,9 @@ class _HomeState extends State<Home> {
 
   // File imageFile;
 
-  final picker =ImagePicker();
+  final picker = ImagePicker();
 
-  void getImage(ImageSource imageSource) async{
+  void getImage(ImageSource imageSource) async {
     PickedFile imageFile = await picker.getImage(source: imageSource);
     if (imageFile == null) return;
     File tmpFile = File(imageFile.path);
@@ -28,10 +31,40 @@ class _HomeState extends State<Home> {
     final fileName = path.basename(imageFile.path);
     final localFile = await tmpFile.copy('${appDir.path}/$fileName');
 
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => Imageview(tmpFile, images)));
-    
-      }
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => Imageview(tmpFile, images)));
+  }
+
+  Widget popupMenuButton() {
+    return PopupMenuButton<IconOptions>(
+      icon: Icon(Icons.more_vert),
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<IconOptions>>[
+        PopupMenuItem<IconOptions>(
+          value: IconOptions.Share,
+          child: Row(children: [
+            Icon(
+              Icons.share,
+              size: 28.0,
+              color: Colors.blue,
+            ),
+            SizedBox(
+              width: 23.0,
+            ),
+            Text(
+              'Share',
+              style: TextStyle(fontSize: 20.0),
+            )
+          ]),
+        )
+      ],
+      onSelected: (IconOptions value) {
+        setState(() {
+          Share.share('Share my PDF');
+          //TODO: add pdf file that is to be shared
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +86,7 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.search),
             onPressed: () async {},
           ),
-          IconButton(
-            icon: Icon(Icons.more_vert),
-            onPressed: () {},
-          ),
+          popupMenuButton(),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
