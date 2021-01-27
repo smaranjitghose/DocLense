@@ -77,16 +77,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Switch(
-                      value: adjustBorders,
-                      onChanged: (value) {
-                        setState(() {
-                          adjustBorders = value;
-                        });
-                      },
-                    ),
+                  Switch(
+                    value: adjustBorders,
+                    onChanged: (value) {
+                      setState(() {
+                        adjustBorders = value;
+                      });
+                    },
                   )
                 ],
               ),
@@ -113,16 +110,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Switch(
-                      value: textOcr,
-                      onChanged: (value) {
-                        setState(() {
-                          textOcr = value;
-                        });
-                      },
-                    ),
+                  Switch(
+                    value: textOcr,
+                    onChanged: (value) {
+                      setState(() {
+                        textOcr = value;
+                      });
+                    },
                   )
                 ],
               ),
@@ -177,16 +171,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Switch(
-                      value: saveFile,
-                      onChanged: (value) {
-                        setState(() {
-                          saveFile = value;
-                        });
-                      },
-                    ),
+                  Switch(
+                    value: saveFile,
+                    onChanged: (value) {
+                      setState(() {
+                        saveFile = value;
+                      });
+                    },
                   )
                 ],
               ),
