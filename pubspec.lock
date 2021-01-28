@@ -113,6 +113,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "5.2.1"
+  filesize:
+    dependency: transitive
+    description:
+      name: filesize
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.4"
+  filex:
+    dependency: transitive
+    description:
+      name: filex
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.2"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -132,11 +146,25 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.11"
+  flutter_slidable:
+    dependency: transitive
+    description:
+      name: flutter_slidable
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.5.7"
   flutter_test:
     dependency: "direct dev"
     description: flutter
     source: sdk
     version: "0.0.0"
+  folder_picker:
+    dependency: "direct main"
+    description:
+      name: folder_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.3.0"
   http:
     dependency: transitive
     description:
@@ -213,7 +241,7 @@ packages:
       name: open_file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.3"
+    version: "2.1.1"
   page_transition:
     dependency: transitive
     description:
@@ -284,6 +312,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.9.2"
+  permission:
+    dependency: "direct main"
+    description:
+      name: permission
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.7"
   petitparser:
     dependency: transitive
     description:
@@ -333,6 +368,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.22.6"
   sky_engine:
     dependency: transitive
     description: flutter
