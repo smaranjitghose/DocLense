@@ -181,7 +181,8 @@ class _PDFConversion extends State<PDFConversion> {
     await savePdf();
     //Documents.add(document);
     Directory documentDirectory = await getApplicationDocumentsDirectory();
-    documentDirectory = pickedDirectory;
+    
+    if (pickedDirectory!=null) documentDirectory = pickedDirectory;
 
     String documentPath = documentDirectory.path;
     //document.documentPath = documentPath;
