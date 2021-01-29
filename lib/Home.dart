@@ -7,6 +7,8 @@ import 'Providers/ImageList.dart';
 import 'MainDrawer.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
+import 'About.dart';
+import 'package:quick_actions/quick_actions.dart';
 
 enum IconOptions { Share }
 
@@ -17,7 +19,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   ImageList images = new ImageList();
+  QuickActions quickActions = QuickActions();
 
+  _navigate(Widget screen) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => screen));
+  }
   // File imageFile;
 
   final picker = ImagePicker();
@@ -32,6 +38,41 @@ class _HomeState extends State<Home> {
 
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => Imageview(tmpFile, images)));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    quickActions.initialize((String shortcutType) {
+      switch (shortcutType) {
+        case 'about':
+          return _navigate(About());
+
+        //! un comment the below line once the starred document and setting screen is created
+        // case 'starredDocument':
+        //   return _navigate(//TODO: enter starred document screen name);
+        //   case 'setting':
+        //   return _navigate(//TODO: enter setting screen name);
+
+        default:
+          return MaterialPageRoute(builder: (_) {
+            return Scaffold(
+              body: Center(
+                child: Text('No Page defined for $shortcutType'),
+              ),
+            );
+          });
+      }
+    });
+
+    quickActions.setShortcutItems(<ShortcutItem>[
+      ShortcutItem(
+          type: 'about', localizedTitle: 'About DocLense', icon: 'info'),
+
+      //! un comment the below line once the starred document and setting screen is created
+      // ShortcutItem(type: 'starredDocument', localizedTitle: 'Starred Documents', icon: 'starred'),
+      // ShortcutItem(type: 'setting', localizedTitle: 'Setting', icon: 'setting'),
+    ]);
   }
 
   @override
