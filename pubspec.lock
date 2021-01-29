@@ -270,7 +270,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.27"
-
   path_provider_ex:
     dependency: "direct main"
     description:
@@ -278,7 +277,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.1"
-
   path_provider_linux:
     dependency: transitive
     description:
@@ -468,6 +466,4 @@ packages:
     version: "4.5.1"
 sdks:
   dart: ">=2.10.0-110 <2.11.0"
-
-  flutter: ">=1.16.0 <2.0.0"
-
+  flutter: ">=1.18.0-6.0.pre <2.0.0"
