@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Home.dart';
 import 'About.dart';
+import 'package:share/share.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -65,6 +66,18 @@ class MainDrawer extends StatelessWidget {
             leading: Icon(Icons.info),
             title: Text(
               "About App",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pop();
+              Share.share('Share my PDF');
+              //TODO: add pdf file that is to be shared
+            },
+            leading: Icon(Icons.share),
+            title: Text(
+              "Share PDF",
               style: TextStyle(fontSize: 18),
             ),
           ),
