@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:folder_picker/folder_picker.dart';
 import 'package:pdf/pdf.dart';
+import 'package:permission/permission.dart';
 import 'Providers/ImageList.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -19,6 +21,8 @@ class _PDFConversion extends State<PDFConversion> {
   //DocumentObject document;
   var name;
   final myController = TextEditingController();
+  Directory externalDirectory;
+  Directory pickedDirectory;
 
   @override
   void dispose() {
@@ -63,6 +67,12 @@ class _PDFConversion extends State<PDFConversion> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -72,6 +82,31 @@ class _PDFConversion extends State<PDFConversion> {
           'Name Your PDF',
           style: TextStyle(color: Colors.white, fontSize: 22),
         ),
+        actions: [
+          GestureDetector(
+            child: Center(
+              child: Text(
+                "Choose Directory to save",
+              ),
+            ),
+            onTap: () async {
+              await getPermissions();
+              await getStorage();
+              Navigator.of(context)
+                  .push<FolderPickerPage>(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                return FolderPickerPage(
+                    rootDirectory: externalDirectory,
+                    action: (BuildContext context,
+                        Directory folder) async {
+                      print("Picked directory $folder");
+                      setState(() => pickedDirectory = folder);
+                      Navigator.of(context).pop();
+                    });
+              }));
+            },
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -114,17 +149,45 @@ class _PDFConversion extends State<PDFConversion> {
     );
   }
 
+  Future<void> getPermissions() async {
+    final permissions =
+        await Permission.getPermissionsStatus([PermissionName.Storage]);
+    var request = true;
+    switch (permissions[0].permissionStatus) {
+      case PermissionStatus.allow:
+        request = false;
+        break;
+      case PermissionStatus.always:
+        request = false;
+        break;
+      default:
+    }
+    if (request) {
+      await Permission.requestPermissions([PermissionName.Storage]);
+    }
+  }
+
+  Future<void> getStorage() async {
+    final directory = await getExternalStorageDirectory();
+    setState(() => externalDirectory = directory);
+  }
+
   Future<void> _pushSaved() async {
     name = Text(myController.text).data;
+
+    
     //document.name = name;
     writeOnPdf();
     await savePdf();
     //Documents.add(document);
     Directory documentDirectory = await getApplicationDocumentsDirectory();
+    
+    if (pickedDirectory!=null) documentDirectory = pickedDirectory;
 
     String documentPath = documentDirectory.path;
     //document.documentPath = documentPath;
     String fullPath = "$documentPath" + "/${name}" + ".pdf";
+    print(fullPath);
 
     Navigator.push(
         context,
