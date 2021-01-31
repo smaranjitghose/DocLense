@@ -45,6 +45,8 @@ dependencies:
   path: ^1.7.0
   storage_path: ^0.2.0
   source_span: ^1.7.0
+  eva_icons_flutter:
+  flutter_feather_icons:
 dev_dependencies:
   flutter_test:
     sdk: flutter
