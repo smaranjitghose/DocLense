@@ -13,12 +13,11 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  AnimatedSplashScreen(
-        splash: Image.asset('assets/images/logos.png'),
-        nextScreen: Home(),
-        splashTransition: SplashTransition.rotationTransition,
-        duration: 4000,
-     
+    return AnimatedSplashScreen(
+      splash: Image.asset('assets/images/logos.png'),
+      nextScreen: Home(),
+      splashTransition: SplashTransition.rotationTransition,
+      duration: 4000,
     );
   }
 }
