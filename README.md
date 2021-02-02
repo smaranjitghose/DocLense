@@ -117,11 +117,11 @@ git push -u origin <your_branch_name>
 ## Open Source Programs we have been a associated with: 
 
 <p align="center">
-<a href="https://devscript.tech/woc/"><img src="./assets/readme_assets/dwoc.png" width="20%"></a>
-<a href="https://devscript.tech/woc/"><img src="./assets/readme_assets/swoc.png" width="20%"></a>
-<a href="https://hakincodes.tech/"><img src="./assets/readme_assets/jwoc.png" width= "20%"/></a>
-<a href="https://scodein.tech/"><img src="./assets/readme_assets/mwoc.png" width= "20%" /></a>
-<a href="https://njackwinterofcode.github.io/"><img src="./assets/readme_assets/gssoc.png" width= "20%" /></a>
+<a href="https://devscript.tech/woc/"><img src="./assets/readme_assets/dwoc.png" width="30%"></a>
+<a href="https://swoc.tech/"><img src="./assets/readme_assets/swoc.png" width="30%"></a>
+<a href="https://jwoc2k20.tech/"><img src="./assets/readme_assets/jwoc.png" width= "30%"/></a>
+<a href="https://mexili.github.io/winter_of_code/#/"><img src="./assets/readme_assets/mwoc.png" width= "30%" /></a>
+<a href="https://gssoc.girlscript.tech/"><img src="./assets/readme_assets/gssoc.png" width= "30%" /></a>
 </p>
 
 ## Code of Conduct
