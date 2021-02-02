@@ -1,18 +1,10 @@
 # DocLense📑🙈
 
-![Issues](https://img.shields.io/github/issues/smaranjitghose/DocLense)
-![Pull Requests](https://img.shields.io/github/issues-pr/smaranjitghose/DocLense?)
-![Forks](https://img.shields.io/github/forks/smaranjitghose/DocLense)
-![Stars](https://img.shields.io/github/stars/smaranjitghose/DocLense)
-![License](https://img.shields.io/github/license/smaranjitghose/DocLense)
-
-
 An awesome open source document scanner maintained by the community for the citizens of the world!
 
 <p align="center"><img src="assets/doclense.png" width=45%></p>
 
 ## Features :
-
 
 - Scan your documents with ease!
 - Numerous choices of filters to choose from
@@ -27,25 +19,25 @@ Are we missing any of your favorite features, which you think you can add to it�
  
 To start contributing, follow the below guidelines: 
 
-**1.**  Fork [this](https://github.com/smaranjitghose/awesome-portfolio-websites) repository.
+**1.**  Fork [this](https://github.com/smaranjitghose/DocLense) repository.
 
 **2.**  Clone your forked copy of the project.
 
 ```
-git clone --depth 1 https://github.com/<your_user_name>/awesome-portfolio-websites.git
+git clone --depth 1 https://github.com/<your_user_name>/DocLense.git
 ```
 <img src="./assets/readme_assets/CloneRepo.png" width="500">
 
 **3.** Navigate to the project directory :file_folder: .
 
 ```
-cd awesome-portfolio-websites
+cd DocLense
 ```
 
 **4.** Add a reference(remote) to the original repository.
 
 ```
-git remote add upstream https://github.com/smaranjitghose/awesome-portfolio-websites.git 
+git remote add upstream https://github.com/smaranjitghose/DocLense.git 
 ```
 
 **5.** Check the remotes for this repository.
