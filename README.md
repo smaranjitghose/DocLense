@@ -45,7 +45,7 @@ git clone --depth 1 https://github.com/<your_user_name>/DocLense.git
 **3.** Navigate to the project directory :file_folder: .
 
 ```
-cd awesome-portfolio-websites
+cd DocLense
 ```
 
 **4.** Add a reference(remote) to the original repository.
