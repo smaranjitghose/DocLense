@@ -33,14 +33,14 @@
 Are we missing any of your favorite features, which you think you can add to it❓ We invite you to contribute to this project and make it better. 
 To start contributing, follow the below guidelines: 
 
-**1.**  Fork [this](https://github.com/smaranjitghose/awesome-portfolio-websites) repository.
+**1.**  Fork [this](https://github.com/smaranjitghose/DocLense) repository.
 
 **2.**  Clone your forked copy of the project.
 
 ```
-git clone --depth 1 https://github.com/<your_user_name>/awesome-portfolio-websites.git
+git clone --depth 1 https://github.com/<your_user_name>/DocLense.git
 ```
-<img src="./assets/readme_assets/CloneRepo.png" width="500">
+<img src="./readme_assets/CloneRepo.png" width="500">
 
 **3.** Navigate to the project directory :file_folder: .
 
@@ -96,14 +96,14 @@ git push -u origin <your_branch_name>
 
 **12.** To create a pull request, click on `compare and pull requests`. Please ensure you compare your feature branch to the desired branch of the repo you are suppose to make a PR to.
 
-<img src="./assets/readme_assets/ComparePR.png" width=600>
+<img src="./readme_assets/ComparePR.png" width=600>
 
 **13.** Add appropriate title and description to your pull request explaining your changes and efforts done.
 
 
 **14.** Click on `Create Pull Request`.
 
-<img src="./assets/readme_assets/CreatePR.png" width=600>
+<img src="./readme_assets/CreatePR.png" width=600>
 
 
 **15** Voila :exclamation: You have made a PR to the awesome-developer-portfolio project :boom: . Sit back patiently and relax while the project maintainers review your PR. Please understand at times the time can vary from a few hours to a few days
