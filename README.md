@@ -1,43 +1,57 @@
 # DocLense📑🙈
 
-An awesome open source document scanner maintained by the community for the citizens of the world!
+![Issues](https://img.shields.io/github/issues/smaranjitghose/DocLense)
+![Pull Requests](https://img.shields.io/github/issues-pr/smaranjitghose/DocLense?)
+![Forks](https://img.shields.io/github/forks/smaranjitghose/DocLense)
+![Stars](https://img.shields.io/github/stars/smaranjitghose/DocLense)
+![License](https://img.shields.io/github/license/smaranjitghose/DocLense)
+<hr>
 
+**DocLense** : It is an application which can be used to scan and save the documents via your phone.
 <p align="center"><img src="assets/doclense.png" width=45%></p>
 
+<br/>
+
 ## Features :
+
 
 - Scan your documents with ease!
 - Numerous choices of filters to choose from
 - Auto-adjust size and focus on text
 - Save in multiple formats
-- Share as consolidated document across multiple platforms
+- Share as consolidated document across multile
+
+
+- Scan variety of Docs
+- Options to customize the size the scanned pages (Crop)</li>
+- Apply different types of filter
+- Download/Export in .pdf
 
 
 ## Contribution Guidelines🏗
 
-Are we missing any of your favorite features, which you think you can add to it❓ We invite you to contribute to this project and make it improve it further.
- 
+Are we missing any of your favorite features, which you think you can add to it❓ We invite you to contribute to this project and make it better. 
 To start contributing, follow the below guidelines: 
 
-**1.**  Fork [this](https://github.com/smaranjitghose/DocLense) repository.
+**1.**  Fork [this](https://github.com/smaranjitghose/awesome-portfolio-websites) repository.
 
 **2.**  Clone your forked copy of the project.
 
 ```
-git clone --depth 1 https://github.com/<your_user_name>/DocLense.git
+git clone --depth 1 https://github.com/<your_user_name>/awesome-portfolio-websites.git
 ```
 <img src="./assets/readme_assets/CloneRepo.png" width="500">
 
 **3.** Navigate to the project directory :file_folder: .
 
 ```
-cd DocLense
+cd awesome-portfolio-websites
 ```
 
 **4.** Add a reference(remote) to the original repository.
 
 ```
-git remote add upstream https://github.com/smaranjitghose/DocLense.git 
+git remote add upstream https://github.com/smaranjitghose/awesome-portfolio-websites.git 
 ```
 
 **5.** Check the remotes for this repository.
@@ -117,11 +131,11 @@ git push -u origin <your_branch_name>
 ## Open Source Programs we have been a associated with: 
 
 <p align="center">
-<a href="https://devscript.tech/woc/"><img src="./assets/readme_assets/dwoc.png" width="30%"></a>
-<a href="https://swoc.tech/"><img src="./assets/readme_assets/swoc.png" width="30%"></a>
-<a href="https://jwoc2k20.tech/"><img src="./assets/readme_assets/jwoc.png" width= "30%"/></a>
-<a href="https://mexili.github.io/winter_of_code/#/"><img src="./assets/readme_assets/mwoc.png" width= "30%" /></a>
-<a href="https://gssoc.girlscript.tech/"><img src="./assets/readme_assets/gssoc.png" width= "30%" /></a>
+<a href="https://devscript.tech/woc/"><img src="./readme_assets/dwoc.png" width= "25%" /></a>
+<a href="https://jwoc2k20.tech/"><img src="./readme_assets/jwoc.png" width= "25%" /></a>
+<a href="https://mexili.github.io/winter_of_code/"><img src="./readme_assets/mwoc.png" width= "25%" /></a>
+<a href="https://crosswoc.ieeedtu.in"><img src="./readme_assets/crosswoc.png" width= "25%" /></a>
+<a href="https://gssoc.girlscript.tech/"><img src="./readme_assets/gssoc.png" width= "25%" /></a>
 </p>
 
 ## Code of Conduct
