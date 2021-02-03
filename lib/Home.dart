@@ -9,7 +9,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 import 'About.dart';
 import 'package:quick_actions/quick_actions.dart';
-import 'package:rating_dialog/rating_dialog.dart';
 
 enum IconOptions {
   Share,
@@ -41,21 +40,6 @@ class _HomeState extends State<Home> {
 
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => Imageview(tmpFile, images)));
-  }
-
-  _showRateDialogue() {
-    showDialog<void>(
-        context: context,
-        barrierDismissible: true,
-        builder: (BuildContext context) {
-          return RatingDialog(
-            icon: Image.asset('assets/images/logos.png'),
-            title: "How's your experience with us?",
-            description: "Let us know what you think",
-            onSubmitPressed: (int rating) {},
-            submitButton: "Submit",
-          );
-        });
   }
 
   @override
@@ -98,73 +82,68 @@ class _HomeState extends State<Home> {
 //    return ChangeNotifierProvider.value(
 //      value:imagelist;
 
-    return WillPopScope(
-      onWillPop: () {
-        _showRateDialogue();
-      },
-      child: Scaffold(
-        backgroundColor: Colors.blueGrey[100],
-        drawer: MainDrawer(),
-        appBar: AppBar(
-          backgroundColor: Colors.blue[600],
-          title: Center(
-            child: Text(
-              'DocLense',
-              style: TextStyle(color: Colors.white, fontSize: 24),
-            ),
+    return Scaffold(
+      backgroundColor: Colors.blueGrey[100],
+      drawer: MainDrawer(),
+      appBar: AppBar(
+        backgroundColor: Colors.blue[600],
+        title: Center(
+          child: Text(
+            'DocLense',
+            style: TextStyle(color: Colors.white, fontSize: 24),
           ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.search),
-              onPressed: () async {},
-            ),
-            IconButton(
-              icon: Icon(Icons.more_vert),
-              onPressed: () async {},
-            ),
-          ],
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Colors.blue[600],
-          onPressed: () {},
-          label: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              IconButton(
-                iconSize: 30,
-                color: Colors.blue[600],
-                icon: Icon(
-                  Icons.camera_alt,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  getImage(ImageSource.camera);
-                },
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              Container(
-                color: Colors.white.withOpacity(0.2),
-                width: 2,
-                height: 15,
-              ),
-              SizedBox(
-                width: 10,
-              ),
-              IconButton(
-                iconSize: 30,
-                color: Colors.blue[600],
-                icon: Icon(
-                  Icons.image,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  getImage(ImageSource.gallery);
-                },
-              )
-            ],
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () async {},
           ),
+          IconButton(
+            icon: Icon(Icons.more_vert),
+            onPressed: () async {},
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: Colors.blue[600],
+        onPressed: () {},
+        label: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            IconButton(
+              iconSize: 30,
+              color: Colors.blue[600],
+              icon: Icon(
+                Icons.camera_alt,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                getImage(ImageSource.camera);
+              },
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Container(
+              color: Colors.white.withOpacity(0.2),
+              width: 2,
+              height: 15,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            IconButton(
+              iconSize: 30,
+              color: Colors.blue[600],
+              icon: Icon(
+                Icons.image,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                getImage(ImageSource.gallery);
+              },
+            )
+          ],
         ),
       ),
     );
