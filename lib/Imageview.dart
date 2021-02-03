@@ -95,103 +95,113 @@ class _ImageviewState extends State<Imageview> {
                     color: Colors.blue[600],
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
+                      child: Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Expanded(
+                              child: FlatButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
 //                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
 //                                      builder: (context) => Home()));
-                            },
-                            color: Colors.blue[600],
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.white,
+                                },
+                                color: Colors.blue[600],
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.arrow_back,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "Back",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  "Back",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                          FlatButton(
-                            onPressed: () {
+                            Expanded(
+                              child: FlatButton(
+                                onPressed: () {
 //                                  Navigator.of(context).pop();
-                              if (index == 0) {
-                              } else {
-                                setState(() {
-                                  index--;
-                                  files.removeLast();
-                                });
-                              }
-                            },
-                            color: Colors.blue[600],
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.undo,
-                                  color: Colors.white,
+                                  if (index == 0) {
+                                  } else {
+                                    setState(() {
+                                      index--;
+                                      files.removeLast();
+                                    });
+                                  }
+                                },
+                                color: Colors.blue[600],
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.undo,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "Undo",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  "Undo",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                          FlatButton(
-                            onPressed: () {
-                              cropimage(widget.file);
-                            },
-                            color: Colors.blue[600],
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.crop_rotate,
-                                  color: Colors.white,
+                            Expanded(
+                              child: FlatButton(
+                                onPressed: () {
+                                  cropimage(widget.file);
+                                },
+                                color: Colors.blue[600],
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.crop_rotate,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "Crop",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  "Crop",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                          FlatButton(
-                            onPressed: () {
-                              if (cropped != null) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => filter_image(
-                                            cropped, widget.list)));
-                              } else {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => filter_image(
-                                            widget.file, widget.list)));
-                              }
-                            },
-                            color: Colors.blue[600],
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.white,
+                            Expanded(
+                              child: FlatButton(
+                                onPressed: () {
+                                  if (cropped != null) {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => filter_image(
+                                                cropped, widget.list)));
+                                  } else {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => filter_image(
+                                                widget.file, widget.list)));
+                                  }
+                                },
+                                color: Colors.blue[600],
+                                child: Column(
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.arrow_forward,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "Next",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  "Next",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
