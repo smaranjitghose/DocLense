@@ -2,17 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'GooglePixel44XL1.dart';
 import 'Imageview.dart';
 import 'Providers/ImageList.dart';
 import 'MainDrawer.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
-import 'About.dart';
+import 'search.dart';
 import 'package:quick_actions/quick_actions.dart';
 
 enum IconOptions { Share }
 
-import 'search.dart';
+
 
 class Home extends StatefulWidget {
   @override
@@ -48,7 +49,7 @@ class _HomeState extends State<Home> {
     quickActions.initialize((String shortcutType) {
       switch (shortcutType) {
         case 'about':
-          return _navigate(About());
+          return _navigate(GooglePixel44XL1());
 
         //! un comment the below line once the starred document and setting screen is created
         // case 'starredDocument':

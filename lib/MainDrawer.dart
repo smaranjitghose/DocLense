@@ -1,17 +1,11 @@
 
 
 import 'package:doclense/GooglePixel44XL1.dart';
-import 'package:doclense/Home.dart';
 import 'package:doclense/settings.dart';
-
 import 'package:flutter/material.dart';
 import 'Home.dart';
-
-
-import 'package:flutter/material.dart';
-import 'Home.dart';
-import 'About.dart';
 import 'package:share/share.dart';
+import 'settings.dart';
 
 
 class MainDrawer extends StatelessWidget {
@@ -94,7 +88,11 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+               Navigator.of(context).pop();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+            },
             leading: Icon(Icons.settings),
             title: Text(
               "Settings",

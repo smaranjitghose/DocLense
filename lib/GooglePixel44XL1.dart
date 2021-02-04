@@ -1,3 +1,5 @@
+
+
 import 'package:doclense/MainDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:adobe_xd/blend_mask.dart';
@@ -142,10 +144,7 @@ class _GooglePixel44XL1State extends State<GooglePixel44XL1> {
     );
   }
 }
-
       
-  
-
 
 
     
