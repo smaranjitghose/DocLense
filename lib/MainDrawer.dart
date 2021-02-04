@@ -1,6 +1,8 @@
+import 'package:doclense/settings.dart';
 import 'package:flutter/material.dart';
-//import 'Home.dart';
+import 'Home.dart';
 import 'About.dart';
+import 'package:share/share.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -21,12 +23,11 @@ class MainDrawer extends StatelessWidget {
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
                     radius: 60,
-                    child: 
-                      Image.asset('assets/images/scanlogo.png',),
-                      
+                    child: Image.asset(
+                      'assets/images/scanlogo.png',
                     ),
                   ),
-                
+                ),
                 Text(
                   "One Place For All \n Your Documents!",
                   style: TextStyle(fontSize: 20, color: Colors.white),
@@ -40,6 +41,8 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               Navigator.of(context).pop();
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Home()));
             },
             leading: Icon(Icons.home),
             title: Text(
@@ -68,7 +71,34 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              Share.share(
+                'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
+                subject: "DocLense"
+              );
+            },
+            leading: Icon(Icons.share),
+            title: Text(
+              "Share the App",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pop();
+              Share.share('Share my PDF');
+              //TODO: add pdf file that is to be shared
+            },
+            leading: Icon(Icons.share),
+            title: Text(
+              "Share PDF",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen(),));
+            },
             leading: Icon(Icons.settings),
             title: Text(
               "Settings",

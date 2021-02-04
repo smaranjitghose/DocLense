@@ -11,6 +11,14 @@ PODS:
     - Flutter
   - path_provider (0.0.1):
     - Flutter
+  - permission (0.0.1):
+    - Flutter
+  - quick_actions (0.0.1):
+    - Flutter
+  - share (0.0.1):
+    - Flutter
+  - storage_path (0.0.1):
+    - Flutter
   - TOCropViewController (2.5.5)
 
 DEPENDENCIES:
@@ -20,6 +28,10 @@ DEPENDENCIES:
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - path_provider (from `.symlinks/plugins/path_provider/ios`)
+  - permission (from `.symlinks/plugins/permission/ios`)
+  - quick_actions (from `.symlinks/plugins/quick_actions/ios`)
+  - share (from `.symlinks/plugins/share/ios`)
+  - storage_path (from `.symlinks/plugins/storage_path/ios`)
 
 SPEC REPOS:
   trunk:
@@ -38,6 +50,14 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/open_file/ios"
   path_provider:
     :path: ".symlinks/plugins/path_provider/ios"
+  permission:
+    :path: ".symlinks/plugins/permission/ios"
+  quick_actions:
+    :path: ".symlinks/plugins/quick_actions/ios"
+  share:
+    :path: ".symlinks/plugins/share/ios"
+  storage_path:
+    :path: ".symlinks/plugins/storage_path/ios"
 
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
@@ -46,6 +66,10 @@ SPEC CHECKSUMS:
   image_picker: 9c3312491f862b28d21ecd8fdf0ee14e601b3f09
   open_file: 02eb5cb6b21264bd3a696876f5afbfb7ca4f4b7d
   path_provider: abfe2b5c733d04e238b0d8691db0cfd63a27a93c
+  permission: c186483e23779d53def6b55986323494927c22c8
+  quick_actions: 6cb2390c4dab0e737c94573c27e18d9666710720
+  share: 0b2c3e82132f5888bccca3351c504d0003b3b410
+  storage_path: 01f784dd58721c942550f38ead993d6d6a87189a
   TOCropViewController: da59f531f8ac8a94ef6d6c0fc34009350f9e8bfe
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
