@@ -22,7 +22,7 @@ class _ImageviewState extends State<Imageview> {
   int index;
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     files.add(widget.file);
     index = 0;
@@ -41,6 +41,34 @@ class _ImageviewState extends State<Imageview> {
         index++;
       });
     }
+  }
+
+  Widget popupMenuButton() {
+    return PopupMenuButton<IconOptions>(
+      icon: Icon(Icons.more_vert),
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<IconOptions>>[
+        PopupMenuItem<IconOptions>(
+          value: IconOptions.Share,
+          child: Row(children: [
+            Icon(
+              Icons.share,
+              size: 28.0,
+              color: Colors.blue,
+            ),
+            SizedBox(
+              width: 23.0,
+            ),
+            Text(
+              'Share',
+              style: TextStyle(fontSize: 20.0),
+            )
+          ]),
+        )
+      ],
+      onSelected: (IconOptions value) {
+        setState(() {});
+      },
+    );
   }
 
   @override
@@ -93,10 +121,8 @@ class _ImageviewState extends State<Imageview> {
                           FlatButton(
                             onPressed: () {
 //                                  Navigator.of(context).pop();
-                              if(index == 0) {
-                                
-                              }
-                              else {
+                              if (index == 0) {
+                              } else {
                                 setState(() {
                                   index--;
                                   files.removeLast();
