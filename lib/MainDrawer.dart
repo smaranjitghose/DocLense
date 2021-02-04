@@ -103,7 +103,7 @@ class MainDrawer extends StatelessWidget {
                       icon: Image.asset('assets/images/logos.png'),
                       title: "How's your experience with us?",
                       description: "Let us know what you think",
-                      onSubmitPressed: (int rating) {
+                      onSubmitPressed: (int starRating) {
                         _launchURL();
                       },
                       submitButton: "Submit",
