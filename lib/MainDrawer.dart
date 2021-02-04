@@ -1,6 +1,8 @@
 
 
+
 import 'package:doclense/GooglePixel44XL1.dart';
+
 import 'package:doclense/settings.dart';
 import 'package:flutter/material.dart';
 import 'Home.dart';
@@ -77,6 +79,19 @@ class MainDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Share.share(
+                'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
+                subject: "DocLense"
+              );
+            },
+            leading: Icon(Icons.share),
+            title: Text(
+              "Share the App",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          ListTile(
+            onTap: () {
               Navigator.of(context).pop();
               Share.share('Share my PDF');
               //TODO: add pdf file that is to be shared
@@ -89,9 +104,13 @@ class MainDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-               Navigator.of(context).pop();
+
+               
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => SettingsScreen()));
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen(),));
+
             },
             leading: Icon(Icons.settings),
             title: Text(
