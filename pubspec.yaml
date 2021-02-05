@@ -40,9 +40,10 @@ dependencies:
   splashscreen: ^1.3.5
   storage_path: ^0.2.0
   permission: ^0.1.7
-
-
+  pdf_viewer_plugin: ^1.1.1
+  shared_preferences: ^0.5.12+4
   folder_picker: ^0.3.0
+  # open_file: ^3.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
