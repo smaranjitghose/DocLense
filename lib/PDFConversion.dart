@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
 import 'package:pdf/pdf.dart';
 import 'package:permission/permission.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Providers/ImageList.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -59,6 +60,11 @@ class _PDFConversion extends State<PDFConversion> {
     //document.pdfPath = path;
     //Open the PDF document in mobile
     OpenFile.open('$path' + '/${name}' + '.pdf');
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    List<String> files = sharedPreferences.getStringList('savedFiles');
+    files.add('$path' + '/${name}' + '.pdf');
+    sharedPreferences.setStringList('savedFiles', files);
+    print(sharedPreferences.getStringList('savedFiles'));
     //Directory documentDirectory = await getApplicationDocumentsDirectory();
 
     //String documentPath = documentDirectory.path;
@@ -92,6 +98,7 @@ class _PDFConversion extends State<PDFConversion> {
             onTap: () async {
               await getPermissions();
               await getStorage();
+              print("External : $externalDirectory");
               Navigator.of(context)
                   .push<FolderPickerPage>(MaterialPageRoute(
                       builder: (BuildContext context) {
@@ -188,6 +195,8 @@ class _PDFConversion extends State<PDFConversion> {
     //document.documentPath = documentPath;
     String fullPath = "$documentPath" + "/${name}" + ".pdf";
     print(fullPath);
+
+    
 
     Navigator.push(
         context,
