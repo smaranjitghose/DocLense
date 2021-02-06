@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'Home.dart';
 import 'About.dart';
 import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -52,7 +54,7 @@ class MainDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {},
-            leading: Icon(Icons.star),
+            leading: Icon(Icons.stars_rounded),
             title: Text(
               "Starred Documents",
               style: TextStyle(fontSize: 18),
@@ -105,8 +107,44 @@ class MainDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 18),
             ),
           ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pop();
+
+              showDialog<void>(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (BuildContext context) {
+                    return RatingDialog(
+                      icon: Image.asset('assets/images/logos.png'),
+                      title: "How's your experience with us?",
+                      description: "Let us know what you think",
+                      onSubmitPressed: (int starRating) {
+                        _launchURL();
+                      },
+                      submitButton: "Submit",
+                    );
+                  });
+            },
+            leading: Icon(Icons.star_rate),
+            title: Text(
+              "Rate us",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
         ],
       ),
     );
+  }
+}
+
+
+_launchURL() async {
+  const url =
+      'https://github.com/smaranjitghose/DocLense'; //!paste link of app once uploaded on play store
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }
