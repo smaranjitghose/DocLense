@@ -1,7 +1,4 @@
-
 import 'package:doclense/GooglePixel44XL1.dart';
-
-
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'dart:ui';
