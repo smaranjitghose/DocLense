@@ -81,14 +81,14 @@ class _ImageviewState extends State<Imageview> {
           child: Column(
             children: <Widget>[
               Expanded(
-                flex: 10,
+                flex: (MediaQuery.of(context).size.height/2).floor(),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                   child: Image.file(files[index]),
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: (MediaQuery.of(context).size.height/19).floor(),
                 child: Container(
                   height: 65,
                   color: Colors.blue[600],
