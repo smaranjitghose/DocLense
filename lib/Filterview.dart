@@ -33,21 +33,26 @@ class _filterimageState extends State<filter_image> {
     image = imageLib.copyResize(image, width: 600);
     Map imagefile = await Navigator.push(
       context,
-      new MaterialPageRoute(
-        builder: (context) => new PhotoFilterSelector(
-          appBarColor: Colors.blue[600],
-          title: Text("Apply Filter"),
-          image: image,
-          filters: presetFiltersList,
-          filename: fileName,
-          loader: Center(
-              child: CircularProgressIndicator(
-            backgroundColor: Colors.teal,
-            strokeWidth: 2,
-          )),
-          fit: BoxFit.contain,
-        ),
-      ),
+        PageRouteBuilder(
+          pageBuilder: (c, a1, a2) =>
+              new PhotoFilterSelector(
+                appBarColor: Colors.blue[600],
+                title: Text("Apply Filter"),
+                image: image,
+                filters: presetFiltersList,
+                filename: fileName,
+                loader: Center(
+                    child: CircularProgressIndicator(
+                  backgroundColor: Colors.teal,
+                  strokeWidth: 2,
+                )),
+                fit: BoxFit.contain,
+              ),
+          transitionsBuilder: (c, anim, a2, child) =>
+              FadeTransition(
+                  opacity: anim, child: child),
+          transitionDuration: Duration(milliseconds: 1000),
+        )
     );
     if (imagefile != null && imagefile.containsKey('image_filtered')) {
       setState(() {
@@ -133,9 +138,15 @@ class _filterimageState extends State<filter_image> {
                             widget.list.imagepath.add(widget.file.path);
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        multiDelete(widget.list)));
+                                PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) =>
+                                      multiDelete(widget.list),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(
+                                          opacity: anim, child: child),
+                                  // transitionDuration: Duration(milliseconds: 1000),
+                                )
+                            );
                           },
                           color: Colors.blue[600],
                           child: Column(

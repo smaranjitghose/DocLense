@@ -81,14 +81,20 @@ class _ImageviewState extends State<Imageview> {
           child: Column(
             children: <Widget>[
               Expanded(
-                flex: (MediaQuery.of(context).size.height/2).floor(),
+                flex: (MediaQuery
+                    .of(context)
+                    .size
+                    .height / 2).floor(),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                   child: Image.file(files[index]),
                 ),
               ),
               Expanded(
-                flex: (MediaQuery.of(context).size.height/19).floor(),
+                flex: (MediaQuery
+                    .of(context)
+                    .size
+                    .height / 19).floor(),
                 child: Container(
                   height: 65,
                   color: Colors.blue[600],
@@ -164,17 +170,26 @@ class _ImageviewState extends State<Imageview> {
                             if (cropped != null) {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          filter_image(
-                                              cropped, widget.list)));
+                                  PageRouteBuilder(
+                                    pageBuilder: (c, a1, a2) =>
+                                        filter_image(
+                                            cropped, widget.list),
+                                    transitionsBuilder: (c, anim, a2, child) =>
+                                        FadeTransition(
+                                            opacity: anim, child: child),
+                                    // transitionDuration: Duration(milliseconds: 1000),
+                                  ));
                             } else {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          filter_image(
-                                              widget.file, widget.list)));
+                                  PageRouteBuilder(
+                                    pageBuilder: (c, a1, a2) =>
+                                        filter_image(
+                                            widget.file, widget.list),
+                                    transitionsBuilder: (c, anim, a2, child) =>
+                                        FadeTransition(
+                                            opacity: anim, child: child),
+                                  ));
                             }
                           },
                           color: Colors.blue[600],
