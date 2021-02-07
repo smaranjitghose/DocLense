@@ -5,6 +5,9 @@ import 'package:doclense/GooglePixel44XL1.dart';
 
 import 'package:doclense/settings.dart';
 import 'package:flutter/material.dart';
+
+import 'About.dart';
+
 import 'Home.dart';
 import 'package:share/share.dart';
 import 'settings.dart';
@@ -12,6 +15,7 @@ import 'settings.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rating_dialog/rating_dialog.dart';
+import 'settings.dart';
 
 
 class MainDrawer extends StatelessWidget {
@@ -26,24 +30,24 @@ class MainDrawer extends StatelessWidget {
             color: Colors.blue[600],
             child: Center(
                 child: Column(
-              children: <Widget>[
-                Container(
-                  width: 100,
-                  height: 180,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 60,
-                    child: Image.asset(
-                      'assets/images/scanlogo.png',
+                  children: <Widget>[
+                    Container(
+                      width: 100,
+                      height: 180,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 60,
+                        child: Image.asset(
+                          'assets/images/scanlogo.png',
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Text(
-                  "One Place For All \n Your Documents!",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                )
-              ],
-            )),
+                    Text(
+                      "One Place For All \n Your Documents!",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    )
+                  ],
+                )),
           ),
           SizedBox(
             height: 10,
@@ -52,7 +56,13 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Home()));
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => Home(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  // transitionDuration: Duration(milliseconds: 1000),
+                ),);
             },
             
             leading: Icon(Icons.home),
@@ -73,7 +83,17 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
+
                   context, MaterialPageRoute(builder: (context) => GooglePixel44XL1()));
+
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => About(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  // transitionDuration: Duration(milliseconds: 1000),
+                ),);
+
             },
             leading: Icon(Icons.info),
             title: Text(
@@ -84,8 +104,8 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               Share.share(
-                'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
-                subject: "DocLense"
+                  'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
+                  subject: "DocLense"
               );
             },
             leading: Icon(Icons.share),
@@ -109,11 +129,21 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
 
+
                
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => SettingsScreen()));
 
               Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen(),));
+
+
+              Navigator.push(context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => SettingsScreen(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  // transitionDuration: Duration(milliseconds: 2000),
+                ),);
 
             },
             leading: Icon(Icons.settings),
