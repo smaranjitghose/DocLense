@@ -45,6 +45,7 @@ dependencies:
   shared_preferences: ^0.5.12+4
   url_launcher: ^5.7.10
   folder_picker: ^0.3.0
+  introduction_screen: ^1.0.9
   # open_file: ^3.0.3
 dev_dependencies:
   flutter_test:
