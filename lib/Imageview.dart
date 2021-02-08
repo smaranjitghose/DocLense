@@ -81,7 +81,6 @@ class _ImageviewState extends State<Imageview> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          // color: Colors.blueGrey[100],
           child: Column(
             children: <Widget>[
               Expanded(
@@ -101,7 +100,7 @@ class _ImageviewState extends State<Imageview> {
                     .height / 19).floor(),
                 child: Container(
                   height: 65,
-                  // color: Colors.blue[600],
+                  color: themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
@@ -113,15 +112,15 @@ class _ImageviewState extends State<Imageview> {
 //                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
 //                                      builder: (context) => Home()));
                           },
-                          // color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
                                 Icons.arrow_back,
-                                // color: Colors.white,
+                                color: Colors.white,
                               ),
                               Text(
                                 "Back",
+                                style: TextStyle(color: Colors.white),
                               ),
                             ],
                           ),
@@ -136,15 +135,15 @@ class _ImageviewState extends State<Imageview> {
                               });
                             }
                           },
-                          // color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
                                 Icons.undo,
-                                // color: Colors.white,
+                                color: Colors.white,
                               ),
                               Text(
                                 "Undo",
+                                style: TextStyle(color: Colors.white),
                               ),
                             ],
                           ),
@@ -153,15 +152,15 @@ class _ImageviewState extends State<Imageview> {
                           onPressed: () {
                             cropimage(widget.file);
                           },
-                          // color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
                                 Icons.crop_rotate,
-                                // color: Colors.white,
+                                color: Colors.white,
                               ),
                               Text(
                                 "Crop",
+                                style: TextStyle(color: Colors.white),
                               ),
                             ],
                           ),
@@ -193,15 +192,15 @@ class _ImageviewState extends State<Imageview> {
                                   ));
                             }
                           },
-                          // color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
                                 Icons.arrow_forward,
-                                // color: Colors.white,
+                                color: Colors.white,
                               ),
                               Text(
                                 "Next",
+                                style: TextStyle(color: Colors.white),
                               ),
                             ],
                           ),

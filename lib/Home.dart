@@ -102,15 +102,12 @@ class _HomeState extends State<Home> {
 //    return ChangeNotifierProvider.value(
 //      value:imagelist;
     return Scaffold(
-      // backgroundColor: Colors.blueGrey[100],
       drawer: MainDrawer(),
       appBar: AppBar(
-        // backgroundColor: Colors.blue[600],
         title: Center(
           child: Text(
             'DocLense',
             style: TextStyle(
-              // color: Colors.white,
                 fontSize: 24),
           ),
         ),
@@ -163,7 +160,6 @@ class _HomeState extends State<Home> {
                           .size
                           .width,
                       height: 40,
-                      // color: Colors.white,
                       child: Center(
                         child: Text(
                             snapshot.data[index]
@@ -182,17 +178,14 @@ class _HomeState extends State<Home> {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-        // backgroundColor: Colors.blue[600],
         onPressed: () {},
         label: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             IconButton(
               iconSize: 30,
-              // color: Colors.blue[600],
               icon: Icon(
                 Icons.camera_alt,
-                // color: Colors.white,
               ),
               onPressed: () {
                 getImage(ImageSource.camera);
@@ -202,7 +195,6 @@ class _HomeState extends State<Home> {
               width: 10,
             ),
             Container(
-              // color: Colors.white.withOpacity(0.2),
               width: 2,
               height: 15,
             ),
@@ -211,10 +203,8 @@ class _HomeState extends State<Home> {
             ),
             IconButton(
               iconSize: 30,
-              // color: Colors.blue[600],
               icon: Icon(
                 Icons.image,
-                // color: Colors.white,
               ),
               onPressed: () {
                 getImage(ImageSource.gallery);

@@ -81,9 +81,7 @@ class _PDFConversion extends State<PDFConversion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
       appBar: AppBar(
-        // backgroundColor: Colors.blue[600],
         title: Text(
           'Name Your PDF',
           style: TextStyle(fontSize: 22),
@@ -93,6 +91,7 @@ class _PDFConversion extends State<PDFConversion> {
             child: Center(
               child: Text(
                 "Choose Directory to save",
+                style: TextStyle(color: Colors.white),
               ),
             ),
             onTap: () async {
@@ -119,7 +118,6 @@ class _PDFConversion extends State<PDFConversion> {
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Container(
-            // color: Colors.blueGrey[100],
             child:
                 // The first text field is focused on as soon as the app starts.
                 Padding(
@@ -132,7 +130,6 @@ class _PDFConversion extends State<PDFConversion> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        // backgroundColor: Colors.blue[600],
         child: IconButton(
           iconSize: 40,
           onPressed: () {
@@ -146,10 +143,8 @@ class _PDFConversion extends State<PDFConversion> {
             // } else
             _pushSaved();
           },
-          // color: Colors.blue[600],
           icon: Icon(
             Icons.arrow_forward,
-            // color: Colors.teal,
           ),
         ),
       ),
