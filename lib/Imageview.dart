@@ -55,7 +55,7 @@ class _ImageviewState extends State<Imageview> {
             Icon(
               Icons.share,
               size: 28.0,
-              color: Colors.blue,
+              // color: Colors.blue,
             ),
             SizedBox(
               width: 23.0,
@@ -85,20 +85,23 @@ class _ImageviewState extends State<Imageview> {
           child: Column(
             children: <Widget>[
               Expanded(
-                flex: 9,
+                flex: (MediaQuery
+                    .of(context)
+                    .size
+                    .height / 2).floor(),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                   child: Image.file(files[index]),
                 ),
               ),
-              // SafeArea(
-              //   child:
               Expanded(
-                flex: 1,
+                flex: (MediaQuery
+                    .of(context)
+                    .size
+                    .height / 19).floor(),
                 child: Container(
                   height: 65,
-                  color: themeChange.darkTheme ? Colors.black87 : Colors
-                      .blue[600],
+                  // color: Colors.blue[600],
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
@@ -115,11 +118,10 @@ class _ImageviewState extends State<Imageview> {
                             children: <Widget>[
                               Icon(
                                 Icons.arrow_back,
-                                color: Colors.white,
+                                // color: Colors.white,
                               ),
                               Text(
                                 "Back",
-                                style: TextStyle(color: Colors.white),
                               ),
                             ],
                           ),
@@ -139,11 +141,10 @@ class _ImageviewState extends State<Imageview> {
                             children: <Widget>[
                               Icon(
                                 Icons.undo,
-                                color: Colors.white,
+                                // color: Colors.white,
                               ),
                               Text(
                                 "Undo",
-                                style: TextStyle(color: Colors.white),
                               ),
                             ],
                           ),
@@ -157,11 +158,10 @@ class _ImageviewState extends State<Imageview> {
                             children: <Widget>[
                               Icon(
                                 Icons.crop_rotate,
-                                color: Colors.white,
+                                // color: Colors.white,
                               ),
                               Text(
                                 "Crop",
-                                style: TextStyle(color: Colors.white),
                               ),
                             ],
                           ),
@@ -171,17 +171,26 @@ class _ImageviewState extends State<Imageview> {
                             if (cropped != null) {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          filter_image(
-                                              cropped, widget.list)));
+                                  PageRouteBuilder(
+                                    pageBuilder: (c, a1, a2) =>
+                                        filter_image(
+                                            cropped, widget.list),
+                                    transitionsBuilder: (c, anim, a2, child) =>
+                                        FadeTransition(
+                                            opacity: anim, child: child),
+                                    // transitionDuration: Duration(milliseconds: 1000),
+                                  ));
                             } else {
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          filter_image(
-                                              widget.file, widget.list)));
+                                  PageRouteBuilder(
+                                    pageBuilder: (c, a1, a2) =>
+                                        filter_image(
+                                            widget.file, widget.list),
+                                    transitionsBuilder: (c, anim, a2, child) =>
+                                        FadeTransition(
+                                            opacity: anim, child: child),
+                                  ));
                             }
                           },
                           // color: Colors.blue[600],
@@ -189,11 +198,10 @@ class _ImageviewState extends State<Imageview> {
                             children: <Widget>[
                               Icon(
                                 Icons.arrow_forward,
-                                color: Colors.white,
+                                // color: Colors.white,
                               ),
                               Text(
                                 "Next",
-                                style: TextStyle(color: Colors.white),
                               ),
                             ],
                           ),

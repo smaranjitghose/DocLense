@@ -202,7 +202,7 @@ class _HomeState extends State<Home> {
               width: 10,
             ),
             Container(
-              color: Colors.white.withOpacity(0.2),
+              // color: Colors.white.withOpacity(0.2),
               width: 2,
               height: 15,
             ),
