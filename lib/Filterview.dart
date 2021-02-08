@@ -94,7 +94,8 @@ class _filterimageState extends State<filter_image> {
                     .height / 19).floor(),
                 child: Container(
                   height: 65,
-                  color: Colors.blue[600],
+                  color: themeChange.darkTheme ? Colors.black87 : Colors
+                      .blue[600],
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
@@ -104,7 +105,6 @@ class _filterimageState extends State<filter_image> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
@@ -122,7 +122,6 @@ class _filterimageState extends State<filter_image> {
                           onPressed: () {
                             getImage(context);
                           },
-                          color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
@@ -152,7 +151,6 @@ class _filterimageState extends State<filter_image> {
                                 )
                             );
                           },
-                          color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
