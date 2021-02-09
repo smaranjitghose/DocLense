@@ -227,14 +227,23 @@ class _multiDeleteState extends State<multiDelete> {
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => PDFConversion(widget.imageList)));
+                  PageRouteBuilder(
+                    pageBuilder: (c, a1, a2) => PDFConversion(widget.imageList),
+                    transitionsBuilder: (c, anim, a2, child) =>
+                        FadeTransition(opacity: anim, child: child),
+                    // transitionDuration: Duration(milliseconds: 2000),
+                  ));
+                  // MaterialPageRoute(
+                  //     builder: (context) => PDFConversion(widget.imageList)));
             }),
         IconButton(
             icon: Icon(Icons.home),
             onPressed: () {
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Home()));
+                  context, PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => Home(),
+              transitionsBuilder: (c, anim, a2, child) =>
+              FadeTransition(opacity: anim, child: child)));
             })
       ],
     );
