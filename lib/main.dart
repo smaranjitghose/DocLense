@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
                       title: "",
                       bodyWidget: Center(
                         child: Text(
-                          "An App made with ❤️ in 🇮🇳",
+                          "An App made in 🇮🇳 with ❤️",
                           style: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.bold
@@ -63,7 +63,7 @@ class _MyAppState extends State<MyApp> {
                         ),
                       ),
                       image: Align(
-                        child: Image.asset('assets/images/doclense.png', width: 350.0),
+                        child: Image.asset('assets/images/logo.png', width: 350.0),
                         alignment: Alignment.bottomCenter,
                       )
                     ),
