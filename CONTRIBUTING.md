@@ -1,6 +1,3 @@
-**DocLense** : It is an application which can be used to scan and save the documents via your phone.
-<p align="center"><img src="assets/doclense.png" width=45%></p>
-
 # Contributing Guidelines  
   
 This documentation contains a set of guidelines to help you during the contribution process.
@@ -129,3 +126,55 @@ You can refer to the following articles on basics of Git and Github and also con
   
 ## Tip from us😇  
 It always takes time to understand and learn. So, do not worry at all. We know **you have got this**!💪
+
+
+# Open Source Program Grading
+
+
+## [Mexili Winter of Code](https://mexili.github.io/winter_of_code/#/)
+
+#### Distribution
+
+| Difficulty | Score |
+|------------|-------|
+| Easy   | 25  |
+| Medium | 50  |
+| Hard   | 100 |
+
+#### Allotment:
+
+When accepting the PR, add the following label before merging it. user=<username>:score=<score>, e.g. if the user sansyrox has filled a relevant PR and you are allotting 100 marks to him, add the following label ``user=sansyrox:score=100`` to the PR.
+ 
+## [IEEE DTU Cross Winter of Code](https://crosswoc.ieeedtu.in/)
+
+#### Distribution
+
+| Difficulty | Score |
+|------------|-------|
+| Easy   | - |
+| Medium | - |
+| Hard   | - |
+
+#### Allotment:
+
+- Add labels to PRs
+- Maintain a Contributor.MD for CrossWoC
+
+## [JGEC Winter of Code](http://jwoc2k20.tech/)
+
+#### Distribution
+
+| Difficulty | Score |
+|------------|-------|
+| Easy   | 1  |
+| Medium | 3  |
+| Hard   | 5  |
+
+#### Allotment:
+
+- Add labels to PRs [ Must add `JWOC` label]
+- Maintain an excel sheet
+
+| Mentee Name | GitHub Profile | PR Number | Easy | Medium | Hard | Total Points |
+|-------------|----------------|-----------|------|--------|------|--------------|
+

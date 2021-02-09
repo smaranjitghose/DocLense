@@ -3,16 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'dart:ui';
-
 import 'package:shared_preferences/shared_preferences.dart';
-
-
 void main() {
   runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: MyApp(),
   ));
 }
-
 
 class MyApp extends StatefulWidget {
 

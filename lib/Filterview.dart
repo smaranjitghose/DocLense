@@ -33,21 +33,26 @@ class _filterimageState extends State<filter_image> {
     image = imageLib.copyResize(image, width: 600);
     Map imagefile = await Navigator.push(
       context,
-      new MaterialPageRoute(
-        builder: (context) => new PhotoFilterSelector(
-          appBarColor: Colors.blue[600],
-          title: Text("Apply Filter"),
-          image: image,
-          filters: presetFiltersList,
-          filename: fileName,
-          loader: Center(
-              child: CircularProgressIndicator(
-            backgroundColor: Colors.teal,
-            strokeWidth: 2,
-          )),
-          fit: BoxFit.contain,
-        ),
-      ),
+        PageRouteBuilder(
+          pageBuilder: (c, a1, a2) =>
+              new PhotoFilterSelector(
+                appBarColor: Colors.blue[600],
+                title: Text("Apply Filter"),
+                image: image,
+                filters: presetFiltersList,
+                filename: fileName,
+                loader: Center(
+                    child: CircularProgressIndicator(
+                  backgroundColor: Colors.teal,
+                  strokeWidth: 2,
+                )),
+                fit: BoxFit.contain,
+              ),
+          transitionsBuilder: (c, anim, a2, child) =>
+              FadeTransition(
+                  opacity: anim, child: child),
+          transitionDuration: Duration(milliseconds: 1000),
+        )
     );
     if (imagefile != null && imagefile.containsKey('image_filtered')) {
       setState(() {
@@ -67,7 +72,10 @@ class _filterimageState extends State<filter_image> {
           child: Column(
             children: <Widget>[
               Expanded(
-                flex: 4,
+                flex: (MediaQuery
+                    .of(context)
+                    .size
+                    .height / 2).floor(),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                   child: widget.file != null
@@ -75,79 +83,86 @@ class _filterimageState extends State<filter_image> {
                       : Text("Image error"),
                 ),
               ),
-              SafeArea(
-                child: Expanded(
-                  flex: 1,
-                  child: Container(
-                    height: 65,
-                    color: Colors.blue[600],
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          FlatButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            color: Colors.blue[600],
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.arrow_back,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  "Back",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
+              Expanded(
+                flex: (MediaQuery
+                    .of(context)
+                    .size
+                    .height / 19).floor(),
+                child: Container(
+                  height: 65,
+                  color: Colors.blue[600],
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          color: Colors.blue[600],
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Icons.arrow_back,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                "Back",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
-                          FlatButton(
-                            onPressed: () {
-                              getImage(context);
-                            },
-                            color: Colors.blue[600],
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.filter,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  "Filter",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            getImage(context);
+                          },
+                          color: Colors.blue[600],
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Icons.filter,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                "Filter",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
-                          FlatButton(
-                            onPressed: () {
-                              widget.list.imagelist.add(widget.file);
-                              widget.list.imagepath.add(widget.file.path);
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          multiDelete(widget.list)));
-                            },
-                            color: Colors.blue[600],
-                            child: Column(
-                              children: <Widget>[
-                                Icon(
-                                  Icons.arrow_forward,
-                                  color: Colors.white,
-                                ),
-                                Text(
-                                  "Next",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
+                        ),
+                        FlatButton(
+                          onPressed: () {
+                            widget.list.imagelist.add(widget.file);
+                            widget.list.imagepath.add(widget.file.path);
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) =>
+                                      multiDelete(widget.list),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(
+                                          opacity: anim, child: child),
+                                  // transitionDuration: Duration(milliseconds: 1000),
+                                )
+                            );
+                          },
+                          color: Colors.blue[600],
+                          child: Column(
+                            children: <Widget>[
+                              Icon(
+                                Icons.arrow_forward,
+                                color: Colors.white,
+                              ),
+                              Text(
+                                "Next",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
