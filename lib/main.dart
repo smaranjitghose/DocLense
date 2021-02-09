@@ -51,7 +51,9 @@ class _MyAppState extends State<MyApp> {
                 home: AnimatedSplashScreen(
                   backgroundColor: themeChangeProvider.darkTheme ? Colors
                       .grey[900] : Colors.white,
-                  splash: Image.asset('assets/images/logos.png'),
+                  splash: themeChangeProvider.darkTheme ?
+                  Image.asset('assets/images/doclenseDarkCropped.jpg')
+                  : Image.asset('assets/images/logos.png'),
                   nextScreen: Home(),
                   splashTransition: SplashTransition.rotationTransition,
                   duration: 4000,
