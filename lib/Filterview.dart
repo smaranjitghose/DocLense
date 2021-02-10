@@ -29,7 +29,7 @@ class _filterimageState extends State<filter_image> {
 
   }
 
-  Future getImage(context) async {
+  Future getImage(context, appBarColor) async {
 //    imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     fileName = basename(imageFile.path);
     var image = imageLib.decodeImage(imageFile.readAsBytesSync());
@@ -39,7 +39,7 @@ class _filterimageState extends State<filter_image> {
         PageRouteBuilder(
           pageBuilder: (c, a1, a2) =>
               new PhotoFilterSelector(
-                appBarColor: Colors.blue[600],
+                appBarColor: appBarColor,
                 title: Text("Apply Filter"),
                 image: image,
                 filters: presetFiltersList,
@@ -68,7 +68,7 @@ class _filterimageState extends State<filter_image> {
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
-
+    Color appBarColor = themeChange.darkTheme ? Colors.black : Colors.blue[600];
     // TODO: implement build
     return Scaffold(
       body: SafeArea(
@@ -120,7 +120,7 @@ class _filterimageState extends State<filter_image> {
                         ),
                         FlatButton(
                           onPressed: () {
-                            getImage(context);
+                            getImage(context, appBarColor);
                           },
                           child: Column(
                             children: <Widget>[
