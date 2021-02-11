@@ -1,14 +1,19 @@
 import 'package:doclense/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'Home.dart';
 import 'About.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 
+import 'Providers/ThemeProvider.dart';
+
 class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -18,24 +23,24 @@ class MainDrawer extends StatelessWidget {
             color: Colors.blue[600],
             child: Center(
                 child: Column(
-              children: <Widget>[
-                Container(
-                  width: 100,
-                  height: 180,
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 60,
-                    child: Image.asset(
-                      'assets/images/scanlogo.png',
+                  children: <Widget>[
+                    Container(
+                      width: 100,
+                      height: 180,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 60,
+                        child: Image.asset(
+                          'assets/images/scanlogo.png',
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                Text(
-                  "One Place For All \n Your Documents!",
-                  style: TextStyle(fontSize: 20, color: Colors.white),
-                )
-              ],
-            )),
+                    Text(
+                      "One Place For All \n Your Documents!",
+                      style: TextStyle(fontSize: 20, color: Colors.white),
+                    )
+                  ],
+                )),
           ),
           SizedBox(
             height: 10,
@@ -44,7 +49,12 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Home()));
+                  context, PageRouteBuilder(
+                pageBuilder: (c, a1, a2) => Home(),
+                transitionsBuilder: (c, anim, a2, child) =>
+                    FadeTransition(opacity: anim, child: child),
+                // transitionDuration: Duration(milliseconds: 1000),
+              ));
             },
             leading: Icon(Icons.home),
             title: Text(
@@ -64,7 +74,12 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => About()));
+                  context, PageRouteBuilder(
+                pageBuilder: (c, a1, a2) => About(),
+                transitionsBuilder: (c, anim, a2, child) =>
+                    FadeTransition(opacity: anim, child: child),
+                // transitionDuration: Duration(milliseconds: 1000),
+              ),);
             },
             leading: Icon(Icons.info),
             title: Text(
@@ -75,8 +90,8 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               Share.share(
-                'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
-                subject: "DocLense"
+                  'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
+                  subject: "DocLense"
               );
             },
             leading: Icon(Icons.share),
@@ -99,7 +114,13 @@ class MainDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen(),));
+              Navigator.push(context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => SettingsScreen(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  // transitionDuration: Duration(milliseconds: 2000),
+                ),);
             },
             leading: Icon(Icons.settings),
             title: Text(
@@ -116,6 +137,8 @@ class MainDrawer extends StatelessWidget {
                   barrierDismissible: true,
                   builder: (BuildContext context) {
                     return RatingDialog(
+                      accentColor: themeChange.darkTheme ? Colors.black : Colors
+                          .blue,
                       icon: Image.asset('assets/images/logos.png'),
                       title: "How's your experience with us?",
                       description: "Let us know what you think",
