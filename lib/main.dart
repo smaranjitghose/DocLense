@@ -51,6 +51,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+
     // <<<<<<< HEAD
     return ChangeNotifierProvider(
         create: (_) {

@@ -2,7 +2,6 @@ import 'package:doclense/Constants/ThemeConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'MainDrawer.dart';
 import 'Providers/ThemeProvider.dart';
 
@@ -115,7 +114,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
 
                     SizedBox(height: 20,),
-
                     Text("ADJUST BORDERS"),
                     SizedBox(height: 5,),
                     Container(
@@ -218,7 +216,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
 
                     SizedBox(height: 40,),
-
                     Text("FILES"),
                     SizedBox(height: 5,),
                     Container(
@@ -255,7 +252,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
 
                     SizedBox(height: 40,),
-
                     Container(
                       color: themeChange.darkTheme ? Colors.black45 : Colors
                           .grey[200],

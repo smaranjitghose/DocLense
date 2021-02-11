@@ -177,26 +177,26 @@ class _PDFConversion extends State<PDFConversion> {
   Future<void> _pushSaved() async {
     name = Text(myController.text).data;
 
-    
+
     //document.name = name;
     writeOnPdf();
     await savePdf();
     //Documents.add(document);
     Directory documentDirectory = await getApplicationDocumentsDirectory();
-    
-    if (pickedDirectory!=null) documentDirectory = pickedDirectory;
+
+    if (pickedDirectory != null) documentDirectory = pickedDirectory;
 
     String documentPath = documentDirectory.path;
     //document.documentPath = documentPath;
     String fullPath = "$documentPath" + "/${name}" + ".pdf";
     print(fullPath);
 
-    
 
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => PdfPreviewScreen(
+            builder: (context) =>
+                PdfPreviewScreen(
                   path: fullPath,
                 )));
   }
