@@ -213,15 +213,15 @@ class _multiDeleteState extends State<multiDelete> {
         selectedList.length < 1
             ? Container()
             : InkWell(
-                onTap: () {
-                  _showChoiceDialog_del(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.delete,
-                  ),
-                )),
+            onTap: () {
+              _showChoiceDialog_del(context);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.delete,
+              ),
+            )),
         IconButton(
             icon: Icon(Icons.picture_as_pdf),
             onPressed: () {

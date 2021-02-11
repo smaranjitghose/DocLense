@@ -38,8 +38,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   Text(
                     "App Theme",
                     style: TextStyle(
-                      height: 1,
-                      fontSize: 17
+                        height: 1,
+                        fontSize: 17
                     ),
                   ),
                   DropdownButton(
@@ -72,8 +72,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Text(
                       "When auto-capturing , let me adjust borders after each scan",
                       style: TextStyle(
-                        height: 1,
-                        fontSize: 17
+                          height: 1,
+                          fontSize: 17
                       ),
                     ),
                   ),
@@ -105,8 +105,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Text(
                       "Run text recognition on saved pdf",
                       style: TextStyle(
-                        height: 1,
-                        fontSize: 17
+                          height: 1,
+                          fontSize: 17
                       ),
                     ),
                   ),
@@ -133,8 +133,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Text(
                       "Text Recognition Language",
                       style: TextStyle(
-                        height: 1,
-                        fontSize: 17
+                          height: 1,
+                          fontSize: 17
                       ),
                     ),
                   ),
@@ -142,7 +142,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     flex: 1,
                     child: Center(
                       child: Text(
-                        "English"
+                          "English"
                       ),
                     ),
                   )
@@ -166,8 +166,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Text(
                       "Save Original files to Gallery",
                       style: TextStyle(
-                        height: 1,
-                        fontSize: 17
+                          height: 1,
+                          fontSize: 17
                       ),
                     ),
                   ),
@@ -197,8 +197,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Text(
                       "  REPORT A BUG",
                       style: TextStyle(
-                        height: 1,
-                        fontSize: 17
+                          height: 1,
+                          fontSize: 17
                       ),
                     ),
                   ),
@@ -227,8 +227,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Text(
                       "  REQUEST A FEATURE",
                       style: TextStyle(
-                        height: 1,
-                        fontSize: 17
+                          height: 1,
+                          fontSize: 17
                       ),
                     ),
                   ),
@@ -257,8 +257,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     child: Text(
                       "  CONTACT DEVELOPERS",
                       style: TextStyle(
-                        height: 1,
-                        fontSize: 17
+                          height: 1,
+                          fontSize: 17
                       ),
                     ),
                   ),
