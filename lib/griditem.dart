@@ -34,15 +34,15 @@ class _GridItemState extends State<GridItem> {
           ),
           isSelected
               ? Align(
-                  alignment: Alignment.bottomRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.check_circle,
-                      color: Colors.black,
-                    ),
-                  ),
-                )
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.check_circle,
+                color: Colors.black,
+              ),
+            ),
+          )
               : Container()
         ],
       ),

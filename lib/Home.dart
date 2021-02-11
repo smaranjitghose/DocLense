@@ -121,7 +121,7 @@ class _HomeState extends State<Home> {
             icon: Icon(Icons.refresh),
             onPressed: () {
               setState(() {
-                
+
               });
             },
           ),
@@ -134,34 +134,39 @@ class _HomeState extends State<Home> {
       body: FutureBuilder(
         future: setSharedPreferences(),
         builder: (context, snapshot) {
-          if(snapshot.hasData) {
+          if (snapshot.hasData) {
             // print(snapshot.data.last);
-            if(snapshot.data.length == 0) {
+            if (snapshot.data.length == 0) {
               return Center(
                 child: Text(
-                  "No PDFs Scanned Yet !! "
+                    "No PDFs Scanned Yet !! "
                 ),
               );
             }
             return GridView.builder(
               itemCount: snapshot.data.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2),
 
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
                     OpenFile.open(snapshot.data[index]);
-                     
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Container(
-                      width: MediaQuery.of(context).size.width,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
                       height: 40,
                       color: Colors.white,
                       child: Center(
                         child: Text(
-                          snapshot.data[index].split('/').last
+                            snapshot.data[index]
+                                .split('/')
+                                .last
                         ),
                       ),
                     ),
