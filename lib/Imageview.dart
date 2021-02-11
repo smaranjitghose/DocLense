@@ -93,7 +93,7 @@ class _ImageviewState extends State<Imageview> {
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                   child: Image.file(
                     files[index],
-                    fit: BoxFit.fill,
+                    // fit: BoxFit.fill,
                   ),
                 ),
               ),
