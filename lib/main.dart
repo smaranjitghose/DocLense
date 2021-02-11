@@ -1,13 +1,41 @@
 import 'package:doclense/Home.dart';
+import 'package:doclense/Models/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:hive/hive.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'dart:ui';
 import 'package:doclense/Providers/ThemeProvider.dart';
 import 'package:doclense/Constants/ThemeConstants.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-void main() {
+import 'package:path_provider/path_provider.dart' as path;
+
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  // Getting the documents directory to store the HiveDB instance
+  final directory = await path.getApplicationDocumentsDirectory();
+
+  // Initializing the HiveDB
+  Hive.init(directory.path);
+
+  await Hive.openBox('pdfs');
+  Hive.registerAdapter(UserPreferencesAdapter());
+  final res = await Hive.openBox('preferences');
+  try {
+    final r = res.getAt(0) as UserPreferences ;
+  } on RangeError catch (e) {
+    print('Exception');
+    final r = res.add(UserPreferences(
+      firstTime: true,
+      darkTheme: false
+    ));
+  }
+
+  final r = res.getAt(0) as UserPreferences ;
+  print("First Time : ${r.firstTime}");
+
+
   runApp(new MaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyApp(),
@@ -21,6 +49,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+
   DarkThemeProvider themeChangeProvider = new DarkThemeProvider();
 
   @override
@@ -34,19 +63,17 @@ class _MyAppState extends State<MyApp> {
         .darkThemePreference
         .getSharedPreferenceValue("themeMode");
   }
-  SharedPreferences sharedPreferences;
 
   // Checks if the user is opening the app for the first time.
   Future checkFirstTime() async {
-    sharedPreferences = await SharedPreferences.getInstance();
-    if(sharedPreferences.getBool('firstTime') != null) return true;
-    return false;
+    UserPreferences userPreferences = Hive.box('preferences').getAt(0) as UserPreferences;
+    return userPreferences.firstTime;
   }
 
   // Sets the firstTime flag to false , so that next time the user opens the ap
   // the Introduction Screen wont be shown.
   setFirstTime() {
-    sharedPreferences.setBool('firstTime', false);
+    Hive.box('preferences').putAt(0, UserPreferences(firstTime: false));
   }
 
   @override
