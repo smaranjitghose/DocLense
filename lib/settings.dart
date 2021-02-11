@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'MainDrawer.dart';
 
 class SettingsScreen extends StatefulWidget {
