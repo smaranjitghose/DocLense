@@ -22,6 +22,7 @@ Future<void> main() async {
   await Hive.openBox('pdfs');
   Hive.registerAdapter(UserPreferencesAdapter());
   final res = await Hive.openBox('preferences');
+
   try {
     final r = res.getAt(0) as UserPreferences ;
   } on RangeError catch (e) {
@@ -30,6 +31,14 @@ Future<void> main() async {
       firstTime: true,
       darkTheme: false
     ));
+  }
+
+  try {
+    final res = await Hive.box('pdfs');
+    final r = res.getAt(0);
+  } on RangeError catch (e) {
+    final res = await Hive.box('pdfs');
+    final r = res.add([]);
   }
 
   final r = res.getAt(0) as UserPreferences ;
@@ -56,6 +65,15 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     getCurrentAppTheme();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    Hive.box('preferences').close();
+    Hive.box('pdfs').close();
+    Hive.close();
+    super.dispose();
   }
 
   void getCurrentAppTheme() async {

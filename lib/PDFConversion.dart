@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
+import 'package:hive/hive.dart';
 import 'package:pdf/pdf.dart';
 import 'package:permission/permission.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,11 +61,12 @@ class _PDFConversion extends State<PDFConversion> {
     //document.pdfPath = path;
     //Open the PDF document in mobile
     OpenFile.open('$path' + '/${name}' + '.pdf');
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    List<String> files = sharedPreferences.getStringList('savedFiles');
+
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    List<dynamic> files = Hive.box('pdfs').getAt(0);
     files.add('$path' + '/${name}' + '.pdf');
-    sharedPreferences.setStringList('savedFiles', files);
-    print(sharedPreferences.getStringList('savedFiles'));
+    Hive.box('pdfs').putAt(0, files);
+    print("PDFS : ${Hive.box('pdfs').getAt(0)}");
     //Directory documentDirectory = await getApplicationDocumentsDirectory();
 
     //String documentPath = documentDirectory.path;

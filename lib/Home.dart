@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
@@ -127,12 +129,11 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: FutureBuilder(
-        future: setSharedPreferences(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            // print(snapshot.data.last);
-            if (snapshot.data.length == 0) {
+      backgroundColor: Colors.grey[200],
+      body: WatchBoxBuilder(
+        box: Hive.box('pdfs'),
+        builder: (context, pdfsBox) {
+            if (pdfsBox.getAt(0).length == 0) {
               return Center(
                 child: Text(
                     "No PDFs Scanned Yet !! "
@@ -140,14 +141,14 @@ class _HomeState extends State<Home> {
               );
             }
             return GridView.builder(
-              itemCount: snapshot.data.length,
+              itemCount: pdfsBox.getAt(0).length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2),
 
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    OpenFile.open(snapshot.data[index]);
+                    OpenFile.open(pdfsBox.getAt(0)[index]);
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
@@ -159,7 +160,7 @@ class _HomeState extends State<Home> {
                       height: 40,
                       child: Center(
                         child: Text(
-                            snapshot.data[index]
+                            pdfsBox.getAt(0)[index]
                                 .split('/')
                                 .last
                         ),
@@ -169,9 +170,6 @@ class _HomeState extends State<Home> {
                 );
               },
             );
-          } else {
-            return CircularProgressIndicator();
-          }
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
