@@ -1,19 +1,15 @@
 import 'package:doclense/settings.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'Home.dart';
 import 'About.dart';
+import 'Home.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rating_dialog/rating_dialog.dart';
-
-import 'Providers/ThemeProvider.dart';
+import 'settings.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
-
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -49,12 +45,13 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context, PageRouteBuilder(
-                pageBuilder: (c, a1, a2) => Home(),
-                transitionsBuilder: (c, anim, a2, child) =>
-                    FadeTransition(opacity: anim, child: child),
-                // transitionDuration: Duration(milliseconds: 1000),
-              ));
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => Home(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  // transitionDuration: Duration(milliseconds: 1000),
+                ),);
             },
             leading: Icon(Icons.home),
             title: Text(
@@ -74,12 +71,13 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context, PageRouteBuilder(
-                pageBuilder: (c, a1, a2) => About(),
-                transitionsBuilder: (c, anim, a2, child) =>
-                    FadeTransition(opacity: anim, child: child),
-                // transitionDuration: Duration(milliseconds: 1000),
-              ),);
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => About(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  // transitionDuration: Duration(milliseconds: 1000),
+                ),);
             },
             leading: Icon(Icons.info),
             title: Text(
@@ -137,8 +135,6 @@ class MainDrawer extends StatelessWidget {
                   barrierDismissible: true,
                   builder: (BuildContext context) {
                     return RatingDialog(
-                      accentColor: themeChange.darkTheme ? Colors.black : Colors
-                          .blue,
                       icon: Image.asset('assets/images/logos.png'),
                       title: "How's your experience with us?",
                       description: "Let us know what you think",

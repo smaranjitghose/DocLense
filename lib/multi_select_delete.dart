@@ -159,7 +159,7 @@ class _multiDeleteState extends State<multiDelete> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.blueGrey[100],
+        backgroundColor: Colors.blueGrey[100],
         appBar: getAppBar(),
         body: GridView.builder(
             itemCount: itemList.length,
@@ -187,17 +187,17 @@ class _multiDeleteState extends State<multiDelete> {
               );
             }),
         floatingActionButton: FloatingActionButton(
-          // backgroundColor: Colors.blue[600],
+          backgroundColor: Colors.blue[600],
           onPressed: () {},
           child: IconButton(
             iconSize: 40,
             onPressed: () {
               _showChoiceDialog_add(context);
             },
-            // color: Colors.blue[600],
+            color: Colors.blue[600],
             icon: Icon(
               Icons.add,
-              // color: Colors.teal,
+              color: Colors.teal,
             ),
           ),
         ));
@@ -205,7 +205,7 @@ class _multiDeleteState extends State<multiDelete> {
 
   getAppBar() {
     return AppBar(
-      // backgroundColor: Colors.blue[600],
+      backgroundColor: Colors.blue[600],
       title: Text(selectedList.length < 1
           ? "Documents"
           : "${selectedList.length} item selected"),
@@ -213,37 +213,28 @@ class _multiDeleteState extends State<multiDelete> {
         selectedList.length < 1
             ? Container()
             : InkWell(
-            onTap: () {
-              _showChoiceDialog_del(context);
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.delete,
-              ),
-            )),
+                onTap: () {
+                  _showChoiceDialog_del(context);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Icon(
+                    Icons.delete,
+                  ),
+                )),
         IconButton(
             icon: Icon(Icons.picture_as_pdf),
             onPressed: () {
               Navigator.push(
                   context,
-                  PageRouteBuilder(
-                    pageBuilder: (c, a1, a2) => PDFConversion(widget.imageList),
-                    transitionsBuilder: (c, anim, a2, child) =>
-                        FadeTransition(opacity: anim, child: child),
-                    // transitionDuration: Duration(milliseconds: 2000),
-                  ));
-                  // MaterialPageRoute(
-                  //     builder: (context) => PDFConversion(widget.imageList)));
+                  MaterialPageRoute(
+                      builder: (context) => PDFConversion(widget.imageList)));
             }),
         IconButton(
             icon: Icon(Icons.home),
             onPressed: () {
               Navigator.push(
-                  context, PageRouteBuilder(
-                  pageBuilder: (c, a1, a2) => Home(),
-              transitionsBuilder: (c, anim, a2, child) =>
-              FadeTransition(opacity: anim, child: child)));
+                  context, MaterialPageRoute(builder: (context) => Home()));
             })
       ],
     );

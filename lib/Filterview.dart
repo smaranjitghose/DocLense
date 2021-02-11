@@ -1,4 +1,3 @@
-import 'package:doclense/Providers/ThemeProvider.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
@@ -6,7 +5,6 @@ import 'package:photofilters/photofilters.dart';
 import 'dart:async';
 import 'package:path/path.dart';
 import 'package:image/image.dart' as imageLib;
-import 'package:provider/provider.dart';
 import 'multi_select_delete.dart';
 import 'Providers/ImageList.dart';
 
@@ -26,10 +24,9 @@ class _filterimageState extends State<filter_image> {
   @override
   void initState() {
     imageFile = widget.file;
-
   }
 
-  Future getImage(context, appBarColor) async {
+  Future getImage(context) async {
 //    imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     fileName = basename(imageFile.path);
     var image = imageLib.decodeImage(imageFile.readAsBytesSync());
@@ -39,7 +36,7 @@ class _filterimageState extends State<filter_image> {
         PageRouteBuilder(
           pageBuilder: (c, a1, a2) =>
               new PhotoFilterSelector(
-                appBarColor: appBarColor,
+                appBarColor: Colors.blue[600],
                 title: Text("Apply Filter"),
                 image: image,
                 filters: presetFiltersList,
@@ -67,12 +64,11 @@ class _filterimageState extends State<filter_image> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
-    Color appBarColor = themeChange.darkTheme ? Colors.black : Colors.blue[600];
     // TODO: implement build
     return Scaffold(
       body: SafeArea(
         child: Container(
+          color: Colors.blueGrey[100],
           child: Column(
             children: <Widget>[
               Expanded(
@@ -94,8 +90,7 @@ class _filterimageState extends State<filter_image> {
                     .height / 19).floor(),
                 child: Container(
                   height: 65,
-                  color: themeChange.darkTheme ? Colors.black87 : Colors
-                      .blue[600],
+                  color: Colors.blue[600],
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
@@ -105,6 +100,7 @@ class _filterimageState extends State<filter_image> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
+                          color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
@@ -120,8 +116,9 @@ class _filterimageState extends State<filter_image> {
                         ),
                         FlatButton(
                           onPressed: () {
-                            getImage(context, appBarColor);
+                            getImage(context);
                           },
+                          color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
@@ -151,6 +148,7 @@ class _filterimageState extends State<filter_image> {
                                 )
                             );
                           },
+                          color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
