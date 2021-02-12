@@ -2,6 +2,7 @@ import 'package:doclense/MainDrawer.dart';
 import 'package:doclense/Providers/ThemeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class About extends StatelessWidget {
@@ -22,15 +23,20 @@ class About extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             themeChange.darkTheme ?
-            Image.asset(
-              'assets/images/doclenseDarkCropped.jpg',
-              height: 150,
-              width: MediaQuery.of(context).size.width,)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
+              child: SvgPicture.asset(
+                'assets/doclensewhite.svg',
+              ),
+            )
                 :
-            Image.asset(
-              'assets/images/logos.png',
-              width: 300,
-              height: 100,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
+              child: SvgPicture.asset(
+                'assets/images/doclenselight.svg',
+                // width: 300,
+                // height: 100,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
