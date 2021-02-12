@@ -1,1 +1,13 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100.32 98.2"><defs><style>.cls-1,.cls-2{fill:none;stroke:#1f9fff;stroke-miterlimit:10;stroke-width:11px;}.cls-2{stroke-linecap:round;}</style></defs><title>doclenselightsmall</title><polyline class="cls-1" points="66.7 5.5 94.83 5.5 94.83 31.18"/><polyline class="cls-1" points="33.63 92.7 5.5 92.7 5.5 67.02"/><polyline class="cls-1" points="66.7 92.7 94.83 92.7 94.83 67.02"/><polyline class="cls-1" points="33.63 5.5 5.5 5.5 5.5 31.18"/><line class="cls-2" x1="22.37" y1="26.75" x2="78.32" y2="26.75"/><line class="cls-2" x1="22.37" y1="48.72" x2="78.32" y2="48.72"/><line class="cls-2" x1="22.37" y1="70.7" x2="78.32" y2="70.7"/></svg>
+<svg viewBox="0 0 100.32 98.2" xmlns="http://www.w3.org/2000/svg">
+    <g fill="none" stroke="#1f9fff" stroke-miterlimit="10" stroke-width="11">
+        <path d="m66.7 5.5h28.13v25.68"/>
+        <path d="m33.63 92.7h-28.13v-25.68"/>
+        <path d="m66.7 92.7h28.13v-25.68"/>
+        <path d="m33.63 5.5h-28.13v25.68"/>
+        <g stroke-linecap="round">
+            <path d="m22.37 26.75h55.95"/>
+            <path d="m22.37 48.72h55.95"/>
+            <path d="m22.37 70.7h55.95"/>
+        </g>
+    </g>
+</svg>
