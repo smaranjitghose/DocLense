@@ -72,6 +72,23 @@ class MainDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.push(context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => SettingsScreen(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  // transitionDuration: Duration(milliseconds: 2000),
+                ),);
+            },
+            leading: Icon(Icons.settings),
+            title: Text(
+              "Settings",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          Divider(color: themeChange.darkTheme ? Colors.white : Colors.black,),
+          ListTile(
+            onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
                   context, PageRouteBuilder(
@@ -84,47 +101,6 @@ class MainDrawer extends StatelessWidget {
             leading: Icon(Icons.info),
             title: Text(
               "About App",
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              Share.share(
-                  'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
-                  subject: "DocLense"
-              );
-            },
-            leading: Icon(Icons.share),
-            title: Text(
-              "Share the App",
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.of(context).pop();
-              Share.share('Share my PDF');
-              //TODO: add pdf file that is to be shared
-            },
-            leading: Icon(Icons.share),
-            title: Text(
-              "Share PDF",
-              style: TextStyle(fontSize: 18),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(context,
-                PageRouteBuilder(
-                  pageBuilder: (c, a1, a2) => SettingsScreen(),
-                  transitionsBuilder: (c, anim, a2, child) =>
-                      FadeTransition(opacity: anim, child: child),
-                  // transitionDuration: Duration(milliseconds: 2000),
-                ),);
-            },
-            leading: Icon(Icons.settings),
-            title: Text(
-              "Settings",
               style: TextStyle(fontSize: 18),
             ),
           ),
@@ -152,6 +128,32 @@ class MainDrawer extends StatelessWidget {
             leading: Icon(Icons.star_rate),
             title: Text(
               "Rate us",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          Divider(color: themeChange.darkTheme ? Colors.white : Colors.black,),
+          ListTile(
+            onTap: () {
+              Share.share(
+                  'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
+                  subject: "DocLense"
+              );
+            },
+            leading: Icon(Icons.share),
+            title: Text(
+              "Share the App",
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.of(context).pop();
+              Share.share('Share my PDF');
+              //TODO: add pdf file that is to be shared
+            },
+            leading: Icon(Icons.share),
+            title: Text(
+              "Share PDF",
               style: TextStyle(fontSize: 18),
             ),
           ),
