@@ -21,7 +21,7 @@ class MainDrawer extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(20),
-            color: Colors.blue[600],
+            color: themeChange.darkTheme ? Colors.black : Colors.white10,
             child: Center(
                 child: Column(
                   children: <Widget>[
@@ -29,23 +29,23 @@ class MainDrawer extends StatelessWidget {
                       width: 100,
                       height: 180,
                       child: CircleAvatar(
-                        backgroundColor: themeChange.darkTheme ? Colors.black : Colors.white,
+                        backgroundColor: themeChange.darkTheme ? Colors.black : Colors.white10,
                         radius: 60,
                         child: themeChange.darkTheme ?
                         SvgPicture.asset(
                           'assets/doclensewhitesmall.svg',
-                          height: 70,
+                          height: 100,
                         ) :
                         SvgPicture.asset(
                           'assets/doclenselightsmall.svg',
-                          height: 70,
+                          height: 100,
                         ),
                       ),
                     ),
                     Text(
                       "One Place For All \n Your Documents!",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    )
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ],
                 )),
           ),
