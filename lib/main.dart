@@ -1,6 +1,7 @@
 import 'package:doclense/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'dart:ui';
 import 'package:doclense/Providers/ThemeProvider.dart';
@@ -68,8 +69,15 @@ class _MyAppState extends State<MyApp> {
                   backgroundColor: themeChangeProvider.darkTheme ? Colors
                       .grey[900] : Colors.white,
                   splash: themeChangeProvider.darkTheme ?
-                  Image.asset('assets/images/doclenseDarkCropped.jpg')
-                      : Image.asset('assets/images/logos.png'),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
+                    child: SvgPicture.asset('assets/doclensewhite.svg'),
+                  )
+                      :
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
+                    child: SvgPicture.asset('assets/images/doclenselight.svg'),
+                  ),
                   nextScreen: FutureBuilder(
                       future: checkFirstTime(),
                       builder: (context, snapshot) {

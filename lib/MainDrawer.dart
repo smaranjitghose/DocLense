@@ -1,5 +1,6 @@
 import 'package:doclense/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'Home.dart';
 import 'About.dart';
@@ -20,7 +21,7 @@ class MainDrawer extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: EdgeInsets.all(20),
-            color: Colors.blue[600],
+            color: themeChange.darkTheme ? Colors.black : Colors.white10,
             child: Center(
                 child: Column(
                   children: <Widget>[
@@ -28,17 +29,23 @@ class MainDrawer extends StatelessWidget {
                       width: 100,
                       height: 180,
                       child: CircleAvatar(
-                        backgroundColor: Colors.white,
+                        backgroundColor: themeChange.darkTheme ? Colors.black : Colors.white10,
                         radius: 60,
-                        child: Image.asset(
-                          'assets/images/scanlogo.png',
+                        child: themeChange.darkTheme ?
+                        SvgPicture.asset(
+                          'assets/doclensewhitesmall.svg',
+                          height: 100,
+                        ) :
+                        SvgPicture.asset(
+                          'assets/doclenselightsmall.svg',
+                          height: 100,
                         ),
                       ),
                     ),
                     Text(
                       "One Place For All \n Your Documents!",
-                      style: TextStyle(fontSize: 20, color: Colors.white),
-                    )
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ],
                 )),
           ),
@@ -74,7 +81,7 @@ class MainDrawer extends StatelessWidget {
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(
-                  context, PageRouteBuilder(
+                context, PageRouteBuilder(
                 pageBuilder: (c, a1, a2) => About(),
                 transitionsBuilder: (c, anim, a2, child) =>
                     FadeTransition(opacity: anim, child: child),
