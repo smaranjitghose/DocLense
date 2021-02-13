@@ -36,9 +36,14 @@ class _ImageviewState extends State<Imageview> {
         sourcePath: file.path,
         aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
         compressQuality: 80,
+        androidUiSettings: AndroidUiSettings(
+          statusBarColor: Colors.blue[600],
+          toolbarColor: Colors.blue[600],
+          toolbarWidgetColor: Colors.white
+        )
       );
       setState(() {
-        file = cropped;
+        cropped == null ? file = files : file = cropped;
         files.add(file);
         index++;
       });
