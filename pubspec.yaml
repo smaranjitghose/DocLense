@@ -46,11 +46,17 @@ dependencies:
   url_launcher: ^5.7.10
   folder_picker: ^0.3.0
   introduction_screen: ^1.0.9
+
+  hive: ^1.4.4+1
+  hive_flutter: ^0.3.1
+  # open_file: ^3.0.3
   flutter_svg: 0.18.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^0.8.2
+  build_runner:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
