@@ -102,16 +102,16 @@ class _PDFConversion extends State<PDFConversion> {
               print("External : $externalDirectory");
               Navigator.of(context)
                   .push<FolderPickerPage>(MaterialPageRoute(
-                      builder: (BuildContext context) {
-                return FolderPickerPage(
-                    rootDirectory: externalDirectory,
-                    action: (BuildContext context,
-                        Directory folder) async {
-                      print("Picked directory $folder");
-                      setState(() => pickedDirectory = folder);
-                      Navigator.of(context).pop();
-                    });
-              }));
+                  builder: (BuildContext context) {
+                    return FolderPickerPage(
+                        rootDirectory: externalDirectory,
+                        action: (BuildContext context,
+                            Directory folder) async {
+                          print("Picked directory $folder");
+                          setState(() => pickedDirectory = folder);
+                          Navigator.of(context).pop();
+                        });
+                  }));
             },
           )
         ],
@@ -121,8 +121,8 @@ class _PDFConversion extends State<PDFConversion> {
         child: Center(
           child: Container(
             child:
-                // The first text field is focused on as soon as the app starts.
-                Padding(
+            // The first text field is focused on as soon as the app starts.
+            Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
                 controller: myController,
@@ -132,22 +132,20 @@ class _PDFConversion extends State<PDFConversion> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: IconButton(
-          iconSize: 40,
-          onPressed: () {
-            // if (name == null) {
-            //   AlertDialog(
-            //       backgroundColor: Colors.blueGrey[800],
-            //       content: Text(
-            //         "Enter PDF Name",
-            //         style: TextStyle(color: Colors.white),
-            //       ));
-            // } else
-            _pushSaved();
-          },
-          icon: Icon(
+        onPressed: () {
+          // if (name == null) {
+          //   AlertDialog(
+          //       backgroundColor: Colors.blueGrey[800],
+          //       content: Text(
+          //         "Enter PDF Name",
+          //         style: TextStyle(color: Colors.white),
+          //       ));
+          // } else
+          _pushSaved();
+        },
+        child: Icon(
             Icons.arrow_forward,
-          ),
+            size: 40
         ),
       ),
     );
