@@ -129,7 +129,6 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      backgroundColor: Colors.grey[200],
       body: WatchBoxBuilder(
         box: Hive.box('pdfs'),
         builder: (context, pdfsBox) {
