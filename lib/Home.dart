@@ -157,6 +157,7 @@ class _HomeState extends State<Home> {
                           .size
                           .width,
                       height: 40,
+                      color: Colors.grey,
                       child: Center(
                         child: Text(
                             pdfsBox.getAt(0)[index]
