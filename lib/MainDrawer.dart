@@ -157,18 +157,18 @@ class MainDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 18),
               ),
             ),
-            ListTile(
-              onTap: () {
-                Navigator.of(context).pop();
-                Share.share('Share my PDF');
-                //TODO: add pdf file that is to be shared
-              },
-              leading: Icon(Icons.share),
-              title: Text(
-                "Share PDF",
-                style: TextStyle(fontSize: 18),
-              ),
-            ),
+            // ListTile(
+            //   onTap: () {
+            //     Navigator.of(context).pop();
+            //     Share.share('Share my PDF');
+            //     //TODO: add pdf file that is to be shared
+            //   },
+            //   leading: Icon(Icons.share),
+            //   title: Text(
+            //     "Share PDF",
+            //     style: TextStyle(fontSize: 18),
+            //   ),
+            // ),
           ],
         ),
       ),
