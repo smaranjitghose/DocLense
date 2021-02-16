@@ -27,6 +27,23 @@
 - Apply different types of filter
 - Download/Export in .pdf
 
+## App Mock-ups
+
+<img src="assets/appMockups/homeScreen.png">
+<img src="assets/appMockups/mainDrawer.png">
+<img src="assets/appMockups/settings.png">
+<img src="assets/appMockups/aboutApp.png">
+<img src="assets/appMockups/reviewDialogue.png">
+<img src="assets/appMockups/cropScreen.png">
+<img src="assets/appMockups/filterScreen.png">
+<img src="assets/appMockups/filterView.png">
+<img src="assets/appMockups/multiSelectScreen.png">
+<img src="assets/appMockups/pdfNameScreen.png">
+
+## App Demo
+
+<img src="assets/appMockups/AppWorking.gif" height="500px">
+
 ## Contribution Guidelines🏗
 
 Are we missing any of your favorite features, which you think you can add to it❓ We invite you to contribute to this project and make it better.
