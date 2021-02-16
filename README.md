@@ -30,15 +30,15 @@
 ## App Mock-ups
 
 <img src="assets/appMockups/homeScreen.png">
-<img src="readme-images/mainDrawer.png">
-<img src="readme-images/settings.png">
-<img src="readme-images/aboutApp.png">
-<img src="readme-images/reviewDialogue.png">
-<img src="readme-images/cropScreen.png">
-<img src="readme-images/filterScreen.png">
-<img src="readme-images/filterView.png">
-<img src="readme-images/multiSelectScreen.png">
-<img src="readme-images/pdfNameScreen.png">
+<img src="assets/appMockups/mainDrawer.png">
+<img src="assets/appMockups/settings.png">
+<img src="assets/appMockups/aboutApp.png">
+<img src="assets/appMockups/reviewDialogue.png">
+<img src="assets/appMockups/cropScreen.png">
+<img src="assets/appMockups/filterScreen.png">
+<img src="assets/appMockups/filterView.png">
+<img src="assets/appMockups/multiSelectScreen.png">
+<img src="assets/appMockups/pdfNameScreen.png">
 
 ## Contribution Guidelines🏗
 
