@@ -22,33 +22,63 @@ class About extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            themeChange.darkTheme ?
-            Padding(
-              padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
-              child: SvgPicture.asset(
-                'assets/doclensewhite.svg',
-              ),
-            )
-                :
-            Padding(
-              padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
-              child: SvgPicture.asset(
-                'assets/images/doclenselight.svg',
-                // width: 300,
-                // height: 100,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 30, 10, 10),
-              child: Text(
-                "DocLense is the one place for all your documents. \nYou can now click, upload, crop, rotate and do so much more!\n\nSo whether it is your college assignment or the office document you want to digitalize, stop worrying and just use DocLense!",
-                style: TextStyle(
-                  fontSize: 18,
+            Container(
+              // height: 358,
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                  children: [
+                    themeChange.darkTheme ? SvgPicture.asset(
+                      'assets/aboutPage/curve.svg',
+                      // 'assets/aboutPage/bg-wave.svg'
+                      // width: MediaQuery.of(context).size.width,
+                      // height: 50,
+                    ) :
+                    SvgPicture.asset(
+                      'assets/aboutPage/curvelight.svg',
+                      // 'assets/aboutPage/bg-wave.svg'
+                      // width: MediaQuery.of(context).size.width,
+                      // height: 50,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
+                      child: themeChange.darkTheme ? SvgPicture.asset(
+                        'assets/doclensewhite.svg',
+                      ) :
+                      SvgPicture.asset(
+                        'assets/images/doclenselight.svg',
+                        // width: 300,
+                        // height: 100,
+                      ),),
+                        Positioned(
+                          bottom: 0,
+                            // right: MediaQuery.of(context).size.width/9,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                "DocLense is the one place for all your documents!\n\nYou can now click, upload, crop, rotate and do so\nmuch more!\n\nSo whether it is your college assignment or the\noffice document you want to digitalize, stop\nworrying and just use",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                        ),
+
+                  ]
                 ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              'Doclense!',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold
               ),
             ),
             SizedBox(
-              height: 200,
+              height: 140,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -66,6 +96,7 @@ class About extends StatelessWidget {
                 ),
               ],
             )
+
           ],
         ),
       ),
