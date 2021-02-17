@@ -57,14 +57,7 @@ class MainDrawer extends StatelessWidget {
             ),
             ListTile(
                 onTap: () {
-                  Navigator.of(context).pop();
-                  Navigator.push(
-                      context, PageRouteBuilder(
-                    pageBuilder: (c, a1, a2) => Home(),
-                    transitionsBuilder: (c, anim, a2, child) =>
-                        FadeTransition(opacity: anim, child: child),
-                    // transitionDuration: Duration(milliseconds: 1000),
-                  ));
+                  Navigator.of(context).popUntil((route) => route.isFirst);
                 },
                 leading: Icon(Icons.home),
                 title: Text(
@@ -80,6 +73,7 @@ class MainDrawer extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
+                Navigator.of(context).pop();
                 Navigator.push(context,
                   PageRouteBuilder(
                     pageBuilder: (c, a1, a2) => SettingsScreen(),
