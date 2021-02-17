@@ -27,6 +27,13 @@
 - Apply different types of filter
 - Download/Export in .pdf
 
+## App Screens
+
+<p float="left">
+  <img src="assets/appMockups/FirstFourScreens.png" width="400" />
+  <img src="assets/appMockups/RestFourScreens.png" width="400" /> 
+</p>
+
 ## App Mock-ups
 
 <img src="assets/appMockups/homeScreen.png">
