@@ -24,13 +24,7 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
 
   homePageTimer() {
     Timer(Duration(seconds: 0), () async {
-      Navigator.pushReplacement(
-          context, PageRouteBuilder(
-        pageBuilder: (c, a1, a2) => Home(),
-        transitionsBuilder: (c, anim, a2, child) =>
-            FadeTransition(opacity: anim, child: child),
-        // transitionDuration: Duration(milliseconds: 1000),
-      ));  // pushing HomePage()
+      Navigator.of(context).popUntil((route) => route.isFirst);
     });
   }
 
