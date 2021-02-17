@@ -78,7 +78,23 @@ class About extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 140,
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SvgPicture.asset(
+                    'assets/aboutPage/undraw_At_work_re_qotl.svg',
+                  height: 100,
+                ),
+                SvgPicture.asset(
+                    'assets/aboutPage/undraw_Upload_re_pasx.svg',
+                  height: 100,
+                )
+              ],
+            ),
+            SizedBox(
+              height: 25,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
