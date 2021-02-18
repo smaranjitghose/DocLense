@@ -23,21 +23,27 @@ class About extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              // height: 358,
-              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height/2,
+              // width: MediaQuery.of(context).size.width,
               child: Stack(
                   children: [
-                    themeChange.darkTheme ? SvgPicture.asset(
-                      'assets/aboutPage/curve.svg',
-                      // 'assets/aboutPage/bg-wave.svg'
-                      // width: MediaQuery.of(context).size.width,
-                      // height: 50,
+                    themeChange.darkTheme ? Positioned(
+                      top: 0,
+                      child: SvgPicture.asset(
+                        'assets/aboutPage/curve.svg',
+                        // 'assets/aboutPage/bg-wave.svg'
+                        // width: MediaQuery.of(context).size.width,
+                        // height: 50,
+                      ),
                     ) :
-                    SvgPicture.asset(
-                      'assets/aboutPage/curvelight.svg',
-                      // 'assets/aboutPage/bg-wave.svg'
-                      // width: MediaQuery.of(context).size.width,
-                      // height: 50,
+                    Positioned(
+                      top: 0,
+                      child: SvgPicture.asset(
+                        'assets/aboutPage/curvelight.svg',
+                        // 'assets/aboutPage/bg-wave.svg'
+                        // width: MediaQuery.of(context).size.width,
+                        // height: 50,
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
@@ -78,7 +84,7 @@ class About extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 20,
+              height: MediaQuery.of(context).size.height/20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -94,7 +100,7 @@ class About extends StatelessWidget {
               ],
             ),
             SizedBox(
-              height: 25,
+              height: MediaQuery.of(context).size.height/13,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
