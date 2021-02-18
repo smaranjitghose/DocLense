@@ -23,7 +23,7 @@ class About extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height/2,
+              height: MediaQuery.of(context).size.height/1.85,
               // width: MediaQuery.of(context).size.width,
               child: Stack(
                   children: [
