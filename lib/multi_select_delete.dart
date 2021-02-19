@@ -98,7 +98,7 @@ class _multiDeleteState extends State<multiDelete> {
   Future<void> _showChoiceDialog_home(BuildContext context) {
     return showDialog(
         context: context,
-        builder: (BuildContext context) {
+        builder: (BuildContext ctx) {
           return AlertDialog(
             backgroundColor: Colors.blueGrey[800],
             title: Text(
@@ -117,7 +117,7 @@ class _multiDeleteState extends State<multiDelete> {
                     ),
                     onTap: () {
 
-                      Navigator.of(context).pop();
+                      Navigator.of(ctx).pop();
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
                   ),
@@ -131,7 +131,7 @@ class _multiDeleteState extends State<multiDelete> {
                       style: TextStyle(color: Colors.white),
                     ),
                     onTap: () {
-                      Navigator.of(context).pop();
+                      Navigator.of(ctx).pop();
                     },
                   ),
                 ],
@@ -285,7 +285,7 @@ class _multiDeleteState extends State<multiDelete> {
         IconButton(
             icon: Icon(Icons.home),
             onPressed: () {
-              Navigator.of(context).popUntil((route) => route.isFirst);
+              _showChoiceDialog_home(context);
             })
       ],
     );
