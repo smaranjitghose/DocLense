@@ -95,6 +95,52 @@ class _multiDeleteState extends State<multiDelete> {
         });
   }
 
+  Future<void> _showChoiceDialog_home(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: Colors.blueGrey[800],
+            title: Text(
+              "All your progress will be lost.\nDo you want to go back to home?",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  GestureDetector(
+                    child: Text(
+                      "Yes",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () {
+
+                      Navigator.of(context).pop();
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                  ),
+                  GestureDetector(
+                    child: Text(
+                      "No",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   _openGallery() async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
