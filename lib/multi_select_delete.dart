@@ -116,7 +116,16 @@ class _multiDeleteState extends State<multiDelete> {
                       style: TextStyle(color: Colors.white),
                     ),
                     onTap: () {
-
+                      for (int i = 0; i < widget.imageList.length(); i++) {
+                        print('i = $i');
+                        print(widget.imageList.imagelist.length);
+                        int idx = widget.imageList.imagelist.indexOf(
+                            itemList[itemList.indexOf(itemList[i])]
+                                .imageUrl);
+                        widget.imageList.imagelist.removeAt(idx);
+                        widget.imageList.imagepath.removeAt(idx);
+                        itemList.remove(idx);
+                      }
                       Navigator.of(ctx).pop();
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
