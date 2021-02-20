@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Imageview.dart';
 import 'Providers/ImageList.dart';
@@ -154,12 +155,47 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.all(15.0),
                   child: Card(
                     color: Colors.grey,
-                    child: Center(
-                      child: Text(
-                          pdfsBox.getAt(0)[index]
-                              .split('/')
-                              .last
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                                pdfsBox.getAt(0)[index]
+                                    .split('/')
+                                    .last
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                                icon: Icon(
+                                    Icons.share
+                                ),
+                                onPressed: () async {
+
+                                  File file = await File(
+                                      pdfsBox.getAt(0)[index]
+                                  );
+
+                                  final path = file.path;
+
+                                  print(path);
+
+                                  Share.shareFiles(
+                                      ['$path'], text: 'Your PDF!');
+                                }
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                    Icons.delete
+                                ),
+                                onPressed: () {}
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
                 ),
