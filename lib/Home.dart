@@ -132,44 +132,40 @@ class _HomeState extends State<Home> {
       body: WatchBoxBuilder(
         box: Hive.box('pdfs'),
         builder: (context, pdfsBox) {
-            if (pdfsBox.getAt(0).length == 0) {
-              return Center(
-                child: Text(
-                    "No PDFs Scanned Yet !! "
-                ),
-              );
-            }
-            return GridView.builder(
-              itemCount: pdfsBox.getAt(0).length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    OpenFile.open(pdfsBox.getAt(0)[index]);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
-                      height: 40,
-                      color: Colors.grey,
-                      child: Center(
-                        child: Text(
-                            pdfsBox.getAt(0)[index]
-                                .split('/')
-                                .last
-                        ),
+          if (pdfsBox
+              .getAt(0)
+              .length == 0) {
+            return Center(
+              child: Text(
+                  "No PDFs Scanned Yet !! "
+              ),
+            );
+          }
+          return ListView.builder(
+            itemCount: pdfsBox
+                .getAt(0)
+                .length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  OpenFile.open(pdfsBox.getAt(0)[index]);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Card(
+                    color: Colors.grey,
+                    child: Center(
+                      child: Text(
+                          pdfsBox.getAt(0)[index]
+                              .split('/')
+                              .last
                       ),
                     ),
                   ),
-                );
-              },
-            );
+                ),
+              );
+            },
+          );
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
