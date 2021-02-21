@@ -64,11 +64,6 @@ class _multiDeleteState extends State<multiDelete> {
                         selectedList = List();
                       });
                       Navigator.pop(context);
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  multiDelete(widget.imageList)));
                     },
                   ),
                   Padding(
