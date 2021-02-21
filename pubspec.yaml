@@ -46,6 +46,8 @@ dependencies:
   url_launcher: ^5.7.10
   folder_picker: ^0.3.0
   introduction_screen: ^1.0.9
+  flutter_share: ^1.0.5
+  esys_flutter_share: ^1.0.2
 
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
@@ -73,6 +75,7 @@ flutter:
   assets:
     - assets/images/
     - assets/
+    - assets/aboutPage/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
