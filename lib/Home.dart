@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
+import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Imageview.dart';
 import 'Providers/ImageList.dart';
@@ -132,44 +133,75 @@ class _HomeState extends State<Home> {
       body: WatchBoxBuilder(
         box: Hive.box('pdfs'),
         builder: (context, pdfsBox) {
-            if (pdfsBox.getAt(0).length == 0) {
-              return Center(
-                child: Text(
-                    "No PDFs Scanned Yet !! "
-                ),
-              );
-            }
-            return GridView.builder(
-              itemCount: pdfsBox.getAt(0).length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    OpenFile.open(pdfsBox.getAt(0)[index]);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
-                      height: 40,
-                      color: Colors.grey,
-                      child: Center(
-                        child: Text(
-                            pdfsBox.getAt(0)[index]
-                                .split('/')
-                                .last
+          if (pdfsBox
+              .getAt(0)
+              .length == 0) {
+            return Center(
+              child: Text(
+                  "No PDFs Scanned Yet !! "
+              ),
+            );
+          }
+          return ListView.builder(
+            itemCount: pdfsBox
+                .getAt(0)
+                .length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  OpenFile.open(pdfsBox.getAt(0)[index]);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Card(
+                    color: Colors.grey,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                                pdfsBox.getAt(0)[index]
+                                    .split('/')
+                                    .last
+                            ),
+                          ],
                         ),
-                      ),
+                        Row(
+                          children: [
+                            IconButton(
+                                icon: Icon(
+                                    Icons.share
+                                ),
+                                onPressed: () async {
+
+                                  File file = await File(
+                                      pdfsBox.getAt(0)[index]
+                                  );
+
+                                  final path = file.path;
+
+                                  print(path);
+
+                                  Share.shareFiles(
+                                      ['$path'], text: 'Your PDF!');
+                                }
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                    Icons.delete
+                                ),
+                                onPressed: () {}
+                            ),
+                          ],
+                        )
+                      ],
                     ),
                   ),
-                );
-              },
-            );
+                ),
+              );
+            },
+          );
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
