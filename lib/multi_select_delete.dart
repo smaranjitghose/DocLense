@@ -159,8 +159,10 @@ class _multiDeleteState extends State<multiDelete> {
     this.setState(() {
       imageFile = picture;
     });
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => Imageview(imageFile, widget.imageList)));
+    if (imageFile != null) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Imageview(imageFile, widget.imageList)));
+    }
   }
 
   Future<void> _showChoiceDialog_add(BuildContext context) {
