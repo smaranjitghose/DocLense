@@ -29,15 +29,9 @@
 
 ## App Mock-ups
 
-<img src="assets/appMockups/homeScreen.png">
-<img src="assets/appMockups/mainDrawer.png">
-<img src="assets/appMockups/settings.png">
-<img src="assets/appMockups/aboutApp.png">
-<img src="assets/appMockups/reviewDialogue.png">
-<img src="assets/appMockups/cropScreen.png">
-<img src="assets/appMockups/filterScreen.png">
-<img src="assets/appMockups/filterView.png">
-<img src="assets/appMockups/multiSelectScreen.png">
+<img src="assets/appMockups/homeScreen-mainDrawer-settings.png">
+<img src="assets/appMockups/aboutApp-reviewDialogue-cropScreen.png">
+<img src="assets/appMockups/filterScreen-filterView-multiSelectScreen.png">
 <img src="assets/appMockups/pdfNameScreen.png">
 
 ## App Demo
