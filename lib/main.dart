@@ -144,9 +144,12 @@ class _MyAppState extends State<MyApp> {
                                       ),
                                     ),
                                     image: Align(
-                                      child: Image.asset(
-                                          'assets/images/logo.png',
-                                          width: 350.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                        child: SvgPicture.asset(
+                                            'assets/images/doclenselight.svg',
+                                            width: 350.0),
+                                      ),
                                       alignment: Alignment.bottomCenter,
                                     )
                                 ),
