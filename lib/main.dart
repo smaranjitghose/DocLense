@@ -173,16 +173,22 @@ class _MyAppState extends State<MyApp> {
                               ],
                               onDone: () {
                                 setFirstTime();
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => Home()
+                                Navigator.pushReplacement(context, PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) => Home(),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(opacity: anim, child: child),
+                                  // transitionDuration: Duration(milliseconds: 1000),
                                 ));
                               },
                               showSkipButton: true,
                               skip: Text("Skip"),
                               onSkip: () {
                                 setFirstTime();
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => Home()
+                                Navigator.pushReplacement(context, PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) => Home(),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(opacity: anim, child: child),
+                                  // transitionDuration: Duration(milliseconds: 1000),
                                 ));
                               },
                               done: const Text('Done', style: TextStyle(
