@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
+import 'package:pdf_render/pdf_render.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Imageview.dart';
 import 'Providers/ImageList.dart';
@@ -14,6 +15,8 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 import 'About.dart';
 import 'package:quick_actions/quick_actions.dart';
+import 'package:pdf_render/pdf_render_widgets2.dart';
+import 'package:intl/intl.dart';
 
 enum IconOptions { Share }
 
@@ -59,6 +62,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+
     super.initState();
     // setSharedPreferences().then((value) {
     //   savedPdfs = value;
@@ -129,49 +133,56 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: WatchBoxBuilder(
-        box: Hive.box('pdfs'),
-        builder: (context, pdfsBox) {
-            if (pdfsBox.getAt(0).length == 0) {
-              return Center(
-                child: Text(
-                    "No PDFs Scanned Yet !! "
-                ),
-              );
-            }
-            return GridView.builder(
-              itemCount: pdfsBox.getAt(0).length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
+      body: ListView.builder(itemBuilder: (context,index) {
+        return Container(
+            width: double.infinity,
+            child:ListTile(
+          title: Text("Hello"),
+          subtitle: Column(
+                    children: <Widget>[
+                      Text(DateFormat("dd/MM/yyyy").format(File.fromRawPath(Hive.box("pdfs").getAt(0)[index]).lastModifiedSync())),
+                      Row(
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(Icons.share),
+                            onPressed: (){
 
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    OpenFile.open(pdfsBox.getAt(0)[index]);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Container(
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width,
-                      height: 40,
-                      color: Colors.grey,
-                      child: Center(
-                        child: Text(
-                            pdfsBox.getAt(0)[index]
-                                .split('/')
-                                .last
-                        ),
+                          },
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.picture_as_pdf),
+                            onPressed: (){
+
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.comment),
+                            onPressed: (){
+
+                            },
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.more_vert),
+                            onPressed: (){
+
+                            },
+                          ),
+                        ],
                       ),
-                    ),
-                  ),
-                );
-              },
-            );
-        },
-      ),
+                      ],
+        ),
+          leading: PdfDocumentLoader(
+              assetName: Hive.box("pdfs").getAt(0)[index]
+                  .split("/")
+                  .last,
+              filePath: Hive.box("pdfs").getAt(0)[index],
+              pageNumber: 1,
+              pageBuilder: (context, textureBuilder, pageSize) =>
+                  textureBuilder()
+          ),
+        ),
+        );
+      }),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
         label: Row(
