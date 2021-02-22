@@ -192,17 +192,60 @@ class _HomeState extends State<Home> {
                                     Icons.delete
                                 ),
                                 onPressed: () {
-                                  List<dynamic> files = pdfsBox.getAt(0);
-                                  files.removeAt(index);
-                                  pdfsBox.putAt(0, files);
+                                  setState(() {
+                                    pdfsBox.getAt(0).removeAt(index);
+                                  });
                                 }
                             ),
-                          ],
-                        )
+                            IconButton(
+                                icon: Icon(
+                                    Icons.edit
+                                ),
+                                onPressed: () {
+                                  BuildContext dialogContext;
+                                  TextEditingController pdfName;
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        dialogContext = context;
+                                        pdfName = TextEditingController();
+                                        return Dialog(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text("Rename"),
+                                              TextField(
+                                                controller: pdfName,
+                                              ),
+                                              FlatButton(
+                                                child: Text("Save"),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    List<String> path = pdfsBox
+                                                        .getAt(0)[index].split(
+                                                        '/');
+                                                    path.last =
+                                                        pdfName.text + ".pdf";
+                                                    pdfsBox.getAt(0)[index] =
+                                                        path.join('/');
+                                                    print(pdfsBox.getAt(0)[index]);
+                                                  });
+
+                                                  Navigator.pop(dialogContext);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      }
+                                  );
+                                },
+                        ),
                       ],
                     ),
+                ],
                   ),
                 ),
+              ),
               );
             },
           );
