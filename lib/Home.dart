@@ -6,11 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
-<<<<<<< HEAD
-import 'package:pdf_render/pdf_render.dart';
-=======
 import 'package:share/share.dart';
->>>>>>> 5aacfb4cf50cfddd9710dbaa98760a7ab87935d4
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Imageview.dart';
 import 'Providers/ImageList.dart';
@@ -19,8 +15,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
 import 'About.dart';
 import 'package:quick_actions/quick_actions.dart';
-import 'package:pdf_render/pdf_render_widgets2.dart';
-import 'package:intl/intl.dart';
 
 enum IconOptions { Share }
 
@@ -66,7 +60,6 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-
     super.initState();
     // setSharedPreferences().then((value) {
     //   savedPdfs = value;
@@ -137,58 +130,6 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-<<<<<<< HEAD
-      body: ListView.builder(itemBuilder: (context,index) {
-        return Container(
-            width: double.infinity,
-            child:ListTile(
-          title: Text("Hello"),
-          subtitle: Column(
-                    children: <Widget>[
-                      Text(DateFormat("dd/MM/yyyy").format(File.fromRawPath(Hive.box("pdfs").getAt(0)[index]).lastModifiedSync())),
-                      Row(
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(Icons.share),
-                            onPressed: (){
-
-                          },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.picture_as_pdf),
-                            onPressed: (){
-
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.comment),
-                            onPressed: (){
-
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(Icons.more_vert),
-                            onPressed: (){
-
-                            },
-                          ),
-                        ],
-                      ),
-                      ],
-        ),
-          leading: PdfDocumentLoader(
-              assetName: Hive.box("pdfs").getAt(0)[index]
-                  .split("/")
-                  .last,
-              filePath: Hive.box("pdfs").getAt(0)[index],
-              pageNumber: 1,
-              pageBuilder: (context, textureBuilder, pageSize) =>
-                  textureBuilder()
-          ),
-        ),
-        );
-      }),
-=======
       body: WatchBoxBuilder(
         box: Hive.box('pdfs'),
         builder: (context, pdfsBox) {
@@ -250,7 +191,11 @@ class _HomeState extends State<Home> {
                                 icon: Icon(
                                     Icons.delete
                                 ),
-                                onPressed: () {}
+                                onPressed: () {
+                                  List<dynamic> files = pdfsBox.getAt(0);
+                                  files.removeAt(index);
+                                  pdfsBox.putAt(0, files);
+                                }
                             ),
                           ],
                         )
@@ -263,7 +208,6 @@ class _HomeState extends State<Home> {
           );
         },
       ),
->>>>>>> 5aacfb4cf50cfddd9710dbaa98760a7ab87935d4
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {},
         label: Row(
