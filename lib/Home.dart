@@ -205,11 +205,16 @@ class _HomeState extends State<Home> {
 
                                 List<dynamic> files = Hive.box('starred')
                                     .getAt(0);
-                                files.add('$path');
-                                Hive.box('starred').putAt(0, files);
-                                print(
-                                    "STARRED : ${Hive.box('starred').getAt(
-                                        0)}");
+                                if (files.contains(path)) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Already a Starred document')));
+                                  print('Already fav');
+                                } else {
+                                  files.add('$path');
+                                  Hive.box('starred').putAt(0, files);
+                                  print(
+                                      "STARRED : ${Hive.box('starred').getAt(
+                                          0)}");
+                                }
                               },
                             )
                           ],
