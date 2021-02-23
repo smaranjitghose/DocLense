@@ -197,7 +197,20 @@ class _HomeState extends State<Home> {
                                 icon: Icon(
                                   Icons.star_border
                                 ),
-                                onPressed: null,
+                              onPressed: () async {
+                                File file = await File(
+                                    pdfsBox.getAt(0)[index]
+                                );
+                                final path = file.path;
+
+                                List<dynamic> files = Hive.box('starred')
+                                    .getAt(0);
+                                files.add('$path');
+                                Hive.box('starred').putAt(0, files);
+                                print(
+                                    "STARRED : ${Hive.box('starred').getAt(
+                                        0)}");
+                              },
                             )
                           ],
                         )
