@@ -29,10 +29,8 @@
 
 ## App Mock-ups
 
-<img src="assets/appMockups/homeScreen-mainDrawer-settings.png">
-<img src="assets/appMockups/aboutApp-reviewDialogue-cropScreen.png">
-<img src="assets/appMockups/filterScreen-filterView-multiSelectScreen.png">
-<img src="assets/appMockups/pdfNameScreen.png">
+<img src="assets/appMockups/homeScreen-mainDrawer-settings-aboutApp-reviewDialogue.png">
+<img src="assets/appMockups/cropScreen-filterScreen-filterView-multiSelectScreen-pdfNameScreen.png">
 
 ## App Demo
 
