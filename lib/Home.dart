@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:folder_picker/folder_picker.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission/permission.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Imageview.dart';
@@ -13,6 +16,7 @@ import 'Providers/ImageList.dart';
 import 'MainDrawer.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart' as syspaths;
+import 'package:ext_storage/ext_storage.dart';
 import 'About.dart';
 import 'package:quick_actions/quick_actions.dart';
 
@@ -96,6 +100,25 @@ class _HomeState extends State<Home> {
       // ShortcutItem(type: 'setting', localizedTitle: 'Setting', icon: 'setting'),
     ]);
   }
+
+  Future<void> getPermissions() async {
+    final permissions =
+    await Permission.getPermissionsStatus([PermissionName.Storage]);
+    var request = true;
+    switch (permissions[0].permissionStatus) {
+      case PermissionStatus.allow:
+        request = false;
+        break;
+      case PermissionStatus.always:
+        request = false;
+        break;
+      default:
+    }
+    if (request) {
+      await Permission.requestPermissions([PermissionName.Storage]);
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -253,6 +276,38 @@ class _HomeState extends State<Home> {
                                   );
                                 },
                         ),
+                            IconButton(
+                                icon: Icon(
+                                    Icons.drive_file_move,
+                                ),
+                                onPressed: () async {
+                                  String oldPath = pdfsBox.getAt(0)[index];
+                                  String newPath = null;
+                                  final String path = await ExtStorage.getExternalStorageDirectory();
+                                  Directory directory = Directory(path);
+                                  Navigator.of(context)
+                                      .push<FolderPickerPage>(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return FolderPickerPage(
+                                            rootDirectory: directory,
+                                            action: (BuildContext context,
+                                                Directory folder) async {
+                                                newPath = folder.path + '/' + pdfsBox.getAt(0)[index].split('/').last;
+                                              print(newPath);
+                                                if(newPath!=null) {
+                                                  print("Newpath: " + newPath);
+                                                  File sourceFile = File(oldPath);
+                                                  await sourceFile.copy(newPath);
+                                                  await sourceFile.delete();
+                                                  setState(() {
+                                                    pdfsBox.getAt(0)[index] = newPath;
+                                                  });
+                                                }
+                                                Navigator.of(context).pop();
+                                            });
+                                      }));
+                                }
+                            ),
                       ],
                     ),
                 ],
