@@ -97,6 +97,21 @@ class _HomeState extends State<Home> {
     ]);
   }
 
+  bool isStarred(pdfsBox, index) {
+    File file = File(
+        pdfsBox.getAt(0)[index]
+    );
+    final path = file.path;
+
+    List<dynamic> files = Hive.box('starred')
+        .getAt(0);
+    if(files.contains(path)){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 //    return ChangeNotifierProvider.value(
@@ -195,9 +210,10 @@ class _HomeState extends State<Home> {
                             ),
                             IconButton(
                                 icon: Icon(
-                                  Icons.star_border
+                                  isStarred(pdfsBox, index) ? Icons.star : Icons.star_border,
                                 ),
                               onPressed: () async {
+                                  print(isStarred(pdfsBox, index));
                                 File file = await File(
                                     pdfsBox.getAt(0)[index]
                                 );
@@ -216,6 +232,9 @@ class _HomeState extends State<Home> {
                                           0)}");
                                   Scaffold.of(context).showSnackBar(SnackBar(content: Text('Added to starred documents!')));
                                 }
+                                setState(() {
+
+                                });
                               },
                             )
                           ],
