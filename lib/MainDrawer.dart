@@ -1,8 +1,8 @@
+import 'package:doclense/StarredDocuments.dart';
 import 'package:doclense/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'Home.dart';
 import 'About.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -66,15 +66,15 @@ class MainDrawer extends StatelessWidget {
             ListTile(
               onTap: () {
                 Navigator.of(context).pop();
-                // Navigator.push(
-                //   context,
-                //     PageRouteBuilder(
-                //       pageBuilder: (c, a1, a2) => Starred(),
-                //       transitionsBuilder: (c, anim, a2, child) =>
-                //           FadeTransition(opacity: anim, child: child),
-                //       // transitionDuration: Duration(milliseconds: 2000),
-                //     )
-                // );
+                Navigator.push(
+                  context,
+                    PageRouteBuilder(
+                      pageBuilder: (c, a1, a2) => Starred(),
+                      transitionsBuilder: (c, anim, a2, child) =>
+                          FadeTransition(opacity: anim, child: child),
+                      // transitionDuration: Duration(milliseconds: 2000),
+                    )
+                );
               },
               leading: Icon(Icons.stars_rounded),
               title: Text(

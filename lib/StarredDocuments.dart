@@ -97,12 +97,6 @@ class _StarredState extends State<Starred> {
                             ),
                             IconButton(
                                 icon: Icon(
-                                    Icons.delete
-                                ),
-                                onPressed: () {}
-                            ),
-                            IconButton(
-                                icon: Icon(
                                     Icons.star
                                 ),
                                 onPressed: () async {
