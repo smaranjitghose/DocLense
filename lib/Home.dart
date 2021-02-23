@@ -206,7 +206,7 @@ class _HomeState extends State<Home> {
                                 List<dynamic> files = Hive.box('starred')
                                     .getAt(0);
                                 if (files.contains(path)) {
-                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Already a Starred document')));
+                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Already a starred document')));
                                   print('Already fav');
                                 } else {
                                   files.add('$path');
@@ -214,6 +214,7 @@ class _HomeState extends State<Home> {
                                   print(
                                       "STARRED : ${Hive.box('starred').getAt(
                                           0)}");
+                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Added to starred documents!')));
                                 }
                               },
                             )
