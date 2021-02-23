@@ -64,7 +64,18 @@ class MainDrawer extends StatelessWidget {
                   "Home",
                   style: TextStyle(fontSize: 18),)),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pop();
+                // Navigator.push(
+                //   context,
+                //     PageRouteBuilder(
+                //       pageBuilder: (c, a1, a2) => Starred(),
+                //       transitionsBuilder: (c, anim, a2, child) =>
+                //           FadeTransition(opacity: anim, child: child),
+                //       // transitionDuration: Duration(milliseconds: 2000),
+                //     )
+                // );
+              },
               leading: Icon(Icons.stars_rounded),
               title: Text(
                 "Starred Documents",

@@ -21,6 +21,7 @@ Future<void> main() async {
   Hive.init(directory.path);
 
   await Hive.openBox('pdfs');
+  await Hive.openBox('starred');
   Hive.registerAdapter(UserPreferencesAdapter());
   final res = await Hive.openBox('preferences');
 
@@ -39,6 +40,14 @@ Future<void> main() async {
     final r = res.getAt(0);
   } on RangeError catch (e) {
     final res = await Hive.box('pdfs');
+    final r = res.add([]);
+  }
+
+  try {
+    final res = await Hive.box('starred');
+    final r = res.getAt(0);
+  } on RangeError catch (e) {
+    final res = await Hive.box('starred');
     final r = res.add([]);
   }
 

@@ -193,6 +193,12 @@ class _HomeState extends State<Home> {
                                 ),
                                 onPressed: () {}
                             ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.star_border
+                                ),
+                                onPressed: null,
+                            )
                           ],
                         )
                       ],
