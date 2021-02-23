@@ -257,7 +257,21 @@ class _multiDeleteState extends State<multiDelete> {
 
   getAppBar() {
     return AppBar(
-      // backgroundColor: Colors.blue[600],
+      leading: IconButton(
+        onPressed: () {
+          if(itemList.length != 0){
+            setState(() {
+              widget.imageList.imagelist.removeAt(itemList.length - 1);
+              widget.imageList.imagepath.removeAt(itemList.length - 1);
+              itemList.removeAt(itemList.length - 1);
+            });
+          }
+          Navigator.of(context).pop();
+        },
+        icon: Icon(
+          Icons.arrow_back
+        ),
+      ),
       title: Text(selectedList.length < 1
           ? "Documents"
           : "${selectedList.length} item selected"),
