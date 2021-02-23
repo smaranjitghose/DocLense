@@ -209,14 +209,25 @@ class _HomeState extends State<Home> {
                                       builder: (BuildContext context) {
                                         dialogContext = context;
                                         pdfName = TextEditingController();
-                                        return Dialog(
-                                          child: Column(
+                                        return Container(
+                                          padding: EdgeInsets.only(
+                                            bottom:250,
+                                          ),
+                                          child:Dialog(
+                                          child:Container(
+                                            padding: EdgeInsets.all(20),
+                                            alignment: Alignment.center,
+                                            child: Column(
                                             children: <Widget>[
-                                              Text("Rename"),
+                                              Text(
+                                                "Rename",
+                                              ),
                                               TextField(
                                                 controller: pdfName,
                                               ),
-                                              FlatButton(
+                                              RaisedButton(
+                                                color: Colors.blue,
+                                                textColor: Colors.white,
                                                 child: Text("Save"),
                                                 onPressed: () {
                                                   setState(() {
@@ -235,6 +246,8 @@ class _HomeState extends State<Home> {
                                               ),
                                             ],
                                           ),
+                                        ),
+                                        ),
                                         );
                                       }
                                   );
