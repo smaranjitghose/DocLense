@@ -197,20 +197,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.5.0"
-  device_info:
-    dependency: transitive
-    description:
-      name: device_info
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-  device_info_platform_interface:
-    dependency: transitive
-    description:
-      name: device_info_platform_interface
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
   dots_indicator:
     dependency: transitive
     description:
@@ -583,13 +569,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.13.0"
-  pdf_render:
-    dependency: "direct main"
-    description:
-      name: pdf_render
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.69.0"
   pdf_viewer_plugin:
     dependency: "direct main"
     description:

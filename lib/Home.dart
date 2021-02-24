@@ -101,25 +101,6 @@ class _HomeState extends State<Home> {
     ]);
   }
 
-  Future<void> getPermissions() async {
-    final permissions =
-    await Permission.getPermissionsStatus([PermissionName.Storage]);
-    var request = true;
-    switch (permissions[0].permissionStatus) {
-      case PermissionStatus.allow:
-        request = false;
-        break;
-      case PermissionStatus.always:
-        request = false;
-        break;
-      default:
-    }
-    if (request) {
-      await Permission.requestPermissions([PermissionName.Storage]);
-    }
-  }
-
-
   @override
   Widget build(BuildContext context) {
 //    return ChangeNotifierProvider.value(

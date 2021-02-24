@@ -38,7 +38,6 @@ dependencies:
   quick_actions: ^0.4.0+10
   share: ^0.6.5+4
   source_span: ^1.7.0
-  pdf_render: ^0.69.0
   intl: ^0.15.7
   storage_path: ^0.2.0
   permission: ^0.1.7
