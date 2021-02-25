@@ -61,10 +61,11 @@ class SearchService extends SearchDelegate<String> {
     int remove = (3*pdfNames.length/16).floor();
 
     pdfNames.removeRange(files.length, pdfNames.length);
+    pdfNames = pdfNames.map((element) => element.toLowerCase()).toList();
     recentFiles = pdfNames.sublist(pdfNames.length - remove);
 
     final suggestedFiles = query.isEmpty ? recentFiles : pdfNames.where(
-            (p) => p.startsWith(query)).toList();
+            (p) => p.startsWith(query.toLowerCase())).toList();
 
     // print(files.length);
     // print(pdfNames);
@@ -115,13 +116,14 @@ class SearchService extends SearchDelegate<String> {
     int remove = (3 * pdfNames.length / 16).floor();
 
     pdfNames.removeRange(files.length, pdfNames.length);
+    pdfNames = pdfNames.map((element) => element.toLowerCase()).toList();
     recentFiles = pdfNames.sublist(pdfNames.length - remove);
 
     final suggestedFiles = query.isEmpty ? recentFiles : pdfNames.where(
-            (p) => p.startsWith(query)).toList();
+            (p) => p.startsWith(query.toLowerCase())).toList();
 
     // print(files.length);
-    // print(pdfNames);
+    print(pdfNames);
     // print(suggestedFiles);
 
     return ListView.builder(
