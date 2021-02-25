@@ -39,7 +39,57 @@ class SearchService extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    // OpenFile.open(Hive.box('pdfs').getAt(0)[index]);
+    for (int i = 0; i < files.length; i++) {
+      pdfNames.add(Hive.box('pdfs').getAt(0)[i]
+          .split('/')
+          .last);
+    }
 
+    int remove = (3*pdfNames.length/16).floor();
+
+    pdfNames.removeRange(files.length, pdfNames.length);
+    recentFiles = pdfNames.sublist(pdfNames.length - remove);
+
+    final suggestedFiles = query.isEmpty ? recentFiles : pdfNames.where(
+            (p) => p.startsWith(query)).toList();
+
+    // print(files.length);
+    // print(pdfNames);
+    // print(suggestedFiles);
+
+    return ListView.builder(
+      itemBuilder: (context, index) =>
+          ListTile(
+            onTap: () {
+              String fileLocation = '${Hive.box('pdfs').getAt(0).where((
+                  element) =>
+              element
+                  .toString()
+                  .split('/')
+                  .last == suggestedFiles[index])}';
+              print(fileLocation);
+
+              String fileLoc = fileLocation
+                  .split('(')
+                  .last
+                  .split(')')
+                  .first;
+
+              // query = fileLoc.split('/').last;
+
+
+              OpenFile.open(fileLoc);
+            },
+            leading: Icon(
+                Icons.picture_as_pdf_rounded
+            ),
+            title: Text(
+                suggestedFiles[index]
+            ),
+          ),
+      itemCount: suggestedFiles.length,
+    );
   }
 
   @override
