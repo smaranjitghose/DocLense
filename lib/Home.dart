@@ -195,7 +195,9 @@ class _HomeState extends State<Home> {
                                 icon: Icon(
                                     Icons.delete
                                 ),
-                                onPressed: () {
+                                onPressed: () async {
+                                  File sourceFile = File(pdfsBox.getAt(0)[index]);
+                                  sourceFile.delete();
                                   setState(() {
                                     pdfsBox.getAt(0).removeAt(index);
                                   });
@@ -214,11 +216,14 @@ class _HomeState extends State<Home> {
                                         dialogContext = context;
                                         pdfName = TextEditingController();
                                         return Container(
-                                          padding: EdgeInsets.only(
+                                          /*padding: EdgeInsets.only(
                                             bottom:250,
-                                          ),
+                                          ),*/
+                                          padding: MediaQuery.of(context).padding,
+
                                           child:Dialog(
-                                          child:Container(
+                                          child:Container
+                                            (
                                             padding: EdgeInsets.all(20),
                                             alignment: Alignment.center,
                                             child: Column(
@@ -233,7 +238,8 @@ class _HomeState extends State<Home> {
                                                 color: Colors.blue,
                                                 textColor: Colors.white,
                                                 child: Text("Save"),
-                                                onPressed: () {
+                                                onPressed: () async{
+                                                  File sourceFile = File(pdfsBox.getAt(0)[index]);
                                                   setState(() {
                                                     List<String> path = pdfsBox
                                                         .getAt(0)[index].split(
@@ -242,9 +248,8 @@ class _HomeState extends State<Home> {
                                                         pdfName.text + ".pdf";
                                                     pdfsBox.getAt(0)[index] =
                                                         path.join('/');
-                                                    print(pdfsBox.getAt(0)[index]);
                                                   });
-
+                                                  await sourceFile.renameSync(pdfsBox.getAt(0)[index]);
                                                   Navigator.pop(dialogContext);
                                                 },
                                               ),
