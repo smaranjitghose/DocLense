@@ -8,8 +8,10 @@ class SearchService extends SearchDelegate<String> {
   List<dynamic> files = Hive.box('pdfs').getAt(0);
 
   List<dynamic> pdfNames = [];
+  // List<dynamic> pdfNames = [];
 
   List<dynamic> recentFiles = [];
+
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -34,7 +36,6 @@ class SearchService extends SearchDelegate<String> {
           close(context, null);
         }
     );
-  }
   }
 
   @override
@@ -100,7 +101,7 @@ class SearchService extends SearchDelegate<String> {
           .last);
     }
 
-    int remove = (3*pdfNames.length/16).floor();
+    int remove = (3 * pdfNames.length / 16).floor();
 
     pdfNames.removeRange(files.length, pdfNames.length);
     recentFiles = pdfNames.sublist(pdfNames.length - remove);
