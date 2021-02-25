@@ -8,9 +8,20 @@ class SearchService extends SearchDelegate<String> {
   List<dynamic> files = Hive.box('pdfs').getAt(0);
 
   List<dynamic> pdfNames = [];
-  // List<dynamic> pdfNames = [];
 
   List<dynamic> recentFiles = [];
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    // assert(context != null);
+    final ThemeData theme = Theme.of(context);
+    // assert(theme != null);
+    return theme.copyWith(
+      primaryColor: theme.primaryColor,
+      primaryIconTheme: theme.primaryIconTheme,
+      primaryColorBrightness: Brightness.dark,
+      primaryTextTheme: theme.primaryTextTheme,);
+  }
 
 
   @override
