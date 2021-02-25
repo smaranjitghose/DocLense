@@ -13,7 +13,14 @@ class SearchService extends SearchDelegate<String> {
 
   @override
   List<Widget> buildActions(BuildContext context) {
-
+    return [
+      IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            query = '';
+          }
+      )
+    ];
   }
 
   @override
