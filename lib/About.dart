@@ -61,3 +61,5 @@ class About extends StatelessWidget {
     );
   }
 }
+
+//TODO: Create a Dart File containing several Text widgets so that we can make changes to paras or texts from  a single place.

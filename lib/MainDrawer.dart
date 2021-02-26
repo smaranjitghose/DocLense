@@ -73,9 +73,8 @@ class MainDrawer extends StatelessWidget {
           ListTile(
             onTap: () {
               Share.share(
-                'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
-                subject: "DocLense"
-              );
+                  'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
+                  subject: "DocLense");
             },
             leading: Icon(Icons.share),
             title: Text(
@@ -97,7 +96,11 @@ class MainDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen(),));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SettingsScreen(),
+                  ));
             },
             leading: Icon(Icons.settings),
             title: Text(
@@ -110,3 +113,54 @@ class MainDrawer extends StatelessWidget {
     );
   }
 }
+
+/*class drawerShareItem extends StatelessWidget {
+  String shareCaption, shareTitle;
+
+  drawerShareItem({
+    this.shareCaption,
+    this.shareTitle,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () {
+        Share.share(shareCaption, subject: "DocLense");
+      },
+      leading: Icon(Icons.share),
+      title: Text(
+        shareTitle,
+        style: TextStyle(fontSize: 18),
+      ),
+    );
+  }
+}
+
+class drawerNavItem extends StatelessWidget {
+  Widget navigateTo;
+  IconData screenIcon;
+  String screenName;
+
+  drawerNavItem(
+      {this.navigateTo, @required this.screenIcon, @required this.screenName});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () {
+        Navigator.of(context).pop();
+
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => navigateTo));
+      },
+      leading: Icon(screenIcon),
+      title: Text(
+        screenName,
+        style: TextStyle(fontSize: 18),
+      ),
+    );
+  }
+}
+*/
+// TODO: Refactor the above listtile widgets to a custom widget with the required properties.

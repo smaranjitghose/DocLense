@@ -18,7 +18,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  ImageList images = new ImageList();
+  ImageList images = ImageList();
   QuickActions quickActions = QuickActions();
 
   _navigate(Widget screen) {

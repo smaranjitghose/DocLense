@@ -5,7 +5,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'dart:ui';
 
 void main() {
-  runApp(new MaterialApp(
+  runApp(MaterialApp(
     home: MyApp(),
   ));
 }
