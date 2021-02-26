@@ -1,7 +1,13 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:open_file/open_file.dart';
+import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Imageview.dart';
 import 'Providers/ImageList.dart';
 import 'MainDrawer.dart';
@@ -18,7 +24,17 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  ImageList images = ImageList();
+
+  Future setSharedPreferences() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if(sharedPreferences.getStringList('savedFiles') == null) {
+      sharedPreferences.setStringList('savedFiles', []);
+      return [];
+    } else {
+      return sharedPreferences.getStringList('savedFiles');
+    }
+  }
+ ImageList images = new ImageList();
   QuickActions quickActions = QuickActions();
 
   _navigate(Widget screen) {
@@ -40,19 +56,25 @@ class _HomeState extends State<Home> {
         MaterialPageRoute(builder: (context) => Imageview(tmpFile, images)));
   }
 
+  // List<String> savedPdfs;
+
   @override
   void initState() {
     super.initState();
+    // setSharedPreferences().then((value) {
+    //   savedPdfs = value;
+    //   print('Saved : $savedPdfs');
+    // });
     quickActions.initialize((String shortcutType) {
       switch (shortcutType) {
         case 'about':
           return _navigate(About());
 
-        //! un comment the below line once the starred document and setting screen is created
-        // case 'starredDocument':
-        //   return _navigate(//TODO: enter starred document screen name);
-        //   case 'setting':
-        //   return _navigate(//TODO: enter setting screen name);
+      //! un comment the below line once the starred document and setting screen is created
+      // case 'starredDocument':
+      //   return _navigate(//TODO: enter starred document screen name);
+      //   case 'setting':
+      //   return _navigate(//TODO: enter setting screen name);
 
         default:
           return MaterialPageRoute(builder: (_) {
@@ -80,14 +102,13 @@ class _HomeState extends State<Home> {
 //    return ChangeNotifierProvider.value(
 //      value:imagelist;
     return Scaffold(
-      backgroundColor: Colors.blueGrey[100],
       drawer: MainDrawer(),
       appBar: AppBar(
-        backgroundColor: Colors.blue[600],
         title: Center(
           child: Text(
             'DocLense',
-            style: TextStyle(color: Colors.white, fontSize: 24),
+            style: TextStyle(
+                fontSize: 24),
           ),
         ),
         actions: <Widget>[
@@ -96,23 +117,102 @@ class _HomeState extends State<Home> {
             onPressed: () async {},
           ),
           IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              setState(() {
+
+              });
+            },
+          ),
+          IconButton(
             icon: Icon(Icons.more_vert),
             onPressed: () async {},
           ),
         ],
       ),
+      body: WatchBoxBuilder(
+        box: Hive.box('pdfs'),
+        builder: (context, pdfsBox) {
+          if (pdfsBox
+              .getAt(0)
+              .length == 0) {
+            return Center(
+              child: Text(
+                  "No PDFs Scanned Yet !! "
+              ),
+            );
+          }
+          return ListView.builder(
+            itemCount: pdfsBox
+                .getAt(0)
+                .length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  OpenFile.open(pdfsBox.getAt(0)[index]);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Card(
+                    color: Colors.grey,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          children: [
+                            Text(
+                                pdfsBox.getAt(0)[index]
+                                    .split('/')
+                                    .last
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            IconButton(
+                                icon: Icon(
+                                    Icons.share
+                                ),
+                                onPressed: () async {
+
+                                  File file = await File(
+                                      pdfsBox.getAt(0)[index]
+                                  );
+
+                                  final path = file.path;
+
+                                  print(path);
+
+                                  Share.shareFiles(
+                                      ['$path'], text: 'Your PDF!');
+                                }
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                    Icons.delete
+                                ),
+                                onPressed: () {}
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        },
+      ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Colors.blue[600],
         onPressed: () {},
         label: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             IconButton(
               iconSize: 30,
-              color: Colors.blue[600],
               icon: Icon(
                 Icons.camera_alt,
-                color: Colors.white,
               ),
               onPressed: () {
                 getImage(ImageSource.camera);
@@ -122,7 +222,6 @@ class _HomeState extends State<Home> {
               width: 10,
             ),
             Container(
-              color: Colors.white.withOpacity(0.2),
               width: 2,
               height: 15,
             ),
@@ -131,10 +230,8 @@ class _HomeState extends State<Home> {
             ),
             IconButton(
               iconSize: 30,
-              color: Colors.blue[600],
               icon: Icon(
                 Icons.image,
-                color: Colors.white,
               ),
               onPressed: () {
                 getImage(ImageSource.gallery);

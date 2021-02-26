@@ -2,8 +2,10 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
+import 'package:hive/hive.dart';
 import 'package:pdf/pdf.dart';
 import 'package:permission/permission.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'Providers/ImageList.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -59,6 +61,12 @@ class _PDFConversion extends State<PDFConversion> {
     //document.pdfPath = path;
     //Open the PDF document in mobile
     OpenFile.open('$path' + '/${name}' + '.pdf');
+
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    List<dynamic> files = Hive.box('pdfs').getAt(0);
+    files.add('$path' + '/${name}' + '.pdf');
+    Hive.box('pdfs').putAt(0, files);
+    print("PDFS : ${Hive.box('pdfs').getAt(0)}");
     //Directory documentDirectory = await getApplicationDocumentsDirectory();
 
     //String documentPath = documentDirectory.path;
@@ -75,35 +83,35 @@ class _PDFConversion extends State<PDFConversion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.blue[600],
         title: Text(
           'Name Your PDF',
-          style: TextStyle(color: Colors.white, fontSize: 22),
+          style: TextStyle(fontSize: 22),
         ),
         actions: [
           GestureDetector(
             child: Center(
               child: Text(
                 "Choose Directory to save",
+                style: TextStyle(color: Colors.white),
               ),
             ),
             onTap: () async {
               await getPermissions();
               await getStorage();
+              print("External : $externalDirectory");
               Navigator.of(context)
                   .push<FolderPickerPage>(MaterialPageRoute(
-                      builder: (BuildContext context) {
-                return FolderPickerPage(
-                    rootDirectory: externalDirectory,
-                    action: (BuildContext context,
-                        Directory folder) async {
-                      print("Picked directory $folder");
-                      setState(() => pickedDirectory = folder);
-                      Navigator.of(context).pop();
-                    });
-              }));
+                  builder: (BuildContext context) {
+                    return FolderPickerPage(
+                        rootDirectory: externalDirectory,
+                        action: (BuildContext context,
+                            Directory folder) async {
+                          print("Picked directory $folder");
+                          setState(() => pickedDirectory = folder);
+                          Navigator.of(context).pop();
+                        });
+                  }));
             },
           )
         ],
@@ -112,10 +120,9 @@ class _PDFConversion extends State<PDFConversion> {
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Container(
-            color: Colors.blueGrey[100],
             child:
-                // The first text field is focused on as soon as the app starts.
-                Padding(
+            // The first text field is focused on as soon as the app starts.
+            Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
                 controller: myController,
@@ -125,25 +132,20 @@ class _PDFConversion extends State<PDFConversion> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue[600],
-        child: IconButton(
-          iconSize: 40,
-          onPressed: () {
-            // if (name == null) {
-            //   AlertDialog(
-            //       backgroundColor: Colors.blueGrey[800],
-            //       content: Text(
-            //         "Enter PDF Name",
-            //         style: TextStyle(color: Colors.white),
-            //       ));
-            // } else
-            _pushSaved();
-          },
-          color: Colors.blue[600],
-          icon: Icon(
+        onPressed: () {
+          // if (name == null) {
+          //   AlertDialog(
+          //       backgroundColor: Colors.blueGrey[800],
+          //       content: Text(
+          //         "Enter PDF Name",
+          //         style: TextStyle(color: Colors.white),
+          //       ));
+          // } else
+          _pushSaved();
+        },
+        child: Icon(
             Icons.arrow_forward,
-            color: Colors.teal,
-          ),
+            size: 40
         ),
       ),
     );
@@ -175,24 +177,26 @@ class _PDFConversion extends State<PDFConversion> {
   Future<void> _pushSaved() async {
     name = Text(myController.text).data;
 
-    
+
     //document.name = name;
     writeOnPdf();
     await savePdf();
     //Documents.add(document);
     Directory documentDirectory = await getApplicationDocumentsDirectory();
-    
-    if (pickedDirectory!=null) documentDirectory = pickedDirectory;
+
+    if (pickedDirectory != null) documentDirectory = pickedDirectory;
 
     String documentPath = documentDirectory.path;
     //document.documentPath = documentPath;
     String fullPath = "$documentPath" + "/${name}" + ".pdf";
     print(fullPath);
 
+
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => PdfPreviewScreen(
+            builder: (context) =>
+                PdfPreviewScreen(
                   path: fullPath,
                 )));
   }

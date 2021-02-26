@@ -1,62 +1,126 @@
 import 'package:doclense/MainDrawer.dart';
+import 'package:doclense/Providers/ThemeProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
     return Scaffold(
-      
-      backgroundColor: Colors.white,
       drawer: MainDrawer(),
       appBar: AppBar(
         title: Text(
           "About App",
-          style: TextStyle(fontSize: 24, color: Colors.white),
+          style: TextStyle(fontSize: 24),
         ),
-     
-      backgroundColor: Colors.black,
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          
-          Image.asset('assets/images/logos.png',width: 200,height: 100,),
-          
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 40, 10, 10),
-            child: Text(
-              "DocLense is the one place for all your documents. \nYou can now click, upload, crop, rotate and do so much more!\n\nSo whether it is your college assignment or the office document you want to digitalize, stop worrying and just use DocLense!",
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              height: MediaQuery.of(context).size.height/1.85,
+              // width: MediaQuery.of(context).size.width,
+              child: Stack(
+                  children: [
+                    themeChange.darkTheme ? Positioned(
+                      top: 0,
+                      child: SvgPicture.asset(
+                        'assets/aboutPage/curve.svg',
+                        // 'assets/aboutPage/bg-wave.svg'
+                        // width: MediaQuery.of(context).size.width,
+                        // height: 50,
+                      ),
+                    ) :
+                    Positioned(
+                      top: 0,
+                      child: SvgPicture.asset(
+                        'assets/aboutPage/curvelight.svg',
+                        // 'assets/aboutPage/bg-wave.svg'
+                        // width: MediaQuery.of(context).size.width,
+                        // height: 50,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
+                      child: themeChange.darkTheme ? SvgPicture.asset(
+                        'assets/doclensewhite.svg',
+                      ) :
+                      SvgPicture.asset(
+                        'assets/images/doclenselight.svg',
+                        // width: 300,
+                        // height: 100,
+                      ),),
+                        Positioned(
+                          bottom: 0,
+                            // right: MediaQuery.of(context).size.width/9,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: Text(
+                                "DocLense is the one place for all your documents!\n\nYou can now click, upload, crop, rotate and do so\nmuch more!\n\nSo whether it is your college assignment or the\noffice document you want to digitalize, stop\nworrying and just use",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                        ),
+
+                  ]
+                ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              'Doclense!',
               style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
+                fontSize: 30,
+                fontWeight: FontWeight.bold
               ),
             ),
-          ),
-          SizedBox(
-            height: 200,
-          ),
-          Row(
-            
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              
-              
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                child: Text(
-                  "Made with ❤ by Open Source",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+            SizedBox(
+              height: MediaQuery.of(context).size.height/20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                SvgPicture.asset(
+                    'assets/aboutPage/undraw_At_work_re_qotl.svg',
+                  height: 100,
+                ),
+                SvgPicture.asset(
+                    'assets/aboutPage/undraw_Upload_re_pasx.svg',
+                  height: 100,
+                )
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height/13,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                  child: Text(
+                    "Made with ❤ by Open Source",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )
-        ],
+              ],
+            )
+
+          ],
+        ),
       ),
     );
   }
