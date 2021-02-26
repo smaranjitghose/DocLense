@@ -277,11 +277,10 @@ class _multiDeleteState extends State<multiDelete> {
         IconButton(
             icon: Icon(Icons.picture_as_pdf),
             onPressed: () {
-              ImageList finalImageList = widget.imageList;
               Navigator.push(
                   context,
                   PageRouteBuilder(
-                    pageBuilder: (c, a1, a2) => PDFConversion(finalImageList),
+                    pageBuilder: (c, a1, a2) => PDFConversion(widget.imageList),
                     transitionsBuilder: (c, anim, a2, child) =>
                         FadeTransition(opacity: anim, child: child),
                     // transitionDuration: Duration(milliseconds: 2000),
