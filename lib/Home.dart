@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:doclense/Services/SearchService.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
@@ -133,7 +134,9 @@ class _HomeState extends State<Home> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: () async {},
+            onPressed: () {
+              showSearch(context: context, delegate: SearchService());
+            },
           ),
           IconButton(
             icon: Icon(Icons.refresh),
