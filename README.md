@@ -27,18 +27,17 @@
 - Apply different types of filter
 - Download/Export in .pdf
 
+## App Screens
+
+<p float="left">
+  <img src="assets/appMockups/FirstFourScreens.png" width="400" />
+  <img src="assets/appMockups/RestFourScreens.png" width="400" /> 
+</p>
+
 ## App Mock-ups
 
-<img src="assets/appMockups/homeScreen.png">
-<img src="assets/appMockups/mainDrawer.png">
-<img src="assets/appMockups/settings.png">
-<img src="assets/appMockups/aboutApp.png">
-<img src="assets/appMockups/reviewDialogue.png">
-<img src="assets/appMockups/cropScreen.png">
-<img src="assets/appMockups/filterScreen.png">
-<img src="assets/appMockups/filterView.png">
-<img src="assets/appMockups/multiSelectScreen.png">
-<img src="assets/appMockups/pdfNameScreen.png">
+<img src="assets/appMockups/homeScreen-mainDrawer-settings-aboutApp-reviewDialogue.png">
+<img src="assets/appMockups/cropScreen-filterScreen-filterView-multiSelectScreen-pdfNameScreen.png">
 
 ## App Demo
 

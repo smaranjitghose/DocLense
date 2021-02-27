@@ -69,6 +69,12 @@ class _PDFConversion extends State<PDFConversion> {
     print("PDFS : ${Hive.box('pdfs').getAt(0)}");
     //Directory documentDirectory = await getApplicationDocumentsDirectory();
 
+    // Clearing the image list once the PDF is created and saved
+    for (int i = 0; i < widget.list.imagelist.length; i++) {
+      print('i = $i');
+      widget.list.imagelist.removeAt(i);
+      widget.list.imagepath.removeAt(i);
+    }
     //String documentPath = documentDirectory.path;
 
     //File file = File("$documentPath/example.pdf");
@@ -141,6 +147,7 @@ class _PDFConversion extends State<PDFConversion> {
           //         style: TextStyle(color: Colors.white),
           //       ));
           // } else
+          FocusScope.of(context).unfocus();
           _pushSaved();
         },
         child: Icon(

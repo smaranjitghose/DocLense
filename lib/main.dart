@@ -21,6 +21,7 @@ Future<void> main() async {
   Hive.init(directory.path);
 
   await Hive.openBox('pdfs');
+  await Hive.openBox('starred');
   Hive.registerAdapter(UserPreferencesAdapter());
   final res = await Hive.openBox('preferences');
 
@@ -39,6 +40,14 @@ Future<void> main() async {
     final r = res.getAt(0);
   } on RangeError catch (e) {
     final res = await Hive.box('pdfs');
+    final r = res.add([]);
+  }
+
+  try {
+    final res = await Hive.box('starred');
+    final r = res.getAt(0);
+  } on RangeError catch (e) {
+    final res = await Hive.box('starred');
     final r = res.add([]);
   }
 
@@ -144,9 +153,12 @@ class _MyAppState extends State<MyApp> {
                                       ),
                                     ),
                                     image: Align(
-                                      child: Image.asset(
-                                          'assets/images/logo.png',
-                                          width: 350.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                                        child: SvgPicture.asset(
+                                            'assets/images/doclenselight.svg',
+                                            width: 350.0),
+                                      ),
                                       alignment: Alignment.bottomCenter,
                                     )
                                 ),
@@ -173,16 +185,22 @@ class _MyAppState extends State<MyApp> {
                               ],
                               onDone: () {
                                 setFirstTime();
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => Home()
+                                Navigator.pushReplacement(context, PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) => Home(),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(opacity: anim, child: child),
+                                  // transitionDuration: Duration(milliseconds: 1000),
                                 ));
                               },
                               showSkipButton: true,
                               skip: Text("Skip"),
                               onSkip: () {
                                 setFirstTime();
-                                Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) => Home()
+                                Navigator.pushReplacement(context, PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) => Home(),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(opacity: anim, child: child),
+                                  // transitionDuration: Duration(milliseconds: 1000),
                                 ));
                               },
                               done: const Text('Done', style: TextStyle(
