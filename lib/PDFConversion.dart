@@ -147,6 +147,7 @@ class _PDFConversion extends State<PDFConversion> {
           //         style: TextStyle(color: Colors.white),
           //       ));
           // } else
+          FocusScope.of(context).unfocus();
           _pushSaved();
         },
         child: Icon(

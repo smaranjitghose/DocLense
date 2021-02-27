@@ -97,6 +97,21 @@ class _HomeState extends State<Home> {
     ]);
   }
 
+  bool isStarred(pdfsBox, index) {
+    File file = File(
+        pdfsBox.getAt(0)[index]
+    );
+    final path = file.path;
+
+    List<dynamic> files = Hive.box('starred')
+        .getAt(0);
+    if(files.contains(path)){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
 //    return ChangeNotifierProvider.value(
@@ -193,6 +208,35 @@ class _HomeState extends State<Home> {
                                 ),
                                 onPressed: () {}
                             ),
+                            IconButton(
+                                icon: Icon(
+                                  isStarred(pdfsBox, index) ? Icons.star : Icons.star_border,
+                                ),
+                              onPressed: () async {
+                                  print(isStarred(pdfsBox, index));
+                                File file = await File(
+                                    pdfsBox.getAt(0)[index]
+                                );
+                                final path = file.path;
+
+                                List<dynamic> files = Hive.box('starred')
+                                    .getAt(0);
+                                if (files.contains(path)) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Already a starred document')));
+                                  print('Already fav');
+                                } else {
+                                  files.add('$path');
+                                  Hive.box('starred').putAt(0, files);
+                                  print(
+                                      "STARRED : ${Hive.box('starred').getAt(
+                                          0)}");
+                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Added to starred documents!')));
+                                }
+                                setState(() {
+
+                                });
+                              },
+                            )
                           ],
                         )
                       ],
