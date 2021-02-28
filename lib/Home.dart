@@ -300,37 +300,38 @@ class _HomeState extends State<Home> {
                                     Icons.edit
                                 ),
                                 onPressed: () {
-                                  BuildContext dialogContext;
                                   TextEditingController pdfName;
                                   showDialog(
                                       context: context,
-                                      builder: (BuildContext context) {
-                                        dialogContext = context;
+                                      builder: (BuildContext dialogContext) {
                                         pdfName = TextEditingController();
-                                        return Container(
-                                          /*padding: EdgeInsets.only(
-                                            bottom:250,
-                                          ),*/
-                                          padding: MediaQuery
-                                              .of(context)
-                                              .padding,
-
-                                          child: Dialog(
-                                            child: Container
-                                              (
-                                              padding: EdgeInsets.all(20),
-                                              alignment: Alignment.center,
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Text(
-                                                    "Rename",
-                                                  ),
-                                                  TextField(
-                                                    controller: pdfName,
+                                        return AlertDialog(
+                                          title: Text(
+                                            "Rename",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20
+                                            ),
+                                          ),
+                                          content:
+                                          Container(
+                                            height: MediaQuery
+                                                .of(context)
+                                                .size
+                                                .height / 5,
+                                            child: Column(
+                                                mainAxisAlignment: MainAxisAlignment
+                                                    .center,
+                                                children: [TextField(
+                                                  controller: pdfName,
+                                                ),
+                                                  SizedBox(
+                                                    height: 20,
                                                   ),
                                                   RaisedButton(
-                                                    color: Colors.blue,
-                                                    textColor: Colors.white,
+                                                    // color: Colors.blue,
+                                                    // textColor: Colors.white,
                                                     child: Text("Save"),
                                                     onPressed: () async {
                                                       File sourceFile = File(
@@ -356,8 +357,7 @@ class _HomeState extends State<Home> {
                                                           dialogContext);
                                                     },
                                                   ),
-                                                ],
-                                              ),
+                                                ]
                                             ),
                                           ),
                                         );
