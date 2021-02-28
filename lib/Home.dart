@@ -327,7 +327,16 @@ class _HomeState extends State<Home> {
                                 List<dynamic> files = Hive.box('starred')
                                     .getAt(0);
                                 if (files.contains(path)) {
-                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Already a starred document')));
+                                    for(int i=0; i<files.length;i++){
+                                      if(Hive.box('starred').getAt(0)[i] == path){
+                                        Hive.box('starred').getAt(0).removeAt(i);
+                                        break;
+                                      }
+                                    }
+                                    setState(() {
+
+                                    });
+                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Removed from starred documents')));
                                   print('Already fav');
                                 } else {
                                   files.add('$path');
@@ -346,11 +355,11 @@ class _HomeState extends State<Home> {
                         )
                       ],
                     ),
-                ],
+                // ],
                   ),
                 ),
-              ),
               );
+              // );
             },
           );
         },
