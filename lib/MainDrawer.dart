@@ -1,8 +1,8 @@
+import 'package:doclense/StarredDocuments.dart';
 import 'package:doclense/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'Home.dart';
 import 'About.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -64,24 +64,24 @@ class MainDrawer extends StatelessWidget {
                   "Home",
                   style: TextStyle(fontSize: 18),)),
             ListTile(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.push(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (c, a1, a2) => Starred(),
+                      transitionsBuilder: (c, anim, a2, child) =>
+                          FadeTransition(opacity: anim, child: child),
+                      // transitionDuration: Duration(milliseconds: 2000),
+                    )
+                );
+              },
               leading: Icon(Icons.stars_rounded),
               title: Text(
                 "Starred Documents",
                 style: TextStyle(fontSize: 18),
               ),
             ),
-          ),
-          ListTile(
-            onTap: () {
-              Share.share(
-                  'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
-                  subject: "DocLense");
-            },
-            leading: Icon(Icons.share),
-            title: Text(
-              "Share the App",
-              style: TextStyle(fontSize: 18),
             ListTile(
               onTap: () {
                 Navigator.of(context).pop();
@@ -131,7 +131,10 @@ class MainDrawer extends StatelessWidget {
                             ? Colors.black
                             : Colors
                             .blue,
-                        icon: Image.asset('assets/images/logos.png'),
+                        icon: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          child: SvgPicture.asset('assets/images/doclenselight.svg'),
+                        ),
                         title: "How's your experience with us?",
                         description: "Let us know what you think",
                         onSubmitPressed: (int starRating) {
@@ -147,19 +150,6 @@ class MainDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 18),
               ),
             ),
-          ),
-          ListTile(
-            onTap: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => SettingsScreen(),
-                  ));
-            },
-            leading: Icon(Icons.settings),
-            title: Text(
-              "Settings",
-              style: TextStyle(fontSize: 18),
             Divider(
               color: themeChange.darkTheme ? Colors.white : Colors.black,),
             ListTile(

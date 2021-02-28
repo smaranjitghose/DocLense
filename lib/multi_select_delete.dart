@@ -299,8 +299,6 @@ class _multiDeleteState extends State<multiDelete> {
                         FadeTransition(opacity: anim, child: child),
                     // transitionDuration: Duration(milliseconds: 2000),
                   ));
-              // MaterialPageRoute(
-              //     builder: (context) => PDFConversion(widget.imageList)));
             }),
         IconButton(
             icon: Icon(Icons.home),

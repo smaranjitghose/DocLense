@@ -31,13 +31,14 @@ dependencies:
   open_file: ^2.0.3
   path: ^1.7.0
   path_provider: ^1.6.27
+  ext_storage: ^1.0.3
   pdf: ^1.9.0
   photofilters: ^2.0.1
   provider: ^4.3.3
   quick_actions: ^0.4.0+10
   share: ^0.6.5+4
   source_span: ^1.7.0
-  
+  intl: ^0.15.7
   storage_path: ^0.2.0
   permission: ^0.1.7
   pdf_viewer_plugin: ^1.1.1
