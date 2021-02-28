@@ -213,26 +213,95 @@ class _HomeState extends State<Home> {
                                       Icons.delete
                                   ),
                                   onPressed: () async {
-                                    File sourceFile = File(
-                                        pdfsBox.getAt(0)[index]);
-                                    print(sourceFile.path);
-                                    sourceFile.delete();
-                                    List<dynamic> starredFiles = Hive.box('starred').getAt(0);
-                                    setState(() {
-                                      pdfsBox.getAt(0).removeAt(index);
-                                      if(starredFiles.contains(sourceFile.path)){
-                                        print('yes');
-                                        for(int i=0; i<starredFiles.length;i++){
-                                          if(Hive.box('starred').getAt(0)[i] == sourceFile.path){
-                                            print('yes');
-                                            File starredFile = File(Hive.box('starred').getAt(0)[i]);
-                                            starredFile.delete();
-                                            Hive.box('starred').getAt(0).removeAt(i);
-                                            break;
-                                          }
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext ctx) {
+                                          return AlertDialog(
+                                            backgroundColor: Colors
+                                                .blueGrey[800],
+                                            title: Text(
+                                              "The PDF will be permanently deleted.\nDo you want to proceed?",
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            content: SingleChildScrollView(
+                                              child: ListBody(
+                                                children: <Widget>[
+                                                  GestureDetector(
+                                                    child: Text(
+                                                      "Yes",
+                                                      textAlign: TextAlign
+                                                          .center,
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    onTap: () {
+                                                      File sourceFile = File(
+                                                          pdfsBox.getAt(
+                                                              0)[index]);
+                                                      print(sourceFile.path);
+                                                      sourceFile.delete();
+                                                      List<
+                                                          dynamic> starredFiles = Hive
+                                                          .box('starred').getAt(
+                                                          0);
+                                                      setState(() {
+                                                        pdfsBox.getAt(0)
+                                                            .removeAt(index);
+                                                        if (starredFiles
+                                                            .contains(
+                                                            sourceFile.path)) {
+                                                          print('yes');
+                                                          for (int i = 0; i <
+                                                              starredFiles
+                                                                  .length; i++) {
+                                                            if (Hive.box(
+                                                                'starred')
+                                                                .getAt(0)[i] ==
+                                                                sourceFile
+                                                                    .path) {
+                                                              print('yes');
+                                                              File starredFile = File(
+                                                                  Hive.box(
+                                                                      'starred')
+                                                                      .getAt(
+                                                                      0)[i]);
+                                                              starredFile
+                                                                  .delete();
+                                                              Hive.box(
+                                                                  'starred')
+                                                                  .getAt(0)
+                                                                  .removeAt(i);
+                                                              break;
+                                                            }
+                                                          }
+                                                        }
+                                                      });
+                                                      Navigator.of(ctx).pop();
+                                                    },
+                                                  ),
+                                                  Padding(
+                                                    padding: EdgeInsets.all(10),
+                                                  ),
+                                                  GestureDetector(
+                                                    child: Text(
+                                                      "No",
+                                                      textAlign: TextAlign
+                                                          .center,
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    onTap: () {
+                                                      Navigator.of(ctx).pop();
+                                                    },
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
                                         }
-                                      }
-                                    });
+                                    );
                                   }
                               ),
                               IconButton(
