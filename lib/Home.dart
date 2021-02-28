@@ -334,6 +334,7 @@ class _HomeState extends State<Home> {
                                                     // textColor: Colors.white,
                                                     child: Text("Save"),
                                                     onPressed: () async {
+                                                      print("PDFS : ${Hive.box('pdfs').getAt(0)}");
                                                       File sourceFile = File(
                                                           pdfsBox.getAt(
                                                               0)[index]);
@@ -353,6 +354,9 @@ class _HomeState extends State<Home> {
                                                       await sourceFile
                                                           .renameSync(pdfsBox
                                                           .getAt(0)[index]);
+                                                      print("PDFS : ${Hive.box('pdfs').getAt(0)}");
+                                                      List<dynamic> editedList = pdfsBox.getAt(0);
+                                                      pdfsBox.putAt(0, editedList);
                                                       Navigator.pop(
                                                           dialogContext);
                                                     },
