@@ -247,6 +247,8 @@ class _HomeState extends State<Home> {
                                                       setState(() {
                                                         pdfsBox.getAt(0)
                                                             .removeAt(index);
+                                                        List<dynamic> editedList = pdfsBox.getAt(0);
+                                                        pdfsBox.putAt(0, editedList);
                                                         if (starredFiles
                                                             .contains(
                                                             sourceFile.path)) {
@@ -264,6 +266,8 @@ class _HomeState extends State<Home> {
                                                                   'starred')
                                                                   .getAt(0)
                                                                   .removeAt(i);
+                                                              List<dynamic> editedList = Hive.box('starred').getAt(0);
+                                                              Hive.box('starred').putAt(0, editedList);
                                                               break;
                                                             }
                                                           }
