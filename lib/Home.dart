@@ -330,8 +330,6 @@ class _HomeState extends State<Home> {
                                                     height: 20,
                                                   ),
                                                   RaisedButton(
-                                                    // color: Colors.blue,
-                                                    // textColor: Colors.white,
                                                     child: Text("Save"),
                                                     onPressed: () async {
                                                       print("PDFS : ${Hive.box('pdfs').getAt(0)}");
