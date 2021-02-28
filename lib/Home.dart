@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:doclense/Services/SearchService.dart';
+import 'package:doclense/StarredDocuments.dart';
+import 'package:doclense/settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
@@ -74,12 +76,10 @@ class _HomeState extends State<Home> {
       switch (shortcutType) {
         case 'about':
           return _navigate(About());
-
-      //! un comment the below line once the starred document and setting screen is created
-      // case 'starredDocument':
-      //   return _navigate(//TODO: enter starred document screen name);
-      //   case 'setting':
-      //   return _navigate(//TODO: enter setting screen name);
+        case 'starredDocument':
+          return _navigate(Starred());
+        case 'setting':
+          return _navigate(SettingsScreen());
 
         default:
           return MaterialPageRoute(builder: (_) {
@@ -95,10 +95,8 @@ class _HomeState extends State<Home> {
     quickActions.setShortcutItems(<ShortcutItem>[
       ShortcutItem(
           type: 'about', localizedTitle: 'About DocLense', icon: 'info'),
-
-      //! un comment the below line once the starred document and setting screen is created
-      // ShortcutItem(type: 'starredDocument', localizedTitle: 'Starred Documents', icon: 'starred'),
-      // ShortcutItem(type: 'setting', localizedTitle: 'Setting', icon: 'setting'),
+      ShortcutItem(type: 'starredDocument', localizedTitle: 'Starred Documents', icon: 'starred'),
+      ShortcutItem(type: 'setting', localizedTitle: 'Settings', icon: 'setting'),
     ]);
   }
 

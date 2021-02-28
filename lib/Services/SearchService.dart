@@ -95,7 +95,7 @@ class SearchService extends SearchDelegate<String> {
               OpenFile.open(fileLoc);
             },
             leading: Icon(
-                Icons.picture_as_pdf_rounded
+                query.isEmpty ? Icons.youtube_searched_for_rounded :Icons.picture_as_pdf_rounded
             ),
             title: Text(
                 suggestedFiles[index]
@@ -150,7 +150,7 @@ class SearchService extends SearchDelegate<String> {
               OpenFile.open(fileLoc);
             },
             leading: Icon(
-                Icons.picture_as_pdf_rounded
+                query.isEmpty ? Icons.youtube_searched_for_rounded :Icons.picture_as_pdf_rounded
             ),
             title: Text(
                 suggestedFiles[index]
