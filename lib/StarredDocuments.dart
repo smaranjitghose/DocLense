@@ -100,6 +100,10 @@ class _StarredState extends State<Starred> {
                                     Icons.star
                                 ),
                                 onPressed: () async {
+                                  setState(() {
+                                    Hive.box('starred').getAt(0).removeAt(index);
+                                  });
+                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Removed from starred documents')));
                                 }
                             )
                           ],
