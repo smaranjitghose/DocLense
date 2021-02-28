@@ -262,13 +262,6 @@ class _HomeState extends State<Home> {
                                                                 sourceFile
                                                                     .path) {
                                                               print('yes');
-                                                              File starredFile = File(
-                                                                  Hive.box(
-                                                                      'starred')
-                                                                      .getAt(
-                                                                      0)[i]);
-                                                              starredFile
-                                                                  .delete();
                                                               Hive.box(
                                                                   'starred')
                                                                   .getAt(0)
