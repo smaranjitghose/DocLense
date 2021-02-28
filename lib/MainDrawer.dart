@@ -131,7 +131,10 @@ class MainDrawer extends StatelessWidget {
                             ? Colors.black
                             : Colors
                             .blue,
-                        icon: Image.asset('assets/images/logos.png'),
+                        icon: Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          child: SvgPicture.asset('assets/images/doclenselight.svg'),
+                        ),
                         title: "How's your experience with us?",
                         description: "Let us know what you think",
                         onSubmitPressed: (int starRating) {

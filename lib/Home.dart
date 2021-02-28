@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:doclense/Services/SearchService.dart';
+import 'package:doclense/StarredDocuments.dart';
+import 'package:doclense/settings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
@@ -74,12 +76,10 @@ class _HomeState extends State<Home> {
       switch (shortcutType) {
         case 'about':
           return _navigate(About());
-
-      //! un comment the below line once the starred document and setting screen is created
-      // case 'starredDocument':
-      //   return _navigate(//TODO: enter starred document screen name);
-      //   case 'setting':
-      //   return _navigate(//TODO: enter setting screen name);
+        case 'starredDocument':
+          return _navigate(Starred());
+        case 'setting':
+          return _navigate(SettingsScreen());
 
         default:
           return MaterialPageRoute(builder: (_) {
@@ -95,10 +95,8 @@ class _HomeState extends State<Home> {
     quickActions.setShortcutItems(<ShortcutItem>[
       ShortcutItem(
           type: 'about', localizedTitle: 'About DocLense', icon: 'info'),
-
-      //! un comment the below line once the starred document and setting screen is created
-      // ShortcutItem(type: 'starredDocument', localizedTitle: 'Starred Documents', icon: 'starred'),
-      // ShortcutItem(type: 'setting', localizedTitle: 'Setting', icon: 'setting'),
+      ShortcutItem(type: 'starredDocument', localizedTitle: 'Starred Documents', icon: 'starred'),
+      ShortcutItem(type: 'setting', localizedTitle: 'Settings', icon: 'setting'),
     ]);
   }
 
@@ -196,7 +194,6 @@ class _HomeState extends State<Home> {
                                     Icons.share
                                 ),
                                 onPressed: () async {
-
                                   File file = await File(
                                       pdfsBox.getAt(0)[index]
                                   );
@@ -214,7 +211,8 @@ class _HomeState extends State<Home> {
                                     Icons.delete
                                 ),
                                 onPressed: () async {
-                                  File sourceFile = File(pdfsBox.getAt(0)[index]);
+                                  File sourceFile = File(
+                                      pdfsBox.getAt(0)[index]);
                                   sourceFile.delete();
                                   setState(() {
                                     pdfsBox.getAt(0).removeAt(index);
@@ -222,72 +220,82 @@ class _HomeState extends State<Home> {
                                 }
                             ),
                             IconButton(
-                                icon: Icon(
-                                    Icons.edit
-                                ),
-                                onPressed: () {
-                                  BuildContext dialogContext;
-                                  TextEditingController pdfName;
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        dialogContext = context;
-                                        pdfName = TextEditingController();
-                                        return Container(
-                                          /*padding: EdgeInsets.only(
+                              icon: Icon(
+                                  Icons.edit
+                              ),
+                              onPressed: () {
+                                BuildContext dialogContext;
+                                TextEditingController pdfName;
+                                showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      dialogContext = context;
+                                      pdfName = TextEditingController();
+                                      return Container(
+                                        /*padding: EdgeInsets.only(
                                             bottom:250,
                                           ),*/
-                                          padding: MediaQuery.of(context).padding,
+                                        padding: MediaQuery
+                                            .of(context)
+                                            .padding,
 
-                                          child:Dialog(
-                                          child:Container
+                                        child: Dialog(
+                                          child: Container
                                             (
                                             padding: EdgeInsets.all(20),
                                             alignment: Alignment.center,
                                             child: Column(
-                                            children: <Widget>[
-                                              Text(
-                                                "Rename",
-                                              ),
-                                              TextField(
-                                                controller: pdfName,
-                                              ),
-                                              RaisedButton(
-                                                color: Colors.blue,
-                                                textColor: Colors.white,
-                                                child: Text("Save"),
-                                                onPressed: () async{
-                                                  File sourceFile = File(pdfsBox.getAt(0)[index]);
-                                                  setState(() {
-                                                    List<String> path = pdfsBox
-                                                        .getAt(0)[index].split(
-                                                        '/');
-                                                    path.last =
-                                                        pdfName.text + ".pdf";
-                                                    pdfsBox.getAt(0)[index] =
-                                                        path.join('/');
-                                                  });
-                                                  await sourceFile.renameSync(pdfsBox.getAt(0)[index]);
-                                                  Navigator.pop(dialogContext);
-                                                },
-                                              ),
-                                            ],
+                                              children: <Widget>[
+                                                Text(
+                                                  "Rename",
+                                                ),
+                                                TextField(
+                                                  controller: pdfName,
+                                                ),
+                                                RaisedButton(
+                                                  color: Colors.blue,
+                                                  textColor: Colors.white,
+                                                  child: Text("Save"),
+                                                  onPressed: () async {
+                                                    File sourceFile = File(
+                                                        pdfsBox.getAt(
+                                                            0)[index]);
+                                                    setState(() {
+                                                      List<
+                                                          String> path = pdfsBox
+                                                          .getAt(0)[index]
+                                                          .split(
+                                                          '/');
+                                                      path.last =
+                                                          pdfName.text + ".pdf";
+                                                      pdfsBox.getAt(0)[index] =
+                                                          path.join('/');
+                                                    });
+                                                    await sourceFile.renameSync(
+                                                        pdfsBox.getAt(
+                                                            0)[index]);
+                                                    Navigator.pop(
+                                                        dialogContext);
+                                                  },
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                        ),
-                                        );
-                                      }
-                                  );
-                                },
-                        ),
+                                      );
+                                    }
+                                );
+                              },
+                            ),
                             IconButton(
                                 icon: Icon(
-                                    Icons.drive_file_move,
+                                  Icons.drive_file_move,
                                 ),
                                 onPressed: () async {
                                   String oldPath = pdfsBox.getAt(0)[index];
                                   String newPath = null;
-                                  final String path = await ExtStorage.getExternalStorageDirectory();
+                                  final String path = await ExtStorage
+                                      .getExternalStorageDirectory();
                                   Directory directory = Directory(path);
                                   Navigator.of(context)
                                       .push<FolderPickerPage>(MaterialPageRoute(
@@ -296,29 +304,34 @@ class _HomeState extends State<Home> {
                                             rootDirectory: directory,
                                             action: (BuildContext context,
                                                 Directory folder) async {
-                                                newPath = folder.path + '/' + pdfsBox.getAt(0)[index].split('/').last;
+                                              newPath = folder.path + '/' +
+                                                  pdfsBox.getAt(0)[index]
+                                                      .split('/')
+                                                      .last;
                                               print(newPath);
-                                                if(newPath!=null) {
-                                                  print("Newpath: " + newPath);
-                                                  File sourceFile = File(oldPath);
-                                                  await sourceFile.copy(newPath);
-                                                  await sourceFile.delete();
-                                                  setState(() {
-                                                    pdfsBox.getAt(0)[index] = newPath;
-                                                  });
-                                                }
-                                                Navigator.of(context).pop();
+                                              if (newPath != null) {
+                                                print("Newpath: " + newPath);
+                                                File sourceFile = File(oldPath);
+                                                await sourceFile.copy(newPath);
+                                                await sourceFile.delete();
+                                                setState(() {
+                                                  pdfsBox.getAt(0)[index] =
+                                                      newPath;
+                                                });
+                                              }
+                                              Navigator.of(context).pop();
                                             });
                                       }));
                                 }
                             ),
 
                             IconButton(
-                                icon: Icon(
-                                  isStarred(pdfsBox, index) ? Icons.star : Icons.star_border,
-                                ),
+                              icon: Icon(
+                                isStarred(pdfsBox, index) ? Icons.star : Icons
+                                    .star_border,
+                              ),
                               onPressed: () async {
-                                  print(isStarred(pdfsBox, index));
+                                print(isStarred(pdfsBox, index));
                                 File file = await File(
                                     pdfsBox.getAt(0)[index]
                                 );
@@ -327,7 +340,9 @@ class _HomeState extends State<Home> {
                                 List<dynamic> files = Hive.box('starred')
                                     .getAt(0);
                                 if (files.contains(path)) {
-                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Already a starred document')));
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text(
+                                          'Already a starred document')));
                                   print('Already fav');
                                 } else {
                                   files.add('$path');
@@ -335,7 +350,9 @@ class _HomeState extends State<Home> {
                                   print(
                                       "STARRED : ${Hive.box('starred').getAt(
                                           0)}");
-                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Added to starred documents!')));
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                      content: Text(
+                                          'Added to starred documents!')));
                                 }
                                 setState(() {
 
@@ -346,10 +363,8 @@ class _HomeState extends State<Home> {
                         )
                       ],
                     ),
-                ],
                   ),
                 ),
-              ),
               );
             },
           );
