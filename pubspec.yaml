@@ -53,7 +53,7 @@ dependencies:
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1
   # open_file: ^3.0.3
-  flutter_svg: 0.18.0
+  flutter_svg: ^0.19.3
 
 dev_dependencies:
   flutter_test:
