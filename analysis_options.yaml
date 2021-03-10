@@ -1,0 +1,16 @@
+include: package:lint/analysis_options.yaml
+
+analyzer:
+  errors: 
+    avoid_print: ignore
+
+    # below rules are changed from error to warning so source code doesn't break
+    argument_type_not_assignable: warning
+    invalid_assignment: warning
+    return_of_invalid_type_from_closure: warning
+
+
+  exclude:
+    - "**/*.gr.dart"
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
