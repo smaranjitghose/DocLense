@@ -103,7 +103,7 @@ class _StarredState extends State<Starred> {
                                   setState(() {
                                     Hive.box('starred').getAt(0).removeAt(index);
                                   });
-                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Removed from starred documents')));
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Removed from starred documents')));
                                 }
                             )
                           ],
