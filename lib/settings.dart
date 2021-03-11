@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'MainDrawer.dart';
 import 'Providers/ThemeProvider.dart';
+import 'setting_text.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -122,9 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SettingText(
-                              text:
-                                  'When auto-capturing , let me adjust borders after each scan'),
+                          SettingText(text: 'When auto-capturing , let me adjust borders after each scan'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -155,8 +154,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SettingText(
-                              text: 'Run text recognition on saved pdf'),
+                          SettingText(text: 'Run text recognition on saved pdf'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -304,27 +302,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class SettingText extends StatelessWidget {
-  SettingText({@required this.text});
-  final String text;
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      flex: 3,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          text,
-          style: TextStyle(
-            height: 1,
-            fontSize: 17,
-          ),
         ),
       ),
     );
