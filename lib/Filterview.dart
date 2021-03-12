@@ -87,7 +87,7 @@ class _FilterimageState extends State<FilterImage> {
               ),
             ),
             Expanded(
-              flex: (MediaQuery.of(context).size.height / 19).floor(),
+              flex: (MediaQuery.of(context).size.height / 16).floor(),
               child: Container(
                 height: 65,
                 color:
@@ -97,7 +97,7 @@ class _FilterimageState extends State<FilterImage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
@@ -114,7 +114,7 @@ class _FilterimageState extends State<FilterImage> {
                           ],
                         ),
                       ),
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
                           getImage(context, appBarColor);
                         },
@@ -131,22 +131,22 @@ class _FilterimageState extends State<FilterImage> {
                           ],
                         ),
                       ),
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
                           // widget.list.imagelist.add(widget.file);
                           // widget.list.imagepath.add(widget.file.path);
                           widget.list.imagelist.add(imageFile);
                           widget.list.imagepath.add(imageFile.path);
                           Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder: (c, a1, a2) =>
-                                    MultiDelete(widget.list),
-
-                                transitionsBuilder: (c, anim, a2, child) =>
-                                    FadeTransition(opacity: anim, child: child),
-                                // transitionDuration: Duration(milliseconds: 1000),
-                              ));
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (c, a1, a2) =>
+                                  MultiDelete(widget.list),
+                              transitionsBuilder: (c, anim, a2, child) =>
+                                  FadeTransition(opacity: anim, child: child),
+                              // transitionDuration: Duration(milliseconds: 1000),
+                            ),
+                          );
                         },
                         child: Column(
                           children: const <Widget>[

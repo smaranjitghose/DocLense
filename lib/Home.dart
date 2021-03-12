@@ -183,9 +183,10 @@ class _HomeState extends State<Home> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                pdfsBox.getAt(0)[index].split('/').last
-                                    as String,
-                                style: const TextStyle(fontSize: 18),
+                                (pdfsBox.getAt(0)[index] as String)
+                                    .split('/')
+                                    .last,
+                                style: TextStyle(fontSize: 18),
                               ),
                             ),
                             const Padding(
@@ -232,6 +233,14 @@ class _HomeState extends State<Home> {
                                                 child: ListBody(
                                                   children: <Widget>[
                                                     GestureDetector(
+                                                      child: const Text(
+                                                        "Yes",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
                                                       onTap: () {
                                                         final File sourceFile =
                                                             File(pdfsBox.getAt(
@@ -297,14 +306,6 @@ class _HomeState extends State<Home> {
                                                         });
                                                         Navigator.of(ctx).pop();
                                                       },
-                                                      child: const Text(
-                                                        "Yes",
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            color:
-                                                                Colors.white),
-                                                      ),
                                                     ),
                                                     const Padding(
                                                       padding:
@@ -360,7 +361,7 @@ class _HomeState extends State<Home> {
                                                     const SizedBox(
                                                       height: 20,
                                                     ),
-                                                    RaisedButton(
+                                                    ElevatedButton(
                                                       onPressed: () async {
                                                         final List<dynamic>
                                                             starred =
@@ -479,7 +480,7 @@ class _HomeState extends State<Home> {
                                             action: (BuildContext context,
                                                 Directory folder) async {
                                               newPath =
-                                                  '${'${folder.path}/'}${(pdfsBox.getAt(0)[index] as String).split('/').last}';
+                                                  '${folder.path}/${(pdfsBox.getAt(0)[index] as String).split('/').last}';
                                               print(newPath);
                                               if (newPath != null) {
                                                 print("Newpath: $newPath");
@@ -522,8 +523,8 @@ class _HomeState extends State<Home> {
                                         }
                                       }
                                       setState(() {});
-                                      Scaffold.of(context).showSnackBar(
-                                          const SnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
                                               content: Text(
                                                   'Removed from starred documents')));
                                       print('Already fav');
@@ -532,8 +533,8 @@ class _HomeState extends State<Home> {
                                       Hive.box('starred').putAt(0, files);
                                       print(
                                           "STARRED : ${Hive.box('starred').getAt(0)}");
-                                      Scaffold.of(context).showSnackBar(
-                                          const SnackBar(
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(const SnackBar(
                                               content: Text(
                                                   'Added to starred documents!')));
                                     }

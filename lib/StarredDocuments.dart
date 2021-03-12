@@ -89,10 +89,12 @@ class _StarredState extends State<Starred> {
                                         .getAt(0)
                                         .removeAt(index);
                                   });
-                                  Scaffold.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text(
-                                              'Removed from starred documents')));
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                          'Removed from starred documents'),
+                                    ),
+                                  );
                                 })
                           ],
                         )

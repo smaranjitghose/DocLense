@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import 'MainDrawer.dart';
 import 'Providers/ThemeProvider.dart';
+import 'setting_text.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -55,13 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                const Expanded(
-                                  flex: 3,
-                                  child: Text(
-                                    "Dark mode",
-                                    style: TextStyle(height: 1, fontSize: 17),
-                                  ),
-                                ),
+                                SettingText(text: 'Dark Mode'),
                                 Switch(
                                   activeColor: themeChange.darkTheme
                                       ? Colors.white
@@ -126,13 +121,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const Expanded(
-                            flex: 3,
-                            child: Text(
-                              "When auto-capturing , let me adjust borders after each scan",
-                              style: TextStyle(height: 1, fontSize: 17),
-                            ),
-                          ),
+                          SettingText(text: 'When auto-capturing , let me adjust borders after each scan'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -162,13 +151,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const Expanded(
-                            flex: 3,
-                            child: Text(
-                              "Run text recognition on saved pdf",
-                              style: TextStyle(height: 1, fontSize: 17),
-                            ),
-                          ),
+                          SettingText(text: 'Run text recognition on saved pdf'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -190,15 +173,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       height: 50,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          Expanded(
-                            flex: 3,
-                            child: Text(
-                              "Text Recognition Language",
-                              style: TextStyle(height: 1, fontSize: 17),
-                            ),
-                          ),
-                          Expanded(
+                        children: [
+                          SettingText(text: 'Text Recognition Language'),
+                      const    Expanded(
                             child: Center(
                               child: Text("English"),
                             ),
@@ -221,13 +198,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const Expanded(
-                            flex: 3,
-                            child: Text(
-                              "Save Original files to Gallery",
-                              style: TextStyle(height: 1, fontSize: 17),
-                            ),
-                          ),
+                          SettingText(text: 'Save Original files to Gallery'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -253,13 +224,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const Expanded(
-                            flex: 3,
-                            child: Text(
-                              "  REPORT A BUG",
-                              style: TextStyle(height: 1, fontSize: 17),
-                            ),
-                          ),
+                          SettingText(text: 'REPORT A BUG'),
                           Expanded(
                             child: Icon(
                               Icons.bug_report,
@@ -283,13 +248,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const Expanded(
-                            flex: 3,
-                            child: Text(
-                              "  REQUEST A FEATURE",
-                              style: TextStyle(height: 1, fontSize: 17),
-                            ),
-                          ),
+                          SettingText(text: 'REQUEST A FEATURE'),
                           Expanded(
                             child: Icon(
                               Icons.featured_play_list,
@@ -313,13 +272,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const Expanded(
-                            flex: 3,
-                            child: Text(
-                              "  CONTACT DEVELOPERS",
-                              style: TextStyle(height: 1, fontSize: 17),
-                            ),
-                          ),
+                          SettingText(text: 'CONTACT DEVELOPERS'),
                           Expanded(
                             child: Icon(
                               Icons.contact_phone,

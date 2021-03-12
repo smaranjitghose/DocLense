@@ -34,21 +34,24 @@ class _ImageviewState extends State<Imageview> {
   Future<void> cropimage(File file, Color appBarColor, Color bgColor) async {
     if (file != null) {
       cropped = await ImageCropper.cropImage(
-          sourcePath: file.path,
-          aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
-          compressQuality: 80,
-          androidUiSettings: AndroidUiSettings(
-            statusBarColor: appBarColor,
-            toolbarColor: appBarColor,
-            toolbarWidgetColor: Colors.white,
-            backgroundColor: bgColor,
-          ));
+        sourcePath: file.path,
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
+        compressQuality: 80,
+        androidUiSettings: AndroidUiSettings(
+          statusBarColor: appBarColor,
+          toolbarColor: appBarColor,
+          toolbarWidgetColor: Colors.white,
+          backgroundColor: bgColor,
+        ),
+      );
       setState(() {
         // cropped == null ? file = files : file = cropped;
         // files.add(file);
 
         if (cropped != null) {
           files.add(cropped);
+        } else {
+          files.add(file);
         }
         index++;
       });
@@ -106,7 +109,7 @@ class _ImageviewState extends State<Imageview> {
               ),
             ),
             Expanded(
-              flex: (MediaQuery.of(context).size.height / 19).floor(),
+              flex: (MediaQuery.of(context).size.height / 16).floor(),
               child: Container(
                 height: 65,
                 color:
@@ -116,7 +119,7 @@ class _ImageviewState extends State<Imageview> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();
 //                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -135,7 +138,7 @@ class _ImageviewState extends State<Imageview> {
                           ],
                         ),
                       ),
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
 //                                  Navigator.of(context).pop();
                           if (index == 0) {
@@ -159,7 +162,7 @@ class _ImageviewState extends State<Imageview> {
                           ],
                         ),
                       ),
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
                           cropimage(widget.file, appBarColor, bgColor);
                         },
@@ -176,7 +179,7 @@ class _ImageviewState extends State<Imageview> {
                           ],
                         ),
                       ),
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
                           if (cropped != null) {
                             Navigator.push(

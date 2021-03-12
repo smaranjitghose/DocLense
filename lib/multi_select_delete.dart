@@ -20,6 +20,7 @@ class _MultiDeleteState extends State<MultiDelete> {
   List<Item> itemList;
   List<Item> selectedList;
   File imageFile;
+  final picker = ImagePicker();
 
   @override
   void initState() {
@@ -30,7 +31,7 @@ class _MultiDeleteState extends State<MultiDelete> {
   void loadList() {
     itemList = [];
     selectedList = [];
-    for (int i = 0; i < widget.imageList.length(); i++) {
+    for (int i = 0; i < (widget.imageList.length() as int); i++) {
       itemList.add(Item(widget.imageList.imagelist.elementAt(i), i));
     }
   }
@@ -148,9 +149,9 @@ class _MultiDeleteState extends State<MultiDelete> {
   }
 
   Future<void> _openGallery() async {
-    final picture = await ImagePicker.pickImage(source: ImageSource.gallery);
+    final picture = await picker.getImage(source: ImageSource.gallery);
     setState(() {
-      imageFile = picture;
+      imageFile = File(picture.path);
     });
     if (imageFile != null) {
       Navigator.of(context).push(MaterialPageRoute(
@@ -159,9 +160,9 @@ class _MultiDeleteState extends State<MultiDelete> {
   }
 
   Future<void> _openCamera() async {
-    final picture = await ImagePicker.pickImage(source: ImageSource.camera);
+    final picture = await picker.getImage(source: ImageSource.camera);
     setState(() {
-      imageFile = picture;
+      imageFile = File(picture.path);
     });
     if (imageFile != null) {
       Navigator.of(context).push(MaterialPageRoute(
