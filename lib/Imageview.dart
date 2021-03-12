@@ -33,15 +33,16 @@ class _ImageviewState extends State<Imageview> {
   cropimage(file, appBarColor, bgColor) async {
     if (file != null) {
       cropped = await ImageCropper.cropImage(
-          sourcePath: file.path,
-          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-          compressQuality: 80,
-          androidUiSettings: AndroidUiSettings(
-            statusBarColor: appBarColor,
-            toolbarColor: appBarColor,
-            toolbarWidgetColor: Colors.white,
-            backgroundColor: bgColor,
-          ));
+        sourcePath: file.path,
+        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+        compressQuality: 80,
+        androidUiSettings: AndroidUiSettings(
+          statusBarColor: appBarColor,
+          toolbarColor: appBarColor,
+          toolbarWidgetColor: Colors.white,
+          backgroundColor: bgColor,
+        ),
+      );
       setState(() {
         cropped == null ? file = files : file = cropped;
         files.add(file);
@@ -56,20 +57,22 @@ class _ImageviewState extends State<Imageview> {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<IconOptions>>[
         PopupMenuItem<IconOptions>(
           value: IconOptions.Share,
-          child: Row(children: [
-            Icon(
-              Icons.share,
-              size: 28.0,
-              // color: Colors.blue,
-            ),
-            SizedBox(
-              width: 23.0,
-            ),
-            Text(
-              'Share',
-              style: TextStyle(fontSize: 20.0),
-            )
-          ]),
+          child: Row(
+            children: [
+              Icon(
+                Icons.share,
+                size: 28.0,
+                // color: Colors.blue,
+              ),
+              SizedBox(
+                width: 23.0,
+              ),
+              Text(
+                'Share',
+                style: TextStyle(fontSize: 20.0),
+              )
+            ],
+          ),
         )
       ],
       onSelected: (IconOptions value) {
@@ -175,25 +178,27 @@ class _ImageviewState extends State<Imageview> {
                           onPressed: () {
                             if (cropped != null) {
                               Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (c, a1, a2) =>
-                                        filter_image(cropped, widget.list),
-                                    transitionsBuilder: (c, anim, a2, child) =>
-                                        FadeTransition(
-                                            opacity: anim, child: child),
-                                    // transitionDuration: Duration(milliseconds: 1000),
-                                  ));
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) =>
+                                      filter_image(cropped, widget.list),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(
+                                          opacity: anim, child: child),
+                                  // transitionDuration: Duration(milliseconds: 1000),
+                                ),
+                              );
                             } else {
                               Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (c, a1, a2) =>
-                                        filter_image(widget.file, widget.list),
-                                    transitionsBuilder: (c, anim, a2, child) =>
-                                        FadeTransition(
-                                            opacity: anim, child: child),
-                                  ));
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) =>
+                                      filter_image(widget.file, widget.list),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(
+                                          opacity: anim, child: child),
+                                ),
+                              );
                             }
                           },
                           child: Column(
