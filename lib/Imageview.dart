@@ -108,7 +108,7 @@ class _ImageviewState extends State<Imageview> {
                 flex: (MediaQuery
                     .of(context)
                     .size
-                    .height / 19).floor(),
+                    .height / 18).floor(),
                 child: Container(
                   height: 65,
                   color: themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
@@ -124,6 +124,7 @@ class _ImageviewState extends State<Imageview> {
 //                                      builder: (context) => Home()));
                           },
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Icon(
                                 Icons.arrow_back,
@@ -147,6 +148,7 @@ class _ImageviewState extends State<Imageview> {
                             }
                           },
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Icon(
                                 Icons.undo,
@@ -164,6 +166,7 @@ class _ImageviewState extends State<Imageview> {
                             cropimage(widget.file, appBarColor, bgColor);
                           },
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Icon(
                                 Icons.crop_rotate,
@@ -204,6 +207,7 @@ class _ImageviewState extends State<Imageview> {
                             }
                           },
                           child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Icon(
                                 Icons.arrow_forward,
