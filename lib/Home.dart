@@ -31,16 +31,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   Future setSharedPreferences() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    if(sharedPreferences.getStringList('savedFiles') == null) {
+    if (sharedPreferences.getStringList('savedFiles') == null) {
       sharedPreferences.setStringList('savedFiles', []);
       return [];
     } else {
       return sharedPreferences.getStringList('savedFiles');
     }
   }
+
   ImageList images = new ImageList();
   QuickActions quickActions = QuickActions();
 
@@ -95,20 +95,21 @@ class _HomeState extends State<Home> {
     quickActions.setShortcutItems(<ShortcutItem>[
       ShortcutItem(
           type: 'about', localizedTitle: 'About DocLense', icon: 'info'),
-      ShortcutItem(type: 'starredDocument', localizedTitle: 'Starred Documents', icon: 'starred'),
-      ShortcutItem(type: 'setting', localizedTitle: 'Settings', icon: 'setting'),
+      ShortcutItem(
+          type: 'starredDocument',
+          localizedTitle: 'Starred Documents',
+          icon: 'starred'),
+      ShortcutItem(
+          type: 'setting', localizedTitle: 'Settings', icon: 'setting'),
     ]);
   }
 
   bool isStarred(pdfsBox, index) {
-    File file = File(
-        pdfsBox.getAt(0)[index]
-    );
+    File file = File(pdfsBox.getAt(0)[index]);
     final path = file.path;
 
-    List<dynamic> files = Hive.box('starred')
-        .getAt(0);
-    if(files.contains(path)){
+    List<dynamic> files = Hive.box('starred').getAt(0);
+    if (files.contains(path)) {
       return true;
     } else {
       return false;
@@ -125,8 +126,7 @@ class _HomeState extends State<Home> {
         title: Center(
           child: Text(
             'DocLense',
-            style: TextStyle(
-                fontSize: 24),
+            style: TextStyle(fontSize: 24),
           ),
         ),
         actions: <Widget>[
@@ -139,9 +139,7 @@ class _HomeState extends State<Home> {
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
-              setState(() {
-
-              });
+              setState(() {});
             },
           ),
           IconButton(
@@ -153,19 +151,13 @@ class _HomeState extends State<Home> {
       body: WatchBoxBuilder(
         box: Hive.box('pdfs'),
         builder: (context, pdfsBox) {
-          if (pdfsBox
-              .getAt(0)
-              .length == 0) {
+          if (pdfsBox.getAt(0).length == 0) {
             return Center(
-              child: Text(
-                  "No PDFs Scanned Yet !! "
-              ),
+              child: Text("No PDFs Scanned Yet !! "),
             );
           }
           return ListView.builder(
-            itemCount: pdfsBox
-                .getAt(0)
-                .length,
+            itemCount: pdfsBox.getAt(0).length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -180,7 +172,6 @@ class _HomeState extends State<Home> {
                       children: [
                         Column(
                           children: [
-
                             /// TODO: Add logic for displaying first image of PDF
                             Icon(Icons.photo)
                           ],
@@ -191,54 +182,44 @@ class _HomeState extends State<Home> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                pdfsBox.getAt(0)[index]
-                                    .split('/')
-                                    .last,
-                                style: TextStyle(
-                                    fontSize: 18
-                                ),
+                                pdfsBox.getAt(0)[index].split('/').last,
+                                style: TextStyle(fontSize: 18),
                               ),
                             ),
-
                             Padding(
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                               child: Text(
 
-                                /// TODO: Add logic for displaying date of creation of PDF
-                                  '10/03/2021'
-                              ),
+                                  /// TODO: Add logic for displaying date of creation of PDF
+                                  '10/03/2021'),
                             ),
-                            SizedBox(height: 30,),
+                            SizedBox(
+                              height: 30,
+                            ),
                             Row(
                               children: [
                                 IconButton(
-                                    icon: Icon(
-                                        Icons.share
-                                    ),
+                                    icon: Icon(Icons.share),
                                     onPressed: () async {
-                                      File file = await File(
-                                          pdfsBox.getAt(0)[index]
-                                      );
+                                      File file =
+                                          await File(pdfsBox.getAt(0)[index]);
 
                                       final path = file.path;
 
                                       print(path);
 
-                                      Share.shareFiles(
-                                          ['$path'], text: 'Your PDF!');
-                                    }
-                                ),
+                                      Share.shareFiles(['$path'],
+                                          text: 'Your PDF!');
+                                    }),
                                 IconButton(
-                                    icon: Icon(
-                                        Icons.delete
-                                    ),
+                                    icon: Icon(Icons.delete),
                                     onPressed: () async {
                                       showDialog(
                                           context: context,
                                           builder: (BuildContext ctx) {
                                             return AlertDialog(
-                                              backgroundColor: Colors
-                                                  .blueGrey[800],
+                                              backgroundColor:
+                                                  Colors.blueGrey[800],
                                               title: Text(
                                                 "The PDF will be permanently deleted.\nDo you want to proceed?",
                                                 textAlign: TextAlign.center,
@@ -251,11 +232,11 @@ class _HomeState extends State<Home> {
                                                     GestureDetector(
                                                       child: Text(
                                                         "Yes",
-                                                        textAlign: TextAlign
-                                                            .center,
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         style: TextStyle(
-                                                            color: Colors
-                                                                .white),
+                                                            color:
+                                                                Colors.white),
                                                       ),
                                                       onTap: () {
                                                         File sourceFile = File(
@@ -263,49 +244,51 @@ class _HomeState extends State<Home> {
                                                                 0)[index]);
                                                         print(sourceFile.path);
                                                         sourceFile.delete();
-                                                        List<
-                                                            dynamic> starredFiles = Hive
-                                                            .box('starred')
-                                                            .getAt(
-                                                            0);
+                                                        List<dynamic>
+                                                            starredFiles =
+                                                            Hive.box('starred')
+                                                                .getAt(0);
                                                         setState(() {
-                                                          pdfsBox.getAt(0)
+                                                          pdfsBox
+                                                              .getAt(0)
                                                               .removeAt(index);
-                                                          List<
-                                                              dynamic> editedList = pdfsBox
-                                                              .getAt(0);
+                                                          List<dynamic>
+                                                              editedList =
+                                                              pdfsBox.getAt(0);
                                                           pdfsBox.putAt(
                                                               0, editedList);
                                                           if (starredFiles
                                                               .contains(
-                                                              sourceFile
-                                                                  .path)) {
+                                                                  sourceFile
+                                                                      .path)) {
                                                             print('yes');
-                                                            for (int i = 0; i <
-                                                                starredFiles
-                                                                    .length; i++) {
-                                                              if (Hive.box(
-                                                                  'starred')
-                                                                  .getAt(
-                                                                  0)[i] ==
+                                                            for (int i = 0;
+                                                                i <
+                                                                    starredFiles
+                                                                        .length;
+                                                                i++) {
+                                                              if (Hive.box('starred')
+                                                                          .getAt(
+                                                                              0)[
+                                                                      i] ==
                                                                   sourceFile
                                                                       .path) {
                                                                 print('yes');
                                                                 Hive.box(
-                                                                    'starred')
+                                                                        'starred')
                                                                     .getAt(0)
                                                                     .removeAt(
-                                                                    i);
-                                                                List<
-                                                                    dynamic> editedList = Hive
-                                                                    .box(
-                                                                    'starred')
-                                                                    .getAt(0);
+                                                                        i);
+                                                                List<dynamic>
+                                                                    editedList =
+                                                                    Hive.box(
+                                                                            'starred')
+                                                                        .getAt(
+                                                                            0);
                                                                 Hive.box(
-                                                                    'starred')
-                                                                    .putAt(
-                                                                    0,
-                                                                    editedList);
+                                                                        'starred')
+                                                                    .putAt(0,
+                                                                        editedList);
                                                                 break;
                                                               }
                                                             }
@@ -315,17 +298,17 @@ class _HomeState extends State<Home> {
                                                       },
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsets.all(
-                                                          10),
+                                                      padding:
+                                                          EdgeInsets.all(10),
                                                     ),
                                                     GestureDetector(
                                                       child: Text(
                                                         "No",
-                                                        textAlign: TextAlign
-                                                            .center,
+                                                        textAlign:
+                                                            TextAlign.center,
                                                         style: TextStyle(
-                                                            color: Colors
-                                                                .white),
+                                                            color:
+                                                                Colors.white),
                                                       ),
                                                       onTap: () {
                                                         Navigator.of(ctx).pop();
@@ -335,14 +318,10 @@ class _HomeState extends State<Home> {
                                                 ),
                                               ),
                                             );
-                                          }
-                                      );
-                                    }
-                                ),
+                                          });
+                                    }),
                                 IconButton(
-                                  icon: Icon(
-                                      Icons.edit
-                                  ),
+                                  icon: Icon(Icons.edit),
                                   onPressed: () {
                                     TextEditingController pdfName;
                                     showDialog(
@@ -355,35 +334,31 @@ class _HomeState extends State<Home> {
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 20
-                                              ),
+                                                  fontSize: 20),
                                             ),
-                                            content:
-                                            Container(
-                                              height: MediaQuery
-                                                  .of(context)
-                                                  .size
-                                                  .height / 5,
+                                            content: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  5,
                                               child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment
-                                                      .center,
-                                                  children: [TextField(
-                                                    controller: pdfName,
-                                                  ),
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    TextField(
+                                                      controller: pdfName,
+                                                    ),
                                                     SizedBox(
                                                       height: 20,
                                                     ),
-                                                    RaisedButton(
+                                                    ElevatedButton(
                                                       child: Text("Save"),
                                                       onPressed: () async {
-                                                        List<
-                                                            dynamic> starred = Hive
-                                                            .box('starred')
-                                                            .getAt(
-                                                            0);
-                                                        print("PDFS : ${Hive
-                                                            .box(
-                                                            'pdfs').getAt(0)}");
+                                                        List<dynamic> starred =
+                                                            Hive.box('starred')
+                                                                .getAt(0);
+                                                        print(
+                                                            "PDFS : ${Hive.box('pdfs').getAt(0)}");
                                                         File sourceFile = File(
                                                             pdfsBox.getAt(
                                                                 0)[index]);
@@ -391,80 +366,79 @@ class _HomeState extends State<Home> {
                                                           if (starred.contains(
                                                               pdfsBox.getAt(
                                                                   0)[index])) {
-                                                            for (int i = 0; i <
-                                                                starred
-                                                                    .length; i++) {
-                                                              if (Hive.box(
-                                                                  'starred')
-                                                                  .getAt(
-                                                                  0)[i] ==
+                                                            for (int i = 0;
+                                                                i <
+                                                                    starred
+                                                                        .length;
+                                                                i++) {
+                                                              if (Hive.box('starred')
+                                                                          .getAt(
+                                                                              0)[
+                                                                      i] ==
                                                                   sourceFile
                                                                       .path) {
                                                                 print('yes');
-                                                                List<
-                                                                    String> path = Hive
-                                                                    .box(
-                                                                    'starred')
-                                                                    .getAt(0)[i]
-                                                                    .split(
-                                                                    '/');
+                                                                List<String>
+                                                                    path =
+                                                                    Hive.box(
+                                                                            'starred')
+                                                                        .getAt(0)[
+                                                                            i]
+                                                                        .split(
+                                                                            '/');
                                                                 path.last =
-                                                                    pdfName
-                                                                        .text +
+                                                                    pdfName.text +
                                                                         ".pdf";
-                                                                Hive.box(
-                                                                    'starred')
-                                                                    .getAt(
-                                                                    0)[i] =
+                                                                Hive.box('starred')
+                                                                        .getAt(
+                                                                            0)[i] =
                                                                     path.join(
                                                                         '/');
-                                                                List<
-                                                                    dynamic> editedList = Hive
-                                                                    .box(
-                                                                    'starred')
-                                                                    .getAt(0);
+                                                                List<dynamic>
+                                                                    editedList =
+                                                                    Hive.box(
+                                                                            'starred')
+                                                                        .getAt(
+                                                                            0);
                                                                 Hive.box(
-                                                                    'starred')
-                                                                    .putAt(
-                                                                    0,
-                                                                    editedList);
+                                                                        'starred')
+                                                                    .putAt(0,
+                                                                        editedList);
                                                                 break;
                                                               }
                                                             }
                                                           }
-                                                          List<
-                                                              String> path = pdfsBox
-                                                              .getAt(0)[index]
-                                                              .split(
-                                                              '/');
+                                                          List<String> path =
+                                                              pdfsBox
+                                                                  .getAt(
+                                                                      0)[index]
+                                                                  .split('/');
                                                           path.last =
                                                               pdfName.text +
                                                                   ".pdf";
                                                           pdfsBox.getAt(
-                                                              0)[index] =
+                                                                  0)[index] =
                                                               path.join('/');
                                                         });
                                                         await sourceFile
-                                                            .renameSync(pdfsBox
-                                                            .getAt(0)[index]);
-                                                        print("PDFS : ${Hive
-                                                            .box(
-                                                            'pdfs').getAt(0)}");
-                                                        List<
-                                                            dynamic> editedList = pdfsBox
-                                                            .getAt(0);
+                                                            .renameSync(
+                                                                pdfsBox.getAt(
+                                                                    0)[index]);
+                                                        print(
+                                                            "PDFS : ${Hive.box('pdfs').getAt(0)}");
+                                                        List<dynamic>
+                                                            editedList =
+                                                            pdfsBox.getAt(0);
                                                         pdfsBox.putAt(
                                                             0, editedList);
                                                         Navigator.pop(
                                                             dialogContext);
                                                       },
                                                     ),
-                                                  ]
-                                              ),
+                                                  ]),
                                             ),
                                           );
-                                        }
-                                    );
+                                        });
                                   },
                                 ),
                                 IconButton(
@@ -479,90 +453,72 @@ class _HomeState extends State<Home> {
                                       Directory directory = Directory(path);
                                       Navigator.of(context)
                                           .push<FolderPickerPage>(
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) {
-                                                return FolderPickerPage(
-                                                    rootDirectory: directory,
-                                                    action: (
-                                                        BuildContext context,
-                                                        Directory folder) async {
-                                                      newPath =
-                                                          folder.path + '/' +
-                                                              pdfsBox.getAt(
-                                                                  0)[index]
-                                                                  .split('/')
-                                                                  .last;
-                                                      print(newPath);
-                                                      if (newPath != null) {
-                                                        print("Newpath: " +
-                                                            newPath);
-                                                        File sourceFile = File(
-                                                            oldPath);
-                                                        await sourceFile.copy(
-                                                            newPath);
-                                                        await sourceFile
-                                                            .delete();
-                                                        setState(() {
-                                                          pdfsBox.getAt(
-                                                              0)[index] =
-                                                              newPath;
-                                                        });
-                                                      }
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                    });
-                                              }));
-                                    }
-                                ),
-
+                                              MaterialPageRoute(builder:
+                                                  (BuildContext context) {
+                                        return FolderPickerPage(
+                                            rootDirectory: directory,
+                                            action: (BuildContext context,
+                                                Directory folder) async {
+                                              newPath = folder.path +
+                                                  '/' +
+                                                  pdfsBox
+                                                      .getAt(0)[index]
+                                                      .split('/')
+                                                      .last;
+                                              print(newPath);
+                                              if (newPath != null) {
+                                                print("Newpath: " + newPath);
+                                                File sourceFile = File(oldPath);
+                                                await sourceFile.copy(newPath);
+                                                await sourceFile.delete();
+                                                setState(() {
+                                                  pdfsBox.getAt(0)[index] =
+                                                      newPath;
+                                                });
+                                              }
+                                              Navigator.of(context).pop();
+                                            });
+                                      }));
+                                    }),
                                 IconButton(
                                   icon: Icon(
                                     isStarred(pdfsBox, index)
                                         ? Icons.star
-                                        : Icons
-                                        .star_border,
+                                        : Icons.star_border,
                                   ),
                                   onPressed: () async {
                                     print(isStarred(pdfsBox, index));
-                                    File file = await File(
-                                        pdfsBox.getAt(0)[index]
-                                    );
+                                    File file =
+                                        await File(pdfsBox.getAt(0)[index]);
                                     final path = file.path;
 
-                                    List<dynamic> files = Hive.box('starred')
-                                        .getAt(0);
+                                    List<dynamic> files =
+                                        Hive.box('starred').getAt(0);
                                     if (files.contains(path)) {
                                       for (int i = 0; i < files.length; i++) {
                                         if (Hive.box('starred').getAt(0)[i] ==
                                             path) {
-                                          Hive.box('starred').getAt(0).removeAt(
-                                              i);
+                                          Hive.box('starred')
+                                              .getAt(0)
+                                              .removeAt(i);
                                           break;
                                         }
                                       }
-                                      setState(() {
-
-                                      });
-                                      Scaffold.of(context).showSnackBar(
-                                          SnackBar(
-                                              content: Text(
-                                                  'Removed from starred documents')));
+                                      setState(() {});
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Text(
+                                              'Removed from starred documents')));
                                       print('Already fav');
                                     } else {
                                       files.add('$path');
                                       Hive.box('starred').putAt(0, files);
                                       print(
-                                          "STARRED : ${Hive.box('starred')
-                                              .getAt(
-                                              0)}");
-                                      Scaffold.of(context).showSnackBar(
-                                          SnackBar(
-                                              content: Text(
-                                                  'Added to starred documents!')));
+                                          "STARRED : ${Hive.box('starred').getAt(0)}");
+                                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                          content: Text(
+                                              'Added to starred documents!')));
                                     }
-                                    setState(() {
-
-                                    });
+                                    setState(() {});
                                   },
                                 )
                               ],
