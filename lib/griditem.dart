@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'multi_select_delete.dart';
 
 class GridItem extends StatefulWidget {
-  final Key key;
   final Item item;
   final ValueChanged<bool> isSelected;
 
-  GridItem({this.item, this.isSelected, this.key});
+  const GridItem({Key key, this.item, this.isSelected}) : super(key: key);
 
   @override
   _GridItemState createState() => _GridItemState();
@@ -32,18 +31,19 @@ class _GridItemState extends State<GridItem> {
             colorBlendMode: BlendMode.color,
             fit: BoxFit.cover,
           ),
-          isSelected
-              ? Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.check_circle,
-                color: Colors.black,
+          if (isSelected)
+            const Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Icon(
+                  Icons.check_circle,
+                  color: Colors.black,
+                ),
               ),
-            ),
-          )
-              : Container()
+            )
+          else
+            Container()
         ],
       ),
     );

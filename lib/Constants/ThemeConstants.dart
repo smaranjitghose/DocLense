@@ -9,29 +9,26 @@ final darkTheme = ThemeData(
     brightness: Brightness.dark,
     backgroundColor: const Color(0xFF212121),
     accentColor: Colors.white,
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: Colors.black, backgroundColor: AppTheme.primaryColor),
     dividerColor: Colors.black12,
-    inputDecorationTheme: InputDecorationTheme(
-      focusedBorder: new OutlineInputBorder(
+    inputDecorationTheme: const InputDecorationTheme(
+      focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: Colors.white),
       ),
     ),
-    iconTheme: IconThemeData(
+    iconTheme: const IconThemeData(
       color: Colors.white,
     ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
         elevation: 0,
         color: Colors.black,
         textTheme: TextTheme(
             headline6: TextStyle(
-              color: Colors.white,
-              fontSize: 22.0,
-              fontWeight: FontWeight.w700,
-            )
-        )
-    )
-);
+          color: Colors.white,
+          fontSize: 22.0,
+          fontWeight: FontWeight.w700,
+        ))));
 
 final lightTheme = ThemeData(
     primaryColor: AppTheme.primaryColor,
@@ -39,30 +36,26 @@ final lightTheme = ThemeData(
     backgroundColor: Colors.blueGrey[100],
     accentColor: Colors.black,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-        foregroundColor: Colors.white, backgroundColor: Colors.blue[600]
-    ),
+        foregroundColor: Colors.white, backgroundColor: Colors.blue[600]),
     dividerColor: AppTheme.primaryColor,
-    inputDecorationTheme: InputDecorationTheme(
-      focusedBorder: new OutlineInputBorder(
+    inputDecorationTheme: const InputDecorationTheme(
+      focusedBorder: OutlineInputBorder(
         borderSide: BorderSide(color: AppTheme.primaryColor),
       ),
     ),
-    iconTheme: IconThemeData(
+    iconTheme: const IconThemeData(
       color: Colors.black,
     ),
     appBarTheme: AppBarTheme(
         elevation: 0,
         color: Colors.blue[600],
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: AppTheme.primaryColor,
         ),
-        textTheme: TextTheme(
+        textTheme: const TextTheme(
             headline6: TextStyle(
-              color: AppTheme.primaryColor,
-              // fontFamily: 'Nunito',
-              fontSize: 22.0,
-              fontWeight: FontWeight.w700,
-            )
-        )
-    )
-);
+          color: AppTheme.primaryColor,
+          // fontFamily: 'Nunito',
+          fontSize: 22.0,
+          fontWeight: FontWeight.w700,
+        ))));

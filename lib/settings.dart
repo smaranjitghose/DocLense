@@ -1,7 +1,8 @@
-import 'package:doclense/Constants/ThemeConstants.dart';
+// import 'package:doclense/Constants/ThemeConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'MainDrawer.dart';
 import 'Providers/ThemeProvider.dart';
 import 'setting_text.dart';
@@ -25,7 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-        title: Text("Preferences"),
+        title: const Text("Preferences"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -36,15 +37,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 800,
                 child: ListView(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text("APP THEME OPTIONS"),
-                    SizedBox(
+                    const Text("APP THEME OPTIONS"),
+                    const SizedBox(
                       height: 5,
                     ),
                     Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Expanded(
@@ -54,7 +54,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 : Colors.grey[200],
                             height: 60,
                             child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 SettingText(text: 'Dark Mode'),
@@ -107,11 +106,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         // ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
-                    Text("ADJUST BORDERS"),
-                    SizedBox(
+                    const Text("ADJUST BORDERS"),
+                    const SizedBox(
                       height: 5,
                     ),
                     Container(
@@ -120,7 +119,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           : Colors.grey[200],
                       height: 60,
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SettingText(text: 'When auto-capturing , let me adjust borders after each scan'),
@@ -138,11 +136,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
-                    Text("TEXT RECOGNITION (OCR)"),
-                    SizedBox(
+                    const Text("TEXT RECOGNITION (OCR)"),
+                    const SizedBox(
                       height: 5,
                     ),
                     Container(
@@ -151,7 +149,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           : Colors.grey[200],
                       height: 50,
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SettingText(text: 'Run text recognition on saved pdf'),
@@ -175,12 +172,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           : Colors.grey[200],
                       height: 50,
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SettingText(text: 'Text Recognition Language'),
-                          Expanded(
-                            flex: 1,
+                      const    Expanded(
                             child: Center(
                               child: Text("English"),
                             ),
@@ -188,11 +183,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
-                    Text("FILES"),
-                    SizedBox(
+                    const Text("FILES"),
+                    const SizedBox(
                       height: 5,
                     ),
                     Container(
@@ -201,7 +196,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           : Colors.grey[200],
                       height: 50,
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SettingText(text: 'Save Original files to Gallery'),
@@ -219,7 +213,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Container(
@@ -228,12 +222,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           : Colors.grey[200],
                       height: 50,
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SettingText(text: 'REPORT A BUG'),
                           Expanded(
-                            flex: 1,
                             child: Icon(
                               Icons.bug_report,
                               size: 30,
@@ -245,7 +237,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
@@ -254,12 +246,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           : Colors.grey[200],
                       height: 50,
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SettingText(text: 'REQUEST A FEATURE'),
                           Expanded(
-                            flex: 1,
                             child: Icon(
                               Icons.featured_play_list,
                               size: 30,
@@ -271,7 +261,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Container(
@@ -280,12 +270,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           : Colors.grey[200],
                       height: 50,
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SettingText(text: 'CONTACT DEVELOPERS'),
                           Expanded(
-                            flex: 1,
                             child: Icon(
                               Icons.contact_phone,
                               size: 30,

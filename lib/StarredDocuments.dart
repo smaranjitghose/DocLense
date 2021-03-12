@@ -1,10 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'dart:io';
 import 'package:open_file/open_file.dart';
 import 'package:share/share.dart';
+
 import 'MainDrawer.dart';
 
 class Starred extends StatefulWidget {
@@ -18,19 +20,19 @@ class _StarredState extends State<Starred> {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Starred Docs',
           style: TextStyle(fontSize: 24),
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.refresh),
+            icon: const Icon(Icons.refresh),
             onPressed: () {
               setState(() {});
             },
           ),
           IconButton(
-            icon: Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_vert),
             onPressed: () async {},
           ),
         ],
@@ -39,17 +41,17 @@ class _StarredState extends State<Starred> {
         box: Hive.box('starred'),
         builder: (context, starredBox) {
           if (starredBox.getAt(0).length == 0) {
-            return Center(
+            return const Center(
               child: Text("No PDFs Starred Yet !! "),
             );
           }
           return ListView.builder(
-            itemCount: starredBox.getAt(0).length,
+            itemCount: starredBox.getAt(0).length as int,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
                   print('tapped');
-                  OpenFile.open(starredBox.getAt(0)[index]);
+                  OpenFile.open(starredBox.getAt(0)[index] as String);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -60,26 +62,27 @@ class _StarredState extends State<Starred> {
                       children: [
                         Column(
                           children: [
-                            Text(starredBox.getAt(0)[index].split('/').last),
+                            Text((starredBox.getAt(0)[index] as String)
+                                .split('/')
+                                .last),
                           ],
                         ),
                         Row(
                           children: [
                             IconButton(
-                                icon: Icon(Icons.share),
+                                icon: const Icon(Icons.share),
                                 onPressed: () async {
-                                  File file =
-                                      await File(starredBox.getAt(0)[index]);
+                                  final File file = File(await starredBox
+                                      .getAt(0)[index] as String);
 
                                   final path = file.path;
 
                                   print(path);
 
-                                  Share.shareFiles(['$path'],
-                                      text: 'Your PDF!');
+                                  Share.shareFiles([path], text: 'Your PDF!');
                                 }),
                             IconButton(
-                                icon: Icon(Icons.star),
+                                icon: const Icon(Icons.star),
                                 onPressed: () async {
                                   setState(() {
                                     Hive.box('starred')
@@ -87,7 +90,7 @@ class _StarredState extends State<Starred> {
                                         .removeAt(index);
                                   });
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
+                                    const SnackBar(
                                       content: Text(
                                           'Removed from starred documents'),
                                     ),
