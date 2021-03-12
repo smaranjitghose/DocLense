@@ -3,12 +3,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
   Future<dynamic> getSharedPreferenceValue(String key) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.get(key) ?? null;
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.get(key);
   }
 
-  setSharedPreferenceValue(String key, dynamic value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+ Future<void> setSharedPreferenceValue(String key, dynamic value) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (value is String) {
       await prefs.setString(key, value);
