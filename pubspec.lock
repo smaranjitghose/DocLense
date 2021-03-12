@@ -435,7 +435,18 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "4.0.0"
+=======
+    version: "3.1.1"
+  lint:
+    dependency: "direct dev"
+    description:
+      name: lint
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.5.3"
+>>>>>>> faaae3b475d882e90cb4178399c353076a4437ef
   logging:
     dependency: transitive
     description:

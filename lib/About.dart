@@ -13,101 +13,98 @@ class About extends StatelessWidget {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "About App",
           style: TextStyle(fontSize: 24),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Container(
-              height: MediaQuery.of(context).size.height/1.85,
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 1.85,
               // width: MediaQuery.of(context).size.width,
-              child: Stack(
-                  children: [
-                    themeChange.darkTheme ? Positioned(
-                      top: 0,
-                      child: SvgPicture.asset(
-                        'assets/aboutPage/curve.svg',
-                        // 'assets/aboutPage/bg-wave.svg'
-                        // width: MediaQuery.of(context).size.width,
-                        // height: 50,
-                      ),
-                    ) :
-                    Positioned(
-                      top: 0,
-                      child: SvgPicture.asset(
-                        'assets/aboutPage/curvelight.svg',
-                        // 'assets/aboutPage/bg-wave.svg'
-                        // width: MediaQuery.of(context).size.width,
-                        // height: 50,
+              child: Stack(children: [
+                if (themeChange.darkTheme)
+                  Positioned(
+                    top: 0,
+                    child: SvgPicture.asset(
+                      'assets/aboutPage/curve.svg',
+                      // 'assets/aboutPage/bg-wave.svg'
+                      // width: MediaQuery.of(context).size.width,
+                      // height: 50,
+                    ),
+                  )
+                else
+                  Positioned(
+                    top: 0,
+                    child: SvgPicture.asset(
+                      'assets/aboutPage/curvelight.svg',
+                      // 'assets/aboutPage/bg-wave.svg'
+                      // width: MediaQuery.of(context).size.width,
+                      // height: 50,
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
+                  child: themeChange.darkTheme
+                      ? SvgPicture.asset(
+                          'assets/doclensewhite.svg',
+                        )
+                      : SvgPicture.asset(
+                          'assets/images/doclenselight.svg',
+                          // width: 300,
+                          // height: 100,
+                        ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  // right: MediaQuery.of(context).size.width/9,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: const Text(
+                      "DocLense is the one place for all your documents!\n\nYou can now click, upload, crop, rotate and do so\nmuch more!\n\nSo whether it is your college assignment or the\noffice document you want to digitalize, stop\nworrying and just use",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
-                      child: themeChange.darkTheme ? SvgPicture.asset(
-                        'assets/doclensewhite.svg',
-                      ) :
-                      SvgPicture.asset(
-                        'assets/images/doclenselight.svg',
-                        // width: 300,
-                        // height: 100,
-                      ),),
-                        Positioned(
-                          bottom: 0,
-                            // right: MediaQuery.of(context).size.width/9,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: Text(
-                                "DocLense is the one place for all your documents!\n\nYou can now click, upload, crop, rotate and do so\nmuch more!\n\nSo whether it is your college assignment or the\noffice document you want to digitalize, stop\nworrying and just use",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                        ),
-
-                  ]
+                  ),
                 ),
+              ]),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
-            Text(
+            const Text(
               'Doclense!',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold
-              ),
+              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height/20,
+              height: MediaQuery.of(context).size.height / 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 SvgPicture.asset(
-                    'assets/aboutPage/undraw_At_work_re_qotl.svg',
+                  'assets/aboutPage/undraw_At_work_re_qotl.svg',
                   height: 100,
                 ),
                 SvgPicture.asset(
-                    'assets/aboutPage/undraw_Upload_re_pasx.svg',
+                  'assets/aboutPage/undraw_Upload_re_pasx.svg',
                   height: 100,
                 )
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height/13,
+              height: MediaQuery.of(context).size.height / 13,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
+              children: const <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
                   child: Text(
                     "Made with ❤ by Open Source",
                     style: TextStyle(
@@ -118,7 +115,6 @@ class About extends StatelessWidget {
                 ),
               ],
             )
-
           ],
         ),
       ),
