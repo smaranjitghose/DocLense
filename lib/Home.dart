@@ -583,7 +583,7 @@ class _HomeState extends State<Home> {
                                               'Removed from starred documents')));
                                       print('Already fav');
                                     } else {
-                                      files.add([path, 'some date']);
+                                      files.add([path, '']);
                                       Hive.box('starred').putAt(0, files);
                                       print(
                                           "STARRED : ${Hive.box('starred')
