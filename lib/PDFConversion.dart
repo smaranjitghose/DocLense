@@ -66,16 +66,12 @@ class _PDFConversion extends State<PDFConversion> {
     //Open the PDF document in mobile
     OpenFile.open(filePath);
 
-    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final List<dynamic> files = Hive.box('pdfs').getAt(0) as List<dynamic>;
-    // DateTime dateToday = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day) ;
     final now = new DateTime.now();
     String formatter = DateFormat('yMd').format(now);
     files.add([filePath, formatter]);
-    // files.add(filePath);
     Hive.box('pdfs').putAt(0, files);
     print("PDFS : ${Hive.box('pdfs').getAt(0)}");
-    //Directory documentDirectory = await getApplicationDocumentsDirectory();
 
     // Clearing the image list once the PDF is created and saved
     for (int i = 0; i < widget.list.imagelist.length; i++) {
@@ -83,9 +79,6 @@ class _PDFConversion extends State<PDFConversion> {
       widget.list.imagelist.removeAt(i);
       widget.list.imagepath.removeAt(i);
     }
-    //String documentPath = documentDirectory.path;
-
-    //File file = File("$documentPath/example.pdf");
   }
 
   @override
