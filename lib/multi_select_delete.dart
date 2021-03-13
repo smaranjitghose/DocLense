@@ -64,11 +64,6 @@ class _multiDeleteState extends State<multiDelete> {
                         selectedList = List();
                       });
                       Navigator.pop(context);
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  multiDelete(widget.imageList)));
                     },
                   ),
                   Padding(
@@ -95,6 +90,61 @@ class _multiDeleteState extends State<multiDelete> {
         });
   }
 
+  Future<void> _showChoiceDialog_home(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            backgroundColor: Colors.blueGrey[800],
+            title: Text(
+              "All your progress will be lost.\nDo you want to go back to home?",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  GestureDetector(
+                    child: Text(
+                      "Yes",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () {
+                      for (int i = 0; i < itemList.length; i++) {
+                        print('i = $i');
+                        print(widget.imageList.imagelist.length);
+                        int idx = widget.imageList.imagelist.indexOf(
+                            itemList[itemList.indexOf(itemList[i])]
+                                .imageUrl);
+                        widget.imageList.imagelist.removeAt(idx);
+                        widget.imageList.imagepath.removeAt(idx);
+                        itemList.remove(idx);
+                      }
+                      Navigator.of(ctx).pop();
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                    },
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                  ),
+                  GestureDetector(
+                    child: Text(
+                      "No",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onTap: () {
+                      Navigator.of(ctx).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   _openGallery() async {
     var picture = await ImagePicker.pickImage(source: ImageSource.gallery);
     this.setState(() {
@@ -109,8 +159,10 @@ class _multiDeleteState extends State<multiDelete> {
     this.setState(() {
       imageFile = picture;
     });
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => Imageview(imageFile, widget.imageList)));
+    if (imageFile != null) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Imageview(imageFile, widget.imageList)));
+    }
   }
 
   Future<void> _showChoiceDialog_add(BuildContext context) {
@@ -159,7 +211,7 @@ class _multiDeleteState extends State<multiDelete> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blueGrey[100],
+      // backgroundColor: Colors.blueGrey[100],
         appBar: getAppBar(),
         body: GridView.builder(
             itemCount: itemList.length,
@@ -187,17 +239,17 @@ class _multiDeleteState extends State<multiDelete> {
               );
             }),
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blue[600],
+          // backgroundColor: Colors.blue[600],
           onPressed: () {},
           child: IconButton(
             iconSize: 40,
             onPressed: () {
               _showChoiceDialog_add(context);
             },
-            color: Colors.blue[600],
+            // color: Colors.blue[600],
             icon: Icon(
               Icons.add,
-              color: Colors.teal,
+              // color: Colors.teal,
             ),
           ),
         ));
@@ -205,7 +257,21 @@ class _multiDeleteState extends State<multiDelete> {
 
   getAppBar() {
     return AppBar(
-      backgroundColor: Colors.blue[600],
+      leading: IconButton(
+        onPressed: () {
+          if(itemList.length != 0){
+            setState(() {
+              widget.imageList.imagelist.removeAt(itemList.length - 1);
+              widget.imageList.imagepath.removeAt(itemList.length - 1);
+              itemList.removeAt(itemList.length - 1);
+            });
+          }
+          Navigator.of(context).pop();
+        },
+        icon: Icon(
+          Icons.arrow_back
+        ),
+      ),
       title: Text(selectedList.length < 1
           ? "Documents"
           : "${selectedList.length} item selected"),
@@ -213,28 +279,31 @@ class _multiDeleteState extends State<multiDelete> {
         selectedList.length < 1
             ? Container()
             : InkWell(
-                onTap: () {
-                  _showChoiceDialog_del(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.delete,
-                  ),
-                )),
+            onTap: () {
+              _showChoiceDialog_del(context);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.delete,
+              ),
+            )),
         IconButton(
             icon: Icon(Icons.picture_as_pdf),
             onPressed: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => PDFConversion(widget.imageList)));
+                  PageRouteBuilder(
+                    pageBuilder: (c, a1, a2) => PDFConversion(widget.imageList),
+                    transitionsBuilder: (c, anim, a2, child) =>
+                        FadeTransition(opacity: anim, child: child),
+                    // transitionDuration: Duration(milliseconds: 2000),
+                  ));
             }),
         IconButton(
             icon: Icon(Icons.home),
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Home()));
+              _showChoiceDialog_home(context);
             })
       ],
     );

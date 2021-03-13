@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 import 'Filterview.dart';
 import 'Home.dart';
 import 'Providers/ImageList.dart';
+import 'Providers/ThemeProvider.dart';
 
 class Imageview extends StatefulWidget {
   File file;
@@ -28,15 +30,21 @@ class _ImageviewState extends State<Imageview> {
     index = 0;
   }
 
-  cropimage(file) async {
+  cropimage(file, appBarColor, bgColor) async {
     if (file != null) {
       cropped = await ImageCropper.cropImage(
         sourcePath: file.path,
         aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
         compressQuality: 80,
+          androidUiSettings: AndroidUiSettings(
+            statusBarColor: appBarColor,
+            toolbarColor: appBarColor,
+            toolbarWidgetColor: Colors.white,
+            backgroundColor: bgColor,
+          )
       );
       setState(() {
-        file = cropped;
+        cropped == null ? file = files : file = cropped;
         files.add(file);
         index++;
       });
@@ -53,7 +61,7 @@ class _ImageviewState extends State<Imageview> {
             Icon(
               Icons.share,
               size: 28.0,
-              color: Colors.blue,
+              // color: Colors.blue,
             ),
             SizedBox(
               width: 23.0,
@@ -73,11 +81,15 @@ class _ImageviewState extends State<Imageview> {
 
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
+
+    Color appBarColor = themeChange.darkTheme ? Colors.black : Colors.blue[600];
+    Color bgColor = themeChange.darkTheme ? Colors.black54 : Colors.white;
+
     // TODO: implement build
     return Scaffold(
       body: SafeArea(
         child: Container(
-          color: Colors.blueGrey[100],
           child: Column(
             children: <Widget>[
               Expanded(
@@ -89,7 +101,6 @@ class _ImageviewState extends State<Imageview> {
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                   child: Image.file(
                     files[index],
-                    fit: BoxFit.fill,
                   ),
                 ),
               ),
@@ -100,7 +111,7 @@ class _ImageviewState extends State<Imageview> {
                     .height / 19).floor(),
                 child: Container(
                   height: 65,
-                  color: Colors.blue[600],
+                  color: themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
@@ -112,7 +123,6 @@ class _ImageviewState extends State<Imageview> {
 //                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
 //                                      builder: (context) => Home()));
                           },
-                          color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
@@ -136,7 +146,6 @@ class _ImageviewState extends State<Imageview> {
                               });
                             }
                           },
-                          color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
@@ -152,9 +161,8 @@ class _ImageviewState extends State<Imageview> {
                         ),
                         FlatButton(
                           onPressed: () {
-                            cropimage(widget.file);
+                            cropimage(widget.file, appBarColor, bgColor);
                           },
-                          color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
@@ -195,7 +203,6 @@ class _ImageviewState extends State<Imageview> {
                                   ));
                             }
                           },
-                          color: Colors.blue[600],
                           child: Column(
                             children: <Widget>[
                               Icon(
@@ -214,6 +221,7 @@ class _ImageviewState extends State<Imageview> {
                   ),
                 ),
               ),
+              // ),
             ],
           ),
         ),

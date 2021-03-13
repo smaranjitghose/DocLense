@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
+import 'package:hive/hive.dart';
 import 'package:pdf/pdf.dart';
 import 'package:permission/permission.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,7 +41,12 @@ class _PDFConversion extends State<PDFConversion> {
         bytes: File(widget.list.imagepath[i]).readAsBytesSync(),
       );
       pdf.addPage(pw.Page(
-          pageFormat: PdfPageFormat.a4,
+          pageFormat: PdfPageFormat.a4.copyWith(
+            marginTop: 0,
+            marginBottom: 0,
+            marginLeft: 0,
+            marginRight: 0,
+          ),
           build: (pw.Context context) {
             return pw.Center(child: pw.Image(image));
           }));
@@ -60,13 +66,20 @@ class _PDFConversion extends State<PDFConversion> {
     //document.pdfPath = path;
     //Open the PDF document in mobile
     OpenFile.open('$path' + '/${name}' + '.pdf');
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    List<String> files = sharedPreferences.getStringList('savedFiles');
+
+    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    List<dynamic> files = Hive.box('pdfs').getAt(0);
     files.add('$path' + '/${name}' + '.pdf');
-    sharedPreferences.setStringList('savedFiles', files);
-    print(sharedPreferences.getStringList('savedFiles'));
+    Hive.box('pdfs').putAt(0, files);
+    print("PDFS : ${Hive.box('pdfs').getAt(0)}");
     //Directory documentDirectory = await getApplicationDocumentsDirectory();
 
+    // Clearing the image list once the PDF is created and saved
+    for (int i = 0; i < widget.list.imagelist.length; i++) {
+      print('i = $i');
+      widget.list.imagelist.removeAt(i);
+      widget.list.imagepath.removeAt(i);
+    }
     //String documentPath = documentDirectory.path;
 
     //File file = File("$documentPath/example.pdf");
@@ -81,18 +94,17 @@ class _PDFConversion extends State<PDFConversion> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.blue[600],
         title: Text(
           'Name Your PDF',
-          style: TextStyle(color: Colors.white, fontSize: 22),
+          style: TextStyle(fontSize: 22),
         ),
         actions: [
           GestureDetector(
             child: Center(
               child: Text(
                 "Choose Directory to save",
+                style: TextStyle(color: Colors.white),
               ),
             ),
             onTap: () async {
@@ -101,16 +113,16 @@ class _PDFConversion extends State<PDFConversion> {
               print("External : $externalDirectory");
               Navigator.of(context)
                   .push<FolderPickerPage>(MaterialPageRoute(
-                      builder: (BuildContext context) {
-                return FolderPickerPage(
-                    rootDirectory: externalDirectory,
-                    action: (BuildContext context,
-                        Directory folder) async {
-                      print("Picked directory $folder");
-                      setState(() => pickedDirectory = folder);
-                      Navigator.of(context).pop();
-                    });
-              }));
+                  builder: (BuildContext context) {
+                    return FolderPickerPage(
+                        rootDirectory: externalDirectory,
+                        action: (BuildContext context,
+                            Directory folder) async {
+                          print("Picked directory $folder");
+                          setState(() => pickedDirectory = folder);
+                          Navigator.of(context).pop();
+                        });
+                  }));
             },
           )
         ],
@@ -119,10 +131,9 @@ class _PDFConversion extends State<PDFConversion> {
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Container(
-            color: Colors.blueGrey[100],
             child:
-                // The first text field is focused on as soon as the app starts.
-                Padding(
+            // The first text field is focused on as soon as the app starts.
+            Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
                 controller: myController,
@@ -132,25 +143,21 @@ class _PDFConversion extends State<PDFConversion> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.blue[600],
-        child: IconButton(
-          iconSize: 40,
-          onPressed: () {
-            // if (name == null) {
-            //   AlertDialog(
-            //       backgroundColor: Colors.blueGrey[800],
-            //       content: Text(
-            //         "Enter PDF Name",
-            //         style: TextStyle(color: Colors.white),
-            //       ));
-            // } else
-            _pushSaved();
-          },
-          color: Colors.blue[600],
-          icon: Icon(
+        onPressed: () {
+          // if (name == null) {
+          //   AlertDialog(
+          //       backgroundColor: Colors.blueGrey[800],
+          //       content: Text(
+          //         "Enter PDF Name",
+          //         style: TextStyle(color: Colors.white),
+          //       ));
+          // } else
+          FocusScope.of(context).unfocus();
+          _pushSaved();
+        },
+        child: Icon(
             Icons.arrow_forward,
-            color: Colors.teal,
-          ),
+            size: 40
         ),
       ),
     );
@@ -182,26 +189,26 @@ class _PDFConversion extends State<PDFConversion> {
   Future<void> _pushSaved() async {
     name = Text(myController.text).data;
 
-    
+
     //document.name = name;
     writeOnPdf();
     await savePdf();
     //Documents.add(document);
     Directory documentDirectory = await getApplicationDocumentsDirectory();
-    
-    if (pickedDirectory!=null) documentDirectory = pickedDirectory;
+
+    if (pickedDirectory != null) documentDirectory = pickedDirectory;
 
     String documentPath = documentDirectory.path;
     //document.documentPath = documentPath;
     String fullPath = "$documentPath" + "/${name}" + ".pdf";
     print(fullPath);
 
-    
 
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => PdfPreviewScreen(
+            builder: (context) =>
+                PdfPreviewScreen(
                   path: fullPath,
                 )));
   }
