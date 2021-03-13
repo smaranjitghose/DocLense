@@ -554,6 +554,7 @@ class _HomeState extends State<Home> {
                                     final File file = File(await pdfsBox
                                         .getAt(0)[index][0] as String);
                                     final path = file.path;
+                                    final date = pdfsBox.getAt(0)[index][1];
 
                                     final List<dynamic> files =
                                     Hive.box('starred').getAt(0)
@@ -583,7 +584,7 @@ class _HomeState extends State<Home> {
                                               'Removed from starred documents')));
                                       print('Already fav');
                                     } else {
-                                      files.add([path, '']);
+                                      files.add([path, date]);
                                       Hive.box('starred').putAt(0, files);
                                       print(
                                           "STARRED : ${Hive.box('starred')
