@@ -1,15 +1,14 @@
-import 'package:doclense/starred_documents.dart';
 import 'package:doclense/settings.dart';
+import 'package:doclense/starred_documents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:rating_dialog/rating_dialog.dart';
-import 'package:provider/provider.dart';
 
 import 'about.dart';
-
-import 'Providers/theme_provider.dart';
+import 'providers/theme_provider.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
