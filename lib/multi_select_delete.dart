@@ -1,12 +1,11 @@
 import 'dart:io';
-
+import 'Home.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
-import 'Providers/image_list.dart';
-import 'grid_item.dart';
-import 'image_view.dart';
-import 'pdf_conversion.dart';
+import 'Providers/ImageList.dart';
+import 'Imageview.dart';
+import 'PDFConversion.dart';
+import 'griditem.dart';
 
 class multiDelete extends StatefulWidget {
   ImageList imageList;
@@ -116,7 +115,8 @@ class _multiDeleteState extends State<multiDelete> {
                         print('i = $i');
                         print(widget.imageList.imagelist.length);
                         int idx = widget.imageList.imagelist.indexOf(
-                            itemList[itemList.indexOf(itemList[i])].imageUrl);
+                            itemList[itemList.indexOf(itemList[i])]
+                                .imageUrl);
                         widget.imageList.imagelist.removeAt(idx);
                         widget.imageList.imagepath.removeAt(idx);
                         itemList.remove(idx);
@@ -211,7 +211,7 @@ class _multiDeleteState extends State<multiDelete> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        // backgroundColor: Colors.blueGrey[100],
+      // backgroundColor: Colors.blueGrey[100],
         appBar: getAppBar(),
         body: GridView.builder(
             itemCount: itemList.length,
@@ -259,7 +259,7 @@ class _multiDeleteState extends State<multiDelete> {
     return AppBar(
       leading: IconButton(
         onPressed: () {
-          if (itemList.length != 0) {
+          if(itemList.length != 0){
             setState(() {
               widget.imageList.imagelist.removeAt(itemList.length - 1);
               widget.imageList.imagepath.removeAt(itemList.length - 1);
@@ -268,7 +268,9 @@ class _multiDeleteState extends State<multiDelete> {
           }
           Navigator.of(context).pop();
         },
-        icon: Icon(Icons.arrow_back),
+        icon: Icon(
+          Icons.arrow_back
+        ),
       ),
       title: Text(selectedList.length < 1
           ? "Documents"
@@ -277,15 +279,15 @@ class _multiDeleteState extends State<multiDelete> {
         selectedList.length < 1
             ? Container()
             : InkWell(
-                onTap: () {
-                  _showChoiceDialog_del(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.delete,
-                  ),
-                )),
+            onTap: () {
+              _showChoiceDialog_del(context);
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Icon(
+                Icons.delete,
+              ),
+            )),
         IconButton(
             icon: Icon(Icons.picture_as_pdf),
             onPressed: () {

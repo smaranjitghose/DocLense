@@ -1,9 +1,9 @@
+import 'package:doclense/Constants/ThemeConstants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'Providers/theme_provider.dart';
-import 'main_drawer.dart';
+import 'MainDrawer.dart';
+import 'Providers/ThemeProvider.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -11,6 +11,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+
   String theme;
   bool adjustBorders = true;
   bool textOcr = true;
@@ -35,13 +36,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 800,
                 child: ListView(
                   children: [
-                    SizedBox(
-                      height: 20,
-                    ),
+                    SizedBox(height: 20,),
                     Text("APP THEME OPTIONS"),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 5,),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -60,7 +57,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   flex: 3,
                                   child: Text(
                                     "Dark mode",
-                                    style: TextStyle(height: 1, fontSize: 17),
+                                    style: TextStyle(
+                                        height: 1,
+                                        fontSize: 17
+                                    ),
                                   ),
                                 ),
                                 Switch(
@@ -112,17 +112,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         // ),
                       ],
                     ),
-                    SizedBox(
-                      height: 20,
-                    ),
+
+                    SizedBox(height: 20,),
                     Text("ADJUST BORDERS"),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 5,),
                     Container(
-                      color: themeChange.darkTheme
-                          ? Colors.black45
-                          : Colors.grey[200],
+                      color: themeChange.darkTheme ? Colors.black45 : Colors
+                          .grey[200],
                       height: 60,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -132,7 +128,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             flex: 3,
                             child: Text(
                               "When auto-capturing , let me adjust borders after each scan",
-                              style: TextStyle(height: 1, fontSize: 17),
+                              style: TextStyle(
+                                  height: 1,
+                                  fontSize: 17
+                              ),
                             ),
                           ),
                           Switch(
@@ -149,17 +148,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 40,
-                    ),
+
+                    SizedBox(height: 40,),
+
                     Text("TEXT RECOGNITION (OCR)"),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 5,),
                     Container(
-                      color: themeChange.darkTheme
-                          ? Colors.black45
-                          : Colors.grey[200],
+                      color: themeChange.darkTheme ? Colors.black45 : Colors
+                          .grey[200],
                       height: 50,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -169,7 +165,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             flex: 3,
                             child: Text(
                               "Run text recognition on saved pdf",
-                              style: TextStyle(height: 1, fontSize: 17),
+                              style: TextStyle(
+                                  height: 1,
+                                  fontSize: 17
+                              ),
                             ),
                           ),
                           Switch(
@@ -187,9 +186,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     Container(
-                      color: themeChange.darkTheme
-                          ? Colors.black45
-                          : Colors.grey[200],
+                      color: themeChange.darkTheme ? Colors.black45 : Colors
+                          .grey[200],
                       height: 50,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -199,29 +197,30 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             flex: 3,
                             child: Text(
                               "Text Recognition Language",
-                              style: TextStyle(height: 1, fontSize: 17),
+                              style: TextStyle(
+                                  height: 1,
+                                  fontSize: 17
+                              ),
                             ),
                           ),
                           Expanded(
                             flex: 1,
                             child: Center(
-                              child: Text("English"),
+                              child: Text(
+                                  "English"
+                              ),
                             ),
                           )
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 40,
-                    ),
+
+                    SizedBox(height: 40,),
                     Text("FILES"),
-                    SizedBox(
-                      height: 5,
-                    ),
+                    SizedBox(height: 5,),
                     Container(
-                      color: themeChange.darkTheme
-                          ? Colors.black45
-                          : Colors.grey[200],
+                      color: themeChange.darkTheme ? Colors.black45 : Colors
+                          .grey[200],
                       height: 50,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -231,7 +230,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             flex: 3,
                             child: Text(
                               "Save Original files to Gallery",
-                              style: TextStyle(height: 1, fontSize: 17),
+                              style: TextStyle(
+                                  height: 1,
+                                  fontSize: 17
+                              ),
                             ),
                           ),
                           Switch(
@@ -248,13 +250,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 40,
-                    ),
+
+                    SizedBox(height: 40,),
                     Container(
-                      color: themeChange.darkTheme
-                          ? Colors.black45
-                          : Colors.grey[200],
+                      color: themeChange.darkTheme ? Colors.black45 : Colors
+                          .grey[200],
                       height: 50,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -264,7 +264,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             flex: 3,
                             child: Text(
                               "  REPORT A BUG",
-                              style: TextStyle(height: 1, fontSize: 17),
+                              style: TextStyle(
+                                  height: 1,
+                                  fontSize: 17
+                              ),
                             ),
                           ),
                           Expanded(
@@ -280,13 +283,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+
+                    SizedBox(height: 10,),
+
                     Container(
-                      color: themeChange.darkTheme
-                          ? Colors.black45
-                          : Colors.grey[200],
+                      color: themeChange.darkTheme ? Colors.black45 : Colors
+                          .grey[200],
                       height: 50,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -296,7 +298,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             flex: 3,
                             child: Text(
                               "  REQUEST A FEATURE",
-                              style: TextStyle(height: 1, fontSize: 17),
+                              style: TextStyle(
+                                  height: 1,
+                                  fontSize: 17
+                              ),
                             ),
                           ),
                           Expanded(
@@ -312,13 +317,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+
+                    SizedBox(height: 10,),
+
                     Container(
-                      color: themeChange.darkTheme
-                          ? Colors.black45
-                          : Colors.grey[200],
+                      color: themeChange.darkTheme ? Colors.black45 : Colors
+                          .grey[200],
                       height: 50,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -328,7 +332,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             flex: 3,
                             child: Text(
                               "  CONTACT DEVELOPERS",
-                              style: TextStyle(height: 1, fontSize: 17),
+                              style: TextStyle(
+                                  height: 1,
+                                  fontSize: 17
+                              ),
                             ),
                           ),
                           Expanded(

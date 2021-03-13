@@ -1,13 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'dart:io';
 import 'package:open_file/open_file.dart';
 import 'package:share/share.dart';
-
-import 'main_drawer.dart';
+import 'MainDrawer.dart';
 
 class Starred extends StatefulWidget {
   @override
@@ -22,13 +20,15 @@ class _StarredState extends State<Starred> {
       appBar: AppBar(
         title: Text(
           'Starred Docs',
-          style: TextStyle(fontSize: 24),
+          style: TextStyle(
+              fontSize: 24),
         ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
-              setState(() {});
+              setState(() {
+              });
             },
           ),
           IconButton(
@@ -40,13 +40,19 @@ class _StarredState extends State<Starred> {
       body: WatchBoxBuilder(
         box: Hive.box('starred'),
         builder: (context, starredBox) {
-          if (starredBox.getAt(0).length == 0) {
+          if (starredBox
+              .getAt(0)
+              .length == 0) {
             return Center(
-              child: Text("No PDFs Starred Yet !! "),
+              child: Text(
+                  "No PDFs Starred Yet !! "
+              ),
             );
           }
           return ListView.builder(
-            itemCount: starredBox.getAt(0).length,
+            itemCount: starredBox
+                .getAt(0)
+                .length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -62,36 +68,44 @@ class _StarredState extends State<Starred> {
                       children: [
                         Column(
                           children: [
-                            Text(starredBox.getAt(0)[index].split('/').last),
+                            Text(
+                                starredBox.getAt(0)[index]
+                                    .split('/')
+                                    .last
+                            ),
                           ],
                         ),
                         Row(
                           children: [
                             IconButton(
-                                icon: Icon(Icons.share),
+                                icon: Icon(
+                                    Icons.share
+                                ),
                                 onPressed: () async {
-                                  File file =
-                                      await File(starredBox.getAt(0)[index]);
+
+                                  File file = await File(
+                                      starredBox.getAt(0)[index]
+                                  );
 
                                   final path = file.path;
 
                                   print(path);
 
-                                  Share.shareFiles(['$path'],
-                                      text: 'Your PDF!');
-                                }),
+                                  Share.shareFiles(
+                                      ['$path'], text: 'Your PDF!');
+                                }
+                            ),
                             IconButton(
-                                icon: Icon(Icons.star),
+                                icon: Icon(
+                                    Icons.star
+                                ),
                                 onPressed: () async {
                                   setState(() {
-                                    Hive.box('starred')
-                                        .getAt(0)
-                                        .removeAt(index);
+                                    Hive.box('starred').getAt(0).removeAt(index);
                                   });
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                      content: Text(
-                                          'Removed from starred documents')));
-                                })
+                                  Scaffold.of(context).showSnackBar(SnackBar(content: Text('Removed from starred documents')));
+                                }
+                            )
                           ],
                         )
                       ],

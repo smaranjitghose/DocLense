@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:doclense/Home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
+
 
 class PdfPreviewScreen extends StatefulWidget {
   final String path;
@@ -13,10 +15,11 @@ class PdfPreviewScreen extends StatefulWidget {
 }
 
 class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
+
   @override
   void initState() {
     super.initState();
-    homePageTimer(); // calling the function
+    homePageTimer();  // calling the function
   }
 
   homePageTimer() {
