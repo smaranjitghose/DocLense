@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
-import 'Filterview.dart';
-import 'Home.dart';
-import 'Providers/ImageList.dart';
-import 'Providers/ThemeProvider.dart';
+import 'filter_view.dart';
+import 'home.dart';
+import 'Providers/image_list.dart';
+import 'Providers/theme_provider.dart';
 
 class Imageview extends StatefulWidget {
   final File file;

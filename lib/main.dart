@@ -1,14 +1,14 @@
 import 'dart:ui';
 
-import 'package:doclense/Home.dart';
+import 'package:doclense/home.dart';
 import 'package:doclense/Models/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:doclense/Providers/ThemeProvider.dart';
-import 'package:doclense/Constants/ThemeConstants.dart';
+import 'package:doclense/Providers/theme_provider.dart';
+import 'package:doclense/Constants/theme_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart' as path;
 

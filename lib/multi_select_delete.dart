@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-// import 'Home.dart';
-import 'Imageview.dart';
-import 'PDFConversion.dart';
-import 'Providers/ImageList.dart';
-import 'griditem.dart';
+// import 'home.dart';
+import 'image_view.dart';
+import 'pdf_conversion.dart';
+import 'Providers/image_list.dart';
+import 'grid_item.dart';
 
 class MultiDelete extends StatefulWidget {
   final ImageList imageList;

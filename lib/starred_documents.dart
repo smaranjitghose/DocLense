@@ -7,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_file/open_file.dart';
 import 'package:share/share.dart';
 
-import 'MainDrawer.dart';
+import 'main_drawer.dart';
 
 class Starred extends StatefulWidget {
   @override
