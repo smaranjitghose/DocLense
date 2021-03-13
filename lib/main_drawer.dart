@@ -1,14 +1,14 @@
-import 'package:doclense/StarredDocuments.dart';
 import 'package:doclense/settings.dart';
+import 'package:doclense/starred_documents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-import 'About.dart';
+import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:rating_dialog/rating_dialog.dart';
 
-import 'Providers/ThemeProvider.dart';
+import 'Providers/theme_provider.dart';
+import 'about.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -25,32 +25,31 @@ class MainDrawer extends StatelessWidget {
               color: themeChange.darkTheme ? Colors.black : Colors.white10,
               child: Center(
                   child: Column(
-                    children: <Widget>[
-                      Container(
-                        width: 100,
-                        height: 180,
-                        child: CircleAvatar(
-                          backgroundColor: themeChange.darkTheme
-                              ? Colors.black
-                              : Colors.white10,
-                          radius: 60,
-                          child: themeChange.darkTheme ?
-                          SvgPicture.asset(
-                            'assets/doclensewhitesmall.svg',
-                            height: 100,
-                          ) :
-                          SvgPicture.asset(
-                            'assets/doclenselightsmall.svg',
-                            height: 100,
-                          ),
-                        ),
-                      ),
-                      Text(
-                        "One Place For All \n Your Documents!",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  )),
+                children: <Widget>[
+                  Container(
+                    width: 100,
+                    height: 180,
+                    child: CircleAvatar(
+                      backgroundColor:
+                          themeChange.darkTheme ? Colors.black : Colors.white10,
+                      radius: 60,
+                      child: themeChange.darkTheme
+                          ? SvgPicture.asset(
+                              'assets/doclensewhitesmall.svg',
+                              height: 100,
+                            )
+                          : SvgPicture.asset(
+                              'assets/doclenselightsmall.svg',
+                              height: 100,
+                            ),
+                    ),
+                  ),
+                  Text(
+                    "One Place For All \n Your Documents!",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ],
+              )),
             ),
             SizedBox(
               height: 10,
@@ -62,19 +61,19 @@ class MainDrawer extends StatelessWidget {
                 leading: Icon(Icons.home),
                 title: Text(
                   "Home",
-                  style: TextStyle(fontSize: 18),)),
+                  style: TextStyle(fontSize: 18),
+                )),
             ListTile(
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.push(
-                  context,
+                    context,
                     PageRouteBuilder(
                       pageBuilder: (c, a1, a2) => Starred(),
                       transitionsBuilder: (c, anim, a2, child) =>
                           FadeTransition(opacity: anim, child: child),
                       // transitionDuration: Duration(milliseconds: 2000),
-                    )
-                );
+                    ));
               },
               leading: Icon(Icons.stars_rounded),
               title: Text(
@@ -85,13 +84,15 @@ class MainDrawer extends StatelessWidget {
             ListTile(
               onTap: () {
                 Navigator.of(context).pop();
-                Navigator.push(context,
+                Navigator.push(
+                  context,
                   PageRouteBuilder(
                     pageBuilder: (c, a1, a2) => SettingsScreen(),
                     transitionsBuilder: (c, anim, a2, child) =>
                         FadeTransition(opacity: anim, child: child),
                     // transitionDuration: Duration(milliseconds: 2000),
-                  ),);
+                  ),
+                );
               },
               leading: Icon(Icons.settings),
               title: Text(
@@ -100,17 +101,20 @@ class MainDrawer extends StatelessWidget {
               ),
             ),
             Divider(
-              color: themeChange.darkTheme ? Colors.white : Colors.black,),
+              color: themeChange.darkTheme ? Colors.white : Colors.black,
+            ),
             ListTile(
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.push(
-                  context, PageRouteBuilder(
-                  pageBuilder: (c, a1, a2) => About(),
-                  transitionsBuilder: (c, anim, a2, child) =>
-                      FadeTransition(opacity: anim, child: child),
-                  // transitionDuration: Duration(milliseconds: 1000),
-                ),);
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (c, a1, a2) => About(),
+                    transitionsBuilder: (c, anim, a2, child) =>
+                        FadeTransition(opacity: anim, child: child),
+                    // transitionDuration: Duration(milliseconds: 1000),
+                  ),
+                );
               },
               leading: Icon(Icons.info),
               title: Text(
@@ -127,13 +131,12 @@ class MainDrawer extends StatelessWidget {
                     barrierDismissible: true,
                     builder: (BuildContext context) {
                       return RatingDialog(
-                        accentColor: themeChange.darkTheme
-                            ? Colors.black
-                            : Colors
-                            .blue,
+                        accentColor:
+                            themeChange.darkTheme ? Colors.black : Colors.blue,
                         icon: Padding(
                           padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: SvgPicture.asset('assets/images/doclenselight.svg'),
+                          child: SvgPicture.asset(
+                              'assets/images/doclenselight.svg'),
                         ),
                         title: "How's your experience with us?",
                         description: "Let us know what you think",
@@ -151,13 +154,13 @@ class MainDrawer extends StatelessWidget {
               ),
             ),
             Divider(
-              color: themeChange.darkTheme ? Colors.white : Colors.black,),
+              color: themeChange.darkTheme ? Colors.white : Colors.black,
+            ),
             ListTile(
               onTap: () {
                 Share.share(
                     'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
-                    subject: "DocLense"
-                );
+                    subject: "DocLense");
               },
               leading: Icon(Icons.share),
               title: Text(
@@ -183,7 +186,6 @@ class MainDrawer extends StatelessWidget {
     );
   }
 }
-
 
 _launchURL() async {
   const url =

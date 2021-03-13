@@ -1,16 +1,17 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
 import 'package:hive/hive.dart';
-import 'package:pdf/pdf.dart';
-import 'package:permission/permission.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'Providers/ImageList.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'package:open_file/open_file.dart';
-import 'PDFPreviewScreen.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:permission/permission.dart';
+
+import 'Providers/image_list.dart';
+import 'pdf_preview_screen.dart';
 
 class PDFConversion extends StatefulWidget {
   ImageList list;
@@ -106,18 +107,16 @@ class _PDFConversion extends State<PDFConversion> {
               await getPermissions();
               await getStorage();
               print("External : $externalDirectory");
-              Navigator.of(context)
-                  .push<FolderPickerPage>(MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return FolderPickerPage(
-                        rootDirectory: externalDirectory,
-                        action: (BuildContext context,
-                            Directory folder) async {
-                          print("Picked directory $folder");
-                          setState(() => pickedDirectory = folder);
-                          Navigator.of(context).pop();
-                        });
-                  }));
+              Navigator.of(context).push<FolderPickerPage>(
+                  MaterialPageRoute(builder: (BuildContext context) {
+                return FolderPickerPage(
+                    rootDirectory: externalDirectory,
+                    action: (BuildContext context, Directory folder) async {
+                      print("Picked directory $folder");
+                      setState(() => pickedDirectory = folder);
+                      Navigator.of(context).pop();
+                    });
+              }));
             },
           )
         ],
@@ -127,8 +126,8 @@ class _PDFConversion extends State<PDFConversion> {
         child: Center(
           child: Container(
             child:
-            // The first text field is focused on as soon as the app starts.
-            Padding(
+                // The first text field is focused on as soon as the app starts.
+                Padding(
               padding: const EdgeInsets.all(10.0),
               child: TextField(
                 controller: myController,
@@ -150,10 +149,7 @@ class _PDFConversion extends State<PDFConversion> {
           FocusScope.of(context).unfocus();
           _pushSaved();
         },
-        child: Icon(
-            Icons.arrow_forward,
-            size: 40
-        ),
+        child: Icon(Icons.arrow_forward, size: 40),
       ),
     );
   }
@@ -184,7 +180,6 @@ class _PDFConversion extends State<PDFConversion> {
   Future<void> _pushSaved() async {
     name = Text(myController.text).data;
 
-
     //document.name = name;
     writeOnPdf();
     await savePdf();
@@ -198,12 +193,10 @@ class _PDFConversion extends State<PDFConversion> {
     String fullPath = "$documentPath" + "/${name}" + ".pdf";
     print(fullPath);
 
-
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) =>
-                PdfPreviewScreen(
+            builder: (context) => PdfPreviewScreen(
                   path: fullPath,
                 )));
   }
