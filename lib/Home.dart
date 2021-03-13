@@ -241,14 +241,6 @@ class _HomeState extends State<Home> {
                                                 child: ListBody(
                                                   children: <Widget>[
                                                     GestureDetector(
-                                                      child: const Text(
-                                                        "Yes",
-                                                        textAlign:
-                                                        TextAlign.center,
-                                                        style: TextStyle(
-                                                            color:
-                                                            Colors.white),
-                                                      ),
                                                       onTap: () {
                                                         final File sourceFile =
                                                         File(pdfsBox.getAt(
@@ -325,6 +317,14 @@ class _HomeState extends State<Home> {
                                                         });
                                                         Navigator.of(ctx).pop();
                                                       },
+                                                      child: const Text(
+                                                        "Yes",
+                                                        textAlign:
+                                                        TextAlign.center,
+                                                        style: TextStyle(
+                                                            color:
+                                                            Colors.white),
+                                                      )
                                                     ),
                                                     const Padding(
                                                       padding:
