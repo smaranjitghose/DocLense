@@ -195,7 +195,7 @@ class _HomeState extends State<Home> {
                                 (pdfsBox.getAt(0)[index][0] as String)
                                     .split('/')
                                     .last,
-                                style: TextStyle(fontSize: 18),
+                                style: const TextStyle(fontSize: 18),
                               ),
                             ),
                             Padding(
@@ -273,7 +273,7 @@ class _HomeState extends State<Home> {
                                                               dynamic>;
                                                           pdfsBox.putAt(
                                                               0, editedList);
-                                                          List<
+                                                          final List<
                                                               dynamic> finalStarredFiles = [
                                                           ];
                                                           for (int i = 0; i <
@@ -389,7 +389,7 @@ class _HomeState extends State<Home> {
                                                             .getAt(0)
                                                         as List<
                                                             dynamic>;
-                                                        List<
+                                                        final List<
                                                             dynamic> finalStarred = [
                                                         ];
                                                         for (int i = 0; i <

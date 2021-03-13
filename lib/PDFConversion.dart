@@ -67,8 +67,8 @@ class _PDFConversion extends State<PDFConversion> {
     OpenFile.open(filePath);
 
     final List<dynamic> files = Hive.box('pdfs').getAt(0) as List<dynamic>;
-    final now = new DateTime.now();
-    String formatter = DateFormat('yMd').format(now);
+    final now = DateTime.now();
+    final String formatter = DateFormat('yMd').format(now);
     files.add([filePath, formatter]);
     Hive.box('pdfs').putAt(0, files);
     print("PDFS : ${Hive.box('pdfs').getAt(0)}");

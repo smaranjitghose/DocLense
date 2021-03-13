@@ -70,7 +70,7 @@ class SearchService extends SearchDelegate<String> {
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
         onTap: () {
-          List<dynamic> finalList = [];
+          final List<dynamic> finalList = [];
           for(int i=0; i<files.length; i++){
             finalList.add(files[i][0]);
           }
@@ -121,7 +121,7 @@ class SearchService extends SearchDelegate<String> {
       itemBuilder: (context, index) =>
           ListTile(
             onTap: () {
-              List<dynamic> finalList = [];
+              final List<dynamic> finalList = [];
               for (int i = 0; i < files.length; i++) {
                 finalList.add(files[i][0]);
               }
