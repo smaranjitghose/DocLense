@@ -156,13 +156,17 @@ class _HomeState extends State<Home> {
       body: WatchBoxBuilder(
         box: Hive.box('pdfs'),
         builder: (context, pdfsBox) {
-          if (pdfsBox.getAt(0).length == 0) {
+          if (pdfsBox
+              .getAt(0)
+              .length == 0) {
             return const Center(
               child: Text("No PDFs Scanned Yet !! "),
             );
           }
           return ListView.builder(
-            itemCount: pdfsBox.getAt(0).length as int,
+            itemCount: pdfsBox
+                .getAt(0)
+                .length as int,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -177,6 +181,7 @@ class _HomeState extends State<Home> {
                       children: [
                         Column(
                           children: const [
+
                             /// TODO: Add logic for displaying first image of PDF
                             Icon(Icons.photo)
                           ],
@@ -197,7 +202,7 @@ class _HomeState extends State<Home> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                               child: Text(
                                   '${pdfsBox.getAt(0)[index][1]}'
-                                  ),
+                              ),
                             ),
                             const SizedBox(
                               height: 30,
@@ -225,7 +230,7 @@ class _HomeState extends State<Home> {
                                           builder: (BuildContext ctx) {
                                             return AlertDialog(
                                               backgroundColor:
-                                                  Colors.blueGrey[800],
+                                              Colors.blueGrey[800],
                                               title: const Text(
                                                 "The PDF will be permanently deleted.\nDo you want to proceed?",
                                                 textAlign: TextAlign.center,
@@ -239,69 +244,80 @@ class _HomeState extends State<Home> {
                                                       child: const Text(
                                                         "Yes",
                                                         textAlign:
-                                                            TextAlign.center,
+                                                        TextAlign.center,
                                                         style: TextStyle(
                                                             color:
-                                                                Colors.white),
+                                                            Colors.white),
                                                       ),
                                                       onTap: () {
                                                         final File sourceFile =
-                                                            File(pdfsBox.getAt(
-                                                                    0)[index]
-                                                                as String);
+                                                        File(pdfsBox.getAt(
+                                                            0)[index][0]
+                                                        as String);
                                                         print(sourceFile.path);
                                                         sourceFile.delete();
                                                         final List<dynamic>
-                                                            starredFiles =
-                                                            Hive.box('starred')
-                                                                    .getAt(0)
-                                                                as List<
-                                                                    dynamic>;
+                                                        starredFiles =
+                                                        Hive.box('starred')
+                                                            .getAt(0)
+                                                        as List<
+                                                            dynamic>;
                                                         setState(() {
                                                           pdfsBox
                                                               .getAt(0)
                                                               .removeAt(index);
                                                           final List<dynamic>
-                                                              editedList =
-                                                              pdfsBox.getAt(0)
-                                                                  as List<
-                                                                      dynamic>;
+                                                          editedList =
+                                                          pdfsBox.getAt(0)
+                                                          as List<
+                                                              dynamic>;
                                                           pdfsBox.putAt(
                                                               0, editedList);
-                                                          if (starredFiles
+                                                          List<
+                                                              dynamic> finalStarredFiles = [
+                                                          ];
+                                                          for (int i = 0; i <
+                                                              starredFiles
+                                                                  .length; i++) {
+                                                            finalStarredFiles
+                                                                .add(
+                                                                starredFiles[i][0]);
+                                                          }
+                                                          if (finalStarredFiles
                                                               .contains(
-                                                                  sourceFile
-                                                                      .path)) {
+                                                              sourceFile
+                                                                  .path)) {
                                                             print('yes');
                                                             for (int i = 0;
-                                                                i <
-                                                                    starredFiles
-                                                                        .length;
-                                                                i++) {
-                                                              if (Hive.box('starred')
-                                                                          .getAt(
-                                                                              0)[
-                                                                      i] ==
+                                                            i <
+                                                                starredFiles
+                                                                    .length;
+                                                            i++) {
+                                                              if (Hive.box(
+                                                                  'starred')
+                                                                  .getAt(
+                                                                  0)[
+                                                              i] ==
                                                                   sourceFile
                                                                       .path) {
                                                                 print('yes');
                                                                 Hive.box(
-                                                                        'starred')
+                                                                    'starred')
                                                                     .getAt(0)
                                                                     .removeAt(
-                                                                        i);
+                                                                    i);
                                                                 final List<
-                                                                        dynamic>
-                                                                    editedList =
-                                                                    Hive.box(
-                                                                            'starred')
-                                                                        .getAt(
-                                                                            0) as List<
-                                                                        dynamic>;
+                                                                    dynamic>
+                                                                editedList =
                                                                 Hive.box(
-                                                                        'starred')
+                                                                    'starred')
+                                                                    .getAt(
+                                                                    0) as List<
+                                                                    dynamic>;
+                                                                Hive.box(
+                                                                    'starred')
                                                                     .putAt(0,
-                                                                        editedList);
+                                                                    editedList);
                                                                 break;
                                                               }
                                                             }
@@ -312,7 +328,7 @@ class _HomeState extends State<Home> {
                                                     ),
                                                     const Padding(
                                                       padding:
-                                                          EdgeInsets.all(10),
+                                                      EdgeInsets.all(10),
                                                     ),
                                                     GestureDetector(
                                                       onTap: () {
@@ -321,10 +337,10 @@ class _HomeState extends State<Home> {
                                                       child: const Text(
                                                         "No",
                                                         textAlign:
-                                                            TextAlign.center,
+                                                        TextAlign.center,
                                                         style: TextStyle(
                                                             color:
-                                                                Colors.white),
+                                                            Colors.white),
                                                       ),
                                                     ),
                                                   ],
@@ -350,13 +366,14 @@ class _HomeState extends State<Home> {
                                                   fontSize: 20),
                                             ),
                                             content: SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height /
+                                              height: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height /
                                                   5,
                                               child: Column(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                                   children: [
                                                     TextField(
                                                       controller: pdfName,
@@ -367,88 +384,98 @@ class _HomeState extends State<Home> {
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         final List<dynamic>
-                                                            starred =
-                                                            Hive.box('starred')
-                                                                    .getAt(0)
-                                                                as List<
-                                                                    dynamic>;
+                                                        starred =
+                                                        Hive.box('starred')
+                                                            .getAt(0)
+                                                        as List<
+                                                            dynamic>;
                                                         print(
-                                                            "PDFS : ${Hive.box('pdfs').getAt(0)}");
+                                                            "PDFS : ${Hive.box(
+                                                                'pdfs').getAt(
+                                                                0)}");
                                                         final File sourceFile =
-                                                            File(pdfsBox.getAt(
-                                                                    0)[index][0]
-                                                                as String);
+                                                        File(pdfsBox.getAt(
+                                                            0)[index][0]
+                                                        as String);
                                                         setState(() {
                                                           if (starred.contains(
                                                               pdfsBox.getAt(
                                                                   0)[index][0])) {
                                                             for (int i = 0;
-                                                                i <
-                                                                    starred
-                                                                        .length;
-                                                                i++) {
-                                                              if (Hive.box('starred')
-                                                                          .getAt(
-                                                                              0)[
-                                                                      i][0] ==
+                                                            i <
+                                                                starred
+                                                                    .length;
+                                                            i++) {
+                                                              if (Hive.box(
+                                                                  'starred')
+                                                                  .getAt(
+                                                                  0)[
+                                                              i][0] ==
                                                                   sourceFile
                                                                       .path) {
                                                                 print('yes');
                                                                 final List<
-                                                                        String>
-                                                                    path =
-                                                                    (Hive.box('starred').getAt(0)[i][0]
-                                                                            as String)
-                                                                        .split(
-                                                                            '/');
+                                                                    String>
+                                                                path =
+                                                                (Hive.box(
+                                                                    'starred')
+                                                                    .getAt(
+                                                                    0)[i][0]
+                                                                as String)
+                                                                    .split(
+                                                                    '/');
                                                                 path.last =
-                                                                    "${pdfName.text}.pdf";
-                                                                Hive.box('starred')
-                                                                        .getAt(
-                                                                            0)[i][0] =
+                                                                "${pdfName
+                                                                    .text}.pdf";
+                                                                Hive.box(
+                                                                    'starred')
+                                                                    .getAt(
+                                                                    0)[i][0] =
                                                                     path.join(
                                                                         '/');
                                                                 final List<
-                                                                        dynamic>
-                                                                    editedList =
-                                                                    Hive.box(
-                                                                            'starred')
-                                                                        .getAt(
-                                                                            0) as List<
-                                                                        dynamic>;
+                                                                    dynamic>
+                                                                editedList =
                                                                 Hive.box(
-                                                                        'starred')
+                                                                    'starred')
+                                                                    .getAt(
+                                                                    0) as List<
+                                                                    dynamic>;
+                                                                Hive.box(
+                                                                    'starred')
                                                                     .putAt(0,
-                                                                        editedList);
+                                                                    editedList);
                                                                 break;
                                                               }
                                                             }
                                                           }
                                                           final List<String>
-                                                              path = pdfsBox
-                                                                      .getAt(0)[
-                                                                          index][0]
-                                                                      .split(
-                                                                          '/')
-                                                                  as List<
-                                                                      String>;
+                                                          path = pdfsBox
+                                                              .getAt(0)[
+                                                          index][0]
+                                                              .split(
+                                                              '/')
+                                                          as List<
+                                                              String>;
                                                           path.last =
-                                                              "${pdfName.text}.pdf";
+                                                          "${pdfName.text}.pdf";
                                                           pdfsBox.getAt(
-                                                                  0)[index][0] =
+                                                              0)[index][0] =
                                                               path.join('/');
                                                         });
                                                         sourceFile.renameSync(
                                                             pdfsBox.getAt(
-                                                                    0)[index][0]
-                                                                as String);
+                                                                0)[index][0]
+                                                            as String);
                                                         print(
-                                                            "PDFS : ${Hive.box('pdfs').getAt(0)}");
+                                                            "PDFS : ${Hive.box(
+                                                                'pdfs').getAt(
+                                                                0)}");
                                                         final List<dynamic>
-                                                            editedList =
-                                                            pdfsBox.getAt(0)
-                                                                as List<
-                                                                    dynamic>;
+                                                        editedList =
+                                                        pdfsBox.getAt(0)
+                                                        as List<
+                                                            dynamic>;
                                                         pdfsBox.putAt(
                                                             0, editedList);
                                                         Navigator.pop(
@@ -468,37 +495,42 @@ class _HomeState extends State<Home> {
                                     ),
                                     onPressed: () async {
                                       final String oldPath =
-                                          pdfsBox.getAt(0)[index] as String;
+                                      pdfsBox.getAt(0)[index] as String;
                                       String newPath;
                                       final String path = await ExtStorage
                                           .getExternalStorageDirectory();
                                       final Directory directory =
-                                          Directory(path);
+                                      Directory(path);
                                       Navigator.of(context)
                                           .push<FolderPickerPage>(
-                                              MaterialPageRoute(builder:
-                                                  (BuildContext context) {
-                                        return FolderPickerPage(
-                                            rootDirectory: directory,
-                                            action: (BuildContext context,
-                                                Directory folder) async {
-                                              newPath =
-                                                  '${folder.path}/${(pdfsBox.getAt(0)[index] as String).split('/').last}';
-                                              print(newPath);
-                                              if (newPath != null) {
-                                                print("Newpath: $newPath");
-                                                final File sourceFile =
+                                          MaterialPageRoute(builder:
+                                              (BuildContext context) {
+                                            return FolderPickerPage(
+                                                rootDirectory: directory,
+                                                action: (BuildContext context,
+                                                    Directory folder) async {
+                                                  newPath =
+                                                  '${folder.path}/${(pdfsBox
+                                                      .getAt(
+                                                      0)[index] as String)
+                                                      .split('/')
+                                                      .last}';
+                                                  print(newPath);
+                                                  if (newPath != null) {
+                                                    print("Newpath: $newPath");
+                                                    final File sourceFile =
                                                     File(oldPath);
-                                                await sourceFile.copy(newPath);
-                                                await sourceFile.delete();
-                                                setState(() {
-                                                  pdfsBox.getAt(0)[index] =
-                                                      newPath;
+                                                    await sourceFile.copy(
+                                                        newPath);
+                                                    await sourceFile.delete();
+                                                    setState(() {
+                                                      pdfsBox.getAt(0)[index] =
+                                                          newPath;
+                                                    });
+                                                  }
+                                                  Navigator.of(context).pop();
                                                 });
-                                              }
-                                              Navigator.of(context).pop();
-                                            });
-                                      }));
+                                          }));
                                     }),
                                 IconButton(
                                   icon: Icon(
@@ -518,13 +550,14 @@ class _HomeState extends State<Home> {
 
                                     final List<dynamic> starredDocs = [];
 
-                                    for(int i=0;i<files.length;i++)
-                                    {
+                                    for (int i = 0; i < files.length; i++) {
                                       starredDocs.add(files[i][0]);
                                     }
                                     if (starredDocs.contains(path)) {
-                                      for (int i = 0; i < starredDocs.length; i++) {
-                                        if (Hive.box('starred').getAt(0)[i][0] ==
+                                      for (int i = 0; i <
+                                          starredDocs.length; i++) {
+                                        if (Hive.box('starred').getAt(
+                                            0)[i][0] ==
                                             path) {
                                           Hive.box('starred')
                                               .getAt(0)
@@ -535,18 +568,19 @@ class _HomeState extends State<Home> {
                                       setState(() {});
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  'Removed from starred documents')));
+                                          content: Text(
+                                              'Removed from starred documents')));
                                       print('Already fav');
                                     } else {
                                       files.add([path, 'some date']);
                                       Hive.box('starred').putAt(0, files);
                                       print(
-                                          "STARRED : ${Hive.box('starred').getAt(0)}");
+                                          "STARRED : ${Hive.box('starred')
+                                              .getAt(0)}");
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(const SnackBar(
-                                              content: Text(
-                                                  'Added to starred documents!')));
+                                          content: Text(
+                                              'Added to starred documents!')));
                                     }
                                     setState(() {});
                                   },
