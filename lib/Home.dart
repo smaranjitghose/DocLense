@@ -389,6 +389,15 @@ class _HomeState extends State<Home> {
                                                             .getAt(0)
                                                         as List<
                                                             dynamic>;
+                                                        List<
+                                                            dynamic> finalStarred = [
+                                                        ];
+                                                        for (int i = 0; i <
+                                                            starred
+                                                                .length; i++) {
+                                                          finalStarred.add(
+                                                              starred[i][0]);
+                                                        }
                                                         print(
                                                             "PDFS : ${Hive.box(
                                                                 'pdfs').getAt(
@@ -398,12 +407,14 @@ class _HomeState extends State<Home> {
                                                             0)[index][0]
                                                         as String);
                                                         setState(() {
-                                                          if (starred.contains(
+                                                          if (finalStarred
+                                                              .contains(
                                                               pdfsBox.getAt(
                                                                   0)[index][0])) {
+                                                            print('yes');
                                                             for (int i = 0;
                                                             i <
-                                                                starred
+                                                                finalStarred
                                                                     .length;
                                                             i++) {
                                                               if (Hive.box(
