@@ -170,7 +170,7 @@ class _HomeState extends State<Home> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  OpenFile.open(pdfsBox.getAt(0)[index] as String);
+                  OpenFile.open(pdfsBox.getAt(0)[index][0] as String);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
