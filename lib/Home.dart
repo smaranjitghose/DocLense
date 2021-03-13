@@ -290,14 +290,14 @@ class _HomeState extends State<Home> {
                                                             print('yes');
                                                             for (int i = 0;
                                                             i <
-                                                                starredFiles
+                                                                finalStarredFiles
                                                                     .length;
                                                             i++) {
                                                               if (Hive.box(
                                                                   'starred')
                                                                   .getAt(
                                                                   0)[
-                                                              i] ==
+                                                              i][0] ==
                                                                   sourceFile
                                                                       .path) {
                                                                 print('yes');
