@@ -67,7 +67,9 @@ class _PDFConversion extends State<PDFConversion> {
 
     // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final List<dynamic> files = Hive.box('pdfs').getAt(0) as List<dynamic>;
-    files.add(filePath);
+    DateTime dateToday = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day) ;
+    files.add([filePath, dateToday]);
+    // files.add(filePath);
     Hive.box('pdfs').putAt(0, files);
     print("PDFS : ${Hive.box('pdfs').getAt(0)}");
     //Directory documentDirectory = await getApplicationDocumentsDirectory();

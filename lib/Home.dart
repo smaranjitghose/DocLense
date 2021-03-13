@@ -106,11 +106,15 @@ class _HomeState extends State<Home> {
   }
 
   bool isStarred(Box<dynamic> pdfsBox, int index) {
-    final File file = File(pdfsBox.getAt(0)[index] as String);
+    final File file = File(pdfsBox.getAt(0)[index][0] as String);
     final path = file.path;
 
     final List<dynamic> files = Hive.box('starred').getAt(0) as List<dynamic>;
-    if (files.contains(path)) {
+    final List<dynamic> starredDocs = [];
+    for(int i=0; i<files.length; i++){
+      starredDocs.add(files[i][0]);
+    }
+    if (starredDocs.contains(path)) {
       return true;
     } else {
       return false;
@@ -183,18 +187,17 @@ class _HomeState extends State<Home> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                (pdfsBox.getAt(0)[index] as String)
+                                (pdfsBox.getAt(0)[index][0] as String)
                                     .split('/')
                                     .last,
                                 style: TextStyle(fontSize: 18),
                               ),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.fromLTRB(8, 0, 8, 8),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                               child: Text(
-
-                                  /// TODO: Add logic for displaying date of creation of PDF
-                                  '10/03/2021'),
+                                  '${pdfsBox.getAt(0)[index][1]}'
+                                  ),
                             ),
                             const SizedBox(
                               height: 30,
@@ -205,7 +208,7 @@ class _HomeState extends State<Home> {
                                     icon: const Icon(Icons.share),
                                     onPressed: () async {
                                       final File file = File(await pdfsBox
-                                          .getAt(0)[index] as String);
+                                          .getAt(0)[index][0] as String);
 
                                       final path = file.path;
 
@@ -373,12 +376,12 @@ class _HomeState extends State<Home> {
                                                             "PDFS : ${Hive.box('pdfs').getAt(0)}");
                                                         final File sourceFile =
                                                             File(pdfsBox.getAt(
-                                                                    0)[index]
+                                                                    0)[index][0]
                                                                 as String);
                                                         setState(() {
                                                           if (starred.contains(
                                                               pdfsBox.getAt(
-                                                                  0)[index])) {
+                                                                  0)[index][0])) {
                                                             for (int i = 0;
                                                                 i <
                                                                     starred
@@ -387,14 +390,14 @@ class _HomeState extends State<Home> {
                                                               if (Hive.box('starred')
                                                                           .getAt(
                                                                               0)[
-                                                                      i] ==
+                                                                      i][0] ==
                                                                   sourceFile
                                                                       .path) {
                                                                 print('yes');
                                                                 final List<
                                                                         String>
                                                                     path =
-                                                                    (Hive.box('starred').getAt(0)[i]
+                                                                    (Hive.box('starred').getAt(0)[i][0]
                                                                             as String)
                                                                         .split(
                                                                             '/');
@@ -402,7 +405,7 @@ class _HomeState extends State<Home> {
                                                                     "${pdfName.text}.pdf";
                                                                 Hive.box('starred')
                                                                         .getAt(
-                                                                            0)[i] =
+                                                                            0)[i][0] =
                                                                     path.join(
                                                                         '/');
                                                                 final List<
@@ -424,7 +427,7 @@ class _HomeState extends State<Home> {
                                                           final List<String>
                                                               path = pdfsBox
                                                                       .getAt(0)[
-                                                                          index]
+                                                                          index][0]
                                                                       .split(
                                                                           '/')
                                                                   as List<
@@ -432,12 +435,12 @@ class _HomeState extends State<Home> {
                                                           path.last =
                                                               "${pdfName.text}.pdf";
                                                           pdfsBox.getAt(
-                                                                  0)[index] =
+                                                                  0)[index][0] =
                                                               path.join('/');
                                                         });
                                                         sourceFile.renameSync(
                                                             pdfsBox.getAt(
-                                                                    0)[index]
+                                                                    0)[index][0]
                                                                 as String);
                                                         print(
                                                             "PDFS : ${Hive.box('pdfs').getAt(0)}");
@@ -506,15 +509,22 @@ class _HomeState extends State<Home> {
                                   onPressed: () async {
                                     print(isStarred(pdfsBox, index));
                                     final File file = File(await pdfsBox
-                                        .getAt(0)[index] as String);
+                                        .getAt(0)[index][0] as String);
                                     final path = file.path;
 
                                     final List<dynamic> files =
-                                        Hive.box('starred').getAt(0)
-                                            as List<dynamic>;
-                                    if (files.contains(path)) {
-                                      for (int i = 0; i < files.length; i++) {
-                                        if (Hive.box('starred').getAt(0)[i] ==
+                                    Hive.box('starred').getAt(0)
+                                    as List<dynamic>;
+
+                                    final List<dynamic> starredDocs = [];
+
+                                    for(int i=0;i<files.length;i++)
+                                    {
+                                      starredDocs.add(files[i][0]);
+                                    }
+                                    if (starredDocs.contains(path)) {
+                                      for (int i = 0; i < starredDocs.length; i++) {
+                                        if (Hive.box('starred').getAt(0)[i][0] ==
                                             path) {
                                           Hive.box('starred')
                                               .getAt(0)
@@ -529,7 +539,7 @@ class _HomeState extends State<Home> {
                                                   'Removed from starred documents')));
                                       print('Already fav');
                                     } else {
-                                      files.add(path);
+                                      files.add([path, 'some date']);
                                       Hive.box('starred').putAt(0, files);
                                       print(
                                           "STARRED : ${Hive.box('starred').getAt(0)}");
