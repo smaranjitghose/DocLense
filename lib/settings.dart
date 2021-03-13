@@ -56,7 +56,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                SettingText(text: 'Dark Mode'),
+                                const SettingText(text: 'Dark Mode'),
                                 Switch(
                                   activeColor: themeChange.darkTheme
                                       ? Colors.white
@@ -121,7 +121,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SettingText(text: 'When auto-capturing , let me adjust borders after each scan'),
+                          const SettingText(text: 'When auto-capturing , let me adjust borders after each scan'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -151,7 +151,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SettingText(text: 'Run text recognition on saved pdf'),
+                          const SettingText(text: 'Run text recognition on saved pdf'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -173,9 +173,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       height: 50,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
+                        children: const [
                           SettingText(text: 'Text Recognition Language'),
-                      const    Expanded(
+                          Expanded(
                             child: Center(
                               child: Text("English"),
                             ),
@@ -198,7 +198,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SettingText(text: 'Save Original files to Gallery'),
+                          const SettingText(text: 'Save Original files to Gallery'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -224,7 +224,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SettingText(text: 'REPORT A BUG'),
+                          const SettingText(text: 'REPORT A BUG'),
                           Expanded(
                             child: Icon(
                               Icons.bug_report,
@@ -248,7 +248,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SettingText(text: 'REQUEST A FEATURE'),
+                          const SettingText(text: 'REQUEST A FEATURE'),
                           Expanded(
                             child: Icon(
                               Icons.featured_play_list,
@@ -272,7 +272,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SettingText(text: 'CONTACT DEVELOPERS'),
+                          const SettingText(text: 'CONTACT DEVELOPERS'),
                           Expanded(
                             child: Icon(
                               Icons.contact_phone,
