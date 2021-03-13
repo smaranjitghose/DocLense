@@ -1,10 +1,10 @@
-// import 'package:doclense/Constants/theme_constants.dart';
+// import 'package:doclense/constants/theme_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'main_drawer.dart';
-import 'Providers/theme_provider.dart';
+import 'providers/theme_provider.dart';
 import 'setting_text.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -121,7 +121,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SettingText(text: 'When auto-capturing , let me adjust borders after each scan'),
+                          SettingText(
+                              text:
+                                  'When auto-capturing , let me adjust borders after each scan'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -151,7 +153,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SettingText(text: 'Run text recognition on saved pdf'),
+                          SettingText(
+                              text: 'Run text recognition on saved pdf'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -175,7 +178,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SettingText(text: 'Text Recognition Language'),
-                      const    Expanded(
+                          const Expanded(
                             child: Center(
                               child: Text("English"),
                             ),

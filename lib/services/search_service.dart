@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:open_file/open_file.dart';
-// import 'package:doclense/Constants/theme_constants.dart';
+// import 'package:doclense/constants/theme_constants.dart';
 
 class SearchService extends SearchDelegate<String> {
   List<dynamic> files = Hive.box('pdfs').getAt(0) as List<dynamic>;

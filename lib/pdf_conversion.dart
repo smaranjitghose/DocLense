@@ -12,7 +12,7 @@ import 'package:open_file/open_file.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 import 'pdf_preview_screen.dart';
-import 'Providers/image_list.dart';
+import 'providers/image_list.dart';
 
 class PDFConversion extends StatefulWidget {
   final ImageList list;

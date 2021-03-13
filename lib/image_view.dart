@@ -6,8 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'filter_view.dart';
 import 'home.dart';
-import 'Providers/image_list.dart';
-import 'Providers/theme_provider.dart';
+import 'providers/image_list.dart';
+import 'providers/theme_provider.dart';
 
 class Imageview extends StatefulWidget {
   final File file;
