@@ -96,7 +96,9 @@ class SearchService extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     for (int i = 0; i < files.length; i++) {
-      pdfNames.add(Hive.box('pdfs').getAt(0)[i][0].split('/').last);
+      pdfNames.add(Hive.box('pdfs').getAt(0)[i][0]
+          .split('/')
+          .last);
     }
 
     final int remove = (3 * pdfNames.length / 16).floor();
@@ -108,35 +110,44 @@ class SearchService extends SearchDelegate<String> {
     final suggestedFiles = query.isEmpty
         ? recentFiles
         : pdfNames
-            .where((p) => p.startsWith(query.toLowerCase()) as bool)
-            .toList();
+        .where((p) => p.startsWith(query.toLowerCase()) as bool)
+        .toList();
 
     // print(files.length);
     print(pdfNames);
     // print(suggestedFiles);
 
     return ListView.builder(
-      itemBuilder: (context, index) => ListTile(
-        onTap: () {
-          List<dynamic> finalList = [];
-          for(int i=0; i<files.length; i++){
-            finalList.add(files[i][0]);
-          }
-          final String fileLocation =
-              '${finalList.where((element) => element.toString().split('/').last == suggestedFiles[index])}';
-          print(finalList);
+      itemBuilder: (context, index) =>
+          ListTile(
+            onTap: () {
+              List<dynamic> finalList = [];
+              for (int i = 0; i < files.length; i++) {
+                finalList.add(files[i][0]);
+              }
+              final String fileLocation =
+                  '${finalList.where((element) =>
+              element
+                  .toString()
+                  .split('/')
+                  .last == suggestedFiles[index])}';
+              print(finalList);
 
-          final String fileLoc = fileLocation.split('(').last.split(')').first;
+              final String fileLoc = fileLocation
+                  .split('(')
+                  .last
+                  .split(')')
+                  .first;
 
-          // query = fileLoc.split('/').last;
+              // query = fileLoc.split('/').last;
 
-          OpenFile.open(fileLoc);
-        },
-        leading: Icon(query.isEmpty
-            ? Icons.youtube_searched_for_rounded
-            : Icons.picture_as_pdf_rounded),
-        title: Text(suggestedFiles[index] as String),
-      ),
+              OpenFile.open(fileLoc);
+            },
+            leading: Icon(query.isEmpty
+                ? Icons.youtube_searched_for_rounded
+                : Icons.picture_as_pdf_rounded),
+            title: Text(suggestedFiles[index] as String),
+          ),
       itemCount: suggestedFiles.length,
     );
   }

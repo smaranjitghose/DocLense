@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:permission/permission.dart';
 import 'package:path_provider/path_provider.dart';
@@ -67,8 +68,10 @@ class _PDFConversion extends State<PDFConversion> {
 
     // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final List<dynamic> files = Hive.box('pdfs').getAt(0) as List<dynamic>;
-    DateTime dateToday = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day) ;
-    files.add([filePath, dateToday]);
+    // DateTime dateToday = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day) ;
+    final now = new DateTime.now();
+    String formatter = DateFormat('yMd').format(now);
+    files.add([filePath, formatter]);
     // files.add(filePath);
     Hive.box('pdfs').putAt(0, files);
     print("PDFS : ${Hive.box('pdfs').getAt(0)}");
