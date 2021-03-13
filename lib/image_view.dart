@@ -1,12 +1,14 @@
-import 'package:flutter/material.dart';
 import 'dart:io';
-import 'package:image_cropper/image_cropper.dart';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:provider/provider.dart';
-import 'Filterview.dart';
-import 'Home.dart';
-import 'Providers/ImageList.dart';
-import 'Providers/ThemeProvider.dart';
+
+import 'Providers/image_list.dart';
+import 'Providers/theme_provider.dart';
+import 'filter_view.dart';
+import 'home.dart';
 
 class Imageview extends StatefulWidget {
   File file;
@@ -33,16 +35,15 @@ class _ImageviewState extends State<Imageview> {
   cropimage(file, appBarColor, bgColor) async {
     if (file != null) {
       cropped = await ImageCropper.cropImage(
-        sourcePath: file.path,
-        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-        compressQuality: 80,
+          sourcePath: file.path,
+          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          compressQuality: 80,
           androidUiSettings: AndroidUiSettings(
             statusBarColor: appBarColor,
             toolbarColor: appBarColor,
             toolbarWidgetColor: Colors.white,
             backgroundColor: bgColor,
-          )
-      );
+          ));
       setState(() {
         cropped == null ? file = files : file = cropped;
         files.add(file);
@@ -93,10 +94,7 @@ class _ImageviewState extends State<Imageview> {
           child: Column(
             children: <Widget>[
               Expanded(
-                flex: (MediaQuery
-                    .of(context)
-                    .size
-                    .height / 2).floor(),
+                flex: (MediaQuery.of(context).size.height / 2).floor(),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                   child: Image.file(
@@ -105,13 +103,11 @@ class _ImageviewState extends State<Imageview> {
                 ),
               ),
               Expanded(
-                flex: (MediaQuery
-                    .of(context)
-                    .size
-                    .height / 19).floor(),
+                flex: (MediaQuery.of(context).size.height / 19).floor(),
                 child: Container(
                   height: 65,
-                  color: themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
+                  color:
+                      themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Row(
@@ -139,7 +135,8 @@ class _ImageviewState extends State<Imageview> {
                         FlatButton(
                           onPressed: () {
 //                                  Navigator.of(context).pop();
-                            if (index == 0) {} else {
+                            if (index == 0) {
+                            } else {
                               setState(() {
                                 index--;
                                 files.removeLast();
@@ -183,8 +180,7 @@ class _ImageviewState extends State<Imageview> {
                                   context,
                                   PageRouteBuilder(
                                     pageBuilder: (c, a1, a2) =>
-                                        filter_image(
-                                            cropped, widget.list),
+                                        filter_image(cropped, widget.list),
                                     transitionsBuilder: (c, anim, a2, child) =>
                                         FadeTransition(
                                             opacity: anim, child: child),
@@ -195,8 +191,7 @@ class _ImageviewState extends State<Imageview> {
                                   context,
                                   PageRouteBuilder(
                                     pageBuilder: (c, a1, a2) =>
-                                        filter_image(
-                                            widget.file, widget.list),
+                                        filter_image(widget.file, widget.list),
                                     transitionsBuilder: (c, anim, a2, child) =>
                                         FadeTransition(
                                             opacity: anim, child: child),
