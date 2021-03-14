@@ -44,7 +44,12 @@ class _PDFConversion extends State<PDFConversion> {
         bytes: File(widget.list.imagepath[i]).readAsBytesSync(),
       );
       pdf.addPage(pw.Page(
-          pageFormat: PdfPageFormat.a4,
+          pageFormat: PdfPageFormat.a4.copyWith(
+            marginTop: 0,
+            marginBottom: 0,
+            marginLeft: 0,
+            marginRight: 0,
+          ),
           build: (pw.Context context) {
             return pw.Center(child: pw.Image(image));
           }));
