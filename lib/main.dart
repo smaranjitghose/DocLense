@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:doclense/home.dart';
-import 'package:doclense/Models/preferences.dart';
+import 'package:doclense/models/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:hive/hive.dart';
