@@ -51,7 +51,7 @@ class _StarredState extends State<Starred> {
               return GestureDetector(
                 onTap: () {
                   print('tapped');
-                  OpenFile.open(starredBox.getAt(0)[index] as String);
+                  OpenFile.open(starredBox.getAt(0)[index][0] as String);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
@@ -62,7 +62,7 @@ class _StarredState extends State<Starred> {
                       children: [
                         Column(
                           children: [
-                            Text((starredBox.getAt(0)[index] as String)
+                            Text((starredBox.getAt(0)[index][0] as String)
                                 .split('/')
                                 .last),
                           ],
@@ -73,7 +73,7 @@ class _StarredState extends State<Starred> {
                                 icon: const Icon(Icons.share),
                                 onPressed: () async {
                                   final File file = File(await starredBox
-                                      .getAt(0)[index] as String);
+                                      .getAt(0)[index][0] as String);
 
                                   final path = file.path;
 
