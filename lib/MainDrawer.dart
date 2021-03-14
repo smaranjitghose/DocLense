@@ -136,10 +136,14 @@ class MainDrawer extends StatelessWidget {
                             themeChange.darkTheme ? Colors.black : Colors.blue,
                         icon: Padding(
                           padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: SvgPicture.asset(
+                          child: themeChange.darkTheme ?
+                          SvgPicture.asset(
+                            'assets/doclensewhite.svg'
+                          ) :
+                          SvgPicture.asset(
                               'assets/images/doclenselight.svg'),
                         ),
-                        title: "How's your experience with us?",
+                        title: "How was your experience?",
                         description: "Let us know what you think",
                         onSubmitPressed: (int starRating) {
                           _launchURL();
