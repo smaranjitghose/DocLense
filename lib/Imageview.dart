@@ -12,7 +12,10 @@ import 'Providers/ThemeProvider.dart';
 class Imageview extends StatefulWidget {
   final File file;
   final ImageList list;
-  const Imageview(this.file, this.list);
+  const Imageview(
+    this.file,
+    this.list,
+  );
 
   @override
   _ImageviewState createState() => _ImageviewState();
@@ -107,122 +110,118 @@ class _ImageviewState extends State<Imageview> {
                   files[index],
                 ),
               ),
-              Expanded(
-                flex: (MediaQuery
-                    .of(context)
-                    .size
-                    .height / 18).floor(),
-                child: Container(
-                  height: 65,
-                  color: themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        FlatButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
+            ),
+            Expanded(
+              flex: (MediaQuery.of(context).size.height / 18).floor(),
+              child: Container(
+                height: 65,
+                color:
+                    themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
 //                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
 //                                      builder: (context) => Home()));
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Icon(
-                                Icons.arrow_back,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                "Back",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            const Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            ),
+                            const Text(
+                              "Back",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
                         ),
                       ),
                       TextButton(
                         onPressed: () {
 //                                  Navigator.of(context).pop();
-                            if (index == 0) {} else {
-                              setState(() {
-                                index--;
-                                files.removeLast();
-                              });
-                            }
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Icon(
-                                Icons.undo,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                "Undo",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
+                          if (index == 0) {
+                          } else {
+                            setState(() {
+                              index--;
+                              files.removeLast();
+                            });
+                          }
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            const Icon(
+                              Icons.undo,
+                              color: Colors.white,
+                            ),
+                            const Text(
+                              "Undo",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
                         ),
-                        FlatButton(
-                          onPressed: () {
-                            cropimage(widget.file, appBarColor, bgColor);
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Icon(
-                                Icons.crop_rotate,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                "Crop",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          cropimage(widget.file, appBarColor, bgColor);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Icon(
+                              Icons.crop_rotate,
+                              color: Colors.white,
+                            ),
+                            const Text(
+                              "Crop",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
                         ),
-                        FlatButton(
-                          onPressed: () {
-                            if (cropped != null) {
-                              Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (c, a1, a2) =>
-                                        filter_image(
-                                            cropped, widget.list),
-                                    transitionsBuilder: (c, anim, a2, child) =>
-                                        FadeTransition(
-                                            opacity: anim, child: child),
-                                    // transitionDuration: Duration(milliseconds: 1000),
-                                  ));
-                            } else {
-                              Navigator.push(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (c, a1, a2) =>
-                                        filter_image(
-                                            widget.file, widget.list),
-                                    transitionsBuilder: (c, anim, a2, child) =>
-                                        FadeTransition(
-                                            opacity: anim, child: child),
-                                  ));
-                            }
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Icon(
-                                Icons.arrow_forward,
-                                color: Colors.white,
-                              ),
-                              Text(
-                                "Next",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          if (cropped != null) {
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) =>
+                                      FilterImage(cropped, widget.list),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(
+                                          opacity: anim, child: child),
+                                  // transitionDuration: Duration(milliseconds: 1000),
+                                ));
+                          } else {
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (c, a1, a2) =>
+                                      FilterImage(widget.file, widget.list),
+                                  transitionsBuilder: (c, anim, a2, child) =>
+                                      FadeTransition(
+                                          opacity: anim, child: child),
+                                ));
+                          }
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                            ),
+                            const Text(
+                              "Next",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -230,7 +229,6 @@ class _ImageviewState extends State<Imageview> {
                 ),
               ),
             ),
-            // ),
           ],
         ),
       ),
