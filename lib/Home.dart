@@ -156,7 +156,7 @@ class _HomeState extends State<Home> {
       body: WatchBoxBuilder(
         box: Hive.box('pdfs'),
         builder: (context, pdfsBox) {
-          if (pdfsBox.length == 0) {
+          if (pdfsBox.getAt(0).length == 0) {
             return const Center(
               child: Text("No PDFs Scanned Yet !! "),
             );
