@@ -96,135 +96,133 @@ class _ImageviewState extends State<Imageview> {
 
     // TODO: implement build
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: (MediaQuery.of(context).size.height / 2).floor(),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                child: Image.file(
-                  files[index],
-                ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            flex: (MediaQuery.of(context).size.height / 2).floor(),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+              child: Image.file(
+                files[index],
               ),
             ),
-            Expanded(
-              flex: (MediaQuery.of(context).size.height / 16).floor(),
-              child: Container(
-                height: 65,
-                color:
-                    themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
+          ),
+          Expanded(
+            flex: (MediaQuery.of(context).size.height / 16).floor(),
+            child: Container(
+              height: 65,
+              color:
+                  themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
 //                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
 //                                      builder: (context) => Home()));
-                        },
-                        child: Column(
-                          children: const <Widget>[
-                            Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Back",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
+                      },
+                      child: Column(
+                        children: const <Widget>[
+                          Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Back",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
-                      TextButton(
-                        onPressed: () {
+                    ),
+                    TextButton(
+                      onPressed: () {
 //                                  Navigator.of(context).pop();
-                          if (index == 0) {
-                          } else {
-                            setState(() {
-                              index--;
-                              files.removeLast();
-                            });
-                          }
-                        },
-                        child: Column(
-                          children: const <Widget>[
-                            Icon(
-                              Icons.undo,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Undo",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
+                        if (index == 0) {
+                        } else {
+                          setState(() {
+                            index--;
+                            files.removeLast();
+                          });
+                        }
+                      },
+                      child: Column(
+                        children: const <Widget>[
+                          Icon(
+                            Icons.undo,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Undo",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
-                      TextButton(
-                        onPressed: () {
-                          cropimage(widget.file, appBarColor, bgColor);
-                        },
-                        child: Column(
-                          children: const <Widget>[
-                            Icon(
-                              Icons.crop_rotate,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Crop",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        cropimage(widget.file, appBarColor, bgColor);
+                      },
+                      child: Column(
+                        children: const <Widget>[
+                          Icon(
+                            Icons.crop_rotate,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Crop",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
-                      TextButton(
-                        onPressed: () {
-                          if (cropped != null) {
-                            Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (c, a1, a2) =>
-                                      FilterImage(cropped, widget.list),
-                                  transitionsBuilder: (c, anim, a2, child) =>
-                                      FadeTransition(
-                                          opacity: anim, child: child),
-                                  // transitionDuration: Duration(milliseconds: 1000),
-                                ));
-                          } else {
-                            Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (c, a1, a2) =>
-                                      FilterImage(widget.file, widget.list),
-                                  transitionsBuilder: (c, anim, a2, child) =>
-                                      FadeTransition(
-                                          opacity: anim, child: child),
-                                ));
-                          }
-                        },
-                        child: Column(
-                          children: const <Widget>[
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Next",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        if (cropped != null) {
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (c, a1, a2) =>
+                                    FilterImage(cropped, widget.list),
+                                transitionsBuilder: (c, anim, a2, child) =>
+                                    FadeTransition(
+                                        opacity: anim, child: child),
+                                // transitionDuration: Duration(milliseconds: 1000),
+                              ));
+                        } else {
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (c, a1, a2) =>
+                                    FilterImage(widget.file, widget.list),
+                                transitionsBuilder: (c, anim, a2, child) =>
+                                    FadeTransition(
+                                        opacity: anim, child: child),
+                              ));
+                        }
+                      },
+                      child: Column(
+                        children: const <Widget>[
+                          Icon(
+                            Icons.arrow_forward,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Next",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            // ),
-          ],
-        ),
+          ),
+          // ),
+        ],
       ),
     );
   }
