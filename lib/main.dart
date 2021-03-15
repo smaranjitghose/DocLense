@@ -56,19 +56,15 @@ Future<void> main() async {
   }
 
   try {
-    Hive.box('pdfs');
-    res.getAt(0);
+    Hive.box('pdfs').getAt(0);
   } catch (e) {
-    Hive.box('pdfs');
-    res.add([]);
+    Hive.box('pdfs').add([]);
   }
 
   try {
-    Hive.box('starred');
-    res.getAt(0);
+    Hive.box('starred').getAt(0);
   } catch (e) {
-    Hive.box('starred');
-    res.add([]);
+    Hive.box('starred').add([]);
   }
 
   final r = res.getAt(0) as UserPreferences;
