@@ -40,7 +40,7 @@ class _StarredState extends State<Starred> {
       body: WatchBoxBuilder(
         box: Hive.box('starred'),
         builder: (context, starredBox) {
-          if (starredBox.getAt(0).length == 0) {
+          if (starredBox.length == 0) {
             return const Center(
               child: Text("No PDFs Starred Yet !! "),
             );
