@@ -176,9 +176,13 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
-                          children: const [
-                            /// TODO: Add logic for displaying first image of PDF
-                            Icon(Icons.photo)
+                          children: [
+                            Image(
+                              image: FileImage(
+                                  pdfsBox.getAt(0)[index][2] as File
+                              ),
+                              height: MediaQuery.of(context).size.height/5.5,
+                            )
                           ],
                         ),
                         Column(
