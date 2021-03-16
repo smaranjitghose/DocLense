@@ -56,6 +56,10 @@ class MainDrawer extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
+
+            // Added drawerNavItems in Place of Drawer ListTiles below.
+            // Navigate to UI Components/Drawer_Nav_Items.dart to explore the refactored drawerNavItem Class.
+
             drawerNavItem(
               iconData: Icons.home,
               navItemTitle: 'Home',
