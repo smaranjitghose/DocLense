@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'About.dart';
 
 import 'Providers/ThemeProvider.dart';
+import 'UI Components/Drawer_Nav_Item.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -55,17 +56,21 @@ class MainDrawer extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            ListTile(
-                onTap: () {
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                },
-                leading: const Icon(Icons.home),
-                title: const Text(
-                  "Home",
-                  style: TextStyle(fontSize: 18),
-                )),
-            ListTile(
-              onTap: () {
+
+            // Added drawerNavItems in Place of Drawer ListTiles below.
+            // Navigate to UI Components/Drawer_Nav_Items.dart to explore the refactored drawerNavItem Class.
+
+            drawerNavItem(
+              iconData: Icons.home,
+              navItemTitle: 'Home',
+              callback: (){
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
+            ),
+            drawerNavItem(
+              iconData: Icons.stars_rounded,
+              navItemTitle: 'Starred Documents',
+              callback: (){
                 Navigator.of(context).pop();
                 Navigator.push(
                     context,
@@ -76,14 +81,9 @@ class MainDrawer extends StatelessWidget {
                       // transitionDuration: Duration(milliseconds: 2000),
                     ));
               },
-              leading: const Icon(Icons.stars_rounded),
-              title: const Text(
-                "Starred Documents",
-                style: TextStyle(fontSize: 18),
-              ),
             ),
-            ListTile(
-              onTap: () {
+            drawerNavItem(
+              callback: (){
                 Navigator.of(context).pop();
                 Navigator.push(
                   context,
@@ -95,17 +95,16 @@ class MainDrawer extends StatelessWidget {
                   ),
                 );
               },
-              leading: const Icon(Icons.settings),
-              title: const Text(
-                "Settings",
-                style: TextStyle(fontSize: 18),
-              ),
+              navItemTitle: 'Settings',
+              iconData: Icons.settings,
             ),
             Divider(
               color: themeChange.darkTheme ? Colors.white : Colors.black,
             ),
-            ListTile(
-              onTap: () {
+            drawerNavItem(
+              iconData: Icons.info,
+              navItemTitle: 'About App',
+              callback: (){
                 Navigator.of(context).pop();
                 Navigator.push(
                   context,
@@ -117,14 +116,11 @@ class MainDrawer extends StatelessWidget {
                   ),
                 );
               },
-              leading: const Icon(Icons.info),
-              title: const Text(
-                "About App",
-                style: TextStyle(fontSize: 18),
-              ),
             ),
-            ListTile(
-              onTap: () {
+            drawerNavItem(
+              navItemTitle: 'Rate us',
+              iconData: Icons.star_rate,
+              callback: (){
                 Navigator.of(context).pop();
 
                 showDialog<void>(
@@ -152,26 +148,18 @@ class MainDrawer extends StatelessWidget {
                       );
                     });
               },
-              leading: const Icon(Icons.star_rate),
-              title: const Text(
-                "Rate us",
-                style: TextStyle(fontSize: 18),
-              ),
             ),
             Divider(
               color: themeChange.darkTheme ? Colors.white : Colors.black,
             ),
-            ListTile(
-              onTap: () {
+            drawerNavItem(
+              navItemTitle: 'Share the App',
+              iconData: Icons.share,
+              callback: (){
                 Share.share(
                     'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
                     subject: "DocLense");
               },
-              leading: const Icon(Icons.share),
-              title: const Text(
-                "Share the App",
-                style: TextStyle(fontSize: 18),
-              ),
             ),
             // ListTile(
             //   onTap: () {
