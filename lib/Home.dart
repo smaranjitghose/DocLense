@@ -41,12 +41,9 @@ class _HomeState extends State<Home> {
       return sharedPreferences.getStringList('savedFiles');
     }
   }
-<<<<<<< HEAD
- ImageList images = new ImageList();
-=======
+
 
   ImageList images = ImageList();
->>>>>>> faaae3b475d882e90cb4178399c353076a4437ef
   QuickActions quickActions = QuickActions();
 
   void _navigate(Widget screen) {

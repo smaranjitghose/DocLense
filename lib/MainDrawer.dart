@@ -26,31 +26,31 @@ class MainDrawer extends StatelessWidget {
               color: themeChange.darkTheme ? Colors.black : Colors.white10,
               child: Center(
                   child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    width: 100,
-                    height: 180,
-                    child: CircleAvatar(
-                      backgroundColor:
+                    children: <Widget>[
+                      SizedBox(
+                        width: 100,
+                        height: 180,
+                        child: CircleAvatar(
+                          backgroundColor:
                           themeChange.darkTheme ? Colors.black : Colors.white10,
-                      radius: 60,
-                      child: themeChange.darkTheme
-                          ? SvgPicture.asset(
-                              'assets/doclensewhitesmall.svg',
-                              height: 100,
-                            )
-                          : SvgPicture.asset(
-                              'assets/doclenselightsmall.svg',
-                              height: 100,
-                            ),
-                    ),
-                  ),
-                  const Text(
-                    "One Place For All \n Your Documents!",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
-              )),
+                          radius: 60,
+                          child: themeChange.darkTheme
+                              ? SvgPicture.asset(
+                            'assets/doclensewhitesmall.svg',
+                            height: 100,
+                          )
+                              : SvgPicture.asset(
+                            'assets/doclenselightsmall.svg',
+                            height: 100,
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        "One Place For All \n Your Documents!",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  )),
             ),
             const SizedBox(
               height: 10,
@@ -133,13 +133,17 @@ class MainDrawer extends StatelessWidget {
                     builder: (BuildContext context) {
                       return RatingDialog(
                         accentColor:
-                            themeChange.darkTheme ? Colors.black : Colors.blue,
+                        themeChange.darkTheme ? Colors.black : Colors.blue,
                         icon: Padding(
                           padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: SvgPicture.asset(
+                          child: themeChange.darkTheme ?
+                          SvgPicture.asset(
+                              'assets/doclensewhite.svg'
+                          ) :
+                          SvgPicture.asset(
                               'assets/images/doclenselight.svg'),
                         ),
-                        title: "How's your experience with us?",
+                        title: "How was your experience?",
                         description: "Let us know what you think",
                         onSubmitPressed: (int starRating) {
                           _launchURL();
@@ -188,62 +192,7 @@ class MainDrawer extends StatelessWidget {
   }
 }
 
-<<<<<<< HEAD
-/*class drawerShareItem extends StatelessWidget {
-  String shareCaption, shareTitle;
-
-  drawerShareItem({
-    this.shareCaption,
-    this.shareTitle,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        Share.share(shareCaption, subject: "DocLense");
-      },
-      leading: Icon(Icons.share),
-      title: Text(
-        shareTitle,
-        style: TextStyle(fontSize: 18),
-      ),
-    );
-  }
-}
-
-class drawerNavItem extends StatelessWidget {
-  Widget navigateTo;
-  IconData screenIcon;
-  String screenName;
-
-  drawerNavItem(
-      {this.navigateTo, @required this.screenIcon, @required this.screenName});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        Navigator.of(context).pop();
-
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => navigateTo));
-      },
-      leading: Icon(screenIcon),
-      title: Text(
-        screenName,
-        style: TextStyle(fontSize: 18),
-      ),
-    );
-  }
-}
-*/
-// TODO: Refactor the above listtile widgets to a custom widget with the required properties
-
-_launchURL() async {
-=======
 Future<void> _launchURL() async {
->>>>>>> faaae3b475d882e90cb4178399c353076a4437ef
   const url =
       'https://github.com/smaranjitghose/DocLense'; //!paste link of app once uploaded on play store
   if (await canLaunch(url)) {
