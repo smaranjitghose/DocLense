@@ -130,12 +130,12 @@ class _ImageviewState extends State<Imageview> {
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            const Icon(
+                          children: const <Widget>[
+                            Icon(
                               Icons.arrow_back,
                               color: Colors.white,
                             ),
-                            const Text(
+                            Text(
                               "Back",
                               style: TextStyle(color: Colors.white),
                             ),
@@ -155,12 +155,12 @@ class _ImageviewState extends State<Imageview> {
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            const Icon(
+                          children: const <Widget>[
+                            Icon(
                               Icons.undo,
                               color: Colors.white,
                             ),
-                            const Text(
+                            Text(
                               "Undo",
                               style: TextStyle(color: Colors.white),
                             ),
@@ -173,12 +173,12 @@ class _ImageviewState extends State<Imageview> {
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
+                          children: const <Widget>[
                             Icon(
                               Icons.crop_rotate,
                               color: Colors.white,
                             ),
-                            const Text(
+                            Text(
                               "Crop",
                               style: TextStyle(color: Colors.white),
                             ),
@@ -212,12 +212,12 @@ class _ImageviewState extends State<Imageview> {
                         },
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            const Icon(
+                          children: const <Widget>[
+                            Icon(
                               Icons.arrow_forward,
                               color: Colors.white,
                             ),
-                            const Text(
+                            Text(
                               "Next",
                               style: TextStyle(color: Colors.white),
                             ),
