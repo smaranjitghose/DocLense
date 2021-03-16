@@ -25,11 +25,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     var swithValue = themeChange.darkTheme;
 
-    Future<void> reportBug() async {
+    Future<void> userFeedback() async {
       final PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
       Wiredash.of(context)
-        // ..setUserProperties()
         ..setBuildProperties(
           buildNumber: packageInfo.buildNumber,
           buildVersion: packageInfo.version,
@@ -240,13 +239,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           : Colors.grey[200],
                       height: 50,
                       child: InkWell(
-                        onTap: reportBug,
-                        //  () {
-                        //   Wiredash.of(context)
-                        //     ..setUserProperties()
-                        //     ..setBuildProperties()
-                        //     ..show();
-                        // },
+                        onTap: userFeedback,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -272,20 +265,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ? Colors.black45
                           : Colors.grey[200],
                       height: 50,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const SettingText(text: 'REQUEST A FEATURE'),
-                          Expanded(
-                            child: Icon(
-                              Icons.featured_play_list,
-                              size: 30,
-                              color: themeChange.darkTheme
-                                  ? Colors.white
-                                  : Colors.blue,
-                            ),
-                          )
-                        ],
+                      child: InkWell(
+                        onTap: userFeedback,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const SettingText(text: 'REQUEST A FEATURE'),
+                            Expanded(
+                              child: Icon(
+                                Icons.featured_play_list,
+                                size: 30,
+                                color: themeChange.darkTheme
+                                    ? Colors.white
+                                    : Colors.blue,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(
