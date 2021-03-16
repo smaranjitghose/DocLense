@@ -2,6 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wiredash/wiredash.dart';
+import 'package:package_info/package_info.dart';
 
 import 'MainDrawer.dart';
 import 'Providers/ThemeProvider.dart';
@@ -22,6 +24,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
     var swithValue = themeChange.darkTheme;
+
+    Future<void> reportBug() async {
+      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+      Wiredash.of(context)
+        // ..setUserProperties()
+        ..setBuildProperties(
+          buildNumber: packageInfo.buildNumber,
+          buildVersion: packageInfo.version,
+        )
+        ..show();
+    }
 
     return Scaffold(
       drawer: MainDrawer(),
@@ -121,7 +135,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const SettingText(text: 'When auto-capturing , let me adjust borders after each scan'),
+                          const SettingText(
+                              text:
+                                  'When auto-capturing , let me adjust borders after each scan'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -151,7 +167,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const SettingText(text: 'Run text recognition on saved pdf'),
+                          const SettingText(
+                              text: 'Run text recognition on saved pdf'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -198,7 +215,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const SettingText(text: 'Save Original files to Gallery'),
+                          const SettingText(
+                              text: 'Save Original files to Gallery'),
                           Switch(
                             activeColor: themeChange.darkTheme
                                 ? Colors.white
@@ -221,20 +239,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ? Colors.black45
                           : Colors.grey[200],
                       height: 50,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const SettingText(text: 'REPORT A BUG'),
-                          Expanded(
-                            child: Icon(
-                              Icons.bug_report,
-                              size: 30,
-                              color: themeChange.darkTheme
-                                  ? Colors.white
-                                  : Colors.blue,
-                            ),
-                          )
-                        ],
+                      child: InkWell(
+                        onTap: reportBug,
+                        //  () {
+                        //   Wiredash.of(context)
+                        //     ..setUserProperties()
+                        //     ..setBuildProperties()
+                        //     ..show();
+                        // },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const SettingText(text: 'REPORT A BUG'),
+                            Expanded(
+                              child: Icon(
+                                Icons.bug_report,
+                                size: 30,
+                                color: themeChange.darkTheme
+                                    ? Colors.white
+                                    : Colors.blue,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(
