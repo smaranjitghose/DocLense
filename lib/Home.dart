@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:doclense/Services/SearchService.dart';
 import 'package:doclense/StarredDocuments.dart';
 // import 'package:path/path.dart' as path;
-import 'package:doclense/settings.dart';
+import 'package:doclense/settings/settings.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:flutter/material.dart';

@@ -5,8 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:wiredash/wiredash.dart';
 import 'package:package_info/package_info.dart';
 
-import 'MainDrawer.dart';
-import 'Providers/ThemeProvider.dart';
+import '../MainDrawer.dart';
+import '../Providers/ThemeProvider.dart';
+import './contact_developers.dart';
 import 'setting_text.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -292,20 +293,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           ? Colors.black45
                           : Colors.grey[200],
                       height: 50,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const SettingText(text: 'CONTACT DEVELOPERS'),
-                          Expanded(
-                            child: Icon(
-                              Icons.contact_phone,
-                              size: 30,
-                              color: themeChange.darkTheme
-                                  ? Colors.white
-                                  : Colors.blue,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            PageRouteBuilder(
+                              pageBuilder: (c, a1, a2) =>
+                                  ContactDeveloperScreen(),
+                              transitionsBuilder: (c, anim, a2, child) =>
+                                  FadeTransition(opacity: anim, child: child),
+                              // transitionDuration: Duration(milliseconds: 1000),
                             ),
-                          )
-                        ],
+                          );
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            const SettingText(text: 'CONTACT DEVELOPERS'),
+                            Expanded(
+                              child: Icon(
+                                Icons.contact_phone,
+                                size: 30,
+                                color: themeChange.darkTheme
+                                    ? Colors.white
+                                    : Colors.blue,
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
