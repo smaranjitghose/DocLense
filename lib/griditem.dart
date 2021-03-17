@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'multi_select_delete.dart';
 
 class GridItem extends StatefulWidget {
@@ -29,7 +30,9 @@ class _GridItemState extends State<GridItem> {
             widget.item.imageUrl,
             color: Colors.black.withOpacity(isSelected ? 0.9 : 0),
             colorBlendMode: BlendMode.color,
-            fit: BoxFit.cover,
+            fit: BoxFit.fill, //Determines the size ratio of the gridimage
+            width: 320,
+            height: 320,
           ),
           if (isSelected)
             const Align(
