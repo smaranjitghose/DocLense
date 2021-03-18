@@ -380,12 +380,12 @@ class _HomeState extends State<Home> {
                                                         labelText: 'Rename',
                                                         labelStyle: TextStyle(color: Colors.grey[500]),
                                                         focusedBorder: OutlineInputBorder(
-                                                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                                                          borderSide: new BorderSide(width: 2, color: Colors.grey[500]),
+                                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                                          borderSide: BorderSide(width: 2, color: Colors.grey[500]),
                                                         ),
                                                         enabledBorder: OutlineInputBorder(
-                                                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                                                          borderSide: new BorderSide(width: 2, color: Colors.grey[500]),
+                                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                                          borderSide: BorderSide(width: 2, color: Colors.grey[500]),
                                                         ),
                                                       ),
                                                     ),
