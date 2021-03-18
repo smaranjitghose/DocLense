@@ -122,7 +122,6 @@ class MainDrawer extends StatelessWidget {
               iconData: Icons.star_rate,
               callback: (){
                 Navigator.of(context).pop();
-
                 showDialog<void>(
                     context: context,
                     barrierDismissible: true,
