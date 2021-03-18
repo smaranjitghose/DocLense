@@ -5,15 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:pdf/pdf.dart';
-import 'package:permission/permission.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:permission/permission.dart';
+
+import 'Providers/image_list.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
-import 'PDFPreviewScreen.dart';
-import 'Providers/ImageList.dart';
+import 'pdf_preview_screen.dart';
 
 class PDFConversion extends StatefulWidget {
   final ImageList list;
@@ -51,6 +52,7 @@ class _PDFConversion extends State<PDFConversion> {
             marginRight: 0,
           ),
           build: (pw.Context context) {
+            // ignore: deprecated_member_use
             return pw.Center(child: pw.Image(image));
           }));
     }
@@ -133,6 +135,20 @@ class _PDFConversion extends State<PDFConversion> {
             padding: const EdgeInsets.all(10.0),
             child: TextField(
               controller: myController,
+              autofocus: true,
+              decoration: InputDecoration(
+                labelText: 'Pdf Name',
+                labelStyle: TextStyle(color: Colors.grey[500]),
+
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  borderSide: BorderSide(width: 2, color: Colors.grey[500]),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                  borderSide: BorderSide(width: 2, color: Colors.grey[500]),
+                ),
+              ),
             ),
           ),
         ),
