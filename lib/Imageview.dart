@@ -12,7 +12,10 @@ import 'Providers/ThemeProvider.dart';
 class Imageview extends StatefulWidget {
   final File file;
   final ImageList list;
-  const Imageview(this.file, this.list);
+  const Imageview(
+    this.file,
+    this.list,
+  );
 
   @override
   _ImageviewState createState() => _ImageviewState();
@@ -109,7 +112,7 @@ class _ImageviewState extends State<Imageview> {
               ),
             ),
             Expanded(
-              flex: (MediaQuery.of(context).size.height / 16).floor(),
+              flex: (MediaQuery.of(context).size.height / 18).floor(),
               child: Container(
                 height: 65,
                 color:
@@ -126,6 +129,7 @@ class _ImageviewState extends State<Imageview> {
 //                                      builder: (context) => Home()));
                         },
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: const <Widget>[
                             Icon(
                               Icons.arrow_back,
@@ -150,6 +154,7 @@ class _ImageviewState extends State<Imageview> {
                           }
                         },
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: const <Widget>[
                             Icon(
                               Icons.undo,
@@ -167,6 +172,7 @@ class _ImageviewState extends State<Imageview> {
                           cropimage(widget.file, appBarColor, bgColor);
                         },
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: const <Widget>[
                             Icon(
                               Icons.crop_rotate,
@@ -205,6 +211,7 @@ class _ImageviewState extends State<Imageview> {
                           }
                         },
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: const <Widget>[
                             Icon(
                               Icons.arrow_forward,
@@ -222,7 +229,6 @@ class _ImageviewState extends State<Imageview> {
                 ),
               ),
             ),
-            // ),
           ],
         ),
       ),

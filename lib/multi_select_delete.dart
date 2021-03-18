@@ -31,7 +31,7 @@ class _MultiDeleteState extends State<MultiDelete> {
   void loadList() {
     itemList = [];
     selectedList = [];
-    for (int i = 0; i < (widget.imageList.length() as int); i++) {
+    for (int i = 0; i < (widget.imageList.length()); i++) {
       itemList.add(Item(widget.imageList.imagelist.elementAt(i), i));
     }
   }

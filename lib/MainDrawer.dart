@@ -133,7 +133,7 @@ class MainDrawer extends StatelessWidget {
                           padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                           child: themeChange.darkTheme ?
                           SvgPicture.asset(
-                              'assets/doclensewhite.svg'
+                            'assets/doclensewhite.svg'
                           ) :
                           SvgPicture.asset(
                               'assets/images/doclenselight.svg'),

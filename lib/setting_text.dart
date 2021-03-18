@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SettingText extends StatelessWidget {
-  SettingText({@required this.text});
+  const SettingText({@required this.text});
   final String text;
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class SettingText extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
             height: 1,
             fontSize: 17,
           ),

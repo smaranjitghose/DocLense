@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
 import 'package:hive/hive.dart';
+import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:permission/permission.dart';
 import 'package:path_provider/path_provider.dart';
@@ -43,7 +44,12 @@ class _PDFConversion extends State<PDFConversion> {
         bytes: File(widget.list.imagepath[i]).readAsBytesSync(),
       );
       pdf.addPage(pw.Page(
-          pageFormat: PdfPageFormat.a4,
+          pageFormat: PdfPageFormat.a4.copyWith(
+            marginTop: 0,
+            marginBottom: 0,
+            marginLeft: 0,
+            marginRight: 0,
+          ),
           build: (pw.Context context) {
             return pw.Center(child: pw.Image(image));
           }));
@@ -65,12 +71,12 @@ class _PDFConversion extends State<PDFConversion> {
     //Open the PDF document in mobile
     OpenFile.open(filePath);
 
-    // SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final List<dynamic> files = Hive.box('pdfs').getAt(0) as List<dynamic>;
-    files.add(filePath);
+    final now = DateTime.now();
+    final String formatter = DateFormat('yMd').format(now);
+    files.add([filePath, formatter]);
     Hive.box('pdfs').putAt(0, files);
     print("PDFS : ${Hive.box('pdfs').getAt(0)}");
-    //Directory documentDirectory = await getApplicationDocumentsDirectory();
 
     // Clearing the image list once the PDF is created and saved
     for (int i = 0; i < widget.list.imagelist.length; i++) {
@@ -78,9 +84,6 @@ class _PDFConversion extends State<PDFConversion> {
       widget.list.imagelist.removeAt(i);
       widget.list.imagepath.removeAt(i);
     }
-    //String documentPath = documentDirectory.path;
-
-    //File file = File("$documentPath/example.pdf");
   }
 
   @override
