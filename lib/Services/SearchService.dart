@@ -20,6 +20,14 @@ class SearchService extends SearchDelegate<String> {
       primaryIconTheme: theme.primaryIconTheme,
       primaryColorBrightness: Brightness.dark,
       primaryTextTheme: theme.primaryTextTheme,
+      inputDecorationTheme: const InputDecorationTheme(
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.transparent),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.transparent),
+        ),
+      ),
     );
   }
 
