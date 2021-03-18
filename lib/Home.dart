@@ -197,9 +197,7 @@ class _HomeState extends State<Home> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                               child: Text('${pdfsBox.getAt(0)[index][1]}'),
                             ),
-                            const SizedBox(
-                              height: 30,
-                            ),
+                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                             Row(
                               children: [
                                 IconButton(
@@ -375,9 +373,7 @@ class _HomeState extends State<Home> {
                                                     TextField(
                                                       controller: pdfName,
                                                     ),
-                                                    const SizedBox(
-                                                      height: 20,
-                                                    ),
+                                                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         final List<dynamic>
@@ -604,16 +600,9 @@ class _HomeState extends State<Home> {
                 getImage(ImageSource.camera);
               },
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            const SizedBox(
-              width: 2,
-              height: 15,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
+           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.01),
             IconButton(
               iconSize: 30,
               icon: const Icon(
