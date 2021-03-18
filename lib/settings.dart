@@ -1,4 +1,4 @@
-// import 'package:doclense/Constants/ThemeConstants.dart';
+// import 'package:doclense/Constants/theme_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +6,7 @@ import 'package:wiredash/wiredash.dart';
 import 'package:package_info/package_info.dart';
 
 import 'MainDrawer.dart';
-import 'Providers/ThemeProvider.dart';
+import 'Providers/theme_provider.dart';
 import 'setting_text.dart';
 
 class SettingsScreen extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:doclense/Services/SearchService.dart';
-import 'package:doclense/StarredDocuments.dart';
+import 'package:doclense/Services/search_service.dart';
+import 'package:doclense/starred_documents.dart';
 // import 'package:path/path.dart' as path;
 import 'package:doclense/settings.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,7 +21,7 @@ import 'package:quick_actions/quick_actions.dart';
 import 'About.dart';
 import 'Imageview.dart';
 import 'MainDrawer.dart';
-import 'Providers/ImageList.dart';
+import 'Providers/image_list.dart';
 
 enum IconOptions { share }
 

@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 // import 'Home.dart';
 import 'Imageview.dart';
 import 'PDFConversion.dart';
-import 'Providers/ImageList.dart';
+import 'Providers/image_list.dart';
 import 'griditem.dart';
 
 class MultiDelete extends StatefulWidget {
