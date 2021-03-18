@@ -171,14 +171,15 @@ class _HomeState extends State<Home> {
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Card(
-                    color: Colors.grey,
+                    elevation: 5,
+                    color: Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
                           children: const [
                             /// TODO: Add logic for displaying first image of PDF
-                            Icon(Icons.photo)
+                            Icon(Icons.photo,color: Colors.grey)
                           ],
                         ),
                         Column(
@@ -203,7 +204,7 @@ class _HomeState extends State<Home> {
                             Row(
                               children: [
                                 IconButton(
-                                    icon: const Icon(Icons.share),
+                                    icon: const Icon(Icons.share,color: Colors.grey,),
                                     onPressed: () async {
                                       final File file = File(await pdfsBox
                                           .getAt(0)[index][0] as String);
@@ -216,7 +217,7 @@ class _HomeState extends State<Home> {
                                           text: 'Your PDF!');
                                     }),
                                 IconButton(
-                                    icon: const Icon(Icons.delete),
+                                    icon: const Icon(Icons.delete,color: Colors.grey),
                                     onPressed: () async {
                                       showDialog(
                                           context: context,
@@ -348,7 +349,7 @@ class _HomeState extends State<Home> {
                                           });
                                     }),
                                 IconButton(
-                                  icon: const Icon(Icons.edit),
+                                  icon: const Icon(Icons.edit,color: Colors.grey),
                                   onPressed: () {
                                     TextEditingController pdfName;
                                     showDialog(
@@ -488,6 +489,7 @@ class _HomeState extends State<Home> {
                                 IconButton(
                                     icon: const Icon(
                                       Icons.drive_file_move,
+                                        color: Colors.grey
                                     ),
                                     onPressed: () async {
                                       final String oldPath =
@@ -528,6 +530,7 @@ class _HomeState extends State<Home> {
                                     isStarred(pdfsBox, index)
                                         ? Icons.star
                                         : Icons.star_border,
+                                      color: Colors.grey
                                   ),
                                   onPressed: () async {
                                     print(isStarred(pdfsBox, index));
