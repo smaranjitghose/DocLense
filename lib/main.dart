@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:wiredash/wiredash.dart';
-import 'package:doclense/Home.dart';
+import 'package:doclense/home.dart';
 import 'package:doclense/Models/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';

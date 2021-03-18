@@ -5,15 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
-import 'package:pdf/pdf.dart';
-import 'package:permission/permission.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf/widgets.dart' as pw;
 import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:permission/permission.dart';
+
+import 'Providers/image_list.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 import 'pdf_preview_screen.dart';
-import 'Providers/image_list.dart';
 
 class PDFConversion extends StatefulWidget {
   final ImageList list;
@@ -51,6 +52,7 @@ class _PDFConversion extends State<PDFConversion> {
             marginRight: 0,
           ),
           build: (pw.Context context) {
+            // ignore: deprecated_member_use
             return pw.Center(child: pw.Image(image));
           }));
     }

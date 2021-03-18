@@ -2,9 +2,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:doclense/Services/search_service.dart';
-import 'package:doclense/starred_documents.dart';
 // import 'package:path/path.dart' as path;
 import 'package:doclense/settings.dart';
+import 'package:doclense/starred_documents.dart';
+import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:flutter/material.dart';
@@ -13,15 +14,14 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ext_storage/ext_storage.dart';
-import 'package:quick_actions/quick_actions.dart';
 
-import 'About.dart';
-import 'Imageview.dart';
-import 'MainDrawer.dart';
 import 'Providers/image_list.dart';
+import 'about.dart';
+import 'image_view.dart';
+import 'main_drawer.dart';
 
 enum IconOptions { share }
 
@@ -153,6 +153,7 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
+      // ignore: deprecated_member_use
       body: WatchBoxBuilder(
         box: Hive.box('pdfs'),
         builder: (context, pdfsBox) {
