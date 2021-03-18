@@ -376,6 +376,18 @@ class _HomeState extends State<Home> {
                                                   children: [
                                                     TextField(
                                                       controller: pdfName,
+                                                      decoration: InputDecoration(
+                                                        labelText: 'Rename',
+                                                        labelStyle: TextStyle(color: Colors.grey[500]),
+                                                        focusedBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                          borderSide: new BorderSide(width: 2, color: Colors.grey[500]),
+                                                        ),
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                                          borderSide: new BorderSide(width: 2, color: Colors.grey[500]),
+                                                        ),
+                                                      ),
                                                     ),
                                                     const SizedBox(
                                                       height: 20,

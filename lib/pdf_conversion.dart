@@ -135,6 +135,20 @@ class _PDFConversion extends State<PDFConversion> {
             padding: const EdgeInsets.all(10.0),
             child: TextField(
               controller: myController,
+              autofocus: true,
+              decoration: InputDecoration(
+                labelText: 'Pdf Name',
+                labelStyle: TextStyle(color: Colors.grey[500]),
+
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  borderSide: new BorderSide(width: 2, color: Colors.grey[500]),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  borderSide: new BorderSide(width: 2, color: Colors.grey[500]),
+                ),
+              ),
             ),
           ),
         ),
