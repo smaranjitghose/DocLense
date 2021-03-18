@@ -104,7 +104,7 @@ class _ImageviewState extends State<Imageview> {
         child: Column(
           children: <Widget>[
             Expanded(
-              flex: (MediaQuery.of(context).size.height / 2).floor(),
+              flex: 7,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                 child: Image.file(
@@ -113,7 +113,6 @@ class _ImageviewState extends State<Imageview> {
               ),
             ),
             Expanded(
-              flex: (MediaQuery.of(context).size.height / 18).floor(),
               child: Container(
                 height: 65,
                 color:
