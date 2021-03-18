@@ -6,9 +6,7 @@ import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:provider/provider.dart';
-
 import 'About.dart';
-
 import 'Providers/ThemeProvider.dart';
 import 'UI Components/Drawer_Nav_Item.dart';
 
@@ -51,7 +49,8 @@ class MainDrawer extends StatelessWidget {
                         style: TextStyle(fontSize: 20),
                       ),
                     ],
-                  )),
+                  ),
+              ),
             ),
             const SizedBox(
               height: 10,

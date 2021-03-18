@@ -21,6 +21,7 @@ class drawerNavItem extends StatelessWidget {
         title: Text(
           navItemTitle,
           style: TextStyle(fontSize: 18),
-        ));
+        ),
+    );
   }
 }
