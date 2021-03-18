@@ -178,9 +178,16 @@ class _HomeState extends State<Home> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
-                          children: const [
-                            /// TODO: Add logic for displaying first image of PDF
-                            Icon(Icons.photo,color: Colors.grey)
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image(
+                                image: FileImage(
+                                    pdfsBox.getAt(0)[index][2] as File
+                                ),
+                                width: MediaQuery.of(context).size.width/4,
+                              ),
+                            )
                           ],
                         ),
                         Column(
@@ -203,6 +210,7 @@ class _HomeState extends State<Home> {
                               height: 30,
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 IconButton(
                                     icon: const Icon(Icons.share,color: Colors.grey,),
