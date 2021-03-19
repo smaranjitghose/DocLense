@@ -29,13 +29,13 @@ class ContactDeveloperScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _buildProfile(
-                      imagePath: 'assets/images/doclense.png',
+                      imagePath: 'assets/images/team/smaranjit_ghose.png',
                       name: 'Smaranjit Ghose',
                       githubUrl: 'smaranjitghose',
                       linkedInUrl: 'smaranjitghose',
                     ),
                     _buildProfile(
-                      imagePath: 'assets/images/doclense.png',
+                      imagePath: 'assets/images/team/anush_bhatia.png',
                       name: 'Anush Bhatia',
                       githubUrl: 'anushbhatia',
                       linkedInUrl: 'anushbhatia',
@@ -76,7 +76,7 @@ class ContactDeveloperScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: Image.asset(
                 imagePath,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               )),
         ),
         const SizedBox(height: height),
@@ -85,7 +85,6 @@ class ContactDeveloperScreen extends StatelessWidget {
           style: const TextStyle(
             fontSize: textSize,
             fontWeight: FontWeight.w500,
-            
           ),
         ),
         const SizedBox(height: height),
@@ -113,7 +112,6 @@ class ContactDeveloperScreen extends StatelessWidget {
       onTap: () => _launchURL(link),
       child: FaIcon(
         icon,
-        color: Colors.blue[100],
         size: 40,
       ));
 
