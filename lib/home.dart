@@ -6,11 +6,10 @@ import 'package:doclense/Services/search_service.dart';
 import 'package:doclense/starred_documents.dart';
 
 
-import 'package:doclense/Services/search_service.dart';
 // import 'package:path/path.dart' as path;
 
 import 'package:doclense/settings.dart';
-import 'package:doclense/starred_documents.dart';
+
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:path_provider/path_provider.dart' as syspaths;
