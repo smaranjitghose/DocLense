@@ -19,17 +19,19 @@ class UserPreferencesAdapter extends TypeAdapter<UserPreferences> {
     return UserPreferences(
       firstTime: fields[0] as bool,
       darkTheme: fields[1] as bool,
-    );
+    )..previewImage = fields[2] as File;
   }
 
   @override
   void write(BinaryWriter writer, UserPreferences obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.firstTime)
       ..writeByte(1)
-      ..write(obj.darkTheme);
+      ..write(obj.darkTheme)
+      ..writeByte(2)
+      ..write(obj.previewImage);
   }
 
   @override

@@ -41,13 +41,17 @@ class _StarredState extends State<Starred> {
       body: WatchBoxBuilder(
         box: Hive.box('starred'),
         builder: (context, starredBox) {
-          if (starredBox.getAt(0).length == 0) {
+          if (starredBox
+              .getAt(0)
+              .length == 0) {
             return const Center(
               child: Text("No PDFs Starred Yet !! "),
             );
           }
           return ListView.builder(
-            itemCount: starredBox.getAt(0).length as int,
+            itemCount: starredBox
+                .getAt(0)
+                .length as int,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -59,46 +63,81 @@ class _StarredState extends State<Starred> {
                   child: Card(
                     color: Colors.grey,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
                           children: [
-                            Text((starredBox.getAt(0)[index][0] as String)
-                                .split('/')
-                                .last),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image(
+                                image: FileImage(
+                                    starredBox.getAt(0)[index][2] as File
+                                ),
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 4,
+                              ),
+                            )
                           ],
                         ),
-                        Row(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            IconButton(
-                                icon: const Icon(Icons.share),
-                                onPressed: () async {
-                                  final File file = File(await starredBox
-                                      .getAt(0)[index][0] as String);
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                (starredBox.getAt(0)[index][0] as String)
+                                    .split('/')
+                                    .last,
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
+                              child: Text('${starredBox.getAt(0)[index][1]}'),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
 
-                                  final path = file.path;
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: MediaQuery.of(context).size.width/2.6,
+                                ),
+                                IconButton(
+                                    icon: const Icon(Icons.share),
+                                    onPressed: () async {
+                                      final File file = File(await starredBox
+                                          .getAt(0)[index][0] as String);
 
-                                  print(path);
+                                      final path = file.path;
 
-                                  Share.shareFiles([path], text: 'Your PDF!');
-                                }),
-                            IconButton(
-                                icon: const Icon(Icons.star),
-                                onPressed: () async {
-                                  setState(() {
-                                    Hive.box('starred')
-                                        .getAt(0)
-                                        .removeAt(index);
-                                  });
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(
-                                      content: Text(
-                                          'Removed from starred documents'),
-                                    ),
-                                  );
-                                })
+                                      print(path);
+
+                                      Share.shareFiles(
+                                          [path], text: 'Your PDF!');
+                                    }),
+                                IconButton(
+                                    icon: const Icon(Icons.star),
+                                    onPressed: () async {
+                                      setState(() {
+                                        Hive.box('starred')
+                                            .getAt(0)
+                                            .removeAt(index);
+                                      });
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              'Removed from starred documents'),
+                                        ),
+                                      );
+                                    })
+                              ],
+                            )
                           ],
-                        )
+                        ),
                       ],
                     ),
                   ),
