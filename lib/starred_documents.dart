@@ -7,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_file/open_file.dart';
 import 'package:share/share.dart';
 
-import 'MainDrawer.dart';
+import 'main_drawer.dart';
 
 class Starred extends StatefulWidget {
   @override
@@ -37,6 +37,7 @@ class _StarredState extends State<Starred> {
           ),
         ],
       ),
+      // ignore: deprecated_member_use
       body: WatchBoxBuilder(
         box: Hive.box('starred'),
         builder: (context, starredBox) {
