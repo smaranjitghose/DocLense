@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-class drawerNavItem extends StatelessWidget {
+class DrawerNavItem extends StatelessWidget {
 
   final VoidCallback callback;
   final IconData  iconData;
   final String navItemTitle;
 
-  drawerNavItem({
+  const DrawerNavItem({
     this.callback,
     this.iconData,
     this.navItemTitle,
@@ -20,7 +20,7 @@ class drawerNavItem extends StatelessWidget {
         leading:  Icon(iconData),
         title: Text(
           navItemTitle,
-          style: TextStyle(fontSize: 18),
+          style: const TextStyle(fontSize: 18),
         ),
     );
   }

@@ -7,7 +7,7 @@ import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'Providers/theme_provider.dart';
-import 'UI Components/Drawer_Nav_Item.dart';
+import 'UI Components/drawer_nav_item.dart';
 import 'about.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -59,14 +59,14 @@ class MainDrawer extends StatelessWidget {
             // Added drawerNavItems in Place of Drawer ListTiles below.
             // Navigate to UI Components/Drawer_Nav_Items.dart to explore the refactored drawerNavItem Class.
 
-            drawerNavItem(
+            DrawerNavItem(
               iconData: Icons.home,
               navItemTitle: 'Home',
               callback: (){
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
             ),
-            drawerNavItem(
+            DrawerNavItem(
               iconData: Icons.stars_rounded,
               navItemTitle: 'Starred Documents',
               callback: (){
@@ -81,7 +81,7 @@ class MainDrawer extends StatelessWidget {
                     ));
               },
             ),
-            drawerNavItem(
+            DrawerNavItem(
               callback: (){
                 Navigator.of(context).pop();
                 Navigator.push(
@@ -100,7 +100,7 @@ class MainDrawer extends StatelessWidget {
             Divider(
               color: themeChange.darkTheme ? Colors.white : Colors.black,
             ),
-            drawerNavItem(
+            DrawerNavItem(
               iconData: Icons.info,
               navItemTitle: 'About App',
               callback: (){
@@ -116,7 +116,7 @@ class MainDrawer extends StatelessWidget {
                 );
               },
             ),
-            drawerNavItem(
+            DrawerNavItem(
               navItemTitle: 'Rate us',
               iconData: Icons.star_rate,
               callback: (){
@@ -150,7 +150,7 @@ class MainDrawer extends StatelessWidget {
             Divider(
               color: themeChange.darkTheme ? Colors.white : Colors.black,
             ),
-            drawerNavItem(
+            DrawerNavItem(
               navItemTitle: 'Share the App',
               iconData: Icons.share,
               callback: (){
