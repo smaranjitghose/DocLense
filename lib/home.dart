@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:io';
-
-import 'package:doclense/Services/SearchService.dart';
-import 'package:doclense/StarredDocuments.dart';
+import 'package:doclense/Services/search_service.dart';
+// import 'package:path/path.dart' as path;
 import 'package:doclense/settings.dart';
+import 'package:doclense/starred_documents.dart';
+import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
@@ -11,15 +12,14 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ext_storage/ext_storage.dart';
-import 'package:quick_actions/quick_actions.dart';
 
-import 'About.dart';
-import 'Imageview.dart';
-import 'MainDrawer.dart';
-import 'Providers/ImageList.dart';
+import 'Providers/image_list.dart';
+import 'about.dart';
+import 'image_view.dart';
+import 'main_drawer.dart';
 
 enum IconOptions { share }
 
@@ -152,6 +152,7 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
+      // ignore: deprecated_member_use
       body: WatchBoxBuilder(
         box: Hive.box('pdfs'),
         builder: (context, pdfsBox) {
@@ -170,14 +171,22 @@ class _HomeState extends State<Home> {
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
                   child: Card(
-                    color: Colors.grey,
+                    elevation: 5,
+                    color: Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Column(
-                          children: const [
-                            /// TODO: Add logic for displaying first image of PDF
-                            Icon(Icons.photo)
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Image(
+                                image: FileImage(
+                                    pdfsBox.getAt(0)[index][2] as File
+                                ),
+                                width: MediaQuery.of(context).size.width/4,
+                              ),
+                            )
                           ],
                         ),
                         Column(
@@ -200,9 +209,10 @@ class _HomeState extends State<Home> {
                               height: 30,
                             ),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 IconButton(
-                                    icon: const Icon(Icons.share),
+                                    icon: const Icon(Icons.share,color: Colors.grey,),
                                     onPressed: () async {
                                       final File file = File(await pdfsBox
                                           .getAt(0)[index][0] as String);
@@ -215,7 +225,7 @@ class _HomeState extends State<Home> {
                                           text: 'Your PDF!');
                                     }),
                                 IconButton(
-                                    icon: const Icon(Icons.delete),
+                                    icon: const Icon(Icons.delete,color: Colors.grey),
                                     onPressed: () async {
                                       showDialog(
                                           context: context,
@@ -347,7 +357,7 @@ class _HomeState extends State<Home> {
                                           });
                                     }),
                                 IconButton(
-                                  icon: const Icon(Icons.edit),
+                                  icon: const Icon(Icons.edit,color: Colors.grey),
                                   onPressed: () {
                                     TextEditingController pdfName;
                                     showDialog(
@@ -373,6 +383,18 @@ class _HomeState extends State<Home> {
                                                   children: [
                                                     TextField(
                                                       controller: pdfName,
+                                                      decoration: InputDecoration(
+                                                        labelText: 'Rename',
+                                                        labelStyle: TextStyle(color: Colors.grey[500]),
+                                                        focusedBorder: OutlineInputBorder(
+                                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                                          borderSide: BorderSide(width: 2, color: Colors.grey[500]),
+                                                        ),
+                                                        enabledBorder: OutlineInputBorder(
+                                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                                          borderSide: BorderSide(width: 2, color: Colors.grey[500]),
+                                                        ),
+                                                      ),
                                                     ),
                                                     const SizedBox(
                                                       height: 20,
@@ -487,6 +509,7 @@ class _HomeState extends State<Home> {
                                 IconButton(
                                     icon: const Icon(
                                       Icons.drive_file_move,
+                                        color: Colors.grey
                                     ),
                                     onPressed: () async {
                                       final String oldPath =
@@ -527,6 +550,7 @@ class _HomeState extends State<Home> {
                                     isStarred(pdfsBox, index)
                                         ? Icons.star
                                         : Icons.star_border,
+                                      color: Colors.grey
                                   ),
                                   onPressed: () async {
                                     print(isStarred(pdfsBox, index));
