@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
+
 import 'package:doclense/Services/search_service.dart';
-// import 'package:path/path.dart' as path;
-import 'package:doclense/settings.dart';
 import 'package:doclense/starred_documents.dart';
+
+
+// import 'package:path/path.dart' as path;
+
+import 'package:doclense/settings.dart';
+
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 // import 'package:path_provider/path_provider.dart' as syspaths;
@@ -206,9 +211,7 @@ class _HomeState extends State<Home> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                               child: Text('${pdfsBox.getAt(0)[index][1]}'),
                             ),
-                            const SizedBox(
-                              height: 30,
-                            ),
+                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -397,9 +400,7 @@ class _HomeState extends State<Home> {
                                                         ),
                                                       ),
                                                     ),
-                                                    const SizedBox(
-                                                      height: 20,
-                                                    ),
+                                                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         final List<dynamic>
@@ -628,16 +629,9 @@ class _HomeState extends State<Home> {
                 getImage(ImageSource.camera);
               },
             ),
-            const SizedBox(
-              width: 10,
-            ),
-            const SizedBox(
-              width: 2,
-              height: 15,
-            ),
-            const SizedBox(
-              width: 10,
-            ),
+           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.01),
             IconButton(
               iconSize: 30,
               icon: const Icon(
