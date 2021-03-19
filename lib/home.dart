@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 
-import 'package:doclense/Services/SearchService.dart';
-import 'package:doclense/StarredDocuments.dart';
+import 'package:doclense/Services/search_service.dart';
+import 'package:doclense/starred_documents.dart';
 
 
 import 'package:doclense/Services/search_service.dart';
