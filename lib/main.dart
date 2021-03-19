@@ -71,12 +71,14 @@ Future<void> main() async {
   final r = res.getAt(0) as UserPreferences;
   print("First Time : ${r.firstTime}");
 
+
   runApp(
       //   MaterialApp(
       //   debugShowCheckedModeBanner: false,
       //   home: MyApp(),
       // )
       MyApp());
+
 }
 
 class MyApp extends StatefulWidget {
