@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ContactDeveloperScreen extends StatelessWidget {
   final double spacing = 40;
@@ -24,26 +25,22 @@ class ContactDeveloperScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: spacing),
-                Center(
-                  child: Wrap(
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    spacing: spacing,
-                    runSpacing: spacing,
-                    children: [
-                      _buildProfile(
-                        imagePath: 'assets/images/doclense.png',
-                        name: 'Smaranjit Ghose',
-                        githubUrl: 'smaranjitghose',
-                        linkedInUrl: 'smaranjitghose',
-                      ),
-                      _buildProfile(
-                        imagePath: 'assets/images/doclense.png',
-                        name: 'Anush Bhatia',
-                        githubUrl: 'anushbhatia',
-                        linkedInUrl: 'anushbhatia',
-                      ),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _buildProfile(
+                      imagePath: 'assets/images/doclense.png',
+                      name: 'Smaranjit Ghose',
+                      githubUrl: 'smaranjitghose',
+                      linkedInUrl: 'smaranjitghose',
+                    ),
+                    _buildProfile(
+                      imagePath: 'assets/images/doclense.png',
+                      name: 'Anush Bhatia',
+                      githubUrl: 'anushbhatia',
+                      linkedInUrl: 'anushbhatia',
+                    ),
+                  ],
                 ),
                 SizedBox(height: spacing),
                 const Text(
@@ -68,7 +65,7 @@ class ContactDeveloperScreen extends StatelessWidget {
     @required String linkedInUrl,
   }) {
     const double height = 12;
-    const double textSize = 16;
+    const double textSize = 18;
 
     return Column(
       children: [
@@ -76,41 +73,49 @@ class ContactDeveloperScreen extends StatelessWidget {
           height: 150,
           width: 150,
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
-              imagePath,
-              fit: BoxFit.cover,
-            ),
-          ),
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
+              )),
         ),
         const SizedBox(height: height),
         Text(
           name,
-          style: const TextStyle(fontSize: textSize),
+          style: const TextStyle(
+            fontSize: textSize,
+            fontWeight: FontWeight.w500,
+            
+          ),
         ),
         const SizedBox(height: height),
-        _profileLinks('Github', 'https://github.com/$githubUrl'),
-        const SizedBox(height: height),
-        _profileLinks('LinkedIn', 'https://www.linkedin.com/in/$linkedInUrl'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _profileLinks(
+              'Github',
+              'https://github.com/$githubUrl',
+              FontAwesomeIcons.githubSquare,
+            ),
+            const SizedBox(width: 40),
+            _profileLinks(
+              'LinkedIn',
+              'https://www.linkedin.com/in/$linkedInUrl',
+              FontAwesomeIcons.linkedin,
+            ),
+          ],
+        ),
       ],
     );
   }
 
-  Widget _profileLinks(String text, String link) {
-    return InkWell(
-      onTap: () {
-        _launchURL(link);
-      },
-      child: Text(
-        text,
-        style: const TextStyle(
-          color: Colors.blue,
-          decoration: TextDecoration.underline,
-          fontSize: 14,
-        ),
-      ),
-    );
-  }
+  Widget _profileLinks(String text, String link, IconData icon) => InkWell(
+      onTap: () => _launchURL(link),
+      child: FaIcon(
+        icon,
+        color: Colors.blue[100],
+        size: 40,
+      ));
 
   Future<void> _launchURL(String url) async {
     if (await canLaunch(url)) {
