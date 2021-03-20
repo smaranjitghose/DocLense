@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'Providers/theme_provider.dart';
+import 'UI Components/drawer_nav_item.dart';
 import 'about.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -25,46 +25,51 @@ class MainDrawer extends StatelessWidget {
               color: themeChange.darkTheme ? Colors.black : Colors.white10,
               child: Center(
                   child: Column(
-                children: <Widget>[
-                  SizedBox(
-                    width: 100,
-                    height: 180,
-                    child: CircleAvatar(
-                      backgroundColor:
+                    children: <Widget>[
+                      SizedBox(
+                        width: 100,
+                        height: 180,
+                        child: CircleAvatar(
+                          backgroundColor:
                           themeChange.darkTheme ? Colors.black : Colors.white10,
-                      radius: 60,
-                      child: themeChange.darkTheme
-                          ? SvgPicture.asset(
-                              'assets/doclensewhitesmall.svg',
-                              height: 100,
-                            )
-                          : SvgPicture.asset(
-                              'assets/doclenselightsmall.svg',
-                              height: 100,
-                            ),
-                    ),
+                          radius: 60,
+                          child: themeChange.darkTheme
+                              ? SvgPicture.asset(
+                            'assets/doclensewhitesmall.svg',
+                            height: 100,
+                          )
+                              : SvgPicture.asset(
+                            'assets/doclenselightsmall.svg',
+                            height: 100,
+                          ),
+                        ),
+                      ),
+                      const Text(
+                        "One Place For All \n Your Documents!",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
                   ),
-                  const Text(
-                    "One Place For All \n Your Documents!",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
-              )),
+              ),
             ),
             const SizedBox(
               height: 10,
             ),
-            ListTile(
-                onTap: () {
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                },
-                leading: const Icon(Icons.home),
-                title: const Text(
-                  "Home",
-                  style: TextStyle(fontSize: 18),
-                )),
-            ListTile(
-              onTap: () {
+
+            // Added drawerNavItems in Place of Drawer ListTiles below.
+            // Navigate to UI Components/Drawer_Nav_Items.dart to explore the refactored drawerNavItem Class.
+
+            DrawerNavItem(
+              iconData: Icons.home,
+              navItemTitle: 'Home',
+              callback: (){
+                Navigator.of(context).popUntil((route) => route.isFirst);
+              },
+            ),
+            DrawerNavItem(
+              iconData: Icons.stars_rounded,
+              navItemTitle: 'Starred Documents',
+              callback: (){
                 Navigator.of(context).pop();
                 Navigator.push(
                     context,
@@ -75,14 +80,9 @@ class MainDrawer extends StatelessWidget {
                       // transitionDuration: Duration(milliseconds: 2000),
                     ));
               },
-              leading: const Icon(Icons.stars_rounded),
-              title: const Text(
-                "Starred Documents",
-                style: TextStyle(fontSize: 18),
-              ),
             ),
-            ListTile(
-              onTap: () {
+            DrawerNavItem(
+              callback: (){
                 Navigator.of(context).pop();
                 Navigator.push(
                   context,
@@ -94,17 +94,16 @@ class MainDrawer extends StatelessWidget {
                   ),
                 );
               },
-              leading: const Icon(Icons.settings),
-              title: const Text(
-                "Settings",
-                style: TextStyle(fontSize: 18),
-              ),
+              navItemTitle: 'Settings',
+              iconData: Icons.settings,
             ),
             Divider(
               color: themeChange.darkTheme ? Colors.white : Colors.black,
             ),
-            ListTile(
-              onTap: () {
+            DrawerNavItem(
+              iconData: Icons.info,
+              navItemTitle: 'About App',
+              callback: (){
                 Navigator.of(context).pop();
                 Navigator.push(
                   context,
@@ -116,23 +115,19 @@ class MainDrawer extends StatelessWidget {
                   ),
                 );
               },
-              leading: const Icon(Icons.info),
-              title: const Text(
-                "About App",
-                style: TextStyle(fontSize: 18),
-              ),
             ),
-            ListTile(
-              onTap: () {
+            DrawerNavItem(
+              navItemTitle: 'Rate us',
+              iconData: Icons.star_rate,
+              callback: (){
                 Navigator.of(context).pop();
-
                 showDialog<void>(
                     context: context,
                     barrierDismissible: true,
                     builder: (BuildContext context) {
                       return RatingDialog(
                         accentColor:
-                            themeChange.darkTheme ? Colors.black : Colors.blue,
+                        themeChange.darkTheme ? Colors.black : Colors.blue,
                         icon: Padding(
                           padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                           child: themeChange.darkTheme ?
@@ -151,26 +146,18 @@ class MainDrawer extends StatelessWidget {
                       );
                     });
               },
-              leading: const Icon(Icons.star_rate),
-              title: const Text(
-                "Rate us",
-                style: TextStyle(fontSize: 18),
-              ),
             ),
             Divider(
               color: themeChange.darkTheme ? Colors.white : Colors.black,
             ),
-            ListTile(
-              onTap: () {
+            DrawerNavItem(
+              navItemTitle: 'Share the App',
+              iconData: Icons.share,
+              callback: (){
                 Share.share(
                     'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
                     subject: "DocLense");
               },
-              leading: const Icon(Icons.share),
-              title: const Text(
-                "Share the App",
-                style: TextStyle(fontSize: 18),
-              ),
             ),
             // ListTile(
             //   onTap: () {

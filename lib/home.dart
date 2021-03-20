@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
-
 import 'package:doclense/Services/search_service.dart';
 import 'package:doclense/starred_documents.dart';
 
@@ -10,7 +8,6 @@ import 'package:doclense/starred_documents.dart';
 import 'package:doclense/settings/settings.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
-// import 'package:path_provider/path_provider.dart' as syspaths;
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
 import 'package:hive/hive.dart';
@@ -44,6 +41,7 @@ class _HomeState extends State<Home> {
       return sharedPreferences.getStringList('savedFiles');
     }
   }
+
 
   ImageList images = ImageList();
   QuickActions quickActions = QuickActions();
