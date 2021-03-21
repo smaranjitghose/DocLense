@@ -147,12 +147,11 @@ class _PDFConversion extends State<PDFConversion> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   borderSide: BorderSide(width: 2, color: Colors.grey[500]),
-                ),
               ),
             ),
           ),
         ),
-      ),
+      ),),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // if (name == null) {
