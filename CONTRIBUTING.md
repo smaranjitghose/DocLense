@@ -1,4 +1,5 @@
-# Contributing Guidelines  
+# Contributing Guidelines [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues) 🤝🏽🍀:
+<p align="center"><img src="./readme_assets/Contribute.png" width=600></p>
   
 This documentation contains a set of guidelines to help you during the contribution process.
 
@@ -114,6 +115,24 @@ $ git push -u origin <branch_name>
 - Go to your repository in browser and click on compare and pull requests. Then add a title and description to your pull request that explains your contribution.  
 ![pullrequest](https://github.com/kanishkaa24/DocLense/blob/main/Untitled%20design%20(6).png) 
 - Voila! Your Pull Request has been submitted and will be reviewed by the moderators and merged.🥳  
+- 
+- ## Guidelines for raising a pull request:
+>
+> - Each pull request should have an appropriate and short title like "Fixed Bug in Upload Page"
+> 
+> - Describe your intended changes in the description section of the pull request (Use bullet points and phrases) 
+>
+> - Refrain from using phrases like "Hi, I am ..", "Please merge me this OPR", "Thank You..", etc. We are only interested in technical parts
+>
+> - Attach a screenshot/clip of the change(s)
+>
+> - Make sure to refer the respective issue in the respective PR using phrases like `Resolves #issue_number` or `Closes #issue_number`.  
+>
+> - Please be patient enough. The project maintainers/mentors would review it as per their schedule. Please do not start putting comments like "Please check this" etc.
+>  
+> - Although we support feedback from everyone in all phases of development, it is highly advised not to put any negative comments in other participant's pull requests.
+> 
+> - Always keep a note of the deadline. 
   
 ## Need more help?🤔  
 You can refer to the following articles on basics of Git and Github and also contact the Project Mentors, in case you are stuck:  
