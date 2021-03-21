@@ -389,6 +389,7 @@ class _HomeState extends State<Home> {
                                                         labelText: 'Rename',
                                                         labelStyle: TextStyle(color: Colors.grey[500]),
                                                         focusedBorder: OutlineInputBorder(
+
                                                           borderRadius: const BorderRadius.all(Radius.circular(20)),
                                                           borderSide: BorderSide(width: 2, color: Colors.grey[500]),
                                                         ),
@@ -396,6 +397,7 @@ class _HomeState extends State<Home> {
                                                           borderRadius: const BorderRadius.all(Radius.circular(20)),
                                                           borderSide: BorderSide(width: 2, color: Colors.grey[500]),
                                                         ),
+
                                                       ),
                                                     ),
                                                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
