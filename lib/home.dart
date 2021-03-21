@@ -202,12 +202,12 @@ class _HomeState extends State<Home> {
                                 (pdfsBox.getAt(0)[index][0] as String)
                                     .split('/')
                                     .last,
-                                style: const TextStyle(fontSize: 18),
+                                style: const TextStyle(fontSize: 18,color:Colors.black),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                              child: Text('${pdfsBox.getAt(0)[index][1]}'),
+                              child: Text('${pdfsBox.getAt(0)[index][1]}',style: const TextStyle(color:Colors.black)),
                             ),
                            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
                             Row(
