@@ -14,11 +14,13 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
+import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'Providers/image_list.dart';
+import 'Providers/theme_provider.dart';
 import 'about.dart';
 import 'image_view.dart';
 import 'main_drawer.dart';
@@ -126,6 +128,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
 //    return ChangeNotifierProvider.value(
 //      value:imagelist;
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
@@ -174,7 +177,7 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.all(15.0),
                   child: Card(
                     elevation: 5,
-                    color: Colors.white,
+                      color: themeChange.darkTheme ? Colors.grey[700] : Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -200,9 +203,9 @@ class _HomeState extends State<Home> {
                                 (pdfsBox.getAt(0)[index][0] as String)
                                     .split('/')
                                     .last,
-                                style: const TextStyle(fontSize: 18),
+                                style:  const TextStyle(fontSize: 18)
+                                ),
                               ),
-                            ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                               child: Text('${pdfsBox.getAt(0)[index][1]}'),
@@ -212,7 +215,8 @@ class _HomeState extends State<Home> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 IconButton(
-                                    icon: const Icon(Icons.share,color: Colors.grey,),
+                                    icon:  Icon(Icons.share, color: themeChange.darkTheme ? Colors.white70  : Colors.grey,
+                                        ),
                                     onPressed: () async {
                                       final File file = File(await pdfsBox
                                           .getAt(0)[index][0] as String);
@@ -225,7 +229,7 @@ class _HomeState extends State<Home> {
                                           text: 'Your PDF!');
                                     }),
                                 IconButton(
-                                    icon: const Icon(Icons.delete,color: Colors.grey),
+                                    icon:  Icon(Icons.delete,color: themeChange.darkTheme ? Colors.white70  : Colors.grey),
                                     onPressed: () async {
                                       showDialog(
                                           context: context,
@@ -357,7 +361,7 @@ class _HomeState extends State<Home> {
                                           });
                                     }),
                                 IconButton(
-                                  icon: const Icon(Icons.edit,color: Colors.grey),
+                                  icon:  Icon(Icons.edit,color: themeChange.darkTheme ? Colors.white70  : Colors.grey),
                                   onPressed: () {
                                     TextEditingController pdfName;
                                     showDialog(
@@ -387,6 +391,7 @@ class _HomeState extends State<Home> {
                                                         labelText: 'Rename',
                                                         labelStyle: TextStyle(color: Colors.grey[500]),
                                                         focusedBorder: OutlineInputBorder(
+
                                                           borderRadius: const BorderRadius.all(Radius.circular(20)),
                                                           borderSide: BorderSide(width: 2, color: Colors.grey[500]),
                                                         ),
@@ -394,6 +399,7 @@ class _HomeState extends State<Home> {
                                                           borderRadius: const BorderRadius.all(Radius.circular(20)),
                                                           borderSide: BorderSide(width: 2, color: Colors.grey[500]),
                                                         ),
+
                                                       ),
                                                     ),
                                                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -505,9 +511,9 @@ class _HomeState extends State<Home> {
                                   },
                                 ),
                                 IconButton(
-                                    icon: const Icon(
+                                    icon:  Icon(
                                       Icons.drive_file_move,
-                                        color: Colors.grey
+                                        color: themeChange.darkTheme ? Colors.white70  : Colors.grey,
                                     ),
                                     onPressed: () async {
                                       final String oldPath =
@@ -548,7 +554,7 @@ class _HomeState extends State<Home> {
                                     isStarred(pdfsBox, index)
                                         ? Icons.star
                                         : Icons.star_border,
-                                      color: Colors.grey
+                                      color: themeChange.darkTheme ? Colors.white70  : Colors.grey
                                   ),
                                   onPressed: () async {
                                     print(isStarred(pdfsBox, index));
