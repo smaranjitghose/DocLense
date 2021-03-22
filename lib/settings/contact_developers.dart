@@ -51,41 +51,39 @@ class ContactDeveloperScreen extends StatelessWidget {
                 height: 170,
                 margin: const EdgeInsets.only(top: 20),
                 child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: devTeam.length,
-                    itemBuilder: (BuildContext context, int index) => Container(
-                          margin: const EdgeInsets.only(left: 15, right: 15),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: devTeam.length,
+                  itemBuilder: (BuildContext context, int index) => Container(
+                    margin: const EdgeInsets.only(left: 15, right: 15),
+                    child: Column(
+                      children: <Widget>[
+                        _buildprofileImage(devTeam[index]["imgPath"]),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
                           child: Column(
                             children: <Widget>[
-                              _buildprofileImage(devTeam[index]["imgPath"]),
-                              Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text(
-                                      devTeam[index]["name"],
-                                    ),
-                                    const Padding(
-                                        padding: EdgeInsets.only(top: 5)),
-                                    Row(
-                                      children: <Widget>[
-                                        _buildProfileIcon(
-                                            devTeam[index]["linkedin"],
-                                            'https://img.icons8.com/fluent/48/000000/linkedin-circled.png'),
-                                        const Padding(
-                                            padding: EdgeInsets.only(left: 10)),
-                                        _buildProfileIcon(
-                                            devTeam[index]["github"],
-                                            'https://img.icons8.com/fluent/50/000000/github.png'),
-                                      ],
-                                    )
-                                  ],
-                                ),
+                              Text(
+                                devTeam[index]["name"],
                               ),
+                              const Padding(padding: EdgeInsets.only(top: 5)),
+                              Row(
+                                children: <Widget>[
+                                  _buildProfileIcon(devTeam[index]["linkedin"],
+                                      'https://img.icons8.com/fluent/48/000000/linkedin-circled.png'),
+                                  const Padding(
+                                      padding: EdgeInsets.only(left: 10)),
+                                  _buildProfileIcon(devTeam[index]["github"],
+                                      'https://img.icons8.com/fluent/50/000000/github.png'),
+                                ],
+                              )
                             ],
                           ),
-                        )),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
               _buildTeamTitle('CONTIBUTORS'),
             ],
@@ -100,13 +98,7 @@ class ContactDeveloperScreen extends StatelessWidget {
       width: 100.0,
       height: 100.0,
       decoration: BoxDecoration(
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            offset: const Offset(0.00, 3.00),
-            color: const Color(0xff000000).withOpacity(0.16),
-            blurRadius: 6,
-          ),
-        ],
+        boxShadow: _buildBoxShadow,
         shape: BoxShape.circle,
       ),
       child: SizedBox(
@@ -114,18 +106,12 @@ class ContactDeveloperScreen extends StatelessWidget {
         height: 100,
         child: DecoratedBox(
           decoration: BoxDecoration(
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                offset: const Offset(0.00, 3.00),
-                color: const Color(0xff000000).withOpacity(0.16),
-                blurRadius: 6,
-              ),
-            ],
+            boxShadow: _buildBoxShadow,
             color: Colors.black,
             shape: BoxShape.circle,
             image: DecorationImage(
               image: AssetImage(imagePath),
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
             ),
           ),
         ),
@@ -152,13 +138,7 @@ class ContactDeveloperScreen extends StatelessWidget {
       width: 30.0,
       height: 30.0,
       decoration: BoxDecoration(
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-            offset: const Offset(0.00, 3.00),
-            color: const Color(0xff000000).withOpacity(0.16),
-            blurRadius: 6,
-          ),
-        ],
+        boxShadow: _buildBoxShadow,
         shape: BoxShape.circle,
       ),
       child: RawMaterialButton(
@@ -183,6 +163,14 @@ class ContactDeveloperScreen extends StatelessWidget {
       ),
     );
   }
+
+  List<BoxShadow> get _buildBoxShadow => [
+        BoxShadow(
+          offset: const Offset(0.00, 3.00),
+          color: const Color(0xff000000).withOpacity(0.16),
+          blurRadius: 6,
+        ),
+      ];
 
   Future<void> _launchURL(String url) async {
     if (await canLaunch(url)) {
