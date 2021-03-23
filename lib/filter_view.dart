@@ -75,7 +75,7 @@ class _FilterimageState extends State<FilterImage> {
         child: Column(
           children: <Widget>[
             Expanded(
-              flex: (MediaQuery.of(context).size.height / 2).floor(),
+              flex: 7,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                 child:
@@ -87,7 +87,6 @@ class _FilterimageState extends State<FilterImage> {
               ),
             ),
             Expanded(
-              flex: (MediaQuery.of(context).size.height / 16).floor(),
               child: Container(
                 height: 65,
                 color:
@@ -102,6 +101,7 @@ class _FilterimageState extends State<FilterImage> {
                           Navigator.of(context).pop();
                         },
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: const <Widget>[
                             Icon(
                               Icons.arrow_back,
@@ -119,6 +119,7 @@ class _FilterimageState extends State<FilterImage> {
                           getImage(context, appBarColor);
                         },
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: const <Widget>[
                             Icon(
                               Icons.filter,
@@ -149,6 +150,7 @@ class _FilterimageState extends State<FilterImage> {
                           );
                         },
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: const <Widget>[
                             Icon(
                               Icons.arrow_forward,
