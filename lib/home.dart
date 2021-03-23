@@ -5,9 +5,7 @@ import 'package:doclense/starred_documents.dart';
 
 
 // import 'package:path/path.dart' as path;
-
-import 'package:doclense/settings.dart';
-
+import 'package:doclense/settings/settings.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

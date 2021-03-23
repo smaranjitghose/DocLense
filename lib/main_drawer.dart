@@ -1,4 +1,4 @@
-import 'package:doclense/settings.dart';
+import 'package:doclense/settings/settings.dart';
 import 'package:doclense/starred_documents.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
