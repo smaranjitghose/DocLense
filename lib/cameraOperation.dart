@@ -4,7 +4,6 @@ import 'package:flutter/rendering.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'dart:io';
 
-import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'Providers/image_list.dart';
@@ -39,7 +38,7 @@ class _CameraScreenState extends State<PhotoCapture> {
           selectedCameraIdx = 0;
         });
 
-        _initCameraController(cameras[selectedCameraIdx]);
+        _initCameraController(cameras[selectedCameraIdx]).then((void v) {});
       } else {
         print("No camera available");
       }
@@ -48,7 +47,8 @@ class _CameraScreenState extends State<PhotoCapture> {
     });
   }
 
-  _initCameraController(CameraDescription cameraDescription) async {
+  Future<void> _initCameraController(
+      CameraDescription cameraDescription) async {
     if (controller != null) {
       await controller.dispose();
     }
@@ -58,6 +58,10 @@ class _CameraScreenState extends State<PhotoCapture> {
 
     // If the controller is updated then update the UI.
     controller.addListener(() {
+      if (mounted) {
+        setState(() {});
+      }
+
       if (controller.value.hasError) {
         print('Camera error ${controller.value.errorDescription}');
       }
@@ -67,6 +71,10 @@ class _CameraScreenState extends State<PhotoCapture> {
       await controller.initialize();
     } on CameraException catch (e) {
       _showCameraException(e);
+    }
+
+    if (mounted) {
+      setState(() {});
     }
   }
 
@@ -178,19 +186,15 @@ class _CameraScreenState extends State<PhotoCapture> {
     _initCameraController(selectedCamera);
   }
 
-  void _onCapturePressed(context) async {
+  void _onCapturePressed(BuildContext context) async {
     // Take the Picture in a try / catch block. If anything goes wrong,
     // catch the error.
     try {
       // Attempt to take a picture and log where it's been saved
       Directory directory = await getExternalStorageDirectory();
       print(directory.path);
-      final path = join(
-        // In this example, store the picture in the temp directory. Find
-        // the temp directory using the `path_provider` plugin.
-        directory.path,
-        '${DateTime.now()}.png',
-      );
+
+      final path = directory.path + '/${DateTime.now()}.png';
       print(path);
       await controller.takePicture(path);
 
