@@ -21,7 +21,7 @@ class PhotoCapture extends StatefulWidget {
 
 class _CameraScreenState extends State<PhotoCapture> {
   CameraController controller;
-  List cameras;
+  List<CameraDescription> cameras;
   int selectedCameraIdx;
   String imagePath;
   String albumName = 'Media';
@@ -39,7 +39,7 @@ class _CameraScreenState extends State<PhotoCapture> {
           selectedCameraIdx = 0;
         });
 
-        _initCameraController(cameras[selectedCameraIdx]).then((void v) {});
+        _initCameraController(cameras[selectedCameraIdx]);
       } else {
         print("No camera available");
       }
@@ -48,7 +48,7 @@ class _CameraScreenState extends State<PhotoCapture> {
     });
   }
 
-  Future<void> _initCameraController(CameraDescription cameraDescription) async {
+  _initCameraController(CameraDescription cameraDescription) async {
     if (controller != null) {
       await controller.dispose();
     }
@@ -58,10 +58,6 @@ class _CameraScreenState extends State<PhotoCapture> {
 
     // If the controller is updated then update the UI.
     controller.addListener(() {
-      if (mounted) {
-        setState(() {});
-      }
-
       if (controller.value.hasError) {
         print('Camera error ${controller.value.errorDescription}');
       }
@@ -71,10 +67,6 @@ class _CameraScreenState extends State<PhotoCapture> {
       await controller.initialize();
     } on CameraException catch (e) {
       _showCameraException(e);
-    }
-
-    if (mounted) {
-      setState(() {});
     }
   }
 
