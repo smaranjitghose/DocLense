@@ -9,13 +9,10 @@ import 'package:path_provider/path_provider.dart';
 
 import 'Providers/image_list.dart';
 import 'image_view.dart';
-import 'home.dart';
 
 import 'package:image_picker/image_picker.dart';
 
 class PhotoCapture extends StatefulWidget {
-  static final String route = '/photoCapture';
-
   PhotoCapture();
 
   @override
@@ -51,7 +48,7 @@ class _CameraScreenState extends State<PhotoCapture> {
     });
   }
 
-  Future _initCameraController(CameraDescription cameraDescription) async {
+  Future<void> _initCameraController(CameraDescription cameraDescription) async {
     if (controller != null) {
       await controller.dispose();
     }
