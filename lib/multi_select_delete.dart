@@ -1,17 +1,21 @@
 import 'dart:io';
 
+import 'package:doclense/cameraOperation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'Providers/image_list.dart';
 import 'griditem.dart';
+
 // import 'home.dart';
 import 'image_view.dart';
 import 'pdf_conversion.dart';
 
 class MultiDelete extends StatefulWidget {
   final ImageList imageList;
+
   const MultiDelete(this.imageList);
+
   @override
   _MultiDeleteState createState() => _MultiDeleteState();
 }
@@ -199,7 +203,10 @@ class _MultiDeleteState extends State<MultiDelete> {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pop();
-                      _openCamera();
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PhotoCapture()));
                     },
                     child: const Text(
                       "Camera",

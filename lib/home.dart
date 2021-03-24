@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:doclense/Services/search_service.dart';
+import 'package:doclense/cameraOperation.dart';
 import 'package:doclense/starred_documents.dart';
-
 
 // import 'package:path/path.dart' as path;
 import 'package:doclense/settings/settings.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:folder_picker/folder_picker.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -44,13 +45,13 @@ class _HomeState extends State<Home> {
     }
   }
 
-
   ImageList images = ImageList();
   QuickActions quickActions = QuickActions();
 
   void _navigate(Widget screen) {
     Navigator.of(context).push(MaterialPageRoute(builder: (_) => screen));
   }
+
   // File imageFile;
 
   final picker = ImagePicker();
@@ -177,7 +178,8 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.all(15.0),
                   child: Card(
                     elevation: 5,
-                      color: themeChange.darkTheme ? Colors.grey[700] : Colors.white,
+                    color:
+                        themeChange.darkTheme ? Colors.grey[700] : Colors.white,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -187,9 +189,8 @@ class _HomeState extends State<Home> {
                               padding: const EdgeInsets.all(8.0),
                               child: Image(
                                 image: FileImage(
-                                    pdfsBox.getAt(0)[index][2] as File
-                                ),
-                                width: MediaQuery.of(context).size.width/4,
+                                    pdfsBox.getAt(0)[index][2] as File),
+                                width: MediaQuery.of(context).size.width / 4,
                               ),
                             )
                           ],
@@ -200,23 +201,28 @@ class _HomeState extends State<Home> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                (pdfsBox.getAt(0)[index][0] as String)
-                                    .split('/')
-                                    .last,
-                                style:  const TextStyle(fontSize: 18)
-                                ),
-                              ),
+                                  (pdfsBox.getAt(0)[index][0] as String)
+                                      .split('/')
+                                      .last,
+                                  style: const TextStyle(fontSize: 18)),
+                            ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                               child: Text('${pdfsBox.getAt(0)[index][1]}'),
                             ),
-                           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 IconButton(
-                                    icon:  Icon(Icons.share, color: themeChange.darkTheme ? Colors.white70  : Colors.grey,
-                                        ),
+                                    icon: Icon(
+                                      Icons.share,
+                                      color: themeChange.darkTheme
+                                          ? Colors.white70
+                                          : Colors.grey,
+                                    ),
                                     onPressed: () async {
                                       final File file = File(await pdfsBox
                                           .getAt(0)[index][0] as String);
@@ -229,7 +235,10 @@ class _HomeState extends State<Home> {
                                           text: 'Your PDF!');
                                     }),
                                 IconButton(
-                                    icon:  Icon(Icons.delete,color: themeChange.darkTheme ? Colors.white70  : Colors.grey),
+                                    icon: Icon(Icons.delete,
+                                        color: themeChange.darkTheme
+                                            ? Colors.white70
+                                            : Colors.grey),
                                     onPressed: () async {
                                       showDialog(
                                           context: context,
@@ -361,7 +370,10 @@ class _HomeState extends State<Home> {
                                           });
                                     }),
                                 IconButton(
-                                  icon:  Icon(Icons.edit,color: themeChange.darkTheme ? Colors.white70  : Colors.grey),
+                                  icon: Icon(Icons.edit,
+                                      color: themeChange.darkTheme
+                                          ? Colors.white70
+                                          : Colors.grey),
                                   onPressed: () {
                                     TextEditingController pdfName;
                                     showDialog(
@@ -387,22 +399,50 @@ class _HomeState extends State<Home> {
                                                   children: [
                                                     TextField(
                                                       controller: pdfName,
-                                                      decoration: InputDecoration(
+                                                      decoration:
+                                                          InputDecoration(
                                                         labelText: 'Rename',
-                                                        labelStyle: TextStyle(color: Colors.grey[500]),
-                                                        focusedBorder: OutlineInputBorder(
-
-                                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                                          borderSide: BorderSide(width: 2, color: Colors.grey[500]),
+                                                        labelStyle: TextStyle(
+                                                            color: Colors
+                                                                .grey[500]),
+                                                        focusedBorder:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          20)),
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  width: 2,
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      500]),
                                                         ),
-                                                        enabledBorder: OutlineInputBorder(
-                                                          borderRadius: const BorderRadius.all(Radius.circular(20)),
-                                                          borderSide: BorderSide(width: 2, color: Colors.grey[500]),
+                                                        enabledBorder:
+                                                            OutlineInputBorder(
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          20)),
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  width: 2,
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      500]),
                                                         ),
-
                                                       ),
                                                     ),
-                                                   SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                                                    SizedBox(
+                                                        height: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height *
+                                                            0.01),
                                                     ElevatedButton(
                                                       onPressed: () async {
                                                         final List<dynamic>
@@ -511,9 +551,11 @@ class _HomeState extends State<Home> {
                                   },
                                 ),
                                 IconButton(
-                                    icon:  Icon(
+                                    icon: Icon(
                                       Icons.drive_file_move,
-                                        color: themeChange.darkTheme ? Colors.white70  : Colors.grey,
+                                      color: themeChange.darkTheme
+                                          ? Colors.white70
+                                          : Colors.grey,
                                     ),
                                     onPressed: () async {
                                       final String oldPath =
@@ -551,18 +593,20 @@ class _HomeState extends State<Home> {
                                     }),
                                 IconButton(
                                   icon: Icon(
-                                    isStarred(pdfsBox, index)
-                                        ? Icons.star
-                                        : Icons.star_border,
-                                      color: themeChange.darkTheme ? Colors.white70  : Colors.grey
-                                  ),
+                                      isStarred(pdfsBox, index)
+                                          ? Icons.star
+                                          : Icons.star_border,
+                                      color: themeChange.darkTheme
+                                          ? Colors.white70
+                                          : Colors.grey),
                                   onPressed: () async {
                                     print(isStarred(pdfsBox, index));
                                     final File file = File(await pdfsBox
                                         .getAt(0)[index][0] as String);
                                     final path = file.path;
                                     final date = pdfsBox.getAt(0)[index][1];
-                                    final imagePreview = pdfsBox.getAt(0)[index][2];
+                                    final imagePreview =
+                                        pdfsBox.getAt(0)[index][2];
 
                                     final List<dynamic> files =
                                         Hive.box('starred').getAt(0)
@@ -628,11 +672,14 @@ class _HomeState extends State<Home> {
               icon: const Icon(
                 Icons.camera_alt,
               ),
-              onPressed: () {
-                getImage(ImageSource.camera);
+              onPressed: () async{
+                // final MethodChannel _channel = const MethodChannel('plugins.flutter.io/camera');
+                // await _channel.invokeMethod<void>('startImageStream');
+                Navigator.push(context,
+                MaterialPageRoute(builder: (context) => PhotoCapture()));
               },
             ),
-           SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
             SizedBox(width: MediaQuery.of(context).size.width * 0.01),
             IconButton(
