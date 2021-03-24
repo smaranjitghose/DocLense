@@ -4,12 +4,12 @@ import 'package:doclense/Services/search_service.dart';
 import 'package:doclense/cameraOperation.dart';
 import 'package:doclense/starred_documents.dart';
 
-// import 'package:path/path.dart' as path;
+
 import 'package:doclense/settings/settings.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:folder_picker/folder_picker.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
