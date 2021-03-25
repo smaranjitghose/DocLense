@@ -153,7 +153,6 @@ class _CameraScreenState extends State<PhotoCapture> {
 
     return ClipRect(
         child: OverflowBox(
-      alignment: Alignment.center,
       child: FittedBox(
           fit: BoxFit.fitWidth,
           child: Container(
@@ -176,7 +175,7 @@ class _CameraScreenState extends State<PhotoCapture> {
   void _onSwitchCamera() {
     selectedCameraIdx =
         selectedCameraIdx < cameras.length - 1 ? selectedCameraIdx + 1 : 0;
-    CameraDescription selectedCamera = cameras[selectedCameraIdx];
+    final CameraDescription selectedCamera = cameras[selectedCameraIdx];
     _initCameraController(selectedCamera);
   }
 
@@ -185,7 +184,7 @@ class _CameraScreenState extends State<PhotoCapture> {
     // catch the error.
     try {
       // Attempt to take a picture and log where it's been saved
-      Directory directory = await getExternalStorageDirectory();
+      final Directory directory = await getExternalStorageDirectory();
       print(directory.path);
 
       final path = '${directory.path}/${DateTime.now()}.png';
