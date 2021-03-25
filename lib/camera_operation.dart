@@ -155,7 +155,7 @@ class _CameraScreenState extends State<PhotoCapture> {
         child: OverflowBox(
       child: FittedBox(
           fit: BoxFit.fitWidth,
-          child: Container(
+          child: SizedBox(
               width: MediaQuery.of(context).size.width,
               height: (MediaQuery.of(context).size.height /
                       controller.value.aspectRatio) -
