@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'Providers/image_list.dart';
 import 'image_view.dart';
 
+@immutable
 class PhotoCapture extends StatefulWidget {
   PhotoCapture();
 
@@ -21,7 +22,6 @@ class _CameraScreenState extends State<PhotoCapture> {
   CameraController controller;
   List<CameraDescription> cameras;
   int selectedCameraIdx;
-  String imagePath;
   ImageList images;
 
   @override
@@ -31,7 +31,7 @@ class _CameraScreenState extends State<PhotoCapture> {
     availableCameras().then((availableCameras) {
       cameras = availableCameras;
 
-      if (cameras.length > 0) {
+      if (cameras.isNotEmpty) {
         setState(() {
           selectedCameraIdx = 0;
         });
@@ -68,7 +68,7 @@ class _CameraScreenState extends State<PhotoCapture> {
     try {
       await controller.initialize();
     } on CameraException catch (e) {
-      _showCameraException(e);
+      print('Error: ${e.code}\n${e.description}');
     }
 
     if (mounted) {
@@ -98,8 +98,8 @@ class _CameraScreenState extends State<PhotoCapture> {
               child: FloatingActionButton(
                 heroTag: '2',
                 backgroundColor: Colors.white10,
-                onPressed: () {
-                  _onCapturePressed(context);
+                onPressed: () async {
+                  await _onCapturePressed(context);
                 },
                 child: const Icon(Icons.camera_alt),
               ),
@@ -182,7 +182,7 @@ class _CameraScreenState extends State<PhotoCapture> {
     _initCameraController(selectedCamera);
   }
 
-  void _onCapturePressed(BuildContext context) async {
+  Future<void> _onCapturePressed(BuildContext context) async {
     // Take the Picture in a try / catch block. If anything goes wrong,
     // catch the error.
     try {
@@ -218,12 +218,5 @@ class _CameraScreenState extends State<PhotoCapture> {
       // If an error occurs, log the error to the console.
       print(e);
     }
-  }
-
-  void _showCameraException(CameraException e) {
-    String errorText = 'Error: ${e.code}\nError Message: ${e.description}';
-    print(errorText);
-
-    print('Error: ${e.code}\n${e.description}');
   }
 }
