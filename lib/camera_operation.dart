@@ -1,15 +1,14 @@
+import 'dart:io';
+
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'dart:io';
-
 import 'package:path_provider/path_provider.dart';
 
 import 'Providers/image_list.dart';
 import 'image_view.dart';
-
-import 'package:image_picker/image_picker.dart';
 
 class PhotoCapture extends StatefulWidget {
   PhotoCapture();
@@ -23,7 +22,6 @@ class _CameraScreenState extends State<PhotoCapture> {
   List<CameraDescription> cameras;
   int selectedCameraIdx;
   String imagePath;
-  String albumName = 'Media';
   ImageList images;
 
   @override
@@ -91,9 +89,9 @@ class _CameraScreenState extends State<PhotoCapture> {
             Expanded(
               child: FloatingActionButton(
                 heroTag: '1',
-                backgroundColor: Color.fromRGBO(0, 0, 0, 0.0),
+                backgroundColor: Colors.white10,
                 onPressed: _onSwitchCamera,
-                child: Icon(Icons.flip_camera_android_rounded),
+                child: const Icon(Icons.flip_camera_android_rounded),
               ),
             ),
             Expanded(
@@ -103,7 +101,7 @@ class _CameraScreenState extends State<PhotoCapture> {
                 onPressed: () {
                   _onCapturePressed(context);
                 },
-                child: Icon(Icons.camera_alt),
+                child: const Icon(Icons.camera_alt),
               ),
             ),
             Expanded(
@@ -120,7 +118,7 @@ class _CameraScreenState extends State<PhotoCapture> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => Imageview(tmpFile, images)));
                 },
-                child: Icon(
+                child: const Icon(
                   Icons.image_rounded,
                   color: Colors.orange,
                 ),
@@ -129,16 +127,14 @@ class _CameraScreenState extends State<PhotoCapture> {
           ],
         ),
       ),
-      body: Container(
-        child: SafeArea(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Expanded(
-                child: _cameraPreviewWidget(context),
-              ),
-            ],
-          ),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: _cameraPreviewWidget(context),
+            ),
+          ],
         ),
       ),
     );

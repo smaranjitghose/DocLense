@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:doclense/cameraOperation.dart';
+import 'package:doclense/camera_operation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:doclense/Services/search_service.dart';
-import 'package:doclense/cameraOperation.dart';
+import 'package:doclense/camera_operation.dart';
 import 'package:doclense/starred_documents.dart';
 
 
