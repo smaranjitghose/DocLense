@@ -12,8 +12,6 @@ import 'image_view.dart';
 
 @immutable
 class PhotoCapture extends StatefulWidget {
-  PhotoCapture();
-
   @override
   _CameraScreenState createState() => _CameraScreenState();
 }
@@ -190,7 +188,7 @@ class _CameraScreenState extends State<PhotoCapture> {
       Directory directory = await getExternalStorageDirectory();
       print(directory.path);
 
-      final path = directory.path + '/${DateTime.now()}.png';
+      final path = '${directory.path}/${DateTime.now()}.png';
       print(path);
       await controller.takePicture(path);
 

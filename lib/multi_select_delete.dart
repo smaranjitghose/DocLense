@@ -162,16 +162,16 @@ class _MultiDeleteState extends State<MultiDelete> {
     }
   }
 
-  Future<void> _openCamera() async {
-    final picture = await picker.getImage(source: ImageSource.camera);
-    setState(() {
-      imageFile = File(picture.path);
-    });
-    if (imageFile != null) {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Imageview(imageFile, widget.imageList)));
-    }
-  }
+  // Future<void> _openCamera() async {
+  //   final picture = await picker.getImage(source: ImageSource.camera);
+  //   setState(() {
+  //     imageFile = File(picture.path);
+  //   });
+  //   if (imageFile != null) {
+  //     Navigator.of(context).push(MaterialPageRoute(
+  //         builder: (context) => Imageview(imageFile, widget.imageList)));
+  //   }
+  // }
 
   Future<void> _showChoiceDialogAdd(BuildContext context) {
     return showDialog(
