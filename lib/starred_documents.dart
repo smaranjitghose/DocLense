@@ -41,17 +41,13 @@ class _StarredState extends State<Starred> {
       body: WatchBoxBuilder(
         box: Hive.box('starred'),
         builder: (context, starredBox) {
-          if (starredBox
-              .getAt(0)
-              .length == 0) {
+          if (starredBox.getAt(0).length == 0) {
             return const Center(
               child: Text("No PDFs Starred Yet !! "),
             );
           }
           return ListView.builder(
-            itemCount: starredBox
-                .getAt(0)
-                .length as int,
+            itemCount: starredBox.getAt(0).length as int,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -59,7 +55,10 @@ class _StarredState extends State<Starred> {
                   OpenFile.open(starredBox.getAt(0)[index][0] as String);
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15.0,
+                    horizontal: MediaQuery.of(context).size.width * 0.02,
+                  ),
                   child: Card(
                     color: Colors.grey,
                     child: Row(
@@ -70,12 +69,8 @@ class _StarredState extends State<Starred> {
                               padding: const EdgeInsets.all(8.0),
                               child: Image(
                                 image: FileImage(
-                                    starredBox.getAt(0)[index][2] as File
-                                ),
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width / 4,
+                                    starredBox.getAt(0)[index][2] as File),
+                                width: MediaQuery.of(context).size.width / 4,
                               ),
                             )
                           ],
@@ -99,42 +94,47 @@ class _StarredState extends State<Starred> {
                             const SizedBox(
                               height: 30,
                             ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.88 -
+                                  MediaQuery.of(context).size.width / 4,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                      icon: const Icon(Icons.share),
+                                      onPressed: () async {
+                                        final File file = File(await starredBox
+                                            .getAt(0)[index][0] as String);
 
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width/2.6,
-                                ),
-                                IconButton(
-                                    icon: const Icon(Icons.share),
-                                    onPressed: () async {
-                                      final File file = File(await starredBox
-                                          .getAt(0)[index][0] as String);
+                                        final path = file.path;
 
-                                      final path = file.path;
+                                        print(path);
 
-                                      print(path);
-
-                                      Share.shareFiles(
-                                          [path], text: 'Your PDF!');
-                                    }),
-                                IconButton(
-                                    icon: const Icon(Icons.star),
-                                    onPressed: () async {
-                                      setState(() {
-                                        Hive.box('starred')
-                                            .getAt(0)
-                                            .removeAt(index);
-                                      });
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              'Removed from starred documents'),
-                                        ),
-                                      );
-                                    })
-                              ],
+                                        Share.shareFiles([path],
+                                            text: 'Your PDF!');
+                                      }),
+                                  IconButton(
+                                      icon: const Icon(Icons.star),
+                                      onPressed: () async {
+                                        setState(() {
+                                          Hive.box('starred')
+                                              .getAt(0)
+                                              .removeAt(index);
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                                'Removed from starred documents'),
+                                          ),
+                                        );
+                                      }),
+                                  IconButton(
+                                    icon: const Icon(Icons.more_vert),
+                                    onPressed: () async {},
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         ),
