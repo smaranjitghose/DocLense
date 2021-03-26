@@ -41,17 +41,13 @@ class _StarredState extends State<Starred> {
       body: WatchBoxBuilder(
         box: Hive.box('starred'),
         builder: (context, starredBox) {
-          if (starredBox
-              .getAt(0)
-              .length == 0) {
+          if (starredBox.getAt(0).length == 0) {
             return const Center(
               child: Text("No PDFs Starred Yet !! "),
             );
           }
           return ListView.builder(
-            itemCount: starredBox
-                .getAt(0)
-                .length as int,
+            itemCount: starredBox.getAt(0).length as int,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -70,12 +66,8 @@ class _StarredState extends State<Starred> {
                               padding: const EdgeInsets.all(8.0),
                               child: Image(
                                 image: FileImage(
-                                    starredBox.getAt(0)[index][2] as File
-                                ),
-                                width: MediaQuery
-                                    .of(context)
-                                    .size
-                                    .width / 4,
+                                    starredBox.getAt(0)[index][2] as File),
+                                width: MediaQuery.of(context).size.width / 4,
                               ),
                             )
                           ],
@@ -94,16 +86,18 @@ class _StarredState extends State<Starred> {
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
-                              child: Text('${starredBox.getAt(0)[index][1]}'),
+                              child: SizedBox(
+                                  child:
+                                      Text('${starredBox.getAt(0)[index][1]}')),
                             ),
                             const SizedBox(
                               height: 30,
                             ),
-
                             Row(
                               children: [
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width/2.6,
+                                  width:
+                                      MediaQuery.of(context).size.width / 2.6,
                                 ),
                                 IconButton(
                                     icon: const Icon(Icons.share),
@@ -115,8 +109,8 @@ class _StarredState extends State<Starred> {
 
                                       print(path);
 
-                                      Share.shareFiles(
-                                          [path], text: 'Your PDF!');
+                                      Share.shareFiles([path],
+                                          text: 'Your PDF!');
                                     }),
                                 IconButton(
                                     icon: const Icon(Icons.star),
