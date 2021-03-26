@@ -195,11 +195,7 @@ class _HomeState extends State<Home> {
                               child: Image(
                                 image: FileImage(
                                     pdfsBox.getAt(0)[index][2] as File),
-<<<<<<< HEAD
-                                width: MediaQuery.of(context).size.width / 4,
-=======
                                 width: MediaQuery.of(context).size.width / 6,
->>>>>>> upstream/main
                               ),
                             )
                           ],
