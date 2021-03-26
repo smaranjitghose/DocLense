@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:doclense/camera_operation.dart';
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'Providers/image_list.dart';
@@ -162,16 +162,20 @@ class _MultiDeleteState extends State<MultiDelete> {
     }
   }
 
-  // Future<void> _openCamera() async {
-  //   final picture = await picker.getImage(source: ImageSource.camera);
-  //   setState(() {
-  //     imageFile = File(picture.path);
-  //   });
-  //   if (imageFile != null) {
-  //     Navigator.of(context).push(MaterialPageRoute(
-  //         builder: (context) => Imageview(imageFile, widget.imageList)));
-  //   }
-  // }
+  Future<void> _openCamera() async {
+    final picture = await picker.getImage(source: ImageSource.camera);
+    setState(() {
+      imageFile = File(picture.path);
+    });
+
+    GallerySaver.saveImage(imageFile.path)
+        .then((value) => print("Image Saved"));
+
+    if (imageFile != null) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => Imageview(imageFile, widget.imageList)));
+    }
+  }
 
   Future<void> _showChoiceDialogAdd(BuildContext context) {
     return showDialog(
@@ -202,10 +206,7 @@ class _MultiDeleteState extends State<MultiDelete> {
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pop();
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PhotoCapture()));
+                      _openCamera();
                     },
                     child: const Text(
                       "Camera",

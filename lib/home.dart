@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:doclense/Services/search_service.dart';
-import 'package:doclense/camera_operation.dart';
 import 'package:doclense/starred_documents.dart';
-
 
 import 'package:doclense/settings/settings.dart';
 import 'package:ext_storage/ext_storage.dart';
@@ -11,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:folder_picker/folder_picker.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
@@ -63,6 +62,11 @@ class _HomeState extends State<Home> {
     // final appDir = await syspaths.getApplicationDocumentsDirectory();
     // final fileName = path.basename(imageFile.path);
     // final localFile = await tmpFile.copy('${appDir.path}/$fileName');
+
+    if (imageSource == ImageSource.camera) {
+      GallerySaver.saveImage(tmpFile.path)
+          .then((value) => print("Image Saved"));
+    }
 
     Navigator.of(context).push(
         MaterialPageRoute(builder: (context) => Imageview(tmpFile, images)));
@@ -672,11 +676,8 @@ class _HomeState extends State<Home> {
               icon: const Icon(
                 Icons.camera_alt,
               ),
-              onPressed: () async{
-                // final MethodChannel _channel = const MethodChannel('plugins.flutter.io/camera');
-                // await _channel.invokeMethod<void>('startImageStream');
-                Navigator.push(context,
-                MaterialPageRoute(builder: (context) => PhotoCapture()));
+              onPressed: () async {
+                getImage(ImageSource.camera);
               },
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
