@@ -55,7 +55,10 @@ class _StarredState extends State<Starred> {
                   OpenFile.open(starredBox.getAt(0)[index][0] as String);
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: EdgeInsets.symmetric(
+                    vertical: 15.0,
+                    horizontal: MediaQuery.of(context).size.width * 0.02,
+                  ),
                   child: Card(
                     color: Colors.grey,
                     child: Row(
@@ -67,7 +70,7 @@ class _StarredState extends State<Starred> {
                               child: Image(
                                 image: FileImage(
                                     starredBox.getAt(0)[index][2] as File),
-                                width: MediaQuery.of(context).size.width / 6,
+                                width: MediaQuery.of(context).size.width / 4,
                               ),
                             )
                           ],
@@ -91,42 +94,47 @@ class _StarredState extends State<Starred> {
                             const SizedBox(
                               height: 30,
                             ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.6,
-                                ),
-                                IconButton(
-                                    icon: const Icon(Icons.share),
-                                    onPressed: () async {
-                                      final File file = File(await starredBox
-                                          .getAt(0)[index][0] as String);
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.88 -
+                                  MediaQuery.of(context).size.width / 4,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                      icon: const Icon(Icons.share),
+                                      onPressed: () async {
+                                        final File file = File(await starredBox
+                                            .getAt(0)[index][0] as String);
 
-                                      final path = file.path;
+                                        final path = file.path;
 
-                                      print(path);
+                                        print(path);
 
-                                      Share.shareFiles([path],
-                                          text: 'Your PDF!');
-                                    }),
-                                IconButton(
-                                    icon: const Icon(Icons.star),
-                                    onPressed: () async {
-                                      setState(() {
-                                        Hive.box('starred')
-                                            .getAt(0)
-                                            .removeAt(index);
-                                      });
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        const SnackBar(
-                                          content: Text(
-                                              'Removed from starred documents'),
-                                        ),
-                                      );
-                                    })
-                              ],
+                                        Share.shareFiles([path],
+                                            text: 'Your PDF!');
+                                      }),
+                                  IconButton(
+                                      icon: const Icon(Icons.star),
+                                      onPressed: () async {
+                                        setState(() {
+                                          Hive.box('starred')
+                                              .getAt(0)
+                                              .removeAt(index);
+                                        });
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                                'Removed from starred documents'),
+                                          ),
+                                        );
+                                      }),
+                                  IconButton(
+                                    icon: const Icon(Icons.more_vert),
+                                    onPressed: () async {},
+                                  ),
+                                ],
+                              ),
                             )
                           ],
                         ),
