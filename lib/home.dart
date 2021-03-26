@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:doclense/Services/search_service.dart';
 import 'package:doclense/starred_documents.dart';
 
+// import 'package:path/path.dart' as path;
 import 'package:doclense/settings/settings.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
@@ -194,7 +195,11 @@ class _HomeState extends State<Home> {
                               child: Image(
                                 image: FileImage(
                                     pdfsBox.getAt(0)[index][2] as File),
+<<<<<<< HEAD
                                 width: MediaQuery.of(context).size.width / 4,
+=======
+                                width: MediaQuery.of(context).size.width / 6,
+>>>>>>> upstream/main
                               ),
                             )
                           ],
