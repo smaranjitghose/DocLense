@@ -24,32 +24,33 @@ class MainDrawer extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               color: themeChange.darkTheme ? Colors.black : Colors.white10,
               child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        width: 100,
-                        height: 180,
-                        child: CircleAvatar(
-                          backgroundColor:
-                          themeChange.darkTheme ? Colors.black : Colors.white10,
-                          radius: 60,
-                          child: themeChange.darkTheme
-                              ? SvgPicture.asset(
-                            'assets/doclensewhitesmall.svg',
-                            height: 100,
-                          )
-                              : SvgPicture.asset(
-                            'assets/doclenselightsmall.svg',
-                            height: 100,
-                          ),
-                        ),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 100,
+                      height: 180,
+                      child: CircleAvatar(
+                        backgroundColor: themeChange.darkTheme
+                            ? Colors.black
+                            : Colors.white10,
+                        radius: 60,
+                        child: themeChange.darkTheme
+                            ? SvgPicture.asset(
+                                'assets/doclensewhitesmall.svg',
+                                height: 100,
+                              )
+                            : SvgPicture.asset(
+                                'assets/doclenselightsmall.svg',
+                                height: 100,
+                              ),
                       ),
-                      const Text(
-                        "One Place For All \n Your Documents!",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ],
-                  ),
+                    ),
+                    const Text(
+                      "One Place For All \n Your Documents!",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(
@@ -62,14 +63,14 @@ class MainDrawer extends StatelessWidget {
             DrawerNavItem(
               iconData: Icons.home,
               navItemTitle: 'Home',
-              callback: (){
+              callback: () {
                 Navigator.of(context).popUntil((route) => route.isFirst);
               },
             ),
             DrawerNavItem(
               iconData: Icons.stars_rounded,
               navItemTitle: 'Starred Documents',
-              callback: (){
+              callback: () {
                 Navigator.of(context).pop();
                 Navigator.push(
                     context,
@@ -82,7 +83,7 @@ class MainDrawer extends StatelessWidget {
               },
             ),
             DrawerNavItem(
-              callback: (){
+              callback: () {
                 Navigator.of(context).pop();
                 Navigator.push(
                   context,
@@ -103,7 +104,7 @@ class MainDrawer extends StatelessWidget {
             DrawerNavItem(
               iconData: Icons.info,
               navItemTitle: 'About App',
-              callback: (){
+              callback: () {
                 Navigator.of(context).pop();
                 Navigator.push(
                   context,
@@ -119,7 +120,7 @@ class MainDrawer extends StatelessWidget {
             DrawerNavItem(
               navItemTitle: 'Rate us',
               iconData: Icons.star_rate,
-              callback: (){
+              callback: () {
                 Navigator.of(context).pop();
                 showDialog<void>(
                     context: context,
@@ -127,15 +128,13 @@ class MainDrawer extends StatelessWidget {
                     builder: (BuildContext context) {
                       return RatingDialog(
                         accentColor:
-                        themeChange.darkTheme ? Colors.black : Colors.blue,
+                            themeChange.darkTheme ? Colors.white : Colors.blue,
                         icon: Padding(
                           padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                          child: themeChange.darkTheme ?
-                          SvgPicture.asset(
-                            'assets/doclensewhite.svg'
-                          ) :
-                          SvgPicture.asset(
-                              'assets/images/doclenselight.svg'),
+                          child: themeChange.darkTheme
+                              ? SvgPicture.asset('assets/doclensewhite.svg')
+                              : SvgPicture.asset(
+                                  'assets/images/doclenselight.svg'),
                         ),
                         title: "How was your experience?",
                         description: "Let us know what you think",
@@ -153,7 +152,7 @@ class MainDrawer extends StatelessWidget {
             DrawerNavItem(
               navItemTitle: 'Share the App',
               iconData: Icons.share,
-              callback: (){
+              callback: () {
                 Share.share(
                     'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
                     subject: "DocLense");
