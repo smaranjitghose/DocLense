@@ -1,4 +1,4 @@
-# DocLense📑🙈
+# DocLense📑
 
 ![Issues](https://img.shields.io/github/issues/smaranjitghose/DocLense)
 ![Pull Requests](https://img.shields.io/github/issues-pr/smaranjitghose/DocLense?)
