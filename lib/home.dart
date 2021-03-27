@@ -560,7 +560,7 @@ class _HomeState extends State<Home> {
                                     ),
                                     onPressed: () async {
                                       final String oldPath =
-                                          pdfsBox.getAt(0)[index] as String;
+                                          pdfsBox.getAt(0)[index][0] as String;
                                       String newPath;
                                       final String path = await ExtStorage
                                           .getExternalStorageDirectory();
@@ -575,7 +575,7 @@ class _HomeState extends State<Home> {
                                             action: (BuildContext context,
                                                 Directory folder) async {
                                               newPath =
-                                                  '${folder.path}/${(pdfsBox.getAt(0)[index] as String).split('/').last}';
+                                                  '${folder.path}/${(pdfsBox.getAt(0)[index][0] as String).split('/').last}';
                                               print(newPath);
                                               if (newPath != null) {
                                                 print("Newpath: $newPath");
@@ -584,7 +584,7 @@ class _HomeState extends State<Home> {
                                                 await sourceFile.copy(newPath);
                                                 await sourceFile.delete();
                                                 setState(() {
-                                                  pdfsBox.getAt(0)[index] =
+                                                  pdfsBox.getAt(0)[index][0] =
                                                       newPath;
                                                 });
                                               }
