@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_file/open_file.dart';
+import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
+import 'Providers/theme_provider.dart';
 import 'main_drawer.dart';
 
 class Starred extends StatefulWidget {
@@ -17,6 +19,7 @@ class Starred extends StatefulWidget {
 class _StarredState extends State<Starred> {
   @override
   Widget build(BuildContext context) {
+    final themeChange = Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
@@ -31,23 +34,23 @@ class _StarredState extends State<Starred> {
               setState(() {});
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () async {},
-          ),
         ],
       ),
       // ignore: deprecated_member_use
       body: WatchBoxBuilder(
         box: Hive.box('starred'),
         builder: (context, starredBox) {
-          if (starredBox.getAt(0).length == 0) {
+          if (starredBox
+              .getAt(0)
+              .length == 0) {
             return const Center(
               child: Text("No PDFs Starred Yet !! "),
             );
           }
           return ListView.builder(
-            itemCount: starredBox.getAt(0).length as int,
+            itemCount: starredBox
+                .getAt(0)
+                .length as int,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -55,12 +58,11 @@ class _StarredState extends State<Starred> {
                   OpenFile.open(starredBox.getAt(0)[index][0] as String);
                 },
                 child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 15.0,
-                    horizontal: MediaQuery.of(context).size.width * 0.02,
-                  ),
+                  padding: const EdgeInsets.all(15.0),
                   child: Card(
-                    color: Colors.grey,
+                    elevation: 5,
+                    color: themeChange.darkTheme ? Colors.grey[700] : Colors
+                        .white,
                     child: Row(
                       children: [
                         Column(
@@ -70,7 +72,10 @@ class _StarredState extends State<Starred> {
                               child: Image(
                                 image: FileImage(
                                     starredBox.getAt(0)[index][2] as File),
-                                width: MediaQuery.of(context).size.width / 4,
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 6,
                               ),
                             )
                           ],
@@ -91,51 +96,55 @@ class _StarredState extends State<Starred> {
                               padding: const EdgeInsets.fromLTRB(8, 0, 8, 8),
                               child: Text('${starredBox.getAt(0)[index][1]}'),
                             ),
-                            const SizedBox(
-                              height: 30,
-                            ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.88 -
-                                  MediaQuery.of(context).size.width / 4,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  IconButton(
-                                      icon: const Icon(Icons.share),
-                                      onPressed: () async {
-                                        final File file = File(await starredBox
-                                            .getAt(0)[index][0] as String);
+                                height:
+                                MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height * 0.01),
+                            Row(
+                              children: [
+                                SizedBox(
+                                  width: MediaQuery
+                                      .of(context)
+                                      .size
+                                      .width * 0.35,
+                                ),
+                                IconButton(
+                                    icon: const Icon(Icons.share),
+                                    onPressed: () async {
+                                      final File file = File(await starredBox
+                                          .getAt(0)[index][0] as String);
 
-                                        final path = file.path;
+                                      final path = file.path;
 
-                                        print(path);
+                                      print(path);
 
-                                        Share.shareFiles([path],
-                                            text: 'Your PDF!');
-                                      }),
-                                  IconButton(
-                                      icon: const Icon(Icons.star),
-                                      onPressed: () async {
-                                        setState(() {
-                                          Hive.box('starred')
-                                              .getAt(0)
-                                              .removeAt(index);
-                                        });
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                                'Removed from starred documents'),
-                                          ),
-                                        );
-                                      }),
-                                  IconButton(
-                                    icon: const Icon(Icons.more_vert),
-                                    onPressed: () async {},
-                                  ),
-                                ],
-                              ),
-                            )
+                                      Share.shareFiles([path],
+                                          text: 'Your PDF!');
+                                    }),
+                                IconButton(
+                                    icon: const Icon(Icons.star),
+                                    onPressed: () async {
+                                      setState(() {
+                                        Hive.box('starred')
+                                            .getAt(0)
+                                            .removeAt(index);
+                                      });
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        const SnackBar(
+                                          content: Text(
+                                              'Removed from starred documents'),
+                                        ),
+                                      );
+                                    }),
+                                IconButton(
+                                  icon: const Icon(Icons.more_vert),
+                                  onPressed: () async {},
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ],
