@@ -149,10 +149,6 @@ class _HomeState extends State<Home> {
               setState(() {});
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.more_vert),
-            onPressed: () async {},
-          ),
         ],
       ),
       // ignore: deprecated_member_use
