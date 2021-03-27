@@ -1,17 +1,20 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 
 import 'Providers/image_list.dart';
 import 'griditem.dart';
-// import 'home.dart';
+
 import 'image_view.dart';
 import 'pdf_conversion.dart';
 
 class MultiDelete extends StatefulWidget {
   final ImageList imageList;
+
   const MultiDelete(this.imageList);
+
   @override
   _MultiDeleteState createState() => _MultiDeleteState();
 }
@@ -164,6 +167,10 @@ class _MultiDeleteState extends State<MultiDelete> {
     setState(() {
       imageFile = File(picture.path);
     });
+
+    GallerySaver.saveImage(imageFile.path)
+        .then((value) => print("Image Saved"));
+
     if (imageFile != null) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => Imageview(imageFile, widget.imageList)));

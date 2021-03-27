@@ -49,6 +49,9 @@ dependencies:
   introduction_screen: ^1.0.9
   flutter_share: ^1.0.5
   esys_flutter_share: ^1.0.2
+  permission_handler:
+  camera: ^0.5.8+5
+  gallery_saver:
 
   hive: ^1.4.4+1
   hive_flutter: ^0.3.1

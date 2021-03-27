@@ -94,7 +94,7 @@ class _StarredState extends State<Starred> {
                             const SizedBox(
                               height: 30,
                             ),
-                            Container(
+                            SizedBox(
                               width: MediaQuery.of(context).size.width * 0.88 -
                                   MediaQuery.of(context).size.width / 4,
                               child: Row(
