@@ -15,6 +15,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_file/open_file.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:share/share.dart';
@@ -559,6 +560,10 @@ class _HomeState extends State<Home> {
                                           : Colors.grey,
                                     ),
                                     onPressed: () async {
+                                      final status = await Permission.storage.status;
+                                      if (!status.isGranted) {
+                                        await Permission.storage.request();
+                                      }
                                       final String oldPath =
                                           pdfsBox.getAt(0)[index][0] as String;
                                       String newPath;
