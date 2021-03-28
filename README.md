@@ -14,7 +14,7 @@
 
 <br/>
 
-## Features :
+## Features🔬 :
 
 - Scan your documents with ease!
 - Numerous choices of filters to choose from
@@ -27,21 +27,25 @@
 - Apply different types of filter
 - Download/Export in .pdf
 
-## App Screens
+<div align="center">
+
+## 📱App Screens📱
 
 <p float="left">
   <img src="assets/appMockups/FirstFourScreens.png" width="400" />
   <img src="assets/appMockups/RestFourScreens.png" width="400" /> 
 </p>
 
-## App Mock-ups
+## 📷App Mock-ups📷
 
 <img src="assets/appMockups/homeScreen-mainDrawer-settings-aboutApp-reviewDialogue.png">
 <img src="assets/appMockups/cropScreen-filterScreen-filterView-multiSelectScreen-pdfNameScreen.png">
 
-## App Demo
+## 🎥App Demo🎥
 
 <img src="assets/appMockups/AppWorking.gif" height="500px">
+
+</div>
 
 ## Contribution Guidelines🏗
 
@@ -149,7 +153,7 @@ git push -u origin <your_branch_name>
   <img src="https://contributors-img.web.app/image?repo=smaranjitghose/DocLense" />
 </a>
 
-## Open Source Programs we have been a associated with:
+## Open Source Programs we have been a associated with🏷:
 
 <p align="center">
 <a href="https://devscript.tech/woc/"><img src="./readme_assets/dwoc.png" width= "25%" /></a>
@@ -159,10 +163,14 @@ git push -u origin <your_branch_name>
 <a href="https://gssoc.girlscript.tech/"><img src="./readme_assets/gssoc.png" width= "25%" /></a>
 </p>
 
-## Code of Conduct
+<div align="center">
+
+## 📝Code of Conduct📝
 
 <p align="center"><img width=35% src="https://media.giphy.com/media/qHRwTyhWIj4UU/200w_d.gif"></p>
 
-## License
+## 🔑License🔐
 
 <p align="center"><img width=35% src="https://media.giphy.com/media/xUPGcJGy8I928yIlAQ/giphy.gif"></p>
+
+</div>
