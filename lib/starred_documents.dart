@@ -105,10 +105,12 @@ class _StarredState extends State<Starred> {
                             Row(
                               children: [
                                 SizedBox(
-                                  width: MediaQuery
+                                  width: (MediaQuery
                                       .of(context)
                                       .size
-                                      .width * 0.35,
+                                      .width * MediaQuery
+                                      .of(context)
+                                      .devicePixelRatio) * 0.13,
                                 ),
                                 IconButton(
                                     icon: const Icon(Icons.share),
