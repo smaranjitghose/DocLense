@@ -110,7 +110,7 @@ class _StarredState extends State<Starred> {
                                       .size
                                       .width * MediaQuery
                                       .of(context)
-                                      .devicePixelRatio) * 0.13,
+                                      .devicePixelRatio) * 0.1,
                                 ),
                                 IconButton(
                                     icon: const Icon(Icons.share),
