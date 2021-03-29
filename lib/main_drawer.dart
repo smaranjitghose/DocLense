@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'Providers/theme_provider.dart';
-import 'UI Components/drawer_nav_item.dart';
+import 'providers/theme_provider.dart';
+import 'ui_components/drawer_nav_item.dart';
 import 'about.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -58,7 +58,7 @@ class MainDrawer extends StatelessWidget {
             ),
 
             // Added drawerNavItems in Place of Drawer ListTiles below.
-            // Navigate to UI Components/Drawer_Nav_Items.dart to explore the refactored drawerNavItem Class.
+            // Navigate to ui_components/Drawer_Nav_Items.dart to explore the refactored drawerNavItem Class.
 
             DrawerNavItem(
               iconData: Icons.home,
