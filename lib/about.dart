@@ -1,6 +1,7 @@
+
+
+import 'package:doclense/providers/theme_provider.dart';
 import 'package:doclense/main_drawer.dart';
-import 'package:doclense/Providers/theme_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
