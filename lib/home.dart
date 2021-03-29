@@ -581,13 +581,8 @@ class _HomeState extends State<Home> {
                                           : Colors.grey,
                                     ),
                                     onPressed: () async {
-<<<<<<< HEAD
-                                      final status = await Permission.storage
-                                          .status;
-=======
                                       final status =
                                           await Permission.storage.status;
->>>>>>> d4b2947cdf0a41c424b136d4de469c632dc97306
                                       if (!status.isGranted) {
                                         await Permission.storage.request();
                                       }
