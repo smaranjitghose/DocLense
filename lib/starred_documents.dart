@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:doclense/utils/image_converter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -52,6 +53,7 @@ class _StarredState extends State<Starred> {
                 .getAt(0)
                 .length as int,
             itemBuilder: (context, index) {
+              final Image previewImage = ImageConverter.base64StringToImage(starredBox.getAt(0)[index][2] as String);
               return GestureDetector(
                 onTap: () {
                   print('tapped');
@@ -69,13 +71,12 @@ class _StarredState extends State<Starred> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image(
-                                image: FileImage(
-                                    starredBox.getAt(0)[index][2] as File),
+                              child: SizedBox(
                                 width: MediaQuery
                                     .of(context)
                                     .size
                                     .width / 6,
+                                child: previewImage
                               ),
                             )
                           ],
