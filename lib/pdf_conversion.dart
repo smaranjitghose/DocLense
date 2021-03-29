@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:doclense/pdf_preview_screen.dart';
+import 'package:doclense/providers/image_list.dart';
+import 'package:doclense/utils/image_converter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:folder_picker/folder_picker.dart';
@@ -11,9 +14,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission/permission.dart';
 
-import 'providers/image_list.dart';
 
-import 'pdf_preview_screen.dart';
 
 class PDFConversion extends StatefulWidget {
   final ImageList list;
@@ -75,7 +76,8 @@ class _PDFConversion extends State<PDFConversion> {
     final List<dynamic> files = Hive.box('pdfs').getAt(0) as List<dynamic>;
     final now = DateTime.now();
     final String formatter = DateFormat('yMd').format(now);
-    files.add([filePath, formatter, widget.list.imagelist[0]]);
+    final String previewImage = ImageConverter.base64StringFromImage(widget.list.imagelist[0].readAsBytesSync());
+    files.add([filePath, formatter, previewImage]);
     Hive.box('pdfs').putAt(0, files);
     print("PDFS : ${Hive.box('pdfs').getAt(0)}");
 

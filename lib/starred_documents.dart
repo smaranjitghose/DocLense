@@ -1,5 +1,8 @@
 import 'dart:io';
 
+import 'package:doclense/main_drawer.dart';
+import 'package:doclense/providers/theme_provider.dart';
+import 'package:doclense/utils/image_converter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -8,8 +11,6 @@ import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
-import 'providers/theme_provider.dart';
-import 'main_drawer.dart';
 
 class Starred extends StatefulWidget {
   @override
@@ -48,6 +49,7 @@ class _StarredState extends State<Starred> {
           return ListView.builder(
             itemCount: starredBox.getAt(0).length as int,
             itemBuilder: (context, index) {
+              final Image previewImage = ImageConverter.base64StringToImage(starredBox.getAt(0)[index][2] as String);
               return GestureDetector(
                 onTap: () {
                   print('tapped');
@@ -65,10 +67,12 @@ class _StarredState extends State<Starred> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image(
-                                image: FileImage(
-                                    starredBox.getAt(0)[index][2] as File),
-                                width: MediaQuery.of(context).size.width / 6,
+                              child: SizedBox(
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width / 6,
+                                child: previewImage
                               ),
                             )
                           ],
@@ -101,7 +105,12 @@ class _StarredState extends State<Starred> {
                                       0.1,
                                 ),
                                 IconButton(
-                                    icon: const Icon(Icons.share),
+                                    icon: Icon(
+                                      Icons.share,
+                                      color: themeChange.darkTheme
+                                          ? Colors.white70
+                                          : Colors.grey,
+                                    ),
                                     onPressed: () async {
                                       final File file = File(await starredBox
                                           .getAt(0)[index][0] as String);
@@ -114,7 +123,12 @@ class _StarredState extends State<Starred> {
                                           text: 'Your PDF!');
                                     }),
                                 IconButton(
-                                    icon: const Icon(Icons.star),
+                                    icon: Icon(
+                                        Icons.star,
+                                        color: themeChange.darkTheme
+                                            ? Colors.white70
+                                            : Colors.grey
+                                    ),
                                     onPressed: () async {
                                       setState(() {
                                         Hive.box('starred')
@@ -130,7 +144,12 @@ class _StarredState extends State<Starred> {
                                       );
                                     }),
                                 IconButton(
-                                  icon: const Icon(Icons.more_vert),
+                                  icon: Icon(
+                                    Icons.more_vert,
+                                    color: themeChange.darkTheme
+                                        ? Colors.white70
+                                        : Colors.grey
+                                  ),
                                   onPressed: () async {},
                                 ),
                               ],

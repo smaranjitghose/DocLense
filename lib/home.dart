@@ -1,10 +1,16 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:doclense/about.dart';
+import 'package:doclense/image_view.dart';
+import 'package:doclense/main_drawer.dart';
+import 'package:doclense/providers/image_list.dart';
+import 'package:doclense/providers/theme_provider.dart';
 import 'package:doclense/services/search_service.dart';
 import 'package:doclense/starred_documents.dart';
 
 // import 'package:path/path.dart' as path;
 import 'package:doclense/settings/settings.dart';
+import 'package:doclense/utils/image_converter.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +27,6 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'providers/image_list.dart';
-import 'providers/theme_provider.dart';
-import 'about.dart';
-import 'image_view.dart';
-import 'main_drawer.dart';
 
 enum IconOptions { share }
 
@@ -172,6 +173,7 @@ class _HomeState extends State<Home> {
           return ListView.builder(
             itemCount: pdfsBox.getAt(0).length as int,
             itemBuilder: (context, index) {
+              final Image previewImage = ImageConverter.base64StringToImage(pdfsBox.getAt(0)[index][2] as String);
               return GestureDetector(
                 onTap: () {
                   OpenFile.open(pdfsBox.getAt(0)[index][0] as String);
@@ -189,10 +191,9 @@ class _HomeState extends State<Home> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image(
-                                image: FileImage(
-                                    pdfsBox.getAt(0)[index][2] as File),
+                              child: SizedBox(
                                 width: MediaQuery.of(context).size.width / 6,
+                                child: previewImage,
                               ),
                             )
                           ],

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:doclense/filter_view.dart';
+import 'package:doclense/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -7,8 +9,6 @@ import 'package:provider/provider.dart';
 
 import 'providers/image_list.dart';
 import 'providers/theme_provider.dart';
-import 'filter_view.dart';
-import 'home.dart';
 
 class Imageview extends StatefulWidget {
   final File file;
