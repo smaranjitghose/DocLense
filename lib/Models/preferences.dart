@@ -1,6 +1,3 @@
-
-import 'dart:io';
-
 import 'package:hive/hive.dart';
 part 'preferences.g.dart';
 
