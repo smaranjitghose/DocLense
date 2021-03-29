@@ -114,7 +114,12 @@ class _StarredState extends State<Starred> {
                                       .devicePixelRatio) * 0.1,
                                 ),
                                 IconButton(
-                                    icon: const Icon(Icons.share),
+                                    icon: Icon(
+                                      Icons.share,
+                                      color: themeChange.darkTheme
+                                          ? Colors.white70
+                                          : Colors.grey,
+                                    ),
                                     onPressed: () async {
                                       final File file = File(await starredBox
                                           .getAt(0)[index][0] as String);
@@ -127,7 +132,12 @@ class _StarredState extends State<Starred> {
                                           text: 'Your PDF!');
                                     }),
                                 IconButton(
-                                    icon: const Icon(Icons.star),
+                                    icon: Icon(
+                                        Icons.star,
+                                        color: themeChange.darkTheme
+                                            ? Colors.white70
+                                            : Colors.grey
+                                    ),
                                     onPressed: () async {
                                       setState(() {
                                         Hive.box('starred')
@@ -143,7 +153,12 @@ class _StarredState extends State<Starred> {
                                       );
                                     }),
                                 IconButton(
-                                  icon: const Icon(Icons.more_vert),
+                                  icon: Icon(
+                                    Icons.more_vert,
+                                    color: themeChange.darkTheme
+                                        ? Colors.white70
+                                        : Colors.grey
+                                  ),
                                   onPressed: () async {},
                                 ),
                               ],
