@@ -1,5 +1,10 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:doclense/about.dart';
+import 'package:doclense/image_view.dart';
+import 'package:doclense/main_drawer.dart';
+import 'package:doclense/providers/image_list.dart';
+import 'package:doclense/providers/theme_provider.dart';
 import 'package:doclense/services/search_service.dart';
 import 'package:doclense/starred_documents.dart';
 
@@ -22,11 +27,6 @@ import 'package:quick_actions/quick_actions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'providers/image_list.dart';
-import 'providers/theme_provider.dart';
-import 'about.dart';
-import 'image_view.dart';
-import 'main_drawer.dart';
 
 enum IconOptions { share }
 

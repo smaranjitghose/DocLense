@@ -1,4 +1,5 @@
 // import 'package:doclense/constants/theme_constants.dart';
+import 'package:doclense/main_drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
@@ -6,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:wiredash/wiredash.dart';
 
 import '../providers/theme_provider.dart';
-import '../main_drawer.dart';
 import './contact_developers.dart';
 import 'setting_text.dart';
 

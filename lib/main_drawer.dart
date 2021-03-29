@@ -1,3 +1,4 @@
+import 'package:doclense/about.dart';
 import 'package:doclense/settings/settings.dart';
 import 'package:doclense/starred_documents.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import 'package:share/share.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'providers/theme_provider.dart';
 import 'ui_components/drawer_nav_item.dart';
-import 'about.dart';
 
 class MainDrawer extends StatelessWidget {
   @override

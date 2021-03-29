@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:doclense/main_drawer.dart';
+import 'package:doclense/providers/theme_provider.dart';
 import 'package:doclense/utils/image_converter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +11,6 @@ import 'package:open_file/open_file.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 
-import 'providers/theme_provider.dart';
-import 'main_drawer.dart';
 
 class Starred extends StatefulWidget {
   @override

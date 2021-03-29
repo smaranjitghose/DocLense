@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:doclense/pdf_preview_screen.dart';
+import 'package:doclense/providers/image_list.dart';
 import 'package:doclense/utils/image_converter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +14,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission/permission.dart';
 
-import 'providers/image_list.dart';
 
-import 'pdf_preview_screen.dart';
 
 class PDFConversion extends StatefulWidget {
   final ImageList list;
