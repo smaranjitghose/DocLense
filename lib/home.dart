@@ -5,6 +5,7 @@ import 'package:doclense/starred_documents.dart';
 
 // import 'package:path/path.dart' as path;
 import 'package:doclense/settings/settings.dart';
+import 'package:doclense/utils/image_converter.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -172,6 +173,7 @@ class _HomeState extends State<Home> {
           return ListView.builder(
             itemCount: pdfsBox.getAt(0).length as int,
             itemBuilder: (context, index) {
+              final Image previewImage = ImageConverter.base64StringToImage(pdfsBox.getAt(0)[index][2] as String);
               return GestureDetector(
                 onTap: () {
                   OpenFile.open(pdfsBox.getAt(0)[index][0] as String);
@@ -189,10 +191,9 @@ class _HomeState extends State<Home> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Image(
-                                image: FileImage(
-                                    pdfsBox.getAt(0)[index][2] as File),
+                              child: SizedBox(
                                 width: MediaQuery.of(context).size.width / 6,
+                                child: previewImage,
                               ),
                             )
                           ],

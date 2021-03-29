@@ -77,7 +77,7 @@ class _PDFConversion extends State<PDFConversion> {
     final List<dynamic> files = Hive.box('pdfs').getAt(0) as List<dynamic>;
     final now = DateTime.now();
     final String formatter = DateFormat('yMd').format(now);
-    String previewImage = ImageConverter.base64StringFromImage(widget.list.imagelist[0].readAsBytesSync());
+    final String previewImage = ImageConverter.base64StringFromImage(widget.list.imagelist[0].readAsBytesSync());
     files.add([filePath, formatter, previewImage]);
     Hive.box('pdfs').putAt(0, files);
     print("PDFS : ${Hive.box('pdfs').getAt(0)}");
