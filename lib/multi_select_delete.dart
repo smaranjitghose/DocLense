@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'Providers/image_list.dart';
-import 'griditem.dart';
+import 'providers/image_list.dart';
+import 'grid_item.dart';
 
 import 'image_view.dart';
 import 'pdf_conversion.dart';
