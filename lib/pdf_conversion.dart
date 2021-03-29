@@ -12,8 +12,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission/permission.dart';
 
-import 'Providers/image_list.dart';
-
+import 'providers/image_list.dart';
 
 import 'pdf_preview_screen.dart';
 
@@ -141,7 +140,6 @@ class _PDFConversion extends State<PDFConversion> {
               decoration: InputDecoration(
                 labelText: 'Pdf Name',
                 labelStyle: TextStyle(color: Colors.grey[500]),
-
                 focusedBorder: OutlineInputBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   borderSide: BorderSide(width: 2, color: Colors.grey[500]),
@@ -149,11 +147,12 @@ class _PDFConversion extends State<PDFConversion> {
                 enabledBorder: OutlineInputBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(20)),
                   borderSide: BorderSide(width: 2, color: Colors.grey[500]),
+                ),
               ),
             ),
           ),
         ),
-      ),),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // if (name == null) {

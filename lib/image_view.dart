@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:provider/provider.dart';
 
-import 'Providers/image_list.dart';
-import 'Providers/theme_provider.dart';
+import 'providers/image_list.dart';
+import 'providers/theme_provider.dart';
 import 'filter_view.dart';
 import 'home.dart';
 

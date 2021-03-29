@@ -2,14 +2,14 @@ import 'dart:ui';
 
 import 'package:wiredash/wiredash.dart';
 import 'package:doclense/home.dart';
-import 'package:doclense/Models/preferences.dart';
+import 'package:doclense/models/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:doclense/Providers/theme_provider.dart';
-import 'package:doclense/Constants/theme_constants.dart';
+import 'package:doclense/providers/theme_provider.dart';
+import 'package:doclense/constants/theme_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:path_provider/path_provider.dart' as path;
 
@@ -71,14 +71,12 @@ Future<void> main() async {
   final r = res.getAt(0) as UserPreferences;
   print("First Time : ${r.firstTime}");
 
-
   runApp(
       //   MaterialApp(
       //   debugShowCheckedModeBanner: false,
       //   home: MyApp(),
       // )
       MyApp());
-
 }
 
 class MyApp extends StatefulWidget {
