@@ -26,7 +26,7 @@ import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import './image_meaure_handle.dart';
 
 enum IconOptions { share }
 
@@ -71,8 +71,13 @@ class _HomeState extends State<Home> {
           .then((value) => print("Image Saved"));
     }
 
+    // Navigator.of(context).push(
+    //     MaterialPageRoute(builder: (context) => Imageview(tmpFile, images)));
     Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => Imageview(tmpFile, images)));
+      MaterialPageRoute(
+        builder: (context) => ImageMeasureHandle(file: tmpFile, list: images),
+      ),
+    );
   }
 
   // List<String> savedPdfs;
@@ -173,7 +178,8 @@ class _HomeState extends State<Home> {
           return ListView.builder(
             itemCount: pdfsBox.getAt(0).length as int,
             itemBuilder: (context, index) {
-              final Image previewImage = ImageConverter.base64StringToImage(pdfsBox.getAt(0)[index][2] as String);
+              final Image previewImage = ImageConverter.base64StringToImage(
+                  pdfsBox.getAt(0)[index][2] as String);
               return GestureDetector(
                 onTap: () {
                   OpenFile.open(pdfsBox.getAt(0)[index][0] as String);
