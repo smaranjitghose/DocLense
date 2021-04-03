@@ -307,14 +307,3 @@ List<Map<String, String>> devTeam = [
     "github": "https://github.com/anushbhatia",
   },
 ];
-
-List contributorsLinkedinId = [
-  "Saransh-cpp",
-  {
-    "linkedin": "https://www.linkedin.com/in/saransh-chopra-3a6ab11bb",
-  },
-  "nicks101",
-  {
-    "linkedin": "https://www.linkedin.com/in/nikki-goel-449563159/",
-  },
-];
