@@ -128,50 +128,64 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemCount: jsonContributors.length,
-                    itemBuilder: (BuildContext context, int index) => Container(
-                      margin: const EdgeInsets.only(left: 15, right: 15),
-                      child: Column(
-                        children: <Widget>[
-                          _buildNetworkprofileImage(
-                              jsonContributors[index]["avatar_url"].toString()),
-                          Container(
-                            margin: const EdgeInsets.only(top: 10),
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  jsonContributors[index]["login"].toString(),
-                                ),
-                                const Padding(padding: EdgeInsets.only(top: 5)),
-                                Row(
+                    itemBuilder: (BuildContext context, int index) =>
+                        (jsonContributors[index]["login"].toString() ==
+                                    "smaranjitghose" ||
+                                jsonContributors[index]["login"].toString() ==
+                                    "anushbhatia")
+                            ? Container()
+                            : Container(
+                                margin:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                child: Column(
                                   children: <Widget>[
-                                    if (jsonContributors[index]["login"]
-                                            .toString() ==
-                                        "Saransh-cpp")
-                                      _buildProfileIcon(
-                                          "https://www.linkedin.com/in/saransh-chopra-3a6ab11bb",
-                                          'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
-                                    else if (jsonContributors[index]["login"]
-                                            .toString() ==
-                                        "nicks101")
-                                      _buildProfileIcon(
-                                          "https://www.linkedin.com/in/nikki-goel-449563159/",
-                                          'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
-                                    else
-                                      Container(),
-                                    const Padding(
-                                        padding: EdgeInsets.only(left: 10)),
-                                    _buildProfileIcon(
-                                        jsonContributors[index]["html_url"]
-                                            .toString(),
-                                        'https://img.icons8.com/fluent/50/000000/github.png'),
+                                    _buildNetworkprofileImage(
+                                        jsonContributors[index]["avatar_url"]
+                                            .toString()),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 10),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            jsonContributors[index]["login"]
+                                                .toString(),
+                                          ),
+                                          const Padding(
+                                              padding: EdgeInsets.only(top: 5)),
+                                          Row(
+                                            children: <Widget>[
+                                              if (jsonContributors[index]
+                                                          ["login"]
+                                                      .toString() ==
+                                                  "Saransh-cpp")
+                                                _buildProfileIcon(
+                                                    "https://www.linkedin.com/in/saransh-chopra-3a6ab11bb",
+                                                    'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
+                                              else if (jsonContributors[index]
+                                                          ["login"]
+                                                      .toString() ==
+                                                  "nicks101")
+                                                _buildProfileIcon(
+                                                    "https://www.linkedin.com/in/nikki-goel-449563159/",
+                                                    'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
+                                              else
+                                                Container(),
+                                              const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 10)),
+                                              _buildProfileIcon(
+                                                  jsonContributors[index]
+                                                          ["html_url"]
+                                                      .toString(),
+                                                  'https://img.icons8.com/fluent/50/000000/github.png'),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ],
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                                ),
+                              ),
                   ),
                 )
               else
