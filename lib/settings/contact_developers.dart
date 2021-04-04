@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -23,7 +24,11 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
         jsonContributors = json.decode(response.body) as List;
       });
     } else {
-      throw Exception('Failed to load Contributors from API');
+      Fluttertoast.showToast(
+        msg: "Failed to load Contributors from API",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
     }
   }
 
