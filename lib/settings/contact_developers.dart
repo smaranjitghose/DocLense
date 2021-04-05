@@ -1,9 +1,42 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
-class ContactDeveloperScreen extends StatelessWidget {
+class ContactDeveloperScreen extends StatefulWidget {
+  @override
+  _ContactDeveloperScreenState createState() => _ContactDeveloperScreenState();
+}
+
+class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
   final double spacing = 40;
+  List jsonContributors = [];
+
+  Future<void> _fetchContributors() async {
+    const contributorsAPIUrl =
+        'https://api.github.com/repos/smaranjitghose/DocLense/contributors';
+    final response = await http.get(contributorsAPIUrl);
+
+    if (response.statusCode == 200) {
+      setState(() {
+        jsonContributors = json.decode(response.body) as List;
+      });
+    } else {
+      Fluttertoast.showToast(
+        msg: "Failed to load Contributors from API",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchContributors();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +119,77 @@ class ContactDeveloperScreen extends StatelessWidget {
                 ),
               ),
               _buildTeamTitle('CONTIBUTORS'),
+              // ignore: prefer_is_empty
+              if (jsonContributors.length > 0)
+                Container(
+                  height: 170,
+                  margin: const EdgeInsets.only(top: 20),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: jsonContributors.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        (jsonContributors[index]["login"].toString() ==
+                                    "smaranjitghose" ||
+                                jsonContributors[index]["login"].toString() ==
+                                    "anushbhatia")
+                            ? Container()
+                            : Container(
+                                margin:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                child: Column(
+                                  children: <Widget>[
+                                    _buildNetworkprofileImage(
+                                        jsonContributors[index]["avatar_url"]
+                                            .toString()),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 10),
+                                      child: Column(
+                                        children: <Widget>[
+                                          Text(
+                                            jsonContributors[index]["login"]
+                                                .toString(),
+                                          ),
+                                          const Padding(
+                                              padding: EdgeInsets.only(top: 5)),
+                                          Row(
+                                            children: <Widget>[
+                                              if (jsonContributors[index]
+                                                          ["login"]
+                                                      .toString() ==
+                                                  "Saransh-cpp")
+                                                _buildProfileIcon(
+                                                    "https://www.linkedin.com/in/saransh-chopra-3a6ab11bb",
+                                                    'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
+                                              else if (jsonContributors[index]
+                                                          ["login"]
+                                                      .toString() ==
+                                                  "nicks101")
+                                                _buildProfileIcon(
+                                                    "https://www.linkedin.com/in/nikki-goel-449563159/",
+                                                    'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
+                                              else
+                                                Container(),
+                                              const Padding(
+                                                  padding: EdgeInsets.only(
+                                                      left: 10)),
+                                              _buildProfileIcon(
+                                                  jsonContributors[index]
+                                                          ["html_url"]
+                                                      .toString(),
+                                                  'https://img.icons8.com/fluent/50/000000/github.png'),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                  ),
+                )
+              else
+                const Center(child: CircularProgressIndicator()),
             ],
           ),
         ),
@@ -111,6 +215,32 @@ class ContactDeveloperScreen extends StatelessWidget {
             shape: BoxShape.circle,
             image: DecorationImage(
               image: AssetImage(imagePath),
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNetworkprofileImage(String imagePath) {
+    return Container(
+      width: 100.0,
+      height: 100.0,
+      decoration: BoxDecoration(
+        boxShadow: _buildBoxShadow,
+        shape: BoxShape.circle,
+      ),
+      child: SizedBox(
+        width: 100,
+        height: 100,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            boxShadow: _buildBoxShadow,
+            color: Colors.black,
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: NetworkImage(imagePath),
               fit: BoxFit.contain,
             ),
           ),
