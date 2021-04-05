@@ -3,8 +3,14 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_size_getter/file_input.dart';
+import 'package:provider/provider.dart';
+import 'package:image_size_getter/image_size_getter.dart' as image_size;
 
-import 'providers/image_list.dart';
+import './image_view.dart';
+import './providers/image_list.dart';
+import './providers/theme_provider.dart';
 
 class ImageMeasureHandle extends StatefulWidget {
   const ImageMeasureHandle({
@@ -22,6 +28,7 @@ class ImageMeasureHandle extends StatefulWidget {
 
 class _ImageMeasureHandleState extends State<ImageMeasureHandle> {
   bool _isInit = true;
+  bool _isLoading = false;
 
   final GlobalKey _imageKey = GlobalKey();
 
@@ -33,13 +40,18 @@ class _ImageMeasureHandleState extends State<ImageMeasureHandle> {
   double _imageWidth;
   double _imageHeight;
 
-  static const double _initialOffset = 20;
+  static const double _initialOffset = 15;
+
+  image_size.Size imagePixelSize;
+
+  MethodChannel channel = const MethodChannel('opencv');
 
   @override
   void initState() {
     super.initState();
 
     Timer(const Duration(seconds: 2), _getInitialHandles);
+    imagePixelSize = image_size.ImageSizeGetter.getSize(FileInput(widget.file));
   }
 
   void _getInitialHandles() {
@@ -62,6 +74,14 @@ class _ImageMeasureHandleState extends State<ImageMeasureHandle> {
     });
   }
 
+  void _onPanStart(DragStartDetails details) {
+    setHandlePositions(details.localPosition);
+  }
+
+  void _onPanDown(DragDownDetails details) {
+    setHandlePositions(details.localPosition);
+  }
+
   void _onPanUpdate(DragUpdateDetails details) {
     setHandlePositions(details.localPosition);
   }
@@ -75,8 +95,10 @@ class _ImageMeasureHandleState extends State<ImageMeasureHandle> {
             _initialOffset &&
         x >= 0 &&
         y >= 0 &&
-        x < _imageWidth / 2 &&
-        y < _imageHeight / 2) {
+        // x < _imageWidth / 2
+        x < _imageWidth &&
+        // y < _imageHeight / 2
+        y < _imageHeight) {
       setState(() {
         topLeft = localPosition;
       });
@@ -86,10 +108,12 @@ class _ImageMeasureHandleState extends State<ImageMeasureHandle> {
     if (sqrt((topRight.dx - x) * (topRight.dx - x) +
                 (topRight.dy - y) * (topRight.dy - y)) <
             _initialOffset &&
-        x >= _imageWidth / 2 &&
+        // x >= _imageWidth / 2
+        x >= 0 &&
         y >= 0 &&
-        x < _imageWidth &&
-        y < _imageHeight / 2) {
+        x <= _imageWidth &&
+        // y < _imageHeight / 2
+        y <= _imageHeight) {
       setState(() {
         topRight = localPosition;
       });
@@ -100,9 +124,11 @@ class _ImageMeasureHandleState extends State<ImageMeasureHandle> {
                 (bottomLeft.dy - y) * (bottomLeft.dy - y)) <
             _initialOffset &&
         x >= 0 &&
-        y >= _imageHeight / 2 &&
-        x < _imageWidth / 2 &&
-        y < _imageHeight) {
+        // y >= _imageHeight / 2 &&
+        y >= 0 &&
+        // x < _imageWidth / 2 &&
+        x <= _imageWidth &&
+        y <= _imageHeight) {
       setState(() {
         bottomLeft = localPosition;
       });
@@ -112,8 +138,10 @@ class _ImageMeasureHandleState extends State<ImageMeasureHandle> {
     if (sqrt((bottomRight.dx - x) * (bottomRight.dx - x) +
                 (bottomRight.dy - y) * (bottomRight.dy - y)) <
             _initialOffset &&
-        x >= _imageWidth / 2 &&
-        y >= _imageHeight / 2 &&
+        // x >= _imageWidth / 2 &&
+        x >= 0 &&
+        // y >= _imageHeight / 2 &&
+        y >= 0 &&
         x < _imageWidth &&
         y < _imageHeight) {
       setState(() {
@@ -123,27 +151,160 @@ class _ImageMeasureHandleState extends State<ImageMeasureHandle> {
     }
   }
 
+  DarkThemeProvider themeChange;
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Stack(
-        children: [
-          GestureDetector(
-            onPanUpdate: _onPanUpdate,
-            child: Image.file(
-              widget.file,
-              key: _imageKey,
-            ),
-          ),
-          if (!_isInit)
-            CustomPaint(
-              painter: CropPainter(
-                topLeft: topLeft,
-                topRight: topRight,
-                bottomRight: bottomRight,
-                bottomLeft: bottomLeft,
+    themeChange = Provider.of<DarkThemeProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Border adjustment'),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Stack(
+                  children: [
+                    GestureDetector(
+                      onPanStart: _onPanStart,
+                      onPanUpdate: _onPanUpdate,
+                      onPanDown: _onPanDown,
+                      child: Image.file(
+                        widget.file,
+                        key: _imageKey,
+                      ),
+                    ),
+                    if (!_isInit)
+                      CustomPaint(
+                        painter: CropPainter(
+                          topLeft: topLeft,
+                          topRight: topRight,
+                          bottomRight: bottomRight,
+                          bottomLeft: bottomLeft,
+                        ),
+                      )
+                  ],
+                ),
               ),
-            )
+            ),
+            _buildBottomSheet,
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget get _buildBottomSheet => Container(
+        color: themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              _bottomSheetButton(
+                'Back',
+                Icons.arrow_back,
+                () => Navigator.of(context).pop(),
+              ),
+              if (_isLoading)
+                const CircularProgressIndicator()
+              else
+                _bottomSheetButton(
+                  'Crop and Next',
+                  Icons.crop_free_sharp,
+                  _isInit
+                      ? null
+                      : () async {
+                          setState(() {
+                            _isLoading = true;
+                          });
+
+                          final double widthRatio =
+                              imagePixelSize.width / _imageWidth;
+
+                          final double heightRatio =
+                              imagePixelSize.height / _imageHeight;
+
+                          final double tlX = widthRatio * topLeft.dx;
+                          final double trX = widthRatio * topRight.dx;
+                          final double blX = widthRatio * bottomLeft.dx;
+                          final double brX = widthRatio * bottomRight.dx;
+
+                          final double tlY = heightRatio * topLeft.dy;
+                          final double trY = heightRatio * topRight.dy;
+                          final double blY = heightRatio * bottomLeft.dy;
+                          final double brY = heightRatio * bottomRight.dy;
+
+                          print('invoking channel method');
+
+                          await channel.invokeMethod('convertToGray', {
+                            'filePath': widget.file.path,
+                            'tl_x': tlX,
+                            'tl_y': tlY,
+                            'tr_x': trX,
+                            'tr_y': trY,
+                            'bl_x': blX,
+                            'bl_y': blY,
+                            'br_x': brX,
+                            'br_y': brY,
+                          }).then((value) {
+                          print('finished channel method');
+
+                            setState(() {
+                              _isLoading = false;
+                            });
+                          });
+
+                          // final originalBytes =
+                          //     await channel.invokeMethod('originalCompleted');
+
+                          // print(originalBytes.runtimeType);
+
+                          setState(() {
+                            _isLoading = false;
+                          });
+
+                          // Navigator.of(context).push(
+                          //   MaterialPageRoute(
+                          //     builder: (context) =>
+                          //         Imageview(widget.file, widget.list),
+                          //   ),
+                          // );
+                        },
+                ),
+              _bottomSheetButton(
+                'Skip and Next',
+                Icons.arrow_forward,
+                () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => Imageview(widget.file, widget.list),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+
+  Widget _bottomSheetButton(
+      String text, IconData icon, VoidCallback onPressed) {
+    return TextButton(
+      onPressed: onPressed,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Icon(
+            icon,
+            color: Colors.white,
+          ),
+          Text(
+            text,
+            style: const TextStyle(color: Colors.white),
+          ),
         ],
       ),
     );
@@ -190,5 +351,9 @@ class CropPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) => true;
+  bool shouldRepaint(CropPainter oldDelegate) =>
+      oldDelegate.topLeft != topLeft ||
+      oldDelegate.topRight != topRight ||
+      oldDelegate.bottomRight != bottomRight ||
+      oldDelegate.bottomLeft != bottomLeft;
 }
