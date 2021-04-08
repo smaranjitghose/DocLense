@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:doclense/filter_view.dart';
+import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -188,26 +188,13 @@ class _ImageviewState extends State<Imageview> {
                       TextButton(
                         onPressed: () {
                           if (cropped != null) {
-                            Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (c, a1, a2) =>
-                                      FilterImage(cropped, widget.list),
-                                  transitionsBuilder: (c, anim, a2, child) =>
-                                      FadeTransition(
-                                          opacity: anim, child: child),
-                                  // transitionDuration: Duration(milliseconds: 1000),
-                                ));
+                            goToFilterImageScreen(
+                              file: cropped,
+                            );
                           } else {
-                            Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                  pageBuilder: (c, a1, a2) =>
-                                      FilterImage(widget.file, widget.list),
-                                  transitionsBuilder: (c, anim, a2, child) =>
-                                      FadeTransition(
-                                          opacity: anim, child: child),
-                                ));
+                            goToFilterImageScreen(
+                              file: widget.file,
+                            );
                           }
                         },
                         child: Column(
@@ -232,6 +219,16 @@ class _ImageviewState extends State<Imageview> {
           ],
         ),
       ),
+    );
+  }
+
+  void goToFilterImageScreen({File file}) {
+    Navigator.of(context).pushNamed(
+      RouteConstants.filterImageScreen,
+      arguments: {
+        'file': file,
+        'list': widget.list,
+      },
     );
   }
 }
