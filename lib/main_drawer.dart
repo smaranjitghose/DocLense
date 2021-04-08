@@ -62,8 +62,10 @@ class MainDrawer extends StatelessWidget {
               iconData: Icons.home,
               navItemTitle: 'Home',
               callback: () {
-                Navigator.of(context).pushReplacementNamed(
-                  RouteConstants.homeScreen,
+                Navigator.of(context).popUntil(
+                  ModalRoute.withName(
+                    RouteConstants.homeScreen,
+                  ),
                 );
               },
             ),
