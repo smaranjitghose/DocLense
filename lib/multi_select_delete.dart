@@ -1,12 +1,13 @@
 import 'dart:io';
 
 import 'package:doclense/grid_item.dart';
-import 'package:doclense/image_view.dart';
+import 'package:doclense/image_meaure_handle.dart';
 import 'package:doclense/pdf_conversion.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 
+import './image_meaure_handle.dart';
 import 'providers/image_list.dart';
 
 class MultiDelete extends StatefulWidget {
@@ -156,8 +157,14 @@ class _MultiDeleteState extends State<MultiDelete> {
       imageFile = File(picture.path);
     });
     if (imageFile != null) {
+      // Navigator.of(context).push(MaterialPageRoute(
+      //     builder: (context) => Imageview(imageFile, widget.imageList)));
+
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Imageview(imageFile, widget.imageList)));
+          builder: (context) => ImageMeasureHandle(
+                file: imageFile,
+                list: widget.imageList,
+              )));
     }
   }
 
@@ -171,8 +178,14 @@ class _MultiDeleteState extends State<MultiDelete> {
         .then((value) => print("Image Saved"));
 
     if (imageFile != null) {
+      // Navigator.of(context).push(MaterialPageRoute(
+      //     builder: (context) => Imageview(imageFile, widget.imageList)));
+
       Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Imageview(imageFile, widget.imageList)));
+          builder: (context) => ImageMeasureHandle(
+                file: imageFile,
+                list: widget.imageList,
+              )));
     }
   }
 

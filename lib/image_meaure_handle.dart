@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_size_getter/file_input.dart';
 import 'package:provider/provider.dart';
 import 'package:image_size_getter/image_size_getter.dart' as image_size;
+
+import 'package:path_provider/path_provider.dart';
 
 import './image_view.dart';
 import './providers/image_list.dart';
@@ -198,6 +201,19 @@ class _ImageMeasureHandleState extends State<ImageMeasureHandle> {
     );
   }
 
+  Future<File> writeToFile(Uint8List data) async {
+    final buffer = data.buffer;
+    final Directory tempDir = await getTemporaryDirectory();
+    final String tempPath = tempDir.path;
+
+    final DateTime date = DateTime.now();
+    final String fileName = widget.file.path.split('/').last.split('.').first;
+
+    final filePath = '$tempPath/${fileName}_${date.toString()}_temp.tmp';
+    return File(filePath).writeAsBytes(
+        buffer.asUint8List(data.offsetInBytes, data.lengthInBytes));
+  }
+
   Widget get _buildBottomSheet => Container(
         color: themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
         child: Padding(
@@ -239,41 +255,38 @@ class _ImageMeasureHandleState extends State<ImageMeasureHandle> {
                           final double blY = heightRatio * bottomLeft.dy;
                           final double brY = heightRatio * bottomRight.dy;
 
-                          print('invoking channel method');
+                          Uint8List bytes;
 
-                          await channel.invokeMethod('convertToGray', {
-                            'filePath': widget.file.path,
-                            'tl_x': tlX,
-                            'tl_y': tlY,
-                            'tr_x': trX,
-                            'tr_y': trY,
-                            'bl_x': blX,
-                            'bl_y': blY,
-                            'br_x': brX,
-                            'br_y': brY,
-                          }).then((value) {
-                          print('finished channel method');
-
-                            setState(() {
-                              _isLoading = false;
+                          await Future.delayed(const Duration(seconds: 1),
+                              () async {
+                            print('invoking channel method');
+                            bytes = await channel.invokeMethod('original', {
+                              'filePath': widget.file.path,
+                              'tl_x': tlX,
+                              'tl_y': tlY,
+                              'tr_x': trX,
+                              'tr_y': trY,
+                              'bl_x': blX,
+                              'bl_y': blY,
+                              'br_x': brX,
+                              'br_y': brY,
                             });
                           });
 
-                          // final originalBytes =
-                          //     await channel.invokeMethod('originalCompleted');
+                          print(bytes.runtimeType);
 
-                          // print(originalBytes.runtimeType);
+                          final File newFile = await writeToFile(bytes);
 
                           setState(() {
                             _isLoading = false;
                           });
 
-                          // Navigator.of(context).push(
-                          //   MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         Imageview(widget.file, widget.list),
-                          //   ),
-                          // );
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  Imageview(newFile, widget.list),
+                            ),
+                          );
                         },
                 ),
               _bottomSheetButton(
