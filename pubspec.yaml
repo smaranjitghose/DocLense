@@ -60,6 +60,7 @@ dependencies:
   wiredash: ^0.5.0
   package_info: ^2.0.0
   image_size_getter: ^1.0.0
+  fluttertoast: ^8.0.3
 
 dev_dependencies:
   flutter_test:
