@@ -59,6 +59,7 @@ dependencies:
   storage_path: ^0.2.0
   url_launcher: ^5.7.10
   wiredash: ^0.5.0
+  flutter_launcher_icons: ^0.7.2+1
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,11 @@ dev_dependencies:
   build_runner: null
   hive_generator: ^0.8.2
   lint: ^1.0.0
+
+flutter_icons:    
+ android: true    
+ ios: true    
+ image_path: "assets/app_icon.png"  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
