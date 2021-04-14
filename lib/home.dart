@@ -163,9 +163,9 @@ class _HomeState extends State<Home> {
       // ignore: deprecated_member_use
       body: DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
-        child: WatchBoxBuilder(
-          box: Hive.box('pdfs'),
-          builder: (context, pdfsBox) {
+        child: ValueListenableBuilder(
+          valueListenable: Hive.box('pdfs').listenable(),
+          builder: (context, Box<dynamic> pdfsBox, widget) {
             if (pdfsBox.getAt(0).length == 0) {
               return const Center(
                 child: Text("No PDFs Scanned Yet !! "),

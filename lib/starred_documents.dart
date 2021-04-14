@@ -42,9 +42,9 @@ class _StarredState extends State<Starred> {
       // ignore: deprecated_member_use
       body: DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
-        child: WatchBoxBuilder(
-          box: Hive.box('starred'),
-          builder: (context, starredBox) {
+        child: ValueListenableBuilder(
+          valueListenable: Hive.box('starred').listenable(),
+          builder: (context, starredBox, widget) {
             if (starredBox.getAt(0).length == 0) {
               return const Center(
                 child: Text("No PDFs Starred Yet !! "),
