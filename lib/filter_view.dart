@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:doclense/Providers/theme_provider.dart';
+import 'package:doclense/multi_select_delete.dart';
+import 'package:doclense/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:photofilters/photofilters.dart';
 import 'package:path/path.dart';
 import 'package:image/image.dart' as image_lib;
 import 'package:provider/provider.dart';
-import 'Providers/image_list.dart';
-import 'multi_select_delete.dart';
+import 'providers/image_list.dart';
 
 class FilterImage extends StatefulWidget {
   final File file;

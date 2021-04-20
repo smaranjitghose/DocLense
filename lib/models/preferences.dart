@@ -1,6 +1,3 @@
-
-import 'dart:io';
-
 import 'package:hive/hive.dart';
 part 'preferences.g.dart';
 
@@ -12,9 +9,6 @@ class UserPreferences {
 
   @HiveField(1)
   bool darkTheme;
-
-  @HiveField(2)
-  File previewImage;
 
   UserPreferences({this.firstTime,this.darkTheme});
 }
