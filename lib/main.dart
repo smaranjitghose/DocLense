@@ -1,5 +1,6 @@
 import 'dart:ui';
-
+import 'package:doclense/constants/route_constants.dart';
+import 'package:doclense/services/route_page.dart';
 import 'package:wiredash/wiredash.dart';
 import 'package:doclense/home.dart';
 import 'package:doclense/models/preferences.dart';
@@ -25,30 +26,6 @@ Future<void> main() async {
   await Hive.openBox('starred');
   Hive.registerAdapter(UserPreferencesAdapter());
   final res = await Hive.openBox('preferences');
-
-  // try {
-  //   final r = res.getAt(0) as UserPreferences;
-  // } on RangeError catch (e) {
-  //   print('Exception');
-  //   final r = res.add(UserPreferences(firstTime: true, darkTheme: false));
-  // }
-
-  // try {
-  //   final res = await Hive.box('pdfs');
-  //   final r = res.getAt(0);
-  // } on RangeError catch (e) {
-  //   final res = await Hive.box('pdfs');
-  //   final r = res.add([]);
-  // }
-
-  // try {
-  //   final res = await Hive.box('starred');
-  //   final r = res.getAt(0);
-  // } on RangeError catch (e) {
-  //   final res = await Hive.box('starred');
-  //   final r = res.add([]);
-  // }
-
   try {
     res.getAt(0) as UserPreferences;
   } catch (e) {
@@ -72,11 +49,8 @@ Future<void> main() async {
   print("First Time : ${r.firstTime}");
 
   runApp(
-      //   MaterialApp(
-      //   debugShowCheckedModeBanner: false,
-      //   home: MyApp(),
-      // )
-      MyApp());
+    MyApp(),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -207,29 +181,17 @@ class _MyAppState extends State<MyApp> {
                             ],
                             onDone: () {
                               setFirstTime();
-                              Navigator.pushReplacement(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (c, a1, a2) => Home(),
-                                    transitionsBuilder: (c, anim, a2, child) =>
-                                        FadeTransition(
-                                            opacity: anim, child: child),
-                                    // transitionDuration: Duration(milliseconds: 1000),
-                                  ));
+                              Navigator.of(context).pushReplacementNamed(
+                                RouteConstants.homeScreen,
+                              );
                             },
                             showSkipButton: true,
                             skip: const Text("Skip"),
                             onSkip: () {
                               setFirstTime();
-                              Navigator.pushReplacement(
-                                  context,
-                                  PageRouteBuilder(
-                                    pageBuilder: (c, a1, a2) => Home(),
-                                    transitionsBuilder: (c, anim, a2, child) =>
-                                        FadeTransition(
-                                            opacity: anim, child: child),
-                                    // transitionDuration: Duration(milliseconds: 1000),
-                                  ));
+                              Navigator.of(context).pushReplacementNamed(
+                                RouteConstants.homeScreen,
+                              );
                             },
                             done: const Text('Done',
                                 style: TextStyle(fontWeight: FontWeight.w600)),
@@ -245,6 +207,7 @@ class _MyAppState extends State<MyApp> {
                 splashTransition: SplashTransition.rotationTransition,
                 duration: 4000,
               ),
+              onGenerateRoute: RoutePage.generateRoute,
             ),
           ),
         );

@@ -1,8 +1,7 @@
 import 'dart:io';
 
+import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/grid_item.dart';
-import 'package:doclense/image_view.dart';
-import 'package:doclense/pdf_conversion.dart';
 import 'package:flutter/material.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
@@ -121,7 +120,7 @@ class _MultiDeleteState extends State<MultiDelete> {
                         // itemList.remove(idx);
                         itemList.removeAt(idx);
                       }
-                      Navigator.of(ctx).pop();
+
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
                     child: const Text(
@@ -156,8 +155,13 @@ class _MultiDeleteState extends State<MultiDelete> {
       imageFile = File(picture.path);
     });
     if (imageFile != null) {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Imageview(imageFile, widget.imageList)));
+      Navigator.of(context).pushNamed(
+        RouteConstants.imageView,
+        arguments: {
+          'imageFile': imageFile,
+          'imageList': widget.imageList,
+        },
+      );
     }
   }
 
@@ -171,8 +175,13 @@ class _MultiDeleteState extends State<MultiDelete> {
         .then((value) => print("Image Saved"));
 
     if (imageFile != null) {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Imageview(imageFile, widget.imageList)));
+      Navigator.of(context).pushNamed(
+        RouteConstants.imageView,
+        arguments: {
+          'imageFile': imageFile,
+          'imageList': widget.imageList,
+        },
+      );
     }
   }
 
@@ -301,14 +310,10 @@ class _MultiDeleteState extends State<MultiDelete> {
         IconButton(
             icon: const Icon(Icons.picture_as_pdf),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (c, a1, a2) => PDFConversion(widget.imageList),
-                    transitionsBuilder: (c, anim, a2, child) =>
-                        FadeTransition(opacity: anim, child: child),
-                    // transitionDuration: Duration(milliseconds: 2000),
-                  ));
+              Navigator.of(context).pushNamed(
+                RouteConstants.pdfConversionScreen,
+                arguments: widget.imageList,
+              );
             }),
         IconButton(
             icon: const Icon(Icons.home),

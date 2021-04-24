@@ -1,11 +1,10 @@
 import 'dart:io';
 
-import 'package:doclense/pdf_preview_screen.dart';
+import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/providers/image_list.dart';
 import 'package:doclense/utils/image_converter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:folder_picker/folder_picker.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
@@ -13,8 +12,6 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:permission/permission.dart';
-
-
 
 class PDFConversion extends StatefulWidget {
   final ImageList list;
@@ -76,7 +73,8 @@ class _PDFConversion extends State<PDFConversion> {
     final List<dynamic> files = Hive.box('pdfs').getAt(0) as List<dynamic>;
     final now = DateTime.now();
     final String formatter = DateFormat('yMd').format(now);
-    final String previewImage = ImageConverter.base64StringFromImage(widget.list.imagelist[0].readAsBytesSync());
+    final String previewImage = ImageConverter.base64StringFromImage(
+        widget.list.imagelist[0].readAsBytesSync());
     files.add([filePath, formatter, previewImage]);
     Hive.box('pdfs').putAt(0, files);
     print("PDFS : ${Hive.box('pdfs').getAt(0)}");
@@ -109,16 +107,17 @@ class _PDFConversion extends State<PDFConversion> {
               await getPermissions();
               await getStorage();
               print("External : $externalDirectory");
-              Navigator.of(context).push<FolderPickerPage>(
-                  MaterialPageRoute(builder: (BuildContext context) {
-                return FolderPickerPage(
-                    rootDirectory: externalDirectory,
-                    action: (BuildContext context, Directory folder) async {
-                      print("Picked directory $folder");
-                      setState(() => pickedDirectory = folder);
-                      Navigator.of(context).pop();
-                    });
-              }));
+              Navigator.of(context).pushNamed(
+                RouteConstants.folderPickerPage,
+                arguments: {
+                  'rootDirectory': externalDirectory,
+                  'action': (BuildContext context, Directory folder) async {
+                    print("Picked directory $folder");
+                    setState(() => pickedDirectory = folder);
+                    Navigator.of(context).pop();
+                  }
+                },
+              );
             },
             child: const Center(
               child: Text(
@@ -126,7 +125,7 @@ class _PDFConversion extends State<PDFConversion> {
                 style: TextStyle(color: Colors.white),
               ),
             ),
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -210,11 +209,9 @@ class _PDFConversion extends State<PDFConversion> {
     final String fullPath = '$documentPath/$name.pdf';
     print(fullPath);
 
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PdfPreviewScreen(
-                  path: fullPath,
-                )));
+    Navigator.of(context).pushNamed(
+      RouteConstants.pdfPreviewScreen,
+      arguments: fullPath,
+    );
   }
 }
