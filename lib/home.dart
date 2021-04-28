@@ -11,6 +11,7 @@ import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:ext_storage/ext_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -74,7 +75,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  // List<String> savedPdfs;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -113,6 +114,12 @@ class _HomeState extends State<Home> {
       const ShortcutItem(
           type: 'setting', localizedTitle: 'Settings', icon: 'setting'),
     ]);
+
+    Future.delayed(const Duration(seconds: 2,), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   bool isStarred(Box<dynamic> pdfsBox, int index) {
@@ -161,7 +168,9 @@ class _HomeState extends State<Home> {
         ],
       ),
       // ignore: deprecated_member_use
-      body: DoubleBackToCloseApp(
+      body: _isLoading ?const SpinKitRotatingCircle(
+  color: Colors.blue,
+) :  DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
         child: ValueListenableBuilder(
           valueListenable: Hive.box('pdfs').listenable(),

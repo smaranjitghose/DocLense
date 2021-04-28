@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/grid_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -23,10 +24,15 @@ class _MultiDeleteState extends State<MultiDelete> {
   File imageFile;
   final picker = ImagePicker();
 
+ bool _isLoading = true;
+
   @override
   void initState() {
     loadList();
     super.initState();
+    Future.delayed(const Duration(seconds: 2), () => setState(() {
+      _isLoading = false;
+    }));
   }
 
   void loadList() {
@@ -233,7 +239,9 @@ class _MultiDeleteState extends State<MultiDelete> {
     return Scaffold(
         // backgroundColor: Colors.blueGrey[100],
         appBar: getAppBar(),
-        body: GridView.builder(
+        body: _isLoading ? const SpinKitRotatingCircle(
+  color: Colors.blue,
+) :  GridView.builder(
             itemCount: itemList.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, crossAxisSpacing: 4, mainAxisSpacing: 4),

@@ -5,6 +5,7 @@ import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:package_info/package_info.dart';
 import 'package:provider/provider.dart';
 import 'package:wiredash/wiredash.dart';
@@ -21,8 +22,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
   String theme;
   bool adjustBorders = true;
   bool textOcr = true;
-  bool saveFile = true;
+  bool saveFile = true, _isLoading = true;
 
+ @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -44,7 +54,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       appBar: AppBar(
         title: const Text("Preferences"),
       ),
-      body: DoubleBackToCloseApp(
+      body: _isLoading ?const SpinKitRotatingCircle(
+  color: Colors.blue,
+) : DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

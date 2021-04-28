@@ -7,6 +7,7 @@ import 'package:doclense/utils/image_converter.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:open_file/open_file.dart';
@@ -20,6 +21,19 @@ class Starred extends StatefulWidget {
 }
 
 class _StarredState extends State<Starred> {
+
+  bool _isLoading = true;
+
+  @override
+    void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2,), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -40,7 +54,9 @@ class _StarredState extends State<Starred> {
         ],
       ),
       // ignore: deprecated_member_use
-      body: DoubleBackToCloseApp(
+      body: _isLoading ?const SpinKitRotatingCircle(
+  color: Colors.blue,
+) :  DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
         child: ValueListenableBuilder(
           valueListenable: Hive.box('starred').listenable(),
