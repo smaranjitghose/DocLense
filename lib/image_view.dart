@@ -4,6 +4,7 @@ import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,7 @@ import 'providers/theme_provider.dart';
 class Imageview extends StatefulWidget {
   final File file;
   final ImageList list;
+  
   const Imageview(
     this.file,
     this.list,
@@ -24,7 +26,7 @@ class Imageview extends StatefulWidget {
 
 class _ImageviewState extends State<Imageview> {
   File cropped;
-
+  bool _isLoading = true;
   List<File> files = [];
   int index;
 
@@ -33,6 +35,11 @@ class _ImageviewState extends State<Imageview> {
     super.initState();
     files.add(widget.file);
     index = 0;
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   Future<void> cropimage(File file, Color appBarColor, Color bgColor) async {
@@ -100,7 +107,9 @@ class _ImageviewState extends State<Imageview> {
 
     // TODO: implement build
     return Scaffold(
-      body: SafeArea(
+      body:  _isLoading ?const SpinKitRotatingCircle(
+  color: Colors.blue,
+) : SafeArea(
         child: Column(
           children: <Widget>[
             Expanded(

@@ -5,6 +5,7 @@ import 'package:doclense/providers/image_list.dart';
 import 'package:doclense/utils/image_converter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
@@ -26,6 +27,7 @@ class _PDFConversion extends State<PDFConversion> {
   final myController = TextEditingController();
   Directory externalDirectory;
   Directory pickedDirectory;
+  bool _isLoading = true;
 
   @override
   void dispose() {
@@ -33,6 +35,8 @@ class _PDFConversion extends State<PDFConversion> {
     myController.dispose();
     super.dispose();
   }
+
+  
 
   final pw.Document pdf = pw.Document();
   void writeOnPdf() {
@@ -87,10 +91,14 @@ class _PDFConversion extends State<PDFConversion> {
     }
   }
 
-  @override
+ @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   @override
@@ -128,7 +136,9 @@ class _PDFConversion extends State<PDFConversion> {
           ),
         ],
       ),
-      body: Padding(
+      body:  _isLoading ?const SpinKitRotatingCircle(
+  color: Colors.blue,
+) :  Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
           child: Padding(

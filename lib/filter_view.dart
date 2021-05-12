@@ -5,6 +5,7 @@ import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:photofilters/photofilters.dart';
 import 'package:path/path.dart';
 import 'package:image/image.dart' as image_lib;
@@ -23,11 +24,17 @@ class _FilterimageState extends State<FilterImage> {
   String fileName;
   List<Filter> filters = presetFiltersList;
   File imageFile;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     imageFile = widget.file;
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   Future<void> getImage(BuildContext context, Color appBarColor) async {
@@ -67,7 +74,9 @@ class _FilterimageState extends State<FilterImage> {
         themeChange.darkTheme ? Colors.black : Colors.blue[600];
     // TODO: implement build
     return Scaffold(
-      body: SafeArea(
+      body: _isLoading ?const SpinKitRotatingCircle(
+  color: Colors.blue,
+) :  SafeArea(
         child: Column(
           children: <Widget>[
             Expanded(

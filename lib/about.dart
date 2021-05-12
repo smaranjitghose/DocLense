@@ -5,10 +5,28 @@ import 'package:doclense/main_drawer.dart';
 import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class About extends StatelessWidget {
+class About extends StatefulWidget {
+  @override
+  _AboutState createState() => _AboutState();
+}
+
+class _AboutState extends State<About> {
+  bool _isLoading = true;
+  
+ @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -21,7 +39,10 @@ class About extends StatelessWidget {
           style: TextStyle(fontSize: 24),
         ),
       ),
-      body: DoubleBackToCloseApp(
+      body: 
+_isLoading ?const SpinKitRotatingCircle(
+  color: Colors.blue,
+) : DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
         child: SingleChildScrollView(
           child: Column(
