@@ -8,7 +8,7 @@
 
 <hr>
 
-**DocLense** : It is an application which can be used to scan and save the documents via your phone.
+**DocLense**: It is an application that can be used to scan and save documents via your phone.
 
 <p align="center"><img src="assets/doclense.png" width=45%></p>
 
@@ -20,10 +20,10 @@
 - Numerous choices of filters to choose from
 - Auto-adjust size and focus on text
 - Save in multiple formats
-- Share as consolidated document across multile
+- Share as consolidated document across multiple
 
-- Scan variety of Docs
-- Options to customize the size the scanned pages (Crop)</li>
+- Scan a variety of Docs
+- Options to customize the size of the scanned pages (Crop)</li>
 - Apply different types of filter
 - Download/Export in .pdf
 
@@ -49,7 +49,7 @@
 
 ## Contribution Guidelines🏗
 
-Are we missing any of your favorite features, which you think you can add to it❓ We invite you to contribute to this project and make it better.
+Are we missing any of your favorite features, which you think you can add to it❓ We invite you to contribute to this project and make it better?
 To start contributing, follow the below guidelines:
 
 **1.** Fork [this](https://github.com/smaranjitghose/DocLense) repository.
@@ -86,7 +86,7 @@ git remote -v
 git pull upstream master
 ```
 
-Note: in this project the master branch is called the main branch, so try
+Note: in this project, the master branch is called the main branch, so try
 
 ```
 git pull upstream main
@@ -108,7 +108,7 @@ git checkout -b <your_branch_name>
 git add .
 ```
 
-**10.** Commit your changes .
+**10.** Commit your changes.
 
 ```
 git commit -m "Relevant message"
@@ -120,7 +120,7 @@ git commit -m "Relevant message"
 git push -u origin <your_branch_name>
 ```
 
-**12.** To create a pull request, click on `compare and pull requests`. Please ensure you compare your feature branch to the desired branch of the repo you are supposed to make a PR to.
+**12.** To create a pull request, click on `compare and pull requests. Please ensure you compare your feature branch to the desired branch of the repo you are supposed to make a PR to.
 
 <img src="./readme_assets/compare_pr.png" width=600>
 
@@ -130,7 +130,7 @@ git push -u origin <your_branch_name>
 
 <img src="./readme_assets/CreatePR.png" width=600>
 
-**15** Voila :exclamation: You have made a PR to the DocLense project :boom: . Sit back patiently and relax while the project maintainers review your PR. Please understand at times the time can vary from a few hours to a few days
+**15** Voila :exclamation: You have made a PR to the DocLense project :boom: Sit back patiently and relax while the project maintainers review your PR. Please understand at times the time can vary from a few hours to a few days
 
 <p align="center"><img src="https://media.giphy.com/media/5mCQOcUfywmyI/giphy.gif" width=35%></p>
 
@@ -174,3 +174,5 @@ git push -u origin <your_branch_name>
 <p align="center"><img width=35% src="https://media.giphy.com/media/xUPGcJGy8I928yIlAQ/giphy.gif"></p>
 
 </div>
+
+

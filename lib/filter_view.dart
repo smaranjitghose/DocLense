@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:doclense/multi_select_delete.dart';
+import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:photofilters/photofilters.dart';
 import 'package:path/path.dart';
 import 'package:image/image.dart' as image_lib;
@@ -23,11 +24,17 @@ class _FilterimageState extends State<FilterImage> {
   String fileName;
   List<Filter> filters = presetFiltersList;
   File imageFile;
+  bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     imageFile = widget.file;
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   Future<void> getImage(BuildContext context, Color appBarColor) async {
@@ -35,26 +42,22 @@ class _FilterimageState extends State<FilterImage> {
     fileName = basename(imageFile.path);
     var image = image_lib.decodeImage(imageFile.readAsBytesSync());
     image = image_lib.copyResize(image, width: 600);
-    final Map imagefile = await Navigator.push(
-        context,
-        PageRouteBuilder(
-          pageBuilder: (c, a1, a2) => PhotoFilterSelector(
-            appBarColor: appBarColor,
-            title: const Text("Apply Filter"),
-            image: image,
-            filters: presetFiltersList,
-            filename: fileName,
-            loader: const Center(
-                child: CircularProgressIndicator(
-              backgroundColor: Colors.teal,
-              strokeWidth: 2,
-            )),
-            fit: BoxFit.contain,
-          ),
-          transitionsBuilder: (c, anim, a2, child) =>
-              FadeTransition(opacity: anim, child: child),
-          transitionDuration: const Duration(milliseconds: 1000),
-        ));
+    final Map imagefile = await Navigator.of(context).pushNamed(
+      RouteConstants.photoFilterSelector,
+      arguments: {
+        'title': const Text("Apply Filter"),
+        'image': image,
+        'appBarColor': appBarColor,
+        'filters': presetFiltersList,
+        'fileName': fileName,
+        'loader': const Center(
+            child: CircularProgressIndicator(
+          backgroundColor: Colors.teal,
+          strokeWidth: 2,
+        )),
+        'fit': BoxFit.contain,
+      },
+    ) as Map;
     if (imagefile != null && imagefile.containsKey('image_filtered')) {
       setState(() {
         // widget.file = imagefile['image_filtered'] as File;
@@ -71,7 +74,9 @@ class _FilterimageState extends State<FilterImage> {
         themeChange.darkTheme ? Colors.black : Colors.blue[600];
     // TODO: implement build
     return Scaffold(
-      body: SafeArea(
+      body: _isLoading ?const SpinKitRotatingCircle(
+  color: Colors.blue,
+) :  SafeArea(
         child: Column(
           children: <Widget>[
             Expanded(
@@ -138,15 +143,9 @@ class _FilterimageState extends State<FilterImage> {
                           // widget.list.imagepath.add(widget.file.path);
                           widget.list.imagelist.add(imageFile);
                           widget.list.imagepath.add(imageFile.path);
-                          Navigator.push(
-                            context,
-                            PageRouteBuilder(
-                              pageBuilder: (c, a1, a2) =>
-                                  MultiDelete(widget.list),
-                              transitionsBuilder: (c, anim, a2, child) =>
-                                  FadeTransition(opacity: anim, child: child),
-                              // transitionDuration: Duration(milliseconds: 1000),
-                            ),
+                          Navigator.of(context).pushNamed(
+                            RouteConstants.multiDelete,
+                            arguments: widget.list,
                           );
                         },
                         child: Column(

@@ -1,6 +1,4 @@
-import 'package:doclense/about.dart';
-import 'package:doclense/settings/settings.dart';
-import 'package:doclense/starred_documents.dart';
+import 'package:doclense/constants/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -64,35 +62,23 @@ class MainDrawer extends StatelessWidget {
               iconData: Icons.home,
               navItemTitle: 'Home',
               callback: () {
-                Navigator.of(context).popUntil((route) => route.isFirst);
+                Navigator.of(context).pushReplacementNamed(
+                  RouteConstants.homeScreen,
+                );
               },
             ),
             DrawerNavItem(
-              iconData: Icons.stars_rounded,
-              navItemTitle: 'Starred Documents',
-              callback: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (c, a1, a2) => Starred(),
-                      transitionsBuilder: (c, anim, a2, child) =>
-                          FadeTransition(opacity: anim, child: child),
-                      // transitionDuration: Duration(milliseconds: 2000),
-                    ));
-              },
-            ),
+                iconData: Icons.stars_rounded,
+                navItemTitle: 'Starred Documents',
+                callback: () {
+                  Navigator.of(context).pushReplacementNamed(
+                    RouteConstants.starredDocumentsScreen,
+                  );
+                }),
             DrawerNavItem(
               callback: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (c, a1, a2) => SettingsScreen(),
-                    transitionsBuilder: (c, anim, a2, child) =>
-                        FadeTransition(opacity: anim, child: child),
-                    // transitionDuration: Duration(milliseconds: 2000),
-                  ),
+                Navigator.of(context).pushReplacementNamed(
+                  RouteConstants.settingsScreen,
                 );
               },
               navItemTitle: 'Settings',
@@ -105,15 +91,8 @@ class MainDrawer extends StatelessWidget {
               iconData: Icons.info,
               navItemTitle: 'About App',
               callback: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    pageBuilder: (c, a1, a2) => About(),
-                    transitionsBuilder: (c, anim, a2, child) =>
-                        FadeTransition(opacity: anim, child: child),
-                    // transitionDuration: Duration(milliseconds: 1000),
-                  ),
+                Navigator.of(context).pushReplacementNamed(
+                  RouteConstants.aboutAppScreen,
                 );
               },
             ),
