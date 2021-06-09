@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/grid_item.dart';
 import 'package:doclense/image_meaure_handle.dart';
-import 'package:doclense/pdf_conversion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gallery_saver/gallery_saver.dart';
