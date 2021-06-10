@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:doclense/about.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/main_drawer.dart';
 import 'package:doclense/providers/image_list.dart';
@@ -22,6 +23,7 @@ import 'package:provider/provider.dart';
 import 'package:quick_actions/quick_actions.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import './image_meaure_handle.dart';
 
 enum IconOptions { share }
 
@@ -66,12 +68,12 @@ class _HomeState extends State<Home> {
           .then((value) => print("Image Saved"));
     }
 
-    Navigator.of(context).pushNamed(
-      RouteConstants.imageView,
-      arguments: {
-        'imageFile': tmpFile,
-        'imageList': images,
-      },
+    // Navigator.of(context).push(
+    //     MaterialPageRoute(builder: (context) => Imageview(tmpFile, images)));
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => ImageMeasureHandle(file: tmpFile, list: images),
+      ),
     );
   }
 

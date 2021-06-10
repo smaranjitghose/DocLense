@@ -29,7 +29,12 @@ android {
     compileSdkVersion 29
 
     sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
+        main {
+            jni {
+                srcDirs 'src\\main\\jni', 'src\\main\\jniLibs'
+            }
+        }
+        main.java.srcDirs += 'src/main/java'
     }
 
     lintOptions {
@@ -60,4 +65,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(path: ':openCVLibrary3410')
 }

@@ -2,11 +2,13 @@ import 'dart:io';
 
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/grid_item.dart';
+import 'package:doclense/image_meaure_handle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 
+import './image_meaure_handle.dart';
 import 'providers/image_list.dart';
 
 class MultiDelete extends StatefulWidget {
@@ -24,15 +26,17 @@ class _MultiDeleteState extends State<MultiDelete> {
   File imageFile;
   final picker = ImagePicker();
 
- bool _isLoading = true;
+  bool _isLoading = true;
 
   @override
   void initState() {
     loadList();
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () => setState(() {
-      _isLoading = false;
-    }));
+    Future.delayed(
+        const Duration(seconds: 2),
+        () => setState(() {
+              _isLoading = false;
+            }));
   }
 
   void loadList() {
@@ -161,13 +165,14 @@ class _MultiDeleteState extends State<MultiDelete> {
       imageFile = File(picture.path);
     });
     if (imageFile != null) {
-      Navigator.of(context).pushNamed(
-        RouteConstants.imageView,
-        arguments: {
-          'imageFile': imageFile,
-          'imageList': widget.imageList,
-        },
-      );
+      // Navigator.of(context).push(MaterialPageRoute(
+      //     builder: (context) => Imageview(imageFile, widget.imageList)));
+
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ImageMeasureHandle(
+                file: imageFile,
+                list: widget.imageList,
+              )));
     }
   }
 
@@ -181,13 +186,14 @@ class _MultiDeleteState extends State<MultiDelete> {
         .then((value) => print("Image Saved"));
 
     if (imageFile != null) {
-      Navigator.of(context).pushNamed(
-        RouteConstants.imageView,
-        arguments: {
-          'imageFile': imageFile,
-          'imageList': widget.imageList,
-        },
-      );
+      // Navigator.of(context).push(MaterialPageRoute(
+      //     builder: (context) => Imageview(imageFile, widget.imageList)));
+
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ImageMeasureHandle(
+                file: imageFile,
+                list: widget.imageList,
+              )));
     }
   }
 
@@ -239,33 +245,35 @@ class _MultiDeleteState extends State<MultiDelete> {
     return Scaffold(
         // backgroundColor: Colors.blueGrey[100],
         appBar: getAppBar(),
-        body: _isLoading ? const SpinKitRotatingCircle(
-  color: Colors.blue,
-) :  GridView.builder(
-            itemCount: itemList.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, crossAxisSpacing: 4, mainAxisSpacing: 4),
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Card(
-                  elevation: 10,
-                  child: GridItem(
-                      item: itemList[index],
-                      isSelected: (bool value) {
-                        setState(() {
-                          if (value) {
-                            selectedList.add(itemList[index]);
-                          } else {
-                            selectedList.remove(itemList[index]);
-                          }
-                        });
-                        print("$index : $value");
-                      },
-                      key: Key(itemList[index].rank.toString())),
-                ),
-              );
-            }),
+        body: _isLoading
+            ? const SpinKitRotatingCircle(
+                color: Colors.blue,
+              )
+            : GridView.builder(
+                itemCount: itemList.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, crossAxisSpacing: 4, mainAxisSpacing: 4),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Card(
+                      elevation: 10,
+                      child: GridItem(
+                          item: itemList[index],
+                          isSelected: (bool value) {
+                            setState(() {
+                              if (value) {
+                                selectedList.add(itemList[index]);
+                              } else {
+                                selectedList.remove(itemList[index]);
+                              }
+                            });
+                            print("$index : $value");
+                          },
+                          key: Key(itemList[index].rank.toString())),
+                    ),
+                  );
+                }),
         floatingActionButton: FloatingActionButton(
           // backgroundColor: Colors.blue[600],
           onPressed: () {},
