@@ -36,8 +36,6 @@ class _PDFConversion extends State<PDFConversion> {
     super.dispose();
   }
 
-  
-
   final pw.Document pdf = pw.Document();
   void writeOnPdf() {
     for (var i = 0; i < widget.list.imagelist.length; i++) {
@@ -91,7 +89,7 @@ class _PDFConversion extends State<PDFConversion> {
     }
   }
 
- @override
+  @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () {
@@ -107,7 +105,9 @@ class _PDFConversion extends State<PDFConversion> {
       appBar: AppBar(
         title: const Text(
           'Name Your PDF',
-          style: TextStyle(fontSize: 22),
+          style: TextStyle(
+            fontSize: 22,
+          ),
         ),
         actions: [
           GestureDetector(
@@ -127,41 +127,45 @@ class _PDFConversion extends State<PDFConversion> {
                 },
               );
             },
-            child: const Center(
-              child: Text(
-                "Choose Directory to save",
-                style: TextStyle(color: Colors.white),
-              ),
+            child: const Padding(
+              padding: EdgeInsets.only(left: 16, right: 16),
+              child: Icon(Icons.folder_open),
             ),
           ),
         ],
       ),
-      body:  _isLoading ?const SpinKitRotatingCircle(
-  color: Colors.blue,
-) :  Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextField(
-              controller: myController,
-              autofocus: true,
-              decoration: InputDecoration(
-                labelText: 'Pdf Name',
-                labelStyle: TextStyle(color: Colors.grey[500]),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  borderSide: BorderSide(width: 2, color: Colors.grey[500]),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(20)),
-                  borderSide: BorderSide(width: 2, color: Colors.grey[500]),
+      body: _isLoading
+          ? const SpinKitRotatingCircle(
+              color: Colors.blue,
+            )
+          : Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextField(
+                    controller: myController,
+                    autofocus: true,
+                    decoration: InputDecoration(
+                      labelText: 'Pdf Name',
+                      labelStyle: TextStyle(color: Colors.grey[500]),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                        borderSide:
+                            BorderSide(width: 2, color: Colors.grey[500]),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                        borderSide:
+                            BorderSide(width: 2, color: Colors.grey[500]),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // if (name == null) {
