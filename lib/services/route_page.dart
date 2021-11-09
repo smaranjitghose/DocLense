@@ -5,7 +5,7 @@ import 'package:folder_picker/folder_picker.dart';
 import 'package:image/image.dart' as image_lib;
 import 'package:doclense/about.dart';
 import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/filter_view.dart';
+
 import 'package:doclense/home.dart';
 import 'package:doclense/image_view.dart';
 import 'package:doclense/multi_select_delete.dart';
@@ -40,14 +40,7 @@ class RoutePage {
         return pageBuilder(
           screen: MultiDelete(args),
         );
-      case RouteConstants.filterImageScreen:
-        final args = settings.arguments as Map;
-        return pageBuilder(
-          screen: FilterImage(
-            args['file'] as File,
-            args['list'] as ImageList,
-          ),
-        );
+
       case RouteConstants.imageView:
         final args = settings.arguments as Map<String, Object>;
         return pageBuilder(
