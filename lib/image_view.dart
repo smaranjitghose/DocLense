@@ -62,11 +62,11 @@ class _ImageviewState extends State<Imageview> {
         // files.add(file);
 
         if (cropped != null) {
+          index++;
           files.add(cropped);
         } else {
-          files.add(file);
+          // files.add(file);
         }
-        index++;
       });
     }
   }
@@ -101,8 +101,8 @@ class _ImageviewState extends State<Imageview> {
 
   Future<void> getFilterImage(BuildContext context, Color appBarColor) async {
     File filterfile;
-    if (cropped != null) {
-      filterfile = cropped;
+    if (files.isNotEmpty) {
+      filterfile = files[index];
     } else {
       filterfile = widget.file;
     }
@@ -196,39 +196,46 @@ class _ImageviewState extends State<Imageview> {
                                 ],
                               ),
                             ),
-                            TextButton(
-                              onPressed: () {
-//                                  Navigator.of(context).pop();
-                                if (index == 0) {
-                                  print("no undo possible");
-                                  //implement disabled undo if no undo is possible
-                                } else {
-                                  setState(() {
-                                    index--;
-                                    files.removeLast();
-                                    print(widget.list.imagelist.length);
-                                    // widget.list.imagepath.removeLast();
-                                  });
-                                }
-                              },
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: const <Widget>[
-                                  Icon(
-                                    Icons.undo,
-                                    color: Colors.white,
-                                  ),
-                                  Text(
-                                    "Undo",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
+                            Opacity(
+                              opacity: index == 0 ? 0.5 : 1,
+                              child: TextButton(
+                                onPressed: () {
+                                  //Navigator.of(context).pop();
+                                  if (index == 0) {
+                                    print("no undo possible");
+                                    //implement disabled undo if no undo is possible
+                                  } else {
+                                    setState(() {
+                                      index--;
+                                      files.removeLast();
+                                      print(widget.list.imagelist.length);
+                                      // widget.list.imagepath.removeLast();
+                                    });
+                                  }
+                                },
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: const <Widget>[
+                                    Icon(
+                                      Icons.undo,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "Undo",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             TextButton(
                               onPressed: () {
-                                cropimage(widget.file, appBarColor, bgColor);
+                                if (files.isNotEmpty) {
+                                  cropimage(files[index], appBarColor, bgColor);
+                                } else {
+                                  cropimage(widget.file, appBarColor, bgColor);
+                                }
                               },
                               child: Column(
                                 mainAxisAlignment:
@@ -266,9 +273,9 @@ class _ImageviewState extends State<Imageview> {
                             ),
                             TextButton(
                               onPressed: () {
-                                if (cropped != null) {
-                                  widget.list.imagelist.add(cropped);
-                                  widget.list.imagepath.add(cropped.path);
+                                if (files.isNotEmpty) {
+                                  widget.list.imagelist.add(files[index]);
+                                  widget.list.imagepath.add(files[index].path);
                                 } else {
                                   widget.list.imagelist.add(widget.file);
                                   widget.list.imagepath.add(widget.file.path);
