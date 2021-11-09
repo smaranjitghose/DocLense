@@ -74,102 +74,108 @@ class _FilterimageState extends State<FilterImage> {
         themeChange.darkTheme ? Colors.black : Colors.blue[600];
     // TODO: implement build
     return Scaffold(
-      body: _isLoading ?const SpinKitRotatingCircle(
-  color: Colors.blue,
-) :  SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 7,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                child:
-                    // widget.file != null
-                    // ? Image.file(widget.file)
-                    imageFile != null
-                        ? Image.file(imageFile)
-                        : const Text("Image error"),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                height: 65,
-                color:
-                    themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const <Widget>[
-                            Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Back",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          getImage(context, appBarColor);
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const <Widget>[
-                            Icon(
-                              Icons.filter,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Filter",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          // widget.list.imagelist.add(widget.file);
-                          // widget.list.imagepath.add(widget.file.path);
-                          widget.list.imagelist.add(imageFile);
-                          widget.list.imagepath.add(imageFile.path);
-                          Navigator.of(context).pushNamed(
-                            RouteConstants.multiDelete,
-                            arguments: widget.list,
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const <Widget>[
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Next",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+      body: _isLoading
+          ? const SpinKitRotatingCircle(
+              color: Colors.blue,
+            )
+          : SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 7,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                      child:
+                          // widget.file != null
+                          // ? Image.file(widget.file)
+                          imageFile != null
+                              ? Image.file(imageFile)
+                              : const Text("Image error"),
+                    ),
                   ),
-                ),
+                  Expanded(
+                    child: Container(
+                      height: 65,
+                      color: themeChange.darkTheme
+                          ? Colors.black87
+                          : Colors.blue[600],
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "Back",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                getImage(context, appBarColor);
+                              },
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.filter,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "Filter",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                // widget.list.imagelist.add(widget.file);
+                                // widget.list.imagepath.add(widget.file.path);
+                                widget.list.imagelist.add(imageFile);
+                                widget.list.imagepath.add(imageFile.path);
+                                Navigator.of(context).pushNamed(
+                                  RouteConstants.multiDelete,
+                                  arguments: widget.list,
+                                );
+                              },
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "Next",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
