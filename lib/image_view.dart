@@ -5,11 +5,12 @@ import 'package:doclense/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:image/image.dart' as image_lib;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:path/path.dart';
 import 'package:photofilters/filters/preset_filters.dart';
 import 'package:provider/provider.dart';
-import 'package:image/image.dart' as image_lib;
+
 import 'providers/image_list.dart';
 import 'providers/theme_provider.dart';
 
@@ -310,14 +311,4 @@ class _ImageviewState extends State<Imageview> {
             ),
     );
   }
-
-  // void goToFilterImageScreen({File file, @required BuildContext context}) {
-  //   Navigator.of(context).pushNamed(
-  //     RouteConstants.filterImageScreen,
-  //     arguments: {
-  //       'file': file,
-  //       'list': widget.list,
-  //     },
-  //   );
-  // }
 }
