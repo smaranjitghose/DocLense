@@ -2,12 +2,10 @@ import 'dart:io';
 
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/grid_item.dart';
-import 'package:doclense/providers/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
 
 import 'providers/image_list.dart';
 
@@ -256,21 +254,20 @@ class _MultiDeleteState extends State<MultiDelete> {
                     padding: const EdgeInsets.all(15),
                     child: Card(
                       elevation: 10,
-                        child : GridItem(
-                                item: itemList[index],
-                                isSelected: (bool value) {
-                                  setState(() {
-                                    if (value) {
-                                      selectedList.add(itemList[index]);
-                                    } else {
-                                      selectedList.remove(itemList[index]);
-                                    }
-                                  });
-                                  print("$index : $value");
-                                },
-                                key: Key(itemList[index].rank.toString())),
-
-                        ),
+                      child: GridItem(
+                          item: itemList[index],
+                          isSelected: (bool value) {
+                            setState(() {
+                              if (value) {
+                                selectedList.add(itemList[index]);
+                              } else {
+                                selectedList.remove(itemList[index]);
+                              }
+                            });
+                            print("$index : $value");
+                          },
+                          key: Key(itemList[index].rank.toString())),
+                    ),
                   );
                 }),
         floatingActionButton: FloatingActionButton(

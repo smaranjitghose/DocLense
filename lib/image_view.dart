@@ -5,7 +5,10 @@ import 'package:doclense/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:image/image.dart' as image_lib;
 import 'package:image_cropper/image_cropper.dart';
+import 'package:path/path.dart';
+import 'package:photofilters/filters/preset_filters.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/image_list.dart';
@@ -14,7 +17,7 @@ import 'providers/theme_provider.dart';
 class Imageview extends StatefulWidget {
   final File file;
   final ImageList list;
-  
+
   const Imageview(
     this.file,
     this.list,
@@ -60,11 +63,11 @@ class _ImageviewState extends State<Imageview> {
         // files.add(file);
 
         if (cropped != null) {
+          index++;
           files.add(cropped);
         } else {
-          files.add(file);
+          // files.add(file);
         }
-        index++;
       });
     }
   }
@@ -97,6 +100,45 @@ class _ImageviewState extends State<Imageview> {
     );
   }
 
+  Future<void> getFilterImage(BuildContext context, Color appBarColor) async {
+    File filterfile;
+    if (files.isNotEmpty) {
+      filterfile = files[index];
+    } else {
+      filterfile = widget.file;
+    }
+
+//    imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    String fileName = basename(filterfile.path);
+    var image = image_lib.decodeImage(filterfile.readAsBytesSync());
+    image = image_lib.copyResize(image, width: 600);
+    final Map imagefile = await Navigator.of(context).pushNamed(
+      RouteConstants.photoFilterSelector,
+      arguments: {
+        'title': const Text("Apply Filter"),
+        'image': image,
+        'appBarColor': appBarColor,
+        'filters': presetFiltersList,
+        'fileName': fileName,
+        'loader': const Center(
+            child: CircularProgressIndicator(
+          backgroundColor: Colors.teal,
+          strokeWidth: 2,
+        )),
+        'fit': BoxFit.contain,
+      },
+    ) as Map;
+    if (imagefile != null && imagefile.containsKey('image_filtered')) {
+      setState(() {
+        // widget.file = imagefile['image_filtered'] as File;
+        files.add(imagefile['image_filtered'] as File);
+
+        index++;
+      });
+      print(filterfile.path);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -107,137 +149,166 @@ class _ImageviewState extends State<Imageview> {
 
     // TODO: implement build
     return Scaffold(
-      body:  _isLoading ?const SpinKitRotatingCircle(
-  color: Colors.blue,
-) : SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 7,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
-                child: Image.file(
-                  files[index],
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                height: 65,
-                color:
-                    themeChange.darkTheme ? Colors.black87 : Colors.blue[600],
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
+      body: _isLoading
+          ? const SpinKitRotatingCircle(
+              color: Colors.blue,
+            )
+          : SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 7,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                      child: Image.file(
+                        files[index],
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      height: 65,
+                      color: themeChange.darkTheme
+                          ? Colors.black87
+                          : Colors.blue[600],
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
 //                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
 //                                      builder: (context) => Home()));
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const <Widget>[
-                            Icon(
-                              Icons.arrow_back,
-                              color: Colors.white,
+                              },
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "Back",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              "Back",
-                              style: TextStyle(color: Colors.white),
+                            Opacity(
+                              opacity: index == 0 ? 0.5 : 1,
+                              child: TextButton(
+                                onPressed: () {
+                                  //Navigator.of(context).pop();
+                                  if (index == 0) {
+                                    print("no undo possible");
+                                    //implement disabled undo if no undo is possible
+                                  } else {
+                                    setState(() {
+                                      index--;
+                                      files.removeLast();
+                                      print(widget.list.imagelist.length);
+                                      // widget.list.imagepath.removeLast();
+                                    });
+                                  }
+                                },
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: const <Widget>[
+                                    Icon(
+                                      Icons.undo,
+                                      color: Colors.white,
+                                    ),
+                                    Text(
+                                      "Undo",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                if (files.isNotEmpty) {
+                                  cropimage(files[index], appBarColor, bgColor);
+                                } else {
+                                  cropimage(widget.file, appBarColor, bgColor);
+                                }
+                              },
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.crop_rotate,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "Crop",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                getFilterImage(context, appBarColor);
+                              },
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.filter,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "Filter",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                if (files.isNotEmpty) {
+                                  widget.list.imagelist.add(files[index]);
+                                  widget.list.imagepath.add(files[index].path);
+                                } else {
+                                  widget.list.imagelist.add(widget.file);
+                                  widget.list.imagepath.add(widget.file.path);
+                                }
+                                Navigator.of(context).pushNamed(
+                                  RouteConstants.multiDelete,
+                                  arguments: widget.list,
+                                );
+                              },
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.arrow_forward,
+                                    color: Colors.white,
+                                  ),
+                                  Text(
+                                    "Next",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
-                      TextButton(
-                        onPressed: () {
-//                                  Navigator.of(context).pop();
-                          if (index == 0) {
-                          } else {
-                            setState(() {
-                              index--;
-                              files.removeLast();
-                            });
-                          }
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const <Widget>[
-                            Icon(
-                              Icons.undo,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Undo",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          cropimage(widget.file, appBarColor, bgColor);
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const <Widget>[
-                            Icon(
-                              Icons.crop_rotate,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Crop",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          if (cropped != null) {
-                            goToFilterImageScreen(
-                              file: cropped,
-                            );
-                          } else {
-                            goToFilterImageScreen(
-                              file: widget.file,
-                            );
-                          }
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: const <Widget>[
-                            Icon(
-                              Icons.arrow_forward,
-                              color: Colors.white,
-                            ),
-                            Text(
-                              "Next",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void goToFilterImageScreen({File file}) {
-    Navigator.of(context).pushNamed(
-      RouteConstants.filterImageScreen,
-      arguments: {
-        'file': file,
-        'list': widget.list,
-      },
     );
   }
 }

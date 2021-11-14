@@ -1,18 +1,19 @@
 import 'dart:ui';
+
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/services/route_page.dart';
-import 'package:wiredash/wiredash.dart';
+import 'package:doclense/constants/theme_constants.dart';
 import 'package:doclense/home.dart';
 import 'package:doclense/models/preferences.dart';
-import 'package:flutter/material.dart';
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:hive/hive.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:introduction_screen/introduction_screen.dart';
 import 'package:doclense/providers/theme_provider.dart';
-import 'package:doclense/constants/theme_constants.dart';
-import 'package:provider/provider.dart';
+import 'package:doclense/services/route_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive/hive.dart';
+import 'package:introduction_screen/introduction_screen.dart';
 import 'package:path_provider/path_provider.dart' as path;
+import 'package:provider/provider.dart';
+import 'package:wiredash/wiredash.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
