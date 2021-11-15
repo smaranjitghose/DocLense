@@ -238,53 +238,67 @@ class _MultiDeleteState extends State<MultiDelete> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        // backgroundColor: Colors.blueGrey[100],
-        appBar: getAppBar(),
-        body: _isLoading
-            ? const SpinKitRotatingCircle(
-                color: Colors.blue,
-              )
-            : GridView.builder(
-                itemCount: itemList.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, crossAxisSpacing: 4, mainAxisSpacing: 4),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Card(
-                      elevation: 10,
-                      child: GridItem(
-                          item: itemList[index],
-                          isSelected: (bool value) {
-                            setState(() {
-                              if (value) {
-                                selectedList.add(itemList[index]);
-                              } else {
-                                selectedList.remove(itemList[index]);
-                              }
-                            });
-                            print("$index : $value");
-                          },
-                          key: Key(itemList[index].rank.toString())),
-                    ),
-                  );
-                }),
-        floatingActionButton: FloatingActionButton(
-          // backgroundColor: Colors.blue[600],
-          onPressed: () {},
-          child: IconButton(
-            iconSize: 40,
-            onPressed: () {
-              _showChoiceDialogAdd(context);
-            },
-            // color: Colors.blue[600],
-            icon: const Icon(
-              Icons.add,
-              // color: Colors.teal,
+    return WillPopScope(
+      onWillPop: () async {
+        if (itemList.isNotEmpty) {
+          setState(() {
+            widget.imageList.imagelist.removeAt(itemList.length - 1);
+            widget.imageList.imagepath.removeAt(itemList.length - 1);
+            itemList.removeAt(itemList.length - 1);
+          });
+        }
+        return true;
+      },
+      child: Scaffold(
+          // backgroundColor: Colors.blueGrey[100],
+          appBar: getAppBar(),
+          body: _isLoading
+              ? const SpinKitRotatingCircle(
+                  color: Colors.blue,
+                )
+              : GridView.builder(
+                  itemCount: itemList.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4,
+                      mainAxisSpacing: 4),
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Card(
+                        elevation: 10,
+                        child: GridItem(
+                            item: itemList[index],
+                            isSelected: (bool value) {
+                              setState(() {
+                                if (value) {
+                                  selectedList.add(itemList[index]);
+                                } else {
+                                  selectedList.remove(itemList[index]);
+                                }
+                              });
+                              print("$index : $value");
+                            },
+                            key: Key(itemList[index].rank.toString())),
+                      ),
+                    );
+                  }),
+          floatingActionButton: FloatingActionButton(
+            // backgroundColor: Colors.blue[600],
+            onPressed: () {},
+            child: IconButton(
+              iconSize: 40,
+              onPressed: () {
+                _showChoiceDialogAdd(context);
+              },
+              // color: Colors.blue[600],
+              icon: const Icon(
+                Icons.add,
+                // color: Colors.teal,
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
   AppBar getAppBar() {

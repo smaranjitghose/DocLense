@@ -139,6 +139,53 @@ class _ImageviewState extends State<Imageview> {
     }
   }
 
+  Future<void> _showChoiceDialogHome(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext ctx) {
+          return AlertDialog(
+            backgroundColor: Colors.blueGrey[800],
+            title: const Text(
+              "All your progress will be lost.\nDo you want to go back to home?",
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white),
+            ),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      widget.list.imagelist = [];
+                      widget.list.imagepath = [];
+
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                    },
+                    child: const Text(
+                      "Yes",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(10),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(ctx).pop();
+                    },
+                    child: const Text(
+                      "No",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final themeChange = Provider.of<DarkThemeProvider>(context);
@@ -178,7 +225,8 @@ class _ImageviewState extends State<Imageview> {
                           children: <Widget>[
                             TextButton(
                               onPressed: () {
-                                Navigator.of(context).pop();
+                                _showChoiceDialogHome(context);
+
 //                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
 //                                      builder: (context) => Home()));
                               },
