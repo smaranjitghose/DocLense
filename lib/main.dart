@@ -6,7 +6,7 @@ import 'package:doclense/constants/theme_constants.dart';
 import 'package:doclense/home.dart';
 import 'package:doclense/models/preferences.dart';
 import 'package:doclense/providers/theme_provider.dart';
-import 'package:doclense/services/route_page.dart';
+import 'package:doclense/services/route_page.dart' as route_page;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
@@ -208,7 +208,7 @@ class _MyAppState extends State<MyApp> {
                 splashTransition: SplashTransition.rotationTransition,
                 duration: 4000,
               ),
-              onGenerateRoute: RoutePage.generateRoute,
+              onGenerateRoute: route_page.generateRoute,
             ),
           ),
         );

@@ -109,7 +109,7 @@ class _ImageviewState extends State<Imageview> {
     }
 
 //    imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
-    String fileName = basename(filterfile.path);
+    final String fileName = basename(filterfile.path);
     var image = image_lib.decodeImage(filterfile.readAsBytesSync());
     image = image_lib.copyResize(image, width: 600);
     final Map imagefile = await Navigator.of(context).pushNamed(
