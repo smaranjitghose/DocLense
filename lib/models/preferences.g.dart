@@ -18,7 +18,7 @@ class UserPreferencesAdapter extends TypeAdapter<UserPreferences> {
     };
     return UserPreferences(
       firstTime: fields[0] as bool,
-      darkTheme: fields[1] as bool,
+      darkTheme: fields[1] as bool?,
     );
   }
 

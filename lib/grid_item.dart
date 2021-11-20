@@ -6,7 +6,8 @@ class GridItem extends StatefulWidget {
   final Item item;
   final ValueChanged<bool> isSelected;
 
-  const GridItem({Key key, this.item, this.isSelected}) : super(key: key);
+  const GridItem({Key? key, required this.item, required this.isSelected})
+      : super(key: key);
 
   @override
   _GridItemState createState() => _GridItemState();

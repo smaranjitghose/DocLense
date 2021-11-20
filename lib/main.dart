@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/constants/theme_constants.dart';
@@ -81,7 +80,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> getCurrentAppTheme() async {
     themeChangeProvider.darkTheme = await themeChangeProvider
         .darkThemePreference
-        .getSharedPreferenceValue("themeMode") as bool;
+        .getSharedPreferenceValue("themeMode");
   }
 
   // Checks if the user is opening the app for the first time.
@@ -103,7 +102,7 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(create: (_) {
       return themeChangeProvider;
     }, child: Consumer<DarkThemeProvider>(
-      builder: (BuildContext context, value, Widget child) {
+      builder: (BuildContext context, value, Widget? child) {
         return GestureDetector(
           child: Wiredash(
             theme: WiredashThemeData(
@@ -122,7 +121,7 @@ class _MyAppState extends State<MyApp> {
                   : lightTheme,
               home: AnimatedSplashScreen(
                 backgroundColor: themeChangeProvider.darkTheme
-                    ? Colors.grey[900]
+                    ? Colors.grey[900]!
                     : Colors.white,
                 splash: themeChangeProvider.darkTheme
                     ? Padding(

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/home.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,16 +29,15 @@ class Imageview extends StatefulWidget {
 }
 
 class _ImageviewState extends State<Imageview> {
-  File cropped;
+  File? cropped;
   bool _isLoading = true;
   List<File> files = [];
-  int index;
+  int index = 0;
 
   @override
   void initState() {
     super.initState();
     files.add(widget.file);
-    index = 0;
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isLoading = false;
@@ -46,7 +46,7 @@ class _ImageviewState extends State<Imageview> {
   }
 
   Future<void> cropimage(File file, Color appBarColor, Color bgColor) async {
-    if (file != null) {
+    if (await file.exists()) {
       cropped = await ImageCropper.cropImage(
         sourcePath: file.path,
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
@@ -64,7 +64,7 @@ class _ImageviewState extends State<Imageview> {
 
         if (cropped != null) {
           index++;
-          files.add(cropped);
+          files.add(cropped!);
         } else {
           // files.add(file);
         }
@@ -111,8 +111,8 @@ class _ImageviewState extends State<Imageview> {
 //    imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     final String fileName = basename(filterfile.path);
     var image = image_lib.decodeImage(filterfile.readAsBytesSync());
-    image = image_lib.copyResize(image, width: 600);
-    final Map imagefile = await Navigator.of(context).pushNamed(
+    image = image_lib.copyResize(image!, width: 600);
+    final Map? imagefile = await Navigator.of(context).pushNamed(
       RouteConstants.photoFilterSelector,
       arguments: {
         'title': const Text("Apply Filter"),
@@ -191,7 +191,7 @@ class _ImageviewState extends State<Imageview> {
     final themeChange = Provider.of<DarkThemeProvider>(context);
 
     final Color appBarColor =
-        themeChange.darkTheme ? Colors.black : Colors.blue[600];
+        themeChange.darkTheme ? Colors.black : Colors.blue[600]!;
     final Color bgColor = themeChange.darkTheme ? Colors.black54 : Colors.white;
 
     // TODO: implement build

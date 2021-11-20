@@ -61,7 +61,7 @@ class _StarredState extends State<Starred> {
             )
           : DoubleBackToCloseApp(
               snackBar: doubleBackToCloseSnackBar(),
-              child: ValueListenableBuilder(
+              child: ValueListenableBuilder<Box>(
                 valueListenable: Hive.box('starred').listenable(),
                 builder: (context, starredBox, widget) {
                   if (starredBox.getAt(0).length == 0) {

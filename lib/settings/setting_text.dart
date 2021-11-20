@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SettingText extends StatelessWidget {
-  const SettingText({@required this.text});
+  const SettingText({required this.text});
   final String text;
   @override
   Widget build(BuildContext context) {

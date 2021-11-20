@@ -106,21 +106,21 @@ class MainDrawer extends StatelessWidget {
                     barrierDismissible: true,
                     builder: (BuildContext context) {
                       return RatingDialog(
-                        accentColor:
-                            themeChange.darkTheme ? Colors.white : Colors.blue,
-                        icon: Padding(
+                        // accentColor:
+                        //     themeChange.darkTheme ? Colors.white : Colors.blue,
+                        image: Padding(
                           padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
                           child: themeChange.darkTheme
                               ? SvgPicture.asset('assets/doclensewhite.svg')
                               : SvgPicture.asset(
                                   'assets/images/doclenselight.svg'),
                         ),
-                        title: "How was your experience?",
-                        description: "Let us know what you think",
-                        onSubmitPressed: (int starRating) {
+                        title: Text("How was your experience?"),
+                        onSubmitted: (RatingDialogResponse) {
                           _launchURL();
                         },
-                        submitButton: "Submit",
+                        submitButtonText: "Submit",
+                        message: Text("Let us know what you think"),
                       );
                     });
               },

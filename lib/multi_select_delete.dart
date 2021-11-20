@@ -19,9 +19,9 @@ class MultiDelete extends StatefulWidget {
 }
 
 class _MultiDeleteState extends State<MultiDelete> {
-  List<Item> itemList;
-  List<Item> selectedList;
-  File imageFile;
+  List<Item>? itemList;
+  List<Item>? selectedList;
+  File? imageFile;
   final picker = ImagePicker();
 
   bool _isLoading = true;
@@ -41,7 +41,7 @@ class _MultiDeleteState extends State<MultiDelete> {
     itemList = [];
     selectedList = [];
     for (int i = 0; i < (widget.imageList.length()); i++) {
-      itemList.add(Item(widget.imageList.imagelist.elementAt(i), i));
+      itemList?.add(Item(widget.imageList.imagelist.elementAt(i), i));
     }
   }
 
@@ -61,13 +61,13 @@ class _MultiDeleteState extends State<MultiDelete> {
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        for (int i = 0; i < selectedList.length; i++) {
+                        for (int i = 0; i < selectedList!.length; i++) {
                           final int idx = widget.imageList.imagelist.indexOf(
-                              itemList[itemList.indexOf(selectedList[i])]
+                              itemList![itemList!.indexOf(selectedList![i])]
                                   .imageUrl);
                           widget.imageList.imagelist.removeAt(idx);
                           widget.imageList.imagepath.removeAt(idx);
-                          itemList.remove(selectedList[i]);
+                          itemList!.remove(selectedList![i]);
                         }
                         selectedList = [];
                       });
@@ -118,15 +118,16 @@ class _MultiDeleteState extends State<MultiDelete> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      for (int i = 0; i < itemList.length; i++) {
+                      for (int i = 0; i < itemList!.length; i++) {
                         print('i = $i');
                         print(widget.imageList.imagelist.length);
                         final int idx = widget.imageList.imagelist.indexOf(
-                            itemList[itemList.indexOf(itemList[i])].imageUrl);
+                            itemList![itemList!.indexOf(itemList![i])]
+                                .imageUrl);
                         widget.imageList.imagelist.removeAt(idx);
                         widget.imageList.imagepath.removeAt(idx);
                         // itemList.remove(idx);
-                        itemList.removeAt(idx);
+                        itemList!.removeAt(idx);
                       }
 
                       Navigator.of(context).popUntil((route) => route.isFirst);
@@ -158,9 +159,9 @@ class _MultiDeleteState extends State<MultiDelete> {
   }
 
   Future<void> _openGallery() async {
-    final picture = await picker.getImage(source: ImageSource.gallery);
+    XFile? picture = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
-      imageFile = File(picture.path);
+      if (picture != null) imageFile = File(picture.path);
     });
     if (imageFile != null) {
       Navigator.of(context).pushNamed(
@@ -174,15 +175,14 @@ class _MultiDeleteState extends State<MultiDelete> {
   }
 
   Future<void> _openCamera() async {
-    final picture = await picker.getImage(source: ImageSource.camera);
+    XFile? picture = await picker.pickImage(source: ImageSource.camera);
     setState(() {
-      imageFile = File(picture.path);
+      if (picture != null) imageFile = File(picture.path);
     });
 
-    GallerySaver.saveImage(imageFile.path)
-        .then((value) => print("Image Saved"));
-
     if (imageFile != null) {
+      GallerySaver.saveImage(imageFile!.path)
+          .then((value) => print("Image Saved"));
       Navigator.of(context).pushNamed(
         RouteConstants.imageView,
         arguments: {
@@ -240,11 +240,11 @@ class _MultiDeleteState extends State<MultiDelete> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        if (itemList.isNotEmpty) {
+        if (itemList!.isNotEmpty) {
           setState(() {
-            widget.imageList.imagelist.removeAt(itemList.length - 1);
-            widget.imageList.imagepath.removeAt(itemList.length - 1);
-            itemList.removeAt(itemList.length - 1);
+            widget.imageList.imagelist.removeAt(itemList!.length - 1);
+            widget.imageList.imagepath.removeAt(itemList!.length - 1);
+            itemList!.removeAt(itemList!.length - 1);
           });
         }
         return true;
@@ -257,7 +257,7 @@ class _MultiDeleteState extends State<MultiDelete> {
                   color: Colors.blue,
                 )
               : GridView.builder(
-                  itemCount: itemList.length,
+                  itemCount: itemList!.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 4,
@@ -268,18 +268,18 @@ class _MultiDeleteState extends State<MultiDelete> {
                       child: Card(
                         elevation: 10,
                         child: GridItem(
-                            item: itemList[index],
+                            item: itemList![index],
                             isSelected: (bool value) {
                               setState(() {
                                 if (value) {
-                                  selectedList.add(itemList[index]);
+                                  selectedList!.add(itemList![index]);
                                 } else {
-                                  selectedList.remove(itemList[index]);
+                                  selectedList!.remove(itemList![index]);
                                 }
                               });
                               print("$index : $value");
                             },
-                            key: Key(itemList[index].rank.toString())),
+                            key: Key(itemList![index].rank.toString())),
                       ),
                     );
                   }),
@@ -305,22 +305,22 @@ class _MultiDeleteState extends State<MultiDelete> {
     return AppBar(
       leading: IconButton(
         onPressed: () {
-          if (itemList.isNotEmpty) {
+          if (itemList!.isNotEmpty) {
             setState(() {
-              widget.imageList.imagelist.removeAt(itemList.length - 1);
-              widget.imageList.imagepath.removeAt(itemList.length - 1);
-              itemList.removeAt(itemList.length - 1);
+              widget.imageList.imagelist.removeAt(itemList!.length - 1);
+              widget.imageList.imagepath.removeAt(itemList!.length - 1);
+              itemList!.removeAt(itemList!.length - 1);
             });
           }
           Navigator.of(context).pop();
         },
         icon: const Icon(Icons.arrow_back),
       ),
-      title: Text(selectedList.isEmpty
+      title: Text(selectedList!.isEmpty
           ? "Documents"
-          : "${selectedList.length} item selected"),
+          : "${selectedList!.length} item selected"),
       actions: <Widget>[
-        if (selectedList.isEmpty)
+        if (selectedList!.isEmpty)
           Container()
         else
           InkWell(
