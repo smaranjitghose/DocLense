@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/providers/image_list.dart';
-import 'package:doclense/utils/image_converter.dart';
+import 'package:doclense/utils/image_converter.dart' as image_converter;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -75,8 +75,8 @@ class _PDFConversion extends State<PDFConversion> {
     final List<dynamic> files = Hive.box('pdfs').getAt(0) as List<dynamic>;
     final now = DateTime.now();
     final String formatter = DateFormat('yMd').format(now);
-    final String previewImage = ImageConverter.base64StringFromImage(
-        widget.list.imagelist[0].readAsBytesSync());
+    final String previewImage = image_converter
+        .base64StringFromImage(widget.list.imagelist[0].readAsBytesSync());
     files.add([filePath, formatter, previewImage]);
     Hive.box('pdfs').putAt(0, files);
     print("PDFS : ${Hive.box('pdfs').getAt(0)}");
