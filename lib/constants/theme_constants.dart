@@ -62,7 +62,7 @@ final lightTheme = ThemeData(
         color: AppTheme.primaryColor,
       ),
       titleTextStyle: const TextStyle(
-        color: Colors.white,
+        color: AppTheme.primaryColor,
         // fontFamily: 'Nunito',
         fontSize: 22.0,
         fontWeight: FontWeight.w700,
