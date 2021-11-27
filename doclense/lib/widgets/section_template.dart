@@ -1,0 +1,89 @@
+import 'package:flutter/material.dart';
+
+class SectionTemplate extends StatelessWidget {
+  final Color color;
+  final String titlePartOne;
+  final String titlePartTwo;
+  final Color titleOneColor;
+  final Color titleTwoColor;
+  final String bodyText;
+  final String image;
+  const SectionTemplate({
+    Key? key, required this.color,
+    required this.bodyText,
+    required this.titleOneColor,
+    required this.titleTwoColor,
+    required this.image,
+    required this.titlePartOne,
+    required this.titlePartTwo
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      color: color,
+      child: Row(
+        children: [
+          Image.asset(image,),
+          Container(
+            margin: const EdgeInsets.only(top: 200),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  child: RichText(
+                    maxLines: 4,
+                    text: TextSpan(
+                        text: titlePartOne,
+                        style: TextStyle(
+                            fontSize: 100,
+                            color: titleOneColor,
+                            shadows: const [
+                              Shadow(
+                                blurRadius: 6.0,
+                                color: Color(0xff787878),
+                                offset: Offset(5.0, 3.0),
+                              ),
+                            ]
+                        ),
+                        children: [
+                          TextSpan(
+                            text: titlePartTwo,
+                            style: TextStyle(
+                                fontSize: 100,
+                                color: titleTwoColor,
+                                shadows: const [
+                                  Shadow(
+                                    blurRadius: 6.0,
+                                    color: Color(0xff787878),
+                                    offset: Offset(5.0, 3.0),
+                                  ),
+                                ]
+                            ),
+
+                          ),
+                        ]
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 46),
+                  width: MediaQuery.of(context).size.width * 0.28,
+                  child: SelectableText(
+                      bodyText,
+                    style: const TextStyle(
+                      fontSize: 34,
+                      color: Color(0xff080F35)
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

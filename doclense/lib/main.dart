@@ -1,28 +1,25 @@
+import 'package:doclense/screens/landing_page.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(App());
+void main() => runApp(const App());
 
 class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(routes: {
-      '/': (context) => AppScreen(),
-    });
+    return MaterialApp(
+        routes: {
+      '/': (context) => const AppScreen(),
+    },
+    );
   }
 }
 
 class AppScreen extends StatelessWidget {
+  const AppScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue,
-      body: Center(
-        child: Text("Doclense",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 42.0,
-            )),
-      ),
-    );
+    return  LandingPage();
   }
 }
