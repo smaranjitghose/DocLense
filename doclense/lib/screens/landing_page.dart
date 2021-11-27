@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class LandingPage extends StatelessWidget {
    LandingPage({Key? key}) : super(key: key);
   List<Widget> pageSections = [
-    const  IntroductionSection(),
+    const IntroductionSection(),
     const SectionTemplate(
       color: Color(0xffF1EADC),
       bodyText: 'Scan a variety of documents!',
@@ -59,7 +59,7 @@ class LandingPage extends StatelessWidget {
           SliverList(
               delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) => pageSections[index],
-                childCount: 7
+                childCount: pageSections.length
               )
           )
         ],

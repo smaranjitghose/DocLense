@@ -18,7 +18,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       // snap: true,
       // stretch: true,
       title: Container(
-        margin:  EdgeInsets.fromLTRB(MediaQuery.of(context).size.width * 0.1445, 15, 0, 15),
+        margin:  EdgeInsets.fromLTRB(MediaQuery.of(context).size.width <= 1024 ?  10 :  MediaQuery.of(context).size.width * 0.1445, 15, 0, 15),
         child: InkWell(
           child: Image.asset('assets/images/big_logo_white.png', scale: 12,),
           onTap: (){
@@ -46,7 +46,7 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           ),
         ),
         Container(
-          margin:  EdgeInsets.fromLTRB(15, 15, MediaQuery.of(context).size.width * 0.1445, 15),
+          margin:  EdgeInsets.fromLTRB(15, 15, MediaQuery.of(context).size.width <= 1024 ?  10 :  MediaQuery.of(context).size.width * 0.1445, 15),
           child: InkWell(
             overlayColor: MaterialStateProperty.all(Colors.white10),
             onTap: (){

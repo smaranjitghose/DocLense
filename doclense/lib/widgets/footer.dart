@@ -11,7 +11,7 @@ class Footer extends StatelessWidget {
       child: Container(
         height: 100,
         color: const Color(0xff1E243C),
-        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1445),
+        padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width <= 375 ? 0 : MediaQuery.of(context).size.width * 0.1445),
         child: Row(
           children: [
             Image.asset('assets/images/logo_white.png' , scale: 3,),

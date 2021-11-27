@@ -121,13 +121,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
-  responsive_framework:
+  responsive_builder:
     dependency: "direct main"
     description:
-      name: responsive_framework
+      name: responsive_builder
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.5"
+    version: "0.4.1"
   sky_engine:
     dependency: transitive
     description: flutter
