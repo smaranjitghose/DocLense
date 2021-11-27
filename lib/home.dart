@@ -4,12 +4,10 @@ import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/main_drawer.dart';
 import 'package:doclense/providers/image_list.dart';
 import 'package:doclense/providers/theme_provider.dart';
-import 'package:doclense/services/search_service.dart';
 import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
 import 'package:doclense/utils/image_converter.dart' as image_converter;
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-import 'package:filesystem_picker/filesystem_picker.dart';
-// import 'package:ext_storage/ext_storage.dart';
+import 'package:easy_folder_picker/FolderPicker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -206,7 +204,7 @@ class _HomeState extends State<Home> {
                           image_converter.base64StringToImage(
                               pdfsBox.getAt(0)[index][2] as String);
                       return GestureDetector(
-                        onTap: () {
+                        onTap: () async {
                           OpenFile.open(pdfsBox.getAt(0)[index][0] as String);
                         },
                         child: Padding(
@@ -623,14 +621,22 @@ class _HomeState extends State<Home> {
                                                 final Directory directory =
                                                     Directory(path);
 
-                                                String? folderPath =
-                                                    await FilesystemPicker.open(
+                                                Directory? folderDir =
+                                                    await FolderPicker.pick(
+                                                        allowFolderCreation:
+                                                            true,
                                                         context: context,
                                                         rootDirectory:
-                                                            directory);
-                                                if (folderPath != null) {
+                                                            directory,
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius.all(
+                                                                    Radius.circular(
+                                                                        10))));
+
+                                                if (folderDir != null) {
                                                   newPath =
-                                                      '${folderPath}/${(pdfsBox.getAt(0)[index][0] as String).split('/').last}';
+                                                      '${folderDir.path}/${(pdfsBox.getAt(0)[index][0] as String).split('/').last}';
                                                   print(newPath);
                                                   if (newPath != null) {
                                                     final List<dynamic>

@@ -141,7 +141,6 @@ class MainDrawer extends StatelessWidget {
             //   onTap: () {
             //     Navigator.of(context).pop();
             //     Share.share('Share my PDF');
-            //     //TODO: add pdf file that is to be shared
             //   },
             //   leading: Icon(Icons.share),
             //   title: Text(

@@ -71,10 +71,11 @@ Route generateRoute(RouteSettings settings) {
         screen: PDFConversion(args),
       );
     case RouteConstants.pdfPreviewScreen:
-      final args = settings.arguments as String;
+      final args = settings.arguments as Map<String, Object>;
       return pageBuilder(
         screen: PdfPreviewScreen(
-          path: args,
+          path: args['path'] as String,
+          name: args['name'] as String,
         ),
       );
     // case RouteConstants.folderPickerPage:

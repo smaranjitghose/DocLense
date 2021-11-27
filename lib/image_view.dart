@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:camera/camera.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/home.dart';
 import 'package:flutter/cupertino.dart';
@@ -194,7 +193,6 @@ class _ImageviewState extends State<Imageview> {
         themeChange.darkTheme ? Colors.black : Colors.blue[600]!;
     final Color bgColor = themeChange.darkTheme ? Colors.black54 : Colors.white;
 
-    // TODO: implement build
     return Scaffold(
       body: _isLoading
           ? const SpinKitRotatingCircle(

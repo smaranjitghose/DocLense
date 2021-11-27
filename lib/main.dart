@@ -70,7 +70,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     Hive.box('preferences').close();
     Hive.box('pdfs').close();
     Hive.close();
@@ -141,6 +140,8 @@ class _MyAppState extends State<MyApp> {
                           return Home();
                         } else {
                           return IntroductionScreen(
+                            // next: ,
+                            showNextButton: true,
                             pages: [
                               PageViewModel(
                                   title: "",
@@ -187,14 +188,18 @@ class _MyAppState extends State<MyApp> {
                             },
                             showSkipButton: true,
                             skip: const Text("Skip"),
+                            skipColor: Colors.black,
                             onSkip: () {
                               setFirstTime();
                               Navigator.of(context).pushReplacementNamed(
                                 RouteConstants.homeScreen,
                               );
                             },
+                            next: const Text("Next"),
+                            nextColor: Colors.black,
                             done: const Text('Done',
                                 style: TextStyle(fontWeight: FontWeight.w600)),
+                            doneColor: Colors.black,
                           );
                         }
                       } else {

@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/providers/image_list.dart';
 import 'package:doclense/utils/image_converter.dart' as image_converter;
+import 'package:easy_folder_picker/FolderPicker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
@@ -122,18 +122,33 @@ class _PDFConversion extends State<PDFConversion> {
               await getPermissions();
               await getStorage();
               print("External : $externalDirectory");
-              Navigator.of(context).pushNamed(
-                RouteConstants.folderPickerPage,
-                arguments: {
-                  'rootDirectory': externalDirectory,
-                  'action': (BuildContext context, Directory folder) async {
-                    print("Picked directory $folder");
-                    setState(() => pickedDirectory = folder);
-                    Navigator.of(context).pop();
-                  }
-                },
-              );
-            },
+              // await FilesystemPicker.open(
+              //         context: context, rootDirectory: externalDirectory!)
+              //     .then((folderPath) {
+              //   if (folderPath != null)
+              //     setState(() => pickedDirectory = Directory(folderPath));
+              // });
+              Directory? folderDir = await FolderPicker.pick(
+                  allowFolderCreation: true,
+                  context: context,
+                  rootDirectory: externalDirectory!,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))));
+              if (folderDir != null)
+                setState(() => pickedDirectory = folderDir);
+            }
+            // Navigator.of(context).pushNamed(
+            //   RouteConstants.folderPickerPage,
+            //   arguments: {
+            //     'rootDirectory': externalDirectory,
+            //     'action': (BuildContext context, Directory folder) async {
+            //       print("Picked directory $folder");
+            //       setState(() => pickedDirectory = folder);
+            //       Navigator.of(context).pop();
+            //     }
+            //   },
+            // );
+            ,
             child: const Padding(
               padding: EdgeInsets.only(left: 16, right: 16),
               child: Icon(Icons.folder_open),
@@ -231,7 +246,10 @@ class _PDFConversion extends State<PDFConversion> {
 
     Navigator.of(context).pushNamed(
       RouteConstants.pdfPreviewScreen,
-      arguments: fullPath,
+      arguments: {
+        'path': fullPath,
+        'name': name ?? "Pdf Preview",
+      },
     );
   }
 }
