@@ -34,7 +34,6 @@ class SectionTemplate extends StatelessWidget {
               minHeight: MediaQuery.of(context).size.height,
             ),
             child: Container(
-              // height: MediaQuery.of(context).size.height,
               color: color,
               child: Row(
                 children: [
