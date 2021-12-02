@@ -12,7 +12,7 @@ import 'package:doclense/settings/contact_developers.dart';
 import 'package:doclense/settings/settings.dart';
 import 'package:doclense/starred_documents.dart';
 import 'package:flutter/material.dart';
-import 'package:folder_picker/folder_picker.dart';
+// import 'package:folder_picker/folder_picker.dart';
 import 'package:image/image.dart' as image_lib;
 import 'package:photofilters/photofilters.dart';
 
@@ -41,7 +41,7 @@ Route generateRoute(RouteSettings settings) {
       );
 
     case RouteConstants.imageView:
-      final args = settings.arguments as Map<String, Object>;
+      final args = settings.arguments as Map;
       return pageBuilder(
         screen: Imageview(
           args['imageFile'] as File,
@@ -71,21 +71,22 @@ Route generateRoute(RouteSettings settings) {
         screen: PDFConversion(args),
       );
     case RouteConstants.pdfPreviewScreen:
-      final args = settings.arguments as String;
+      final args = settings.arguments as Map<String, Object>;
       return pageBuilder(
         screen: PdfPreviewScreen(
-          path: args,
+          path: args['path'] as String,
+          name: args['name'] as String,
         ),
       );
-    case RouteConstants.folderPickerPage:
-      final args = settings.arguments as Map;
-      return pageBuilder(
-        screen: FolderPickerPage(
-          action:
-              args['action'] as Future<void> Function(BuildContext, Directory),
-          rootDirectory: args['rootDirectory'] as Directory,
-        ),
-      );
+    // case RouteConstants.folderPickerPage:
+    //   final args = settings.arguments as Map;
+    //   return pageBuilder(
+    //     screen: FolderPickerPage(
+    //       action:
+    //           args['action'] as Future<void> Function(BuildContext, Directory),
+    //       rootDirectory: args['rootDirectory'] as Directory,
+    //     ),
+    //   );
     default:
       return pageBuilder(
         screen: const Text(
@@ -97,7 +98,7 @@ Route generateRoute(RouteSettings settings) {
 }
 
 PageRouteBuilder pageBuilder({
-  Widget screen,
+  required Widget screen,
 }) {
   return PageRouteBuilder(
     pageBuilder: (c, a1, a2) => screen,

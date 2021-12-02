@@ -3,12 +3,11 @@ part 'preferences.g.dart';
 
 @HiveType(typeId: 0)
 class UserPreferences {
-
   @HiveField(0)
   bool firstTime;
 
   @HiveField(1)
-  bool darkTheme;
+  bool? darkTheme;
 
-  UserPreferences({this.firstTime,this.darkTheme});
+  UserPreferences({required this.firstTime, this.darkTheme});
 }

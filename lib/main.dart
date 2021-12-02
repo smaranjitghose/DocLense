@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/constants/theme_constants.dart';
@@ -71,7 +70,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     Hive.box('preferences').close();
     Hive.box('pdfs').close();
     Hive.close();
@@ -81,7 +79,7 @@ class _MyAppState extends State<MyApp> {
   Future<void> getCurrentAppTheme() async {
     themeChangeProvider.darkTheme = await themeChangeProvider
         .darkThemePreference
-        .getSharedPreferenceValue("themeMode") as bool;
+        .getSharedPreferenceValue("themeMode");
   }
 
   // Checks if the user is opening the app for the first time.
@@ -103,7 +101,7 @@ class _MyAppState extends State<MyApp> {
     return ChangeNotifierProvider(create: (_) {
       return themeChangeProvider;
     }, child: Consumer<DarkThemeProvider>(
-      builder: (BuildContext context, value, Widget child) {
+      builder: (BuildContext context, value, Widget? child) {
         return GestureDetector(
           child: Wiredash(
             theme: WiredashThemeData(
@@ -122,7 +120,7 @@ class _MyAppState extends State<MyApp> {
                   : lightTheme,
               home: AnimatedSplashScreen(
                 backgroundColor: themeChangeProvider.darkTheme
-                    ? Colors.grey[900]
+                    ? Colors.grey[900]!
                     : Colors.white,
                 splash: themeChangeProvider.darkTheme
                     ? Padding(
@@ -142,6 +140,8 @@ class _MyAppState extends State<MyApp> {
                           return Home();
                         } else {
                           return IntroductionScreen(
+                            // next: ,
+                            showNextButton: true,
                             pages: [
                               PageViewModel(
                                   title: "",
@@ -188,14 +188,18 @@ class _MyAppState extends State<MyApp> {
                             },
                             showSkipButton: true,
                             skip: const Text("Skip"),
+                            skipColor: Colors.black,
                             onSkip: () {
                               setFirstTime();
                               Navigator.of(context).pushReplacementNamed(
                                 RouteConstants.homeScreen,
                               );
                             },
+                            next: const Text("Next"),
+                            nextColor: Colors.black,
                             done: const Text('Done',
                                 style: TextStyle(fontWeight: FontWeight.w600)),
+                            doneColor: Colors.black,
                           );
                         }
                       } else {

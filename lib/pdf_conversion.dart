@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/providers/image_list.dart';
 import 'package:doclense/utils/image_converter.dart' as image_converter;
+import 'package:easy_folder_picker/FolderPicker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -12,7 +13,7 @@ import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:permission/permission.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PDFConversion extends StatefulWidget {
   final ImageList list;
@@ -23,10 +24,10 @@ class PDFConversion extends StatefulWidget {
 
 class _PDFConversion extends State<PDFConversion> {
   //DocumentObject document;
-  String name;
+  String? name;
   final myController = TextEditingController();
-  Directory externalDirectory;
-  Directory pickedDirectory;
+  Directory? externalDirectory;
+  Directory? pickedDirectory;
   bool _isLoading = true;
 
   @override
@@ -39,10 +40,10 @@ class _PDFConversion extends State<PDFConversion> {
   final pw.Document pdf = pw.Document();
   void writeOnPdf() {
     for (var i = 0; i < widget.list.imagelist.length; i++) {
-      final image = PdfImage.file(
-        pdf.document,
-        bytes: File(widget.list.imagepath[i]).readAsBytesSync(),
-      );
+      // PdfImage image = PdfImage.file(
+      //   pdf.document,
+      //   bytes: File(widget.list.imagepath[i]).readAsBytesSync(),
+      // );
       pdf.addPage(pw.Page(
           pageFormat: PdfPageFormat.a4.copyWith(
             marginTop: 0,
@@ -52,22 +53,28 @@ class _PDFConversion extends State<PDFConversion> {
           ),
           build: (pw.Context context) {
             // ignore: deprecated_member_use
-            return pw.Center(child: pw.Image(image));
+            return pw.Expanded(
+                // change this line to this:
+                child: pw.Image(
+                    pw.MemoryImage(
+                        File(widget.list.imagepath[i]).readAsBytesSync()),
+                    fit: pw.BoxFit.contain));
           }));
     }
   }
 
-  Future savePdf() async {
-    //Get external storage directory
-    final Directory directory = await getExternalStorageDirectory();
+  Future<void> savePdf() async {
+    // Get external storage directory
+    final Directory? directory = await getExternalStorageDirectory();
     //Get directory path
-    final String path = directory.path;
+    final String? path = directory?.path;
+    if (path == null) return;
     //Create an empty file to write PDF data
     final String filePath = '$path/$name.pdf';
     final File file = File(filePath);
     //Write PDF data
     //await file.writeAsBytes(bytes, flush: true);
-    file.writeAsBytesSync(pdf.save());
+    file.writeAsBytesSync(await pdf.save());
     //document.pdfPath = path;
     //Open the PDF document in mobile
     OpenFile.open(filePath);
@@ -115,18 +122,33 @@ class _PDFConversion extends State<PDFConversion> {
               await getPermissions();
               await getStorage();
               print("External : $externalDirectory");
-              Navigator.of(context).pushNamed(
-                RouteConstants.folderPickerPage,
-                arguments: {
-                  'rootDirectory': externalDirectory,
-                  'action': (BuildContext context, Directory folder) async {
-                    print("Picked directory $folder");
-                    setState(() => pickedDirectory = folder);
-                    Navigator.of(context).pop();
-                  }
-                },
-              );
-            },
+              // await FilesystemPicker.open(
+              //         context: context, rootDirectory: externalDirectory!)
+              //     .then((folderPath) {
+              //   if (folderPath != null)
+              //     setState(() => pickedDirectory = Directory(folderPath));
+              // });
+              Directory? folderDir = await FolderPicker.pick(
+                  allowFolderCreation: true,
+                  context: context,
+                  rootDirectory: externalDirectory!,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))));
+              if (folderDir != null)
+                setState(() => pickedDirectory = folderDir);
+            }
+            // Navigator.of(context).pushNamed(
+            //   RouteConstants.folderPickerPage,
+            //   arguments: {
+            //     'rootDirectory': externalDirectory,
+            //     'action': (BuildContext context, Directory folder) async {
+            //       print("Picked directory $folder");
+            //       setState(() => pickedDirectory = folder);
+            //       Navigator.of(context).pop();
+            //     }
+            //   },
+            // );
+            ,
             child: const Padding(
               padding: EdgeInsets.only(left: 16, right: 16),
               child: Icon(Icons.folder_open),
@@ -153,13 +175,13 @@ class _PDFConversion extends State<PDFConversion> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
                         borderSide:
-                            BorderSide(width: 2, color: Colors.grey[500]),
+                            BorderSide(width: 2, color: Colors.grey[500]!),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius:
                             const BorderRadius.all(Radius.circular(20)),
                         borderSide:
-                            BorderSide(width: 2, color: Colors.grey[500]),
+                            BorderSide(width: 2, color: Colors.grey[500]!),
                       ),
                     ),
                   ),
@@ -185,20 +207,19 @@ class _PDFConversion extends State<PDFConversion> {
   }
 
   Future<void> getPermissions() async {
-    final permissions =
-        await Permission.getPermissionsStatus([PermissionName.Storage]);
+    PermissionStatus permissions = await Permission.storage.status;
     var request = true;
-    switch (permissions[0].permissionStatus) {
-      case PermissionStatus.allow:
+    switch (permissions) {
+      case PermissionStatus.granted:
         request = false;
         break;
-      case PermissionStatus.always:
-        request = false;
-        break;
+      // case PermissionStatus.always:
+      //   request = false;
+      //   break;
       default:
     }
     if (request) {
-      await Permission.requestPermissions([PermissionName.Storage]);
+      await Permission.storage.request();
     }
   }
 
@@ -216,7 +237,7 @@ class _PDFConversion extends State<PDFConversion> {
     //Documents.add(document);
     Directory documentDirectory = await getApplicationDocumentsDirectory();
 
-    if (pickedDirectory != null) documentDirectory = pickedDirectory;
+    if (pickedDirectory != null) documentDirectory = pickedDirectory!;
 
     final String documentPath = documentDirectory.path;
     //document.documentPath = documentPath;
@@ -225,7 +246,10 @@ class _PDFConversion extends State<PDFConversion> {
 
     Navigator.of(context).pushNamed(
       RouteConstants.pdfPreviewScreen,
-      arguments: fullPath,
+      arguments: {
+        'path': fullPath,
+        'name': name ?? "Pdf Preview",
+      },
     );
   }
 }
