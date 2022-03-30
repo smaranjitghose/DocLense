@@ -46,7 +46,7 @@ class _ImageviewState extends State<Imageview> {
 
   Future<void> cropimage(File file, Color appBarColor, Color bgColor) async {
     if (await file.exists()) {
-      cropped = await ImageCropper.cropImage(
+      cropped = await ImageCropper().cropImage(
         sourcePath: file.path,
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
         compressQuality: 80,
