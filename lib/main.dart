@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/constants/theme_constants.dart';
