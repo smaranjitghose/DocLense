@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/constants/theme_constants.dart';
@@ -187,19 +186,30 @@ class _MyAppState extends State<MyApp> {
                               );
                             },
                             showSkipButton: true,
-                            skip: const Text("Skip"),
-                            skipColor: Colors.black,
+                            skip: const Text(
+                              "Skip",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
+
                             onSkip: () {
                               setFirstTime();
                               Navigator.of(context).pushReplacementNamed(
                                 RouteConstants.homeScreen,
                               );
                             },
-                            next: const Text("Next"),
-                            nextColor: Colors.black,
+                            next: const Text(
+                              "Next",
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                             done: const Text('Done',
-                                style: TextStyle(fontWeight: FontWeight.w600)),
-                            doneColor: Colors.black,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                )),
                           );
                         }
                       } else {
