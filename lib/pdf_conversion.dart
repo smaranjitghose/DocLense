@@ -4,7 +4,6 @@ import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/providers/image_list.dart';
 import 'package:doclense/utils/image_converter.dart' as image_converter;
 import 'package:easy_folder_picker/FolderPicker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hive/hive.dart';

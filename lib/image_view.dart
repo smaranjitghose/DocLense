@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/home.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image/image.dart' as image_lib;
