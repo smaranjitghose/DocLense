@@ -54,9 +54,10 @@ dependencies:
   # share: ^2.0.4
   share_plus: ^4.0.3
   shared_preferences: ^2.0.8
-  source_span: ^1.9.0
+  source_span: ^1.8.2
   url_launcher: ^6.0.13
   wiredash: ^0.7.0+1
+
 dev_dependencies:
   build_runner: ^2.1.5
   flutter_test:
