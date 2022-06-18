@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
   }
 
   bool getDeviceType() {
-    final data = MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
+    final data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
     if (data.size.shortestSide < 550) {
       return false;
     } else {
