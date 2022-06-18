@@ -158,8 +158,8 @@ class MainDrawer extends StatelessWidget {
 Future<void> _launchURL() async {
   const url =
       'https://github.com/smaranjitghose/DocLense'; //!paste link of app once uploaded on play store
-  if (await canLaunch(url)) {
-    await launch(url);
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
   } else {
     throw 'Could not launch $url';
   }

@@ -326,8 +326,8 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
       ];
 
   Future<void> _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
     } else {
       print('Could not launch $url');
       throw 'Could not launch $url';
