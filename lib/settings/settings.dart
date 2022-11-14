@@ -41,7 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     Future<void> userFeedback() async {
       final PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-      Wiredash.of(context)!
+      Wiredash.of(context)
         ..setBuildProperties(
           buildNumber: packageInfo.buildNumber,
           buildVersion: packageInfo.version,

@@ -108,7 +108,6 @@ class _MyAppState extends State<MyApp> {
                   ? Brightness.dark
                   : Brightness.light,
             ),
-            navigatorKey: _navigatorKey,
             projectId: 'doclense-sr0pzs4',
             secret: '0f4ajalausiiv0i7po2outfhtvmxy9a6dcd1o9rqk3a3ibcn',
             child: MaterialApp(

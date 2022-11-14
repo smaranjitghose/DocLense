@@ -27,7 +27,7 @@ class Imageview extends StatefulWidget {
 }
 
 class _ImageviewState extends State<Imageview> {
-  File? cropped;
+  CroppedFile? cropped;
   bool _isLoading = true;
   List<File> files = [];
   int index = 0;
@@ -49,12 +49,14 @@ class _ImageviewState extends State<Imageview> {
         sourcePath: file.path,
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
         compressQuality: 80,
-        androidUiSettings: AndroidUiSettings(
-          statusBarColor: appBarColor,
-          toolbarColor: appBarColor,
-          toolbarWidgetColor: Colors.white,
-          backgroundColor: bgColor,
-        ),
+        uiSettings: [
+          AndroidUiSettings(
+            statusBarColor: appBarColor,
+            toolbarColor: appBarColor,
+            toolbarWidgetColor: Colors.white,
+            backgroundColor: bgColor,
+          ),
+        ],
       );
       setState(() {
         // cropped == null ? file = files : file = cropped;
@@ -62,7 +64,7 @@ class _ImageviewState extends State<Imageview> {
 
         if (cropped != null) {
           index++;
-          files.add(cropped!);
+          files.add(File(cropped!.path));
         } else {
           // files.add(file);
         }

@@ -22,6 +22,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 enum IconOptions { share }
+
 enum DeviceType { phone, tablet }
 
 class Home extends StatefulWidget {
@@ -277,7 +278,8 @@ class _HomeState extends State<Home> {
 
                                                   print(path);
 
-                                                  Share.shareFiles([path],
+                                                  Share.shareXFiles(
+                                                      [XFile(path)],
                                                       text: 'Your PDF!');
                                                 }),
                                             IconButton(
