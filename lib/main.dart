@@ -9,6 +9,8 @@ import 'package:path_provider/path_provider.dart' as path;
 import 'package:provider/provider.dart';
 import 'package:wiredash/wiredash.dart';
 
+import 'configs/app.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Getting the documents directory to store the HiveDB instance
@@ -79,6 +81,10 @@ class _MyAppState extends State<MyApp> {
                   ? darkTheme
                   : lightTheme,
               home: IntoScreen(),
+              builder: (context, child) {
+                App.init(context);
+                return child!;
+              },
               onGenerateRoute: route_page.generateRoute,
             ),
           ),
