@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:doclense/configs/app_dimensions.dart';
 import 'package:doclense/configs/app_typography.dart';
+import 'package:doclense/constants/appstrings.dart';
 import 'package:doclense/constants/assets.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,7 @@ class _IntoScreenState extends State<IntoScreen> {
                   PageViewModel(
                       title: "",
                       bodyWidget: Text(
-                        "An App made in 🇮🇳 with ❤️",
+                        S.appMadeInIndia,
                         style: AppText.h4b,
                         textAlign: TextAlign.center,
                       ),
@@ -101,7 +102,7 @@ class _IntoScreenState extends State<IntoScreen> {
                   PageViewModel(
                       title: "",
                       bodyWidget: Text(
-                        "Scan Your Favourite Documents or Assignments on the go!!",
+                        S.scanDocuments,
                         style: AppText.h4b,
                         textAlign: TextAlign.center,
                       ),
@@ -120,15 +121,15 @@ class _IntoScreenState extends State<IntoScreen> {
                   );
                 },
                 showSkipButton: true,
-                skip: Text("Skip", style: buttonStyle),
+                skip: Text(S.skip, style: buttonStyle),
                 onSkip: () {
                   setFirstTime();
                   Navigator.of(context).pushReplacementNamed(
                     RouteConstants.homeScreen,
                   );
                 },
-                next: Text("Next", style: buttonStyle),
-                done: Text('Done', style: buttonStyle),
+                next: Text(S.next, style: buttonStyle),
+                done: Text(S.done, style: buttonStyle),
               );
               // }
             } else {
