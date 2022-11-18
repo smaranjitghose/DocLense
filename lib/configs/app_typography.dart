@@ -12,6 +12,8 @@ class AppText {
   static TextStyle? h2b;
   static TextStyle? h3;
   static TextStyle? h3b;
+  static TextStyle? h4;
+  static TextStyle? h4b;
 
   // Body
   static TextStyle? b1;
@@ -39,6 +41,9 @@ class AppText {
 
     h3 = baseStyle.copyWith(fontSize: AppDimensions.font(15));
     h3b = h3!.copyWith(fontWeight: b);
+
+    h4 = baseStyle.copyWith(fontSize: AppDimensions.font(12));
+    h4b = h4!.copyWith(fontWeight: b);
 
     b1 = baseStyle.copyWith(fontSize: AppDimensions.font(10));
     b1b = b1!.copyWith(fontWeight: b);

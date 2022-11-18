@@ -6,4 +6,6 @@ class Assets {
   static final String doclensewhite = "${_base}doclensewhite.svg";
 
   static final String doclenselight = "${_imgBase}doclenselight.svg";
+
+  static final String scanImg = "${_imgBase}scan.jpg";
 }

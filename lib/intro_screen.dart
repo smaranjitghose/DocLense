@@ -1,5 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:doclense/configs/app_dimensions.dart';
+import 'package:doclense/configs/app_typography.dart';
 import 'package:doclense/constants/assets.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +57,7 @@ class _IntoScreenState extends State<IntoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle buttonStyle = AppText.b2!.w(6).cl(Colors.black);
     return AnimatedSplashScreen(
       backgroundColor:
           themeChangeProvider.darkTheme ? Colors.grey[900]! : Colors.white,
@@ -76,43 +78,39 @@ class _IntoScreenState extends State<IntoScreen> {
               //   return Home();
               // } else {
               return IntroductionScreen(
-                // next: ,
                 showNextButton: true,
                 pages: [
                   PageViewModel(
                       title: "",
-                      bodyWidget: const Center(
-                        child: Text(
-                          "An App made in 🇮🇳 with ❤️",
-                          style: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                      bodyWidget: Text(
+                        "An App made in 🇮🇳 with ❤️",
+                        style: AppText.h4b,
+                        textAlign: TextAlign.center,
                       ),
                       image: Align(
                         alignment: Alignment.bottomCenter,
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                          padding:
+                              EdgeInsets.only(left: AppDimensions.width(8)),
                           child: SvgPicture.asset(
-                              'assets/images/doclenselight.svg',
-                              width: 350.0),
+                            Assets.doclenselight,
+                            fit: BoxFit.fitWidth,
+                          ),
                         ),
                       )),
                   PageViewModel(
                       title: "",
-                      bodyWidget: const Center(
-                        child: Text(
-                          "Scan Your Favourite Documents or Assignments on the go!!",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.bold),
-                        ),
+                      bodyWidget: Text(
+                        "Scan Your Favourite Documents or Assignments on the go!!",
+                        style: AppText.h4b,
+                        textAlign: TextAlign.center,
                       ),
                       image: Align(
                         alignment: Alignment.bottomCenter,
-                        child:
-                            Image.asset('assets/images/scan.jpg', width: 350.0),
+                        child: Image.asset(
+                          Assets.scanImg,
+                          fit: BoxFit.fitWidth,
+                        ),
                       ))
                 ],
                 onDone: () {
@@ -122,30 +120,15 @@ class _IntoScreenState extends State<IntoScreen> {
                   );
                 },
                 showSkipButton: true,
-                skip: const Text(
-                  "Skip",
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-
+                skip: Text("Skip", style: buttonStyle),
                 onSkip: () {
                   setFirstTime();
                   Navigator.of(context).pushReplacementNamed(
                     RouteConstants.homeScreen,
                   );
                 },
-                next: const Text(
-                  "Next",
-                  style: TextStyle(
-                    color: Colors.black,
-                  ),
-                ),
-                done: const Text('Done',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
-                    )),
+                next: Text("Next", style: buttonStyle),
+                done: Text('Done', style: buttonStyle),
               );
               // }
             } else {
