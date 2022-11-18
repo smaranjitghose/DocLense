@@ -1,4 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:doclense/configs/app_dimensions.dart';
+import 'package:doclense/constants/assets.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -57,15 +59,15 @@ class _IntoScreenState extends State<IntoScreen> {
     return AnimatedSplashScreen(
       backgroundColor:
           themeChangeProvider.darkTheme ? Colors.grey[900]! : Colors.white,
-      splash: themeChangeProvider.darkTheme
-          ? Padding(
-              padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
-              child: SvgPicture.asset('assets/doclensewhite.svg'),
-            )
-          : Padding(
-              padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
-              child: SvgPicture.asset('assets/images/doclenselight.svg'),
-            ),
+      splash: Padding(
+        padding: EdgeInsets.fromLTRB(AppDimensions.width(10),
+            AppDimensions.normalize(1), AppDimensions.normalize(1), 0),
+        child: SvgPicture.asset(
+          themeChangeProvider.darkTheme
+              ? Assets.doclenselight
+              : Assets.doclenselight,
+        ),
+      ),
       nextScreen: FutureBuilder(
           future: checkFirstTime(),
           builder: (context, AsyncSnapshot<bool> snapshot) {
