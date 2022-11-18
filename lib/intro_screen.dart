@@ -1,6 +1,5 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
@@ -71,80 +70,82 @@ class _IntoScreenState extends State<IntoScreen> {
           future: checkFirstTime(),
           builder: (context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData) {
-              if (snapshot.data == false) {
-                return Home();
-              } else {
-                return IntroductionScreen(
-                  // next: ,
-                  showNextButton: true,
-                  pages: [
-                    PageViewModel(
-                        title: "",
-                        bodyWidget: const Center(
-                          child: Text(
-                            "An App made in 🇮🇳 with ❤️",
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
+              // if (snapshot.data == false) {
+              //   return Home();
+              // } else {
+              return IntroductionScreen(
+                // next: ,
+                showNextButton: true,
+                pages: [
+                  PageViewModel(
+                      title: "",
+                      bodyWidget: const Center(
+                        child: Text(
+                          "An App made in 🇮🇳 with ❤️",
+                          style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        image: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
-                            child: SvgPicture.asset(
-                                'assets/images/doclenselight.svg',
-                                width: 350.0),
-                          ),
-                        )),
-                    PageViewModel(
-                        title: "",
-                        bodyWidget: const Center(
-                          child: Text(
-                            "Scan Your Favourite Documents or Assignments on the go!!",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        image: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Image.asset('assets/images/scan.jpg',
+                      ),
+                      image: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(30, 0, 0, 0),
+                          child: SvgPicture.asset(
+                              'assets/images/doclenselight.svg',
                               width: 350.0),
-                        ))
-                  ],
-                  onDone: () {
-                    setFirstTime();
-                    Navigator.of(context).pushReplacementNamed(
-                      RouteConstants.homeScreen,
-                    );
-                  },
-                  showSkipButton: true,
-                  skip: const Text(
-                    "Skip",
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-
-                  onSkip: () {
-                    setFirstTime();
-                    Navigator.of(context).pushReplacementNamed(
-                      RouteConstants.homeScreen,
-                    );
-                  },
-                  next: const Text(
-                    "Next",
-                    style: TextStyle(
-                      color: Colors.black,
-                    ),
-                  ),
-                  done: const Text('Done',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
+                        ),
                       )),
-                );
-              }
+                  PageViewModel(
+                      title: "",
+                      bodyWidget: const Center(
+                        child: Text(
+                          "Scan Your Favourite Documents or Assignments on the go!!",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      image: Align(
+                        alignment: Alignment.bottomCenter,
+                        child:
+                            Image.asset('assets/images/scan.jpg', width: 350.0),
+                      ))
+                ],
+                onDone: () {
+                  setFirstTime();
+                  Navigator.of(context).pushReplacementNamed(
+                    RouteConstants.homeScreen,
+                  );
+                },
+                showSkipButton: true,
+                skip: const Text(
+                  "Skip",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+
+                onSkip: () {
+                  setFirstTime();
+                  Navigator.of(context).pushReplacementNamed(
+                    RouteConstants.homeScreen,
+                  );
+                },
+                next: const Text(
+                  "Next",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                ),
+                done: const Text('Done',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    )),
+              );
+              // }
             } else {
               return const Center(
                 child: CircularProgressIndicator(),
