@@ -1,4 +1,5 @@
 import 'package:doclense/constants/theme_constants.dart';
+import 'package:doclense/env.dart';
 import 'package:doclense/intro_screen.dart';
 import 'package:doclense/models/preferences.dart';
 import 'package:doclense/providers/theme_provider.dart';
@@ -60,6 +61,14 @@ class _MyAppState extends State<MyApp> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   @override
+  void dispose() {
+    Hive.box('preferences').close();
+    Hive.box('pdfs').close();
+    Hive.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(create: (_) {
       return themeChangeProvider;
@@ -72,8 +81,8 @@ class _MyAppState extends State<MyApp> {
                   ? Brightness.dark
                   : Brightness.light,
             ),
-            projectId: 'doclense-sr0pzs4',
-            secret: '0f4ajalausiiv0i7po2outfhtvmxy9a6dcd1o9rqk3a3ibcn',
+            projectId: Env.wiredashID,
+            secret: Env.wiredashSecret,
             child: MaterialApp(
               navigatorKey: _navigatorKey,
               debugShowCheckedModeBanner: false,

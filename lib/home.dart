@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:doclense/constants/route_constants.dart';
+import 'package:doclense/env.dart';
 import 'package:doclense/main_drawer.dart';
 import 'package:doclense/providers/image_list.dart';
 import 'package:doclense/providers/theme_provider.dart';
@@ -160,9 +161,9 @@ class _HomeState extends State<Home> {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-        title: const Center(
+        title: Center(
           child: Text(
-            'DocLense',
+            Env.appname,
             style: TextStyle(fontSize: 24),
           ),
         ),

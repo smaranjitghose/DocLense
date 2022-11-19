@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive/hive.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
+import 'home.dart';
 import 'models/preferences.dart';
 import 'providers/theme_provider.dart';
 
@@ -28,14 +29,6 @@ class _IntoScreenState extends State<IntoScreen> {
     getCurrentAppTheme();
   }
 
-  @override
-  void dispose() {
-    Hive.box('preferences').close();
-    Hive.box('pdfs').close();
-    Hive.close();
-    super.dispose();
-  }
-
   Future<void> getCurrentAppTheme() async {
     themeChangeProvider.darkTheme = await themeChangeProvider
         .darkThemePreference
@@ -46,7 +39,6 @@ class _IntoScreenState extends State<IntoScreen> {
   Future<bool> checkFirstTime() async {
     final UserPreferences userPreferences =
         Hive.box('preferences').getAt(0) as UserPreferences;
-
     return userPreferences.firstTime;
   }
 
@@ -75,63 +67,63 @@ class _IntoScreenState extends State<IntoScreen> {
           future: checkFirstTime(),
           builder: (context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData) {
-              // if (snapshot.data == false) {
-              //   return Home();
-              // } else {
-              return IntroductionScreen(
-                showNextButton: true,
-                pages: [
-                  PageViewModel(
-                      title: "",
-                      bodyWidget: Text(
-                        S.appMadeInIndia,
-                        style: AppText.h4b,
-                        textAlign: TextAlign.center,
-                      ),
-                      image: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Padding(
-                          padding:
-                              EdgeInsets.only(left: AppDimensions.width(8)),
-                          child: SvgPicture.asset(
-                            Assets.doclenselight,
+              if (snapshot.data == false) {
+                return Home();
+              } else {
+                return IntroductionScreen(
+                  showNextButton: true,
+                  pages: [
+                    PageViewModel(
+                        title: "",
+                        bodyWidget: Text(
+                          S.appMadeInIndia,
+                          style: AppText.h4b,
+                          textAlign: TextAlign.center,
+                        ),
+                        image: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding:
+                                EdgeInsets.only(left: AppDimensions.width(8)),
+                            child: SvgPicture.asset(
+                              Assets.doclenselight,
+                              fit: BoxFit.fitWidth,
+                            ),
+                          ),
+                        )),
+                    PageViewModel(
+                        title: "",
+                        bodyWidget: Text(
+                          S.scanDocuments,
+                          style: AppText.h4b,
+                          textAlign: TextAlign.center,
+                        ),
+                        image: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Image.asset(
+                            Assets.scanImg,
                             fit: BoxFit.fitWidth,
                           ),
-                        ),
-                      )),
-                  PageViewModel(
-                      title: "",
-                      bodyWidget: Text(
-                        S.scanDocuments,
-                        style: AppText.h4b,
-                        textAlign: TextAlign.center,
-                      ),
-                      image: Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Image.asset(
-                          Assets.scanImg,
-                          fit: BoxFit.fitWidth,
-                        ),
-                      ))
-                ],
-                onDone: () {
-                  setFirstTime();
-                  Navigator.of(context).pushReplacementNamed(
-                    RouteConstants.homeScreen,
-                  );
-                },
-                showSkipButton: true,
-                skip: Text(S.skip, style: buttonStyle),
-                onSkip: () {
-                  setFirstTime();
-                  Navigator.of(context).pushReplacementNamed(
-                    RouteConstants.homeScreen,
-                  );
-                },
-                next: Text(S.next, style: buttonStyle),
-                done: Text(S.done, style: buttonStyle),
-              );
-              // }
+                        ))
+                  ],
+                  onDone: () {
+                    setFirstTime();
+                    Navigator.of(context).pushReplacementNamed(
+                      RouteConstants.homeScreen,
+                    );
+                  },
+                  showSkipButton: true,
+                  skip: Text(S.skip, style: buttonStyle),
+                  onSkip: () {
+                    setFirstTime();
+                    Navigator.of(context).pushReplacementNamed(
+                      RouteConstants.homeScreen,
+                    );
+                  },
+                  next: Text(S.next, style: buttonStyle),
+                  done: Text(S.done, style: buttonStyle),
+                );
+              }
             } else {
               return const Center(
                 child: CircularProgressIndicator(),
