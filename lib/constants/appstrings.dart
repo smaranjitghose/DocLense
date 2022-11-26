@@ -10,6 +10,31 @@ class S {
       'Scan Your Favourite Documents or Assignments on the go!!';
 
   static final String appMadeInIndia = 'An App made in 🇮🇳 with ❤️';
+
+  static final String team = 'Team';
+
+  static final String presentingTeam = "Presenting The Team";
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
 }
 
 

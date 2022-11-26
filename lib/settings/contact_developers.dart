@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:doclense/configs/app_typography.dart';
+import 'package:doclense/configs/space.dart';
+import 'package:doclense/constants/appstrings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -12,8 +15,9 @@ class ContactDeveloperScreen extends StatefulWidget {
 }
 
 class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
-  final double spacing = 40;
   List jsonContributors = [];
+
+  int year = 2021;
 
   Future<void> _fetchContributors() async {
     const contributorsAPIUrl =
@@ -55,166 +59,138 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
             )
           : SafeArea(
               child: SingleChildScrollView(
-              child: Container(
-                margin: const EdgeInsets.only(top: 30),
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      alignment: Alignment.topCenter,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          const Text(
-                            "TEAM",
-                            style: TextStyle(
-                                fontSize: 25, fontWeight: FontWeight.w700),
-                          ),
+              child: Column(
+                children: <Widget>[
+                  Space.y2!,
+                  Text(
+                    S.team.toUpperCase() + " $year",
+                    style: AppText.h4b,
+                  ),
+                  Space.y!,
+                  Text(
+                    S.presentingTeam,
+                    style: AppText.b2,
+                  ),
+                  _buildTeamTitle('DEVELOPERS'),
+                  Container(
+                    height: 170,
+                    margin: const EdgeInsets.only(top: 20),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: devTeam.length,
+                      itemBuilder: (BuildContext context, int index) =>
                           Container(
-                            margin: const EdgeInsets.only(left: 8),
-                            child: const Text(
-                              "2021",
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w700,
-                                // color: Colors.orange[900],
+                        margin: const EdgeInsets.only(left: 15, right: 15),
+                        child: Column(
+                          children: <Widget>[
+                            _buildprofileImage(devTeam[index]["imgPath"]!),
+                            Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    devTeam[index]["name"]!,
+                                  ),
+                                  const Padding(
+                                      padding: EdgeInsets.only(top: 5)),
+                                  Row(
+                                    children: <Widget>[
+                                      _buildProfileIcon(
+                                          devTeam[index]["linkedin"]!,
+                                          'https://img.icons8.com/fluent/48/000000/linkedin-circled.png'),
+                                      const Padding(
+                                          padding: EdgeInsets.only(left: 10)),
+                                      _buildProfileIcon(
+                                          devTeam[index]["github"]!,
+                                          'https://img.icons8.com/fluent/50/000000/github.png'),
+                                    ],
+                                  )
+                                ],
                               ),
                             ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 15),
-                      alignment: Alignment.topCenter,
-                      child: const Text(
-                        "Presenting The Team",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    _buildTeamTitle('DEVELOPERS'),
+                  ),
+                  _buildTeamTitle('CONTIBUTORS'),
+                  // ignore: prefer_is_empty
+                  if (jsonContributors.length > 0)
                     Container(
                       height: 170,
                       margin: const EdgeInsets.only(top: 20),
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
-                        itemCount: devTeam.length,
+                        itemCount: jsonContributors.length,
                         itemBuilder: (BuildContext context, int index) =>
-                            Container(
-                          margin: const EdgeInsets.only(left: 15, right: 15),
-                          child: Column(
-                            children: <Widget>[
-                              _buildprofileImage(devTeam[index]["imgPath"]!),
-                              Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                child: Column(
-                                  children: <Widget>[
-                                    Text(
-                                      devTeam[index]["name"]!,
-                                    ),
-                                    const Padding(
-                                        padding: EdgeInsets.only(top: 5)),
-                                    Row(
+                            (jsonContributors[index]["login"].toString() ==
+                                        "smaranjitghose" ||
+                                    jsonContributors[index]["login"]
+                                            .toString() ==
+                                        "anushbhatia")
+                                ? Container()
+                                : Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 15, right: 15),
+                                    child: Column(
                                       children: <Widget>[
-                                        _buildProfileIcon(
-                                            devTeam[index]["linkedin"]!,
-                                            'https://img.icons8.com/fluent/48/000000/linkedin-circled.png'),
-                                        const Padding(
-                                            padding: EdgeInsets.only(left: 10)),
-                                        _buildProfileIcon(
-                                            devTeam[index]["github"]!,
-                                            'https://img.icons8.com/fluent/50/000000/github.png'),
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    _buildTeamTitle('CONTIBUTORS'),
-                    // ignore: prefer_is_empty
-                    if (jsonContributors.length > 0)
-                      Container(
-                        height: 170,
-                        margin: const EdgeInsets.only(top: 20),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: jsonContributors.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              (jsonContributors[index]["login"].toString() ==
-                                          "smaranjitghose" ||
-                                      jsonContributors[index]["login"]
-                                              .toString() ==
-                                          "anushbhatia")
-                                  ? Container()
-                                  : Container(
-                                      margin: const EdgeInsets.only(
-                                          left: 15, right: 15),
-                                      child: Column(
-                                        children: <Widget>[
-                                          _buildNetworkprofileImage(
-                                              jsonContributors[index]
-                                                      ["avatar_url"]
-                                                  .toString()),
-                                          Container(
-                                            margin:
-                                                const EdgeInsets.only(top: 10),
-                                            child: Column(
-                                              children: <Widget>[
-                                                Text(
-                                                  jsonContributors[index]
-                                                          ["login"]
-                                                      .toString(),
-                                                ),
-                                                const Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 5)),
-                                                Row(
-                                                  children: <Widget>[
-                                                    if (jsonContributors[index]
-                                                                ["login"]
-                                                            .toString() ==
-                                                        "Saransh-cpp")
-                                                      _buildProfileIcon(
-                                                          "https://www.linkedin.com/in/saransh-chopra-3a6ab11bb",
-                                                          'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
-                                                    else if (jsonContributors[
-                                                                index]["login"]
-                                                            .toString() ==
-                                                        "nicks101")
-                                                      _buildProfileIcon(
-                                                          "https://www.linkedin.com/in/nikki-goel-449563159/",
-                                                          'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
-                                                    else
-                                                      Container(),
-                                                    const Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                left: 10)),
+                                        _buildNetworkprofileImage(
+                                            jsonContributors[index]
+                                                    ["avatar_url"]
+                                                .toString()),
+                                        Container(
+                                          margin:
+                                              const EdgeInsets.only(top: 10),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text(
+                                                jsonContributors[index]["login"]
+                                                    .toString(),
+                                              ),
+                                              const Padding(
+                                                  padding:
+                                                      EdgeInsets.only(top: 5)),
+                                              Row(
+                                                children: <Widget>[
+                                                  if (jsonContributors[index]
+                                                              ["login"]
+                                                          .toString() ==
+                                                      "Saransh-cpp")
                                                     _buildProfileIcon(
-                                                        jsonContributors[index]
-                                                                ["html_url"]
-                                                            .toString(),
-                                                        'https://img.icons8.com/fluent/50/000000/github.png'),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
+                                                        "https://www.linkedin.com/in/saransh-chopra-3a6ab11bb",
+                                                        'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
+                                                  else if (jsonContributors[
+                                                              index]["login"]
+                                                          .toString() ==
+                                                      "nicks101")
+                                                    _buildProfileIcon(
+                                                        "https://www.linkedin.com/in/nikki-goel-449563159/",
+                                                        'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
+                                                  else
+                                                    Container(),
+                                                  const Padding(
+                                                      padding: EdgeInsets.only(
+                                                          left: 10)),
+                                                  _buildProfileIcon(
+                                                      jsonContributors[index]
+                                                              ["html_url"]
+                                                          .toString(),
+                                                      'https://img.icons8.com/fluent/50/000000/github.png'),
+                                                ],
+                                              )
+                                            ],
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                        ),
-                      )
-                    else
-                      const Center(child: CircularProgressIndicator()),
-                  ],
-                ),
+                                  ),
+                      ),
+                    )
+                  else
+                    const Center(child: CircularProgressIndicator()),
+                ],
               ),
             )),
     );
