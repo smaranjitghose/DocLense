@@ -1,3 +1,7 @@
+import 'package:doclense/configs/app_dimensions.dart';
+import 'package:doclense/configs/app_typography.dart';
+import 'package:doclense/configs/space.dart';
+import 'package:doclense/constants/appstrings.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/main_drawer.dart';
 import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
@@ -40,181 +44,115 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-        title: const Text("Preferences"),
+        title: Text(S.preferences),
       ),
       body: DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Expanded(
-                child: SizedBox(
-                  height: 800,
-                  child: ListView(
-                    children: [
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text("APP THEME OPTIONS"),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: Container(
-                              color: themeChange.darkTheme
-                                  ? Colors.black45
-                                  : Colors.grey[200],
-                              height: 60,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  const SettingText(text: 'Dark Mode'),
-                                  Switch(
-                                    activeColor: themeChange.darkTheme
-                                        ? Colors.white
-                                        : Colors.blue,
-                                    value: swithValue,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        swithValue = !swithValue;
-                                        themeChange.darkTheme = swithValue;
-                                      });
-                                      //print("Dark Mode");
-                                    },
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          // Expanded(
-                          //   child: ListTile(
-                          //       title: Text("Dark Mode",
-                          //           style: TextStyle(
-                          //             fontSize: 15.0,
-                          //             fontWeight: FontWeight.w600,
-                          //           )),
-                          //       trailing: Transform.scale(
-                          //         scale: 0.7,
-                          //         origin: Offset(25, 0),
-                          //         child: Switch(
-                          //           // activeColor: AppTheme.primaryColor,
-                          //           value: swithValue,
-                          //           onChanged: (bool value) {
-                          //             setState(() {
-                          //               swithValue = !swithValue;
-                          //               themeChange.darkTheme = swithValue;
-                          //             });
-                          //             //print("Dark Mode");
-                          //           },
-                          //         ),
-                          //       ),
-                          //       onTap: () {
-                          //         setState(() {
-                          //           swithValue = !swithValue;
-                          //           themeChange.darkTheme = swithValue;
-                          //         });
-                          //       },
-                          //     ),
-                          // ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      //
-                      Container(
-                        color: themeChange.darkTheme
-                            ? Colors.black45
-                            : Colors.grey[200],
-                        height: 50,
-                        child: InkWell(
-                          onTap: userFeedback,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const SettingText(text: 'REPORT A BUG'),
-                              Expanded(
-                                child: Icon(
-                                  Icons.bug_report,
-                                  size: 30,
-                                  color: themeChange.darkTheme
-                                      ? Colors.white
-                                      : Colors.blue,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        color: themeChange.darkTheme
-                            ? Colors.black45
-                            : Colors.grey[200],
-                        height: 50,
-                        child: InkWell(
-                          onTap: userFeedback,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const SettingText(text: 'REQUEST A FEATURE'),
-                              Expanded(
-                                child: Icon(
-                                  Icons.featured_play_list,
-                                  size: 30,
-                                  color: themeChange.darkTheme
-                                      ? Colors.white
-                                      : Colors.blue,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        color: themeChange.darkTheme
-                            ? Colors.black45
-                            : Colors.grey[200],
-                        height: 50,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              RouteConstants.contactDeveloperScreen,
-                            );
+        child: ListView(
+          padding: Space.all(),
+          children: [
+            Space.y1!,
+            Text(
+              S.appThemeOptions.toUpperCase(),
+              style: AppText.l1b,
+            ),
+            Space.y!,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: Container(
+                    color: themeChange.darkTheme
+                        ? Colors.black45
+                        : Colors.grey[200],
+                    height: AppDimensions.font(25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SettingText(text: S.darkMode),
+                        Switch(
+                          activeColor: themeChange.darkTheme
+                              ? Colors.white
+                              : Colors.blue,
+                          value: swithValue,
+                          onChanged: (bool value) {
+                            setState(() {
+                              swithValue = !swithValue;
+                              themeChange.darkTheme = swithValue;
+                            });
+                            //print("Dark Mode");
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              const SettingText(text: 'CONTACT DEVELOPERS'),
-                              Expanded(
-                                child: Icon(
-                                  Icons.contact_phone,
-                                  size: 30,
-                                  color: themeChange.darkTheme
-                                      ? Colors.white
-                                      : Colors.blue,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
+              ],
+            ),
+            Space.y1!,
+            _SettingsTile(
+              themeChange: themeChange,
+              onTap: userFeedback,
+              title: S.reportABug,
+              iconData: Icons.bug_report,
+            ),
+            _SettingsTile(
+              themeChange: themeChange,
+              onTap: userFeedback,
+              title: S.requestAFeature,
+              iconData: Icons.featured_play_list,
+            ),
+            _SettingsTile(
+              themeChange: themeChange,
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  RouteConstants.contactDeveloperScreen,
+                );
+              },
+              title: S.contactDevelopers,
+              iconData: Icons.contact_phone,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SettingsTile extends StatelessWidget {
+  const _SettingsTile({
+    Key? key,
+    required this.themeChange,
+    required this.onTap,
+    required this.title,
+    required this.iconData,
+  }) : super(key: key);
+
+  final DarkThemeProvider themeChange;
+  final Function onTap;
+  final String title;
+  final IconData iconData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: themeChange.darkTheme ? Colors.black45 : Colors.grey[200],
+      height: AppDimensions.font(25),
+      margin: Space.vf(0.3),
+      child: InkWell(
+        onTap: () => onTap(),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            SettingText(text: title.toUpperCase()),
+            Expanded(
+              child: Icon(
+                iconData,
+                size: AppDimensions.font(15),
+                color: themeChange.darkTheme ? Colors.white : Colors.blue,
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

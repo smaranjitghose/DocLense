@@ -1,3 +1,5 @@
+import 'package:doclense/configs/app_typography.dart';
+import 'package:doclense/configs/space.dart';
 import 'package:flutter/material.dart';
 
 class SettingText extends StatelessWidget {
@@ -6,15 +8,12 @@ class SettingText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 3,
+      flex: 5,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: Space.all(),
         child: Text(
           text,
-          style: const TextStyle(
-            height: 1,
-            fontSize: 17,
-          ),
+          style: AppText.b2,
         ),
       ),
     );

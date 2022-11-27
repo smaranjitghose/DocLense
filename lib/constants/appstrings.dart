@@ -19,17 +19,17 @@ class S {
 
   static final String contributors = 'Contributors';
 
-  // static final String a = '';
+  static final String preferences = 'Preferences';
 
-  // static final String a = '';
+  static final String appThemeOptions = 'App theme options';
 
-  // static final String a = '';
+  static final String darkMode = 'Dark Mode';
 
-  // static final String a = '';
+  static final String reportABug = 'Report a bug';
 
-  // static final String a = '';
+  static final String requestAFeature = 'Request A Feature';
 
-  // static final String a = '';
+  static final String contactDevelopers = 'Contact Developers';
 
   // static final String a = '';
 
