@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:doclense/configs/app_typography.dart';
 import 'package:doclense/configs/space.dart';
 import 'package:doclense/constants/appstrings.dart';
@@ -22,21 +23,28 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
   int year = 2021;
 
   Future<void> _fetchContributors() async {
-    const contributorsAPIUrl =
-        'https://api.github.com/repos/smaranjitghose/DocLense/contributors';
-    final response = await http.get(Uri(host: contributorsAPIUrl));
+    try {
+      const contributorsAPIUrl =
+          'https://api.github.com/repos/smaranjitghose/DocLense/contributors';
+      final response = await http.get(Uri.parse(contributorsAPIUrl));
 
-    if (response.statusCode == 200) {
-      setState(() {
-        jsonContributors = json.decode(response.body) as List;
-      });
-    } else {
-      Fluttertoast.showToast(
-        msg: "Failed to load Contributors from API",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-      );
+      if (response.statusCode == 200) {
+        setState(() {
+          jsonContributors = json.decode(response.body) as List;
+        });
+      } else {
+        Fluttertoast.showToast(
+          msg: "Failed to load Contributors from API",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
+      }
+    } on Exception catch (e) {
+      log(e.toString());
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   bool _isLoading = true;
@@ -45,11 +53,6 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
   void initState() {
     super.initState();
     _fetchContributors();
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-      });
-    });
   }
 
   @override
@@ -80,6 +83,7 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
+                      physics: BouncingScrollPhysics(),
                       itemCount: devTeam.length,
                       itemBuilder: (BuildContext context, int index) =>
                           Container(
