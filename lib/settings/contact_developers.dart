@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:doclense/configs/app_typography.dart';
 import 'package:doclense/configs/space.dart';
 import 'package:doclense/constants/appstrings.dart';
+import 'package:doclense/constants/assets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -100,10 +101,12 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
                             Row(
                               children: <Widget>[
                                 _buildProfileIcon(devTeam[index]["linkedin"]!,
-                                    'https://img.icons8.com/fluent/48/000000/linkedin-circled.png'),
+                                    Assets.linkedinIcon),
                                 Space.x!,
-                                _buildProfileIcon(devTeam[index]["github"]!,
-                                    'https://img.icons8.com/fluent/50/000000/github.png'),
+                                _buildProfileIcon(
+                                  devTeam[index]["github"]!,
+                                  Assets.githubIcon,
+                                ),
                               ],
                             ),
                           ],
@@ -118,6 +121,7 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
                       margin: EdgeInsets.only(top: AppDimensions.height(3)),
                       child: ListView.builder(
                         shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
                         scrollDirection: Axis.horizontal,
                         itemCount: jsonContributors.length,
                         itemBuilder: (BuildContext context, int index) =>
@@ -128,56 +132,44 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
                                         "anushbhatia")
                                 ? Container()
                                 : Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 15, right: 15),
+                                    margin: Space.h1,
                                     child: Column(
                                       children: <Widget>[
                                         _buildNetworkprofileImage(
                                             jsonContributors[index]
                                                     ["avatar_url"]
                                                 .toString()),
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(top: 10),
-                                          child: Column(
-                                            children: <Widget>[
-                                              Text(
-                                                jsonContributors[index]["login"]
+                                        Space.y1!,
+                                        Text(
+                                          jsonContributors[index]["login"]
+                                              .toString(),
+                                          style: AppText.l1,
+                                        ),
+                                        Space.y1!,
+                                        Row(
+                                          children: <Widget>[
+                                            if (jsonContributors[index]["login"]
+                                                    .toString() ==
+                                                "Saransh-cpp")
+                                              _buildProfileIcon(
+                                                  "https://www.linkedin.com/in/saransh-chopra-3a6ab11bb",
+                                                  'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
+                                            else if (jsonContributors[index]
+                                                        ["login"]
+                                                    .toString() ==
+                                                "nicks101")
+                                              _buildProfileIcon(
+                                                  "https://www.linkedin.com/in/nikki-goel-449563159/",
+                                                  'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
+                                            else
+                                              Container(),
+                                            Space.x!,
+                                            _buildProfileIcon(
+                                                jsonContributors[index]
+                                                        ["html_url"]
                                                     .toString(),
-                                              ),
-                                              const Padding(
-                                                  padding:
-                                                      EdgeInsets.only(top: 5)),
-                                              Row(
-                                                children: <Widget>[
-                                                  if (jsonContributors[index]
-                                                              ["login"]
-                                                          .toString() ==
-                                                      "Saransh-cpp")
-                                                    _buildProfileIcon(
-                                                        "https://www.linkedin.com/in/saransh-chopra-3a6ab11bb",
-                                                        'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
-                                                  else if (jsonContributors[
-                                                              index]["login"]
-                                                          .toString() ==
-                                                      "nicks101")
-                                                    _buildProfileIcon(
-                                                        "https://www.linkedin.com/in/nikki-goel-449563159/",
-                                                        'https://img.icons8.com/fluent/48/000000/linkedin-circled.png')
-                                                  else
-                                                    Container(),
-                                                  const Padding(
-                                                      padding: EdgeInsets.only(
-                                                          left: 10)),
-                                                  _buildProfileIcon(
-                                                      jsonContributors[index]
-                                                              ["html_url"]
-                                                          .toString(),
-                                                      'https://img.icons8.com/fluent/50/000000/github.png'),
-                                                ],
-                                              )
-                                            ],
-                                          ),
+                                                'https://img.icons8.com/fluent/50/000000/github.png'),
+                                          ],
                                         ),
                                       ],
                                     ),
@@ -299,14 +291,11 @@ class _TeanTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(top: 20),
+      margin: EdgeInsets.zero.t(AppDimensions.font(0.4)),
       alignment: Alignment.center,
       child: Text(
         title.toUpperCase(),
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
-        ),
+        style: AppText.b2b,
       ),
     );
   }
