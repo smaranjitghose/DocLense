@@ -15,9 +15,9 @@ class S {
 
   static final String presentingTeam = "Presenting The Team";
 
-  // static final String a = '';
+  static final String developers = 'Developers';
 
-  // static final String a = '';
+  static final String contributors = 'Contributors';
 
   // static final String a = '';
 

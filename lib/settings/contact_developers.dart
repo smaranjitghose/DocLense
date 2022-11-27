@@ -9,6 +9,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
+import '../configs/app_dimensions.dart';
+
 class ContactDeveloperScreen extends StatefulWidget {
   @override
   _ContactDeveloperScreenState createState() => _ContactDeveloperScreenState();
@@ -71,55 +73,45 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
                     S.presentingTeam,
                     style: AppText.b2,
                   ),
-                  _buildTeamTitle('DEVELOPERS'),
+                  _TeanTitle(title: S.developers),
                   Container(
-                    height: 170,
-                    margin: const EdgeInsets.only(top: 20),
+                    height: AppDimensions.normalize(75),
+                    margin: EdgeInsets.only(top: AppDimensions.height(3)),
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: devTeam.length,
                       itemBuilder: (BuildContext context, int index) =>
                           Container(
-                        margin: const EdgeInsets.only(left: 15, right: 15),
+                        margin: Space.h1,
                         child: Column(
                           children: <Widget>[
                             _buildprofileImage(devTeam[index]["imgPath"]!),
-                            Container(
-                              margin: const EdgeInsets.only(top: 10),
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    devTeam[index]["name"]!,
-                                  ),
-                                  const Padding(
-                                      padding: EdgeInsets.only(top: 5)),
-                                  Row(
-                                    children: <Widget>[
-                                      _buildProfileIcon(
-                                          devTeam[index]["linkedin"]!,
-                                          'https://img.icons8.com/fluent/48/000000/linkedin-circled.png'),
-                                      const Padding(
-                                          padding: EdgeInsets.only(left: 10)),
-                                      _buildProfileIcon(
-                                          devTeam[index]["github"]!,
-                                          'https://img.icons8.com/fluent/50/000000/github.png'),
-                                    ],
-                                  )
-                                ],
-                              ),
+                            Space.y1!,
+                            Text(
+                              devTeam[index]["name"]!,
+                              style: AppText.l1,
+                            ),
+                            Space.y1!,
+                            Row(
+                              children: <Widget>[
+                                _buildProfileIcon(devTeam[index]["linkedin"]!,
+                                    'https://img.icons8.com/fluent/48/000000/linkedin-circled.png'),
+                                Space.x!,
+                                _buildProfileIcon(devTeam[index]["github"]!,
+                                    'https://img.icons8.com/fluent/50/000000/github.png'),
+                              ],
                             ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  _buildTeamTitle('CONTIBUTORS'),
-                  // ignore: prefer_is_empty
+                  _TeanTitle(title: S.contributors),
                   if (jsonContributors.length > 0)
                     Container(
-                      height: 170,
-                      margin: const EdgeInsets.only(top: 20),
+                      height: AppDimensions.normalize(75),
+                      margin: EdgeInsets.only(top: AppDimensions.height(3)),
                       child: ListView.builder(
                         shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
@@ -198,24 +190,20 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
 
   Widget _buildprofileImage(String imagePath) {
     return Container(
-      width: 100.0,
-      height: 100.0,
+      width: AppDimensions.normalize(40),
+      height: AppDimensions.normalize(40),
       decoration: BoxDecoration(
         boxShadow: _buildBoxShadow,
         shape: BoxShape.circle,
       ),
-      child: SizedBox(
-        width: 100,
-        height: 100,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            boxShadow: _buildBoxShadow,
-            color: Colors.black,
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage(imagePath),
-              fit: BoxFit.contain,
-            ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          boxShadow: _buildBoxShadow,
+          color: Colors.black,
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            image: AssetImage(imagePath),
+            fit: BoxFit.contain,
           ),
         ),
       ),
@@ -224,15 +212,15 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
 
   Widget _buildNetworkprofileImage(String imagePath) {
     return Container(
-      width: 100.0,
-      height: 100.0,
+      width: AppDimensions.normalize(40),
+      height: AppDimensions.normalize(40),
       decoration: BoxDecoration(
         boxShadow: _buildBoxShadow,
         shape: BoxShape.circle,
       ),
       child: SizedBox(
-        width: 100,
-        height: 100,
+        width: AppDimensions.normalize(40),
+        height: AppDimensions.normalize(40),
         child: DecoratedBox(
           decoration: BoxDecoration(
             boxShadow: _buildBoxShadow,
@@ -248,24 +236,10 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
     );
   }
 
-  Widget _buildTeamTitle(String title) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      alignment: Alignment.center,
-      child: Text(
-        title,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-    );
-  }
-
   Widget _buildProfileIcon(String link, String iconUrl) {
     return Container(
-      width: 30.0,
-      height: 30.0,
+      width: AppDimensions.normalize(15),
+      height: AppDimensions.normalize(15),
       decoration: BoxDecoration(
         boxShadow: _buildBoxShadow,
         shape: BoxShape.circle,
@@ -277,8 +251,8 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
           await _launchURL(link);
         },
         child: SizedBox(
-          width: 100,
-          height: 100,
+          width: AppDimensions.normalize(40),
+          height: AppDimensions.normalize(40),
           child: DecoratedBox(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -308,6 +282,29 @@ class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
       print('Could not launch $url');
       throw 'Could not launch $url';
     }
+  }
+}
+
+class _TeanTitle extends StatelessWidget {
+  const _TeanTitle({
+    Key? key,
+    required this.title,
+  }) : super(key: key);
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 20),
+      alignment: Alignment.center,
+      child: Text(
+        title.toUpperCase(),
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+    );
   }
 }
 
