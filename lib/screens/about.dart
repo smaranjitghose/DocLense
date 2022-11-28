@@ -1,4 +1,9 @@
+import 'package:doclense/configs/app_dimensions.dart';
+import 'package:doclense/configs/app_typography.dart';
+import 'package:doclense/configs/space.dart';
+import 'package:doclense/configs/ui.dart';
 import 'package:doclense/constants/appstrings.dart';
+import 'package:doclense/constants/assets.dart';
 import 'package:doclense/ui_components/main_drawer.dart';
 import 'package:doclense/providers/theme_provider.dart';
 import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
@@ -22,108 +27,84 @@ class _AboutState extends State<About> {
       appBar: AppBar(
         title: Text(
           S.aboutApp,
-          style: TextStyle(fontSize: 24),
         ),
       ),
       body: DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
         child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
           child: Column(
             children: <Widget>[
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 1.85,
-                // width: MediaQuery.of(context).size.width,
-                child: Stack(children: [
+              Container(
+                clipBehavior: Clip.none,
+                height: UI.height! / 1.45,
+                child: Stack(clipBehavior: Clip.none, children: [
                   if (themeChange.darkTheme)
                     Positioned(
                       top: 0,
                       child: SvgPicture.asset(
-                        'assets/aboutPage/curve.svg',
-                        // 'assets/aboutPage/bg-wave.svg'
-                        // width: MediaQuery.of(context).size.width,
-                        // height: 50,
+                        Assets.curveSvg,
                       ),
                     )
                   else
                     Positioned(
                       top: 0,
                       child: SvgPicture.asset(
-                        'assets/aboutPage/curvelight.svg',
-                        // 'assets/aboutPage/bg-wave.svg'
-                        // width: MediaQuery.of(context).size.width,
-                        // height: 50,
+                        Assets.curvelightSvg,
                       ),
                     ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(40, 4, 4, 0),
+                    padding: EdgeInsets.only(left: AppDimensions.width(10)),
                     child: themeChange.darkTheme
                         ? SvgPicture.asset(
-                            'assets/doclensewhite.svg',
+                            Assets.doclensewhiteSvg,
                           )
                         : SvgPicture.asset(
-                            'assets/images/doclenselight.svg',
-                            // width: 300,
-                            // height: 100,
+                            Assets.doclenselightSvg,
                           ),
                   ),
                   Positioned(
                     bottom: 0,
-                    // right: MediaQuery.of(context).size.width/9,
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: const Text(
-                        "DocLense is the one place for all your documents!\n\nYou can now click, upload, crop, rotate and do so\nmuch more!\n\nSo whether it is your college assignment or the\noffice document you want to digitalize, stop\nworrying and just use",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: UI.width!,
+                      padding: Space.h! / 2.0,
+                      child: Text(S.appAbout,
+                          textAlign: TextAlign.center, style: AppText.b1),
                     ),
                   ),
                 ]),
               ),
-              const SizedBox(
-                height: 30,
-              ),
-              const Text(
-                'Doclense!',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              Space.y1!,
+              Text(
+                S.doclense + '!',
+                style: AppText.h3b,
               ),
               SizedBox(
-                height: MediaQuery.of(context).size.height / 20,
+                height: UI.height! / 20,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   SvgPicture.asset(
-                    'assets/aboutPage/undraw_At_work_re_qotl.svg',
-                    height: 100,
+                    Assets.undrawSvg,
+                    height: AppDimensions.height(15),
                   ),
                   SvgPicture.asset(
-                    'assets/aboutPage/undraw_Upload_re_pasx.svg',
-                    height: 100,
+                    Assets.undrawUpSvg,
+                    height: AppDimensions.height(15),
                   )
                 ],
               ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 13,
+              Space.y2!,
+              Text(
+                S.madeByOpenSource,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: const <Widget>[
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                    child: Text(
-                      "Made with ❤ by Open Source",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                ],
-              )
+              Space.y1!,
             ],
           ),
         ),
