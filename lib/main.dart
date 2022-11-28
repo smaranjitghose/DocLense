@@ -1,6 +1,6 @@
 import 'package:doclense/constants/theme_constants.dart';
 import 'package:doclense/env.dart';
-import 'package:doclense/intro_screen.dart';
+import 'package:doclense/screens/intro_screen.dart';
 import 'package:doclense/models/preferences.dart';
 import 'package:doclense/providers/theme_provider.dart';
 import 'package:doclense/services/route_page.dart' as route_page;

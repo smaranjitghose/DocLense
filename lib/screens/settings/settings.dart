@@ -3,7 +3,7 @@ import 'package:doclense/configs/app_typography.dart';
 import 'package:doclense/configs/space.dart';
 import 'package:doclense/constants/appstrings.dart';
 import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/main_drawer.dart';
+import 'package:doclense/ui_components/main_drawer.dart';
 import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:wiredash/wiredash.dart';
 
-import '../providers/theme_provider.dart';
+import '../../providers/theme_provider.dart';
 import 'setting_text.dart';
 
 class SettingsScreen extends StatefulWidget {

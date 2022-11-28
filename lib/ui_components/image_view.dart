@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/home.dart';
+import 'package:doclense/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image/image.dart' as image_lib;
@@ -10,8 +10,8 @@ import 'package:path/path.dart';
 import 'package:photofilters/filters/preset_filters.dart';
 import 'package:provider/provider.dart';
 
-import 'providers/image_list.dart';
-import 'providers/theme_provider.dart';
+import '../providers/image_list.dart';
+import '../providers/theme_provider.dart';
 
 class Imageview extends StatefulWidget {
   final File file;

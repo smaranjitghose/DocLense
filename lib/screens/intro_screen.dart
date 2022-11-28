@@ -10,8 +10,8 @@ import 'package:hive/hive.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 import 'home.dart';
-import 'models/preferences.dart';
-import 'providers/theme_provider.dart';
+import '../models/preferences.dart';
+import '../providers/theme_provider.dart';
 
 class IntoScreen extends StatefulWidget {
   const IntoScreen({super.key});

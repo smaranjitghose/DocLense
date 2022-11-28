@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'providers/theme_provider.dart';
-import 'ui_components/drawer_nav_item.dart';
+import '../providers/theme_provider.dart';
+import 'drawer_nav_item.dart';
 
 class MainDrawer extends StatelessWidget {
   @override

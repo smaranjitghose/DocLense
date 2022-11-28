@@ -1,4 +1,5 @@
-import 'package:doclense/main_drawer.dart';
+import 'package:doclense/constants/appstrings.dart';
+import 'package:doclense/ui_components/main_drawer.dart';
 import 'package:doclense/providers/theme_provider.dart';
 import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
@@ -32,8 +33,8 @@ class _AboutState extends State<About> {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-        title: const Text(
-          "About App",
+        title: Text(
+          S.aboutApp,
           style: TextStyle(fontSize: 24),
         ),
       ),

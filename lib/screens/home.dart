@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/env.dart';
-import 'package:doclense/main_drawer.dart';
+import 'package:doclense/ui_components/main_drawer.dart';
 import 'package:doclense/providers/image_list.dart';
 import 'package:doclense/providers/theme_provider.dart';
 import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';

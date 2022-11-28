@@ -31,7 +31,7 @@ class S {
 
   static final String contactDevelopers = 'Contact Developers';
 
-  // static final String a = '';
+  static final String aboutApp = "About App";
 
   // static final String a = '';
 

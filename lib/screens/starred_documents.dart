@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
-import 'package:doclense/main_drawer.dart';
+import 'package:doclense/ui_components/main_drawer.dart';
 import 'package:doclense/providers/theme_provider.dart';
 import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
 import 'package:doclense/utils/image_converter.dart' as image_converter;

@@ -11,7 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
-import '../configs/app_dimensions.dart';
+import '../../configs/app_dimensions.dart';
 
 class ContactDeveloperScreen extends StatefulWidget {
   @override

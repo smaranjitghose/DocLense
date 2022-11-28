@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/grid_item.dart';
+import 'package:doclense/ui_components/grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gallery_saver/gallery_saver.dart';
 import 'package:image_picker/image_picker.dart';
 
-import 'providers/image_list.dart';
+import '../providers/image_list.dart';
 
 class MultiDelete extends StatefulWidget {
   final ImageList imageList;
