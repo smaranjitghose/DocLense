@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
               home: IntoScreen(),
               builder: (context, child) {
                 App.init(context);
-                return child!;
+                return child ?? Scaffold();
               },
               onGenerateRoute: route_page.generateRoute,
             ),

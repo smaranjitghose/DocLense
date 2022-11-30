@@ -5,6 +5,10 @@ class AppTheme {
   static const Color primaryColor = Colors.white;
 }
 
+TextStyle appbarStyle = AppText.b2b != null
+    ? AppText.b2b!.cl(Colors.white)
+    : TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold);
+
 final darkTheme = ThemeData(
   primaryColor: Colors.black,
   brightness: Brightness.dark,
@@ -24,11 +28,10 @@ final darkTheme = ThemeData(
     color: Colors.white,
   ),
   appBarTheme: AppBarTheme(
-    elevation: 0,
-    color: Colors.black,
-    titleTextStyle: AppText.b2b!.cl(Colors.white),
-    toolbarTextStyle: AppText.b2b!.cl(Colors.white),
-  ),
+      elevation: 0,
+      color: Colors.black,
+      titleTextStyle: appbarStyle,
+      toolbarTextStyle: appbarStyle),
 );
 
 final lightTheme = ThemeData(
@@ -55,7 +58,7 @@ final lightTheme = ThemeData(
     iconTheme: const IconThemeData(
       color: AppTheme.primaryColor,
     ),
-    titleTextStyle: AppText.b2b!.cl(Colors.white),
-    toolbarTextStyle: AppText.b2b!.cl(Colors.white),
+    titleTextStyle: appbarStyle,
+    toolbarTextStyle: appbarStyle,
   ),
 );
