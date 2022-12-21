@@ -105,9 +105,9 @@ class S {
 
   static final String documents = "Documents";
 
-  // static final String a = '';
+  static final String nameYourPdf = 'Name Your PDF';
 
-  // static final String a = '';
+  static final String pdfName = 'Pdf Name';
 
   // static final String a = '';
 

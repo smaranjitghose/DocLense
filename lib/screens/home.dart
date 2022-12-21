@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:doclense/configs/app_dimensions.dart';
 import 'package:doclense/configs/app_typography.dart';
 import 'package:doclense/configs/space.dart';
+import 'package:doclense/configs/styles.dart';
 import 'package:doclense/constants/appstrings.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/env.dart';
@@ -494,14 +495,7 @@ class _HomeState extends State<Home> {
 
   void _onRename(BuildContext context, Box<dynamic> pdfsBox, int index) {
     TextEditingController pdfName;
-    var outlineInputBorder = OutlineInputBorder(
-      borderRadius: BorderRadius.circular(
-        AppDimensions.normalize(3),
-      ),
-      borderSide: BorderSide(
-        color: Colors.grey.shade500,
-      ),
-    );
+
     showDialog(
         context: context,
         builder: (BuildContext dialogContext) {
@@ -518,8 +512,8 @@ class _HomeState extends State<Home> {
                     decoration: InputDecoration(
                       labelText: S.rename,
                       labelStyle: TextStyle(color: Colors.grey[500]),
-                      focusedBorder: outlineInputBorder,
-                      enabledBorder: outlineInputBorder,
+                      focusedBorder: AppStyles().textFieldBorder,
+                      enabledBorder: AppStyles().textFieldBorder,
                     ),
                   ),
                   Space.y!,
