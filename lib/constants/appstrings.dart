@@ -40,7 +40,24 @@ class S {
 
   static final String madeByOpenSource = "Made with ❤ by Open Source";
 
-  // static final String a = '';
+  static final String noPDFyet = "No PDFs Scanned Yet !! ";
+
+  static final String yourPDF = 'Your PDF!';
+
+  static final String deleteConfirmText =
+      "The PDF will be permanently deleted.\nDo you want to proceed?";
+
+  static final String yes = 'Yes';
+
+  static final String no = 'No';
+
+  static final String rename = 'Rename';
+
+  static final String save = 'Save';
+
+  static final String removeStar = 'Removed from starred documents';
+
+  static final String addStar = 'Added to starred documents!';
 
   // static final String a = '';
 

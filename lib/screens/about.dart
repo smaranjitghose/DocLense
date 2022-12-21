@@ -99,10 +99,7 @@ class _AboutState extends State<About> {
               Space.y2!,
               Text(
                 S.madeByOpenSource,
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppText.b2b,
               ),
               Space.y1!,
             ],
