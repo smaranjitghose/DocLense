@@ -28,9 +28,9 @@ class Assets {
   static final String undrawUpSvg =
       'assets/aboutPage/undraw_Upload_re_pasx.svg';
 
-// static final String a="";
+  static final String doclensewhitesmall = "assets/doclensewhitesmall.svg";
 
-// static final String a="";
+  static final String doclenselightsmall = 'assets/doclenselightsmall.svg';
 
 // static final String a="";
 

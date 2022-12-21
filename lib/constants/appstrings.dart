@@ -74,6 +74,29 @@ class S {
   static final String deleteWarning =
       "All your progress will be lost.\nDo you want to go back to home?";
 
+  static final String onePlace = "One Place For All \n Your Documents!";
+
+  static final String home = 'Home';
+
+  static final String starredDocuments = 'Starred Documents';
+
+  static final String settings = 'Settings';
+
+  static final String rateus = 'Rate us';
+
+  static final String shareTheApp = 'Share the App';
+
+  static final String shareMessage =
+      'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense';
+
+  static final String howWasExperience = "How was your experience?";
+
+  static final String submit = 'Submit';
+
+  static final String letUsKnow = "Let us know what you think";
+
+  // static final String a = '';
+
   // static final String a = '';
 
   // static final String a = '';
