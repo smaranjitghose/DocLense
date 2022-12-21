@@ -1,6 +1,10 @@
 import 'dart:io';
 
+import 'package:doclense/configs/app_dimensions.dart';
+import 'package:doclense/configs/app_typography.dart';
+import 'package:doclense/configs/space.dart';
 import 'package:doclense/configs/ui.dart';
+import 'package:doclense/constants/appstrings.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/ui_components/grid_item.dart';
 import 'package:flutter/material.dart';
@@ -52,9 +56,10 @@ class _MultiDeleteState extends State<MultiDelete> {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Colors.blueGrey[800],
-            title: const Text(
-              "Delete selected item(s)?",
-              style: TextStyle(color: Colors.white),
+            title: Text(
+              S.deleteSelected,
+              textAlign: TextAlign.center,
+              style: AppText.b1!.cl(Colors.white),
             ),
             content: SingleChildScrollView(
               child: ListBody(
@@ -74,26 +79,21 @@ class _MultiDeleteState extends State<MultiDelete> {
                       });
                       Navigator.pop(context);
                     },
-                    child: const Text(
-                      "Yes",
-                      style: TextStyle(color: Colors.white),
+                    child: Text(
+                      S.yes,
+                      textAlign: TextAlign.center,
+                      style: AppText.b1!.cl(Colors.white),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
+                  Space.y!,
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pop();
-//                      Navigator.push(
-//                          context,
-//                          MaterialPageRoute(
-//                              builder: (context) =>
-//                                  multiDelete(widget.imageList)));
                     },
-                    child: const Text(
-                      "No",
-                      style: TextStyle(color: Colors.white),
+                    child: Text(
+                      S.no,
+                      textAlign: TextAlign.center,
+                      style: AppText.b1!.cl(Colors.white),
                     ),
                   ),
                 ],
@@ -109,10 +109,10 @@ class _MultiDeleteState extends State<MultiDelete> {
         builder: (BuildContext ctx) {
           return AlertDialog(
             backgroundColor: Colors.blueGrey[800],
-            title: const Text(
-              "All your progress will be lost.\nDo you want to go back to home?",
+            title: Text(
+              S.deleteWarning,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white),
+              style: AppText.b1!.cl(Colors.white),
             ),
             content: SingleChildScrollView(
               child: ListBody(
@@ -133,23 +133,21 @@ class _MultiDeleteState extends State<MultiDelete> {
 
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
-                    child: const Text(
-                      "Yes",
+                    child: Text(
+                      S.yes,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      style: AppText.b1!.cl(Colors.white),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
+                  Space.y!,
                   GestureDetector(
                     onTap: () {
                       Navigator.of(ctx).pop();
                     },
-                    child: const Text(
-                      "No",
+                    child: Text(
+                      S.no,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      style: AppText.b1!.cl(Colors.white),
                     ),
                   ),
                 ],
@@ -200,9 +198,10 @@ class _MultiDeleteState extends State<MultiDelete> {
         builder: (BuildContext context) {
           return AlertDialog(
             backgroundColor: Colors.blueGrey[800],
-            title: const Text(
-              "Add more pages with:",
-              style: TextStyle(color: Colors.white),
+            title: Text(
+              S.addMorePages,
+              textAlign: TextAlign.center,
+              style: AppText.b1!.cl(Colors.white),
             ),
             content: SingleChildScrollView(
               child: ListBody(
@@ -212,22 +211,20 @@ class _MultiDeleteState extends State<MultiDelete> {
                       Navigator.of(context).pop();
                       _openGallery();
                     },
-                    child: const Text(
-                      "Gallery",
-                      style: TextStyle(color: Colors.white),
+                    child: Text(
+                      S.gallery,
+                      style: AppText.b1!.cl(Colors.white),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
+                  Space.y!,
                   GestureDetector(
                     onTap: () {
                       Navigator.of(context).pop();
                       _openCamera();
                     },
-                    child: const Text(
-                      "Camera",
-                      style: TextStyle(color: Colors.white),
+                    child: Text(
+                      S.camera,
+                      style: AppText.b1!.cl(Colors.white),
                     ),
                   ),
                 ],
@@ -282,17 +279,14 @@ class _MultiDeleteState extends State<MultiDelete> {
                     );
                   }),
           floatingActionButton: FloatingActionButton(
-            // backgroundColor: Colors.blue[600],
             onPressed: () {},
             child: IconButton(
-              iconSize: 40,
+              iconSize: AppDimensions.font(18),
               onPressed: () {
                 _showChoiceDialogAdd(context);
               },
-              // color: Colors.blue[600],
               icon: const Icon(
                 Icons.add,
-                // color: Colors.teal,
               ),
             ),
           )),
@@ -314,23 +308,20 @@ class _MultiDeleteState extends State<MultiDelete> {
         },
         icon: const Icon(Icons.arrow_back),
       ),
-      title: Text(selectedList!.isEmpty
-          ? "Documents"
-          : "${selectedList!.length} item selected"),
+      title: Text(
+        selectedList!.isEmpty
+            ? S.documents
+            : "${selectedList!.length} item selected",
+      ),
       actions: <Widget>[
         if (selectedList!.isEmpty)
           Container()
         else
-          InkWell(
-              onTap: () {
+          IconButton(
+              icon: const Icon(Icons.delete),
+              onPressed: () {
                 _showChoiceDialogDel(context);
-              },
-              child: const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.delete,
-                ),
-              )),
+              }),
         IconButton(
             icon: const Icon(Icons.picture_as_pdf),
             onPressed: () {

@@ -95,15 +95,15 @@ class S {
 
   static final String letUsKnow = "Let us know what you think";
 
-  // static final String a = '';
+  static final String deleteSelected = 'Delete selected item(s)?';
 
-  // static final String a = '';
+  static final String addMorePages = 'Add more pages with:';
 
-  // static final String a = '';
+  static final String gallery = 'Gallery';
 
-  // static final String a = '';
+  static final String camera = 'Camera';
 
-  // static final String a = '';
+  static final String documents = "Documents";
 
   // static final String a = '';
 
