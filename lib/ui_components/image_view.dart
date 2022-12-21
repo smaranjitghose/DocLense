@@ -36,7 +36,7 @@ class _ImageviewState extends State<Imageview> {
   void initState() {
     super.initState();
     files.add(widget.file);
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         _isLoading = false;
       });

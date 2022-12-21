@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:doclense/configs/ui.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/ui_components/grid_item.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class _MultiDeleteState extends State<MultiDelete> {
     loadList();
     super.initState();
     Future.delayed(
-        const Duration(seconds: 2),
+        const Duration(seconds: 1),
         () => setState(() {
               _isLoading = false;
             }));
@@ -258,29 +259,26 @@ class _MultiDeleteState extends State<MultiDelete> {
                 )
               : GridView.builder(
                   itemCount: itemList!.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: UI.width! >= 640 ? 3 : 2,
                       crossAxisSpacing: 4,
                       mainAxisSpacing: 4),
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Card(
-                        elevation: 10,
-                        child: GridItem(
-                            item: itemList![index],
-                            isSelected: (bool value) {
-                              setState(() {
-                                if (value) {
-                                  selectedList!.add(itemList![index]);
-                                } else {
-                                  selectedList!.remove(itemList![index]);
-                                }
-                              });
-                              print("$index : $value");
-                            },
-                            key: Key(itemList![index].rank.toString())),
-                      ),
+                    return Card(
+                      elevation: 10,
+                      child: GridItem(
+                          item: itemList![index],
+                          isSelected: (bool value) {
+                            setState(() {
+                              if (value) {
+                                selectedList!.add(itemList![index]);
+                              } else {
+                                selectedList!.remove(itemList![index]);
+                              }
+                            });
+                            print("$index : $value");
+                          },
+                          key: Key(itemList![index].rank.toString())),
                     );
                   }),
           floatingActionButton: FloatingActionButton(
