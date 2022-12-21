@@ -59,9 +59,9 @@ class S {
 
   static final String addStar = 'Added to starred documents!';
 
-  // static final String a = '';
+  static final String pdfPreview = "Pdf preview";
 
-  // static final String a = '';
+  static final String starredDocs = 'Starred Docs';
 
   // static final String a = '';
 
