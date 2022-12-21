@@ -99,9 +99,10 @@ class _PDFConversion extends State<PDFConversion> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 1), () {
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted)
+        setState(() {
+          _isLoading = false;
+        });
     });
   }
 

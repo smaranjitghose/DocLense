@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:doclense/configs/app_dimensions.dart';
+import 'package:doclense/configs/app_typography.dart';
+import 'package:doclense/configs/space.dart';
+import 'package:doclense/constants/appstrings.dart';
 import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image/image.dart' as image_lib;
@@ -72,33 +75,33 @@ class _ImageviewState extends State<Imageview> {
     }
   }
 
-  Widget popupMenuButton() {
-    return PopupMenuButton<IconOptions>(
-      icon: const Icon(Icons.more_vert),
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<IconOptions>>[
-        PopupMenuItem<IconOptions>(
-          value: IconOptions.share,
-          child: Row(children: const [
-            Icon(
-              Icons.share,
-              size: 28.0,
-              // color: Colors.blue,
-            ),
-            SizedBox(
-              width: 23.0,
-            ),
-            Text(
-              'Share',
-              style: TextStyle(fontSize: 20.0),
-            )
-          ]),
-        )
-      ],
-      onSelected: (IconOptions value) {
-        setState(() {});
-      },
-    );
-  }
+  // Widget popupMenuButton() {
+  //   return PopupMenuButton<IconOptions>(
+  //     icon: const Icon(Icons.more_vert),
+  //     itemBuilder: (BuildContext context) => <PopupMenuEntry<IconOptions>>[
+  //       PopupMenuItem<IconOptions>(
+  //         value: IconOptions.share,
+  //         child: Row(children: const [
+  //           Icon(
+  //             Icons.share,
+  //             size: 28.0,
+  //             // color: Colors.blue,
+  //           ),
+  //           SizedBox(
+  //             width: 23.0,
+  //           ),
+  //           Text(
+  //             'Share',
+  //             style: TextStyle(fontSize: 20.0),
+  //           )
+  //         ]),
+  //       )
+  //     ],
+  //     onSelected: (IconOptions value) {
+  //       setState(() {});
+  //     },
+  //   );
+  // }
 
   Future<void> getFilterImage(BuildContext context, Color appBarColor) async {
     File filterfile;
@@ -145,10 +148,10 @@ class _ImageviewState extends State<Imageview> {
         builder: (BuildContext ctx) {
           return AlertDialog(
             backgroundColor: Colors.blueGrey[800],
-            title: const Text(
-              "All your progress will be lost.\nDo you want to go back to home?",
+            title: Text(
+              S.deleteWarning,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white),
+              style: AppText.b1!.cl(Colors.white),
             ),
             content: SingleChildScrollView(
               child: ListBody(
@@ -160,23 +163,21 @@ class _ImageviewState extends State<Imageview> {
 
                       Navigator.of(context).popUntil((route) => route.isFirst);
                     },
-                    child: const Text(
-                      "Yes",
+                    child: Text(
+                      S.yes,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      style: AppText.b1!.cl(Colors.white),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(10),
-                  ),
+                  Space.y!,
                   GestureDetector(
                     onTap: () {
                       Navigator.of(ctx).pop();
                     },
-                    child: const Text(
-                      "No",
+                    child: Text(
+                      S.no,
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
+                      style: AppText.b1!.cl(Colors.white),
                     ),
                   ),
                 ],
@@ -203,9 +204,9 @@ class _ImageviewState extends State<Imageview> {
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    flex: 7,
+                    flex: 10,
                     child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
+                      padding: Space.all(0.75),
                       child: Image.file(
                         files[index],
                       ),
@@ -213,143 +214,148 @@ class _ImageviewState extends State<Imageview> {
                   ),
                   Expanded(
                     child: Container(
-                      height: 65,
+                      // padding: Space.all(),
                       color: themeChange.darkTheme
                           ? Colors.black87
                           : Colors.blue[600],
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            TextButton(
-                              onPressed: () {
-                                _showChoiceDialogHome(context);
-
-//                                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-//                                      builder: (context) => Home()));
-                              },
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: const <Widget>[
-                                  Icon(
-                                    Icons.arrow_back,
-                                    color: Colors.white,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          TextButton(
+                            onPressed: () {
+                              _showChoiceDialogHome(context);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.arrow_back,
+                                  color: Colors.white,
+                                  size: AppDimensions.font(
+                                    10,
                                   ),
-                                  Text(
-                                    "Back",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Opacity(
-                              opacity: index == 0 ? 0.5 : 1,
-                              child: TextButton(
-                                onPressed: () {
-                                  //Navigator.of(context).pop();
-                                  if (index == 0) {
-                                    print("no undo possible");
-                                    //implement disabled undo if no undo is possible
-                                  } else {
-                                    setState(() {
-                                      index--;
-                                      files.removeLast();
-                                      print(widget.list.imagelist.length);
-                                      // widget.list.imagepath.removeLast();
-                                    });
-                                  }
-                                },
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: const <Widget>[
-                                    Icon(
-                                      Icons.undo,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      "Undo",
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
                                 ),
-                              ),
+                                Text(
+                                  S.back,
+                                  style: AppText.l1!.cl(Colors.white),
+                                ),
+                              ],
                             ),
-                            TextButton(
+                          ),
+                          Opacity(
+                            opacity: index == 0 ? 0.5 : 1,
+                            child: TextButton(
                               onPressed: () {
-                                if (files.isNotEmpty) {
-                                  cropimage(files[index], appBarColor, bgColor);
+                                //Navigator.of(context).pop();
+                                if (index == 0) {
+                                  print("no undo possible");
+                                  //implement disabled undo if no undo is possible
                                 } else {
-                                  cropimage(widget.file, appBarColor, bgColor);
+                                  setState(() {
+                                    index--;
+                                    files.removeLast();
+                                    print(widget.list.imagelist.length);
+                                    // widget.list.imagepath.removeLast();
+                                  });
                                 }
                               },
                               child: Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
-                                children: const <Widget>[
+                                children: <Widget>[
                                   Icon(
-                                    Icons.crop_rotate,
+                                    Icons.undo,
                                     color: Colors.white,
+                                    size: AppDimensions.font(
+                                      10,
+                                    ),
                                   ),
                                   Text(
-                                    "Crop",
-                                    style: TextStyle(color: Colors.white),
+                                    S.back,
+                                    style: AppText.l1!.cl(Colors.white),
                                   ),
                                 ],
                               ),
                             ),
-                            TextButton(
-                              onPressed: () {
-                                getFilterImage(context, appBarColor);
-                              },
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: const <Widget>[
-                                  Icon(
-                                    Icons.filter,
-                                    color: Colors.white,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              if (files.isNotEmpty) {
+                                cropimage(files[index], appBarColor, bgColor);
+                              } else {
+                                cropimage(widget.file, appBarColor, bgColor);
+                              }
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.crop_rotate,
+                                  color: Colors.white,
+                                  size: AppDimensions.font(
+                                    10,
                                   ),
-                                  Text(
-                                    "Filter",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                Text(
+                                  S.crop,
+                                  style: AppText.l1!.cl(Colors.white),
+                                ),
+                              ],
                             ),
-                            TextButton(
-                              onPressed: () {
-                                if (files.isNotEmpty) {
-                                  widget.list.imagelist.add(files[index]);
-                                  widget.list.imagepath.add(files[index].path);
-                                } else {
-                                  widget.list.imagelist.add(widget.file);
-                                  widget.list.imagepath.add(widget.file.path);
-                                }
-                                Navigator.of(context).pushNamed(
-                                  RouteConstants.multiDelete,
-                                  arguments: widget.list,
-                                );
-                              },
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: const <Widget>[
-                                  Icon(
-                                    Icons.arrow_forward,
-                                    color: Colors.white,
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              getFilterImage(context, appBarColor);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.filter,
+                                  color: Colors.white,
+                                  size: AppDimensions.font(
+                                    10,
                                   ),
-                                  Text(
-                                    "Next",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
+                                ),
+                                Text(
+                                  S.filter,
+                                  style: AppText.l1!.cl(Colors.white),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              if (files.isNotEmpty) {
+                                widget.list.imagelist.add(files[index]);
+                                widget.list.imagepath.add(files[index].path);
+                              } else {
+                                widget.list.imagelist.add(widget.file);
+                                widget.list.imagepath.add(widget.file.path);
+                              }
+                              Navigator.of(context).pushNamed(
+                                RouteConstants.multiDelete,
+                                arguments: widget.list,
+                              );
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: Colors.white,
+                                  size: AppDimensions.font(
+                                    10,
+                                  ),
+                                ),
+                                Text(
+                                  S.next,
+                                  style: AppText.l1!.cl(Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

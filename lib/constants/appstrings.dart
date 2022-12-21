@@ -63,6 +63,29 @@ class S {
 
   static final String starredDocs = 'Starred Docs';
 
+  static final String back = 'Back';
+
+  static final String undo = 'Undo';
+
+  static final String crop = 'Crop';
+
+  static final String filter = 'Filter';
+
+  static final String deleteWarning =
+      "All your progress will be lost.\nDo you want to go back to home?";
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
+  // static final String a = '';
+
   // static final String a = '';
 
   // static final String a = '';
