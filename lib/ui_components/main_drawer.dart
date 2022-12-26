@@ -1,12 +1,18 @@
+import 'package:doclense/configs/app_dimensions.dart';
+import 'package:doclense/configs/app_typography.dart';
+import 'package:doclense/configs/space.dart';
+import 'package:doclense/constants/appstrings.dart';
+import 'package:doclense/constants/assets.dart';
 import 'package:doclense/constants/route_constants.dart';
+import 'package:doclense/env.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:rating_dialog/rating_dialog.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'providers/theme_provider.dart';
-import 'ui_components/drawer_nav_item.dart';
+import '../providers/theme_provider.dart';
+import 'drawer_nav_item.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -18,49 +24,37 @@ class MainDrawer extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
               color: themeChange.darkTheme ? Colors.black : Colors.white10,
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 100,
-                      height: 180,
-                      child: CircleAvatar(
-                        backgroundColor: themeChange.darkTheme
-                            ? Colors.black
-                            : Colors.white10,
-                        radius: 60,
-                        child: themeChange.darkTheme
-                            ? SvgPicture.asset(
-                                'assets/doclensewhitesmall.svg',
-                                height: 100,
-                              )
-                            : SvgPicture.asset(
-                                'assets/doclenselightsmall.svg',
-                                height: 100,
-                              ),
-                      ),
+              child: Column(
+                children: <Widget>[
+                  SizedBox(
+                    width: AppDimensions.normalize(80),
+                    height: AppDimensions.normalize(80),
+                    child: CircleAvatar(
+                      backgroundColor:
+                          themeChange.darkTheme ? Colors.black : Colors.white10,
+                      radius: AppDimensions.normalize(60),
+                      child: themeChange.darkTheme
+                          ? SvgPicture.asset(
+                              Assets.doclensewhitesmall,
+                            )
+                          : SvgPicture.asset(
+                              Assets.doclenselightsmall,
+                            ),
                     ),
-                    const Text(
-                      "One Place For All \n Your Documents!",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
-                ),
+                  ),
+                  Text(S.onePlace, style: AppText.b1),
+                ],
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            Space.y!,
 
             // Added drawerNavItems in Place of Drawer ListTiles below.
             // Navigate to ui_components/Drawer_Nav_Items.dart to explore the refactored drawerNavItem Class.
 
             DrawerNavItem(
               iconData: Icons.home,
-              navItemTitle: 'Home',
+              navItemTitle: S.home,
               callback: () {
                 Navigator.of(context).pushReplacementNamed(
                   RouteConstants.homeScreen,
@@ -69,7 +63,7 @@ class MainDrawer extends StatelessWidget {
             ),
             DrawerNavItem(
                 iconData: Icons.stars_rounded,
-                navItemTitle: 'Starred Documents',
+                navItemTitle: S.starredDocuments,
                 callback: () {
                   Navigator.of(context).pushReplacementNamed(
                     RouteConstants.starredDocumentsScreen,
@@ -81,7 +75,7 @@ class MainDrawer extends StatelessWidget {
                   RouteConstants.settingsScreen,
                 );
               },
-              navItemTitle: 'Settings',
+              navItemTitle: S.settings,
               iconData: Icons.settings,
             ),
             Divider(
@@ -89,7 +83,7 @@ class MainDrawer extends StatelessWidget {
             ),
             DrawerNavItem(
               iconData: Icons.info,
-              navItemTitle: 'About App',
+              navItemTitle: S.aboutApp,
               callback: () {
                 Navigator.of(context).pushReplacementNamed(
                   RouteConstants.aboutAppScreen,
@@ -97,7 +91,7 @@ class MainDrawer extends StatelessWidget {
               },
             ),
             DrawerNavItem(
-              navItemTitle: 'Rate us',
+              navItemTitle: S.rateus,
               iconData: Icons.star_rate,
               callback: () {
                 Navigator.of(context).pop();
@@ -106,21 +100,25 @@ class MainDrawer extends StatelessWidget {
                     barrierDismissible: true,
                     builder: (BuildContext context) {
                       return RatingDialog(
-                        // accentColor:
-                        //     themeChange.darkTheme ? Colors.white : Colors.blue,
                         image: Padding(
-                          padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                          padding: EdgeInsets.fromLTRB(
+                              AppDimensions.normalize(10), 0, 0, 0),
                           child: themeChange.darkTheme
-                              ? SvgPicture.asset('assets/doclensewhite.svg')
-                              : SvgPicture.asset(
-                                  'assets/images/doclenselight.svg'),
+                              ? SvgPicture.asset(Assets.doclensewhiteSvg)
+                              : SvgPicture.asset(Assets.doclenselightSvg),
                         ),
-                        title: Text("How was your experience?"),
+                        title: Text(
+                          S.howWasExperience,
+                          textAlign: TextAlign.center,
+                        ),
                         onSubmitted: (RatingDialogResponse) {
                           _launchURL();
                         },
-                        submitButtonText: "Submit",
-                        message: Text("Let us know what you think"),
+                        submitButtonText: S.submit,
+                        message: Text(
+                          S.letUsKnow,
+                          textAlign: TextAlign.center,
+                        ),
                       );
                     });
               },
@@ -129,12 +127,10 @@ class MainDrawer extends StatelessWidget {
               color: themeChange.darkTheme ? Colors.white : Colors.black,
             ),
             DrawerNavItem(
-              navItemTitle: 'Share the App',
+              navItemTitle: S.shareTheApp,
               iconData: Icons.share,
               callback: () {
-                Share.share(
-                    'Hey !! , I am using this wonderful app : DocLense , check it out here https://github.com/smaranjitghose/DocLense',
-                    subject: "DocLense");
+                Share.share(S.shareMessage, subject: Env.appname);
               },
             ),
             // ListTile(
@@ -158,8 +154,8 @@ class MainDrawer extends StatelessWidget {
 Future<void> _launchURL() async {
   const url =
       'https://github.com/smaranjitghose/DocLense'; //!paste link of app once uploaded on play store
-  if (await canLaunch(url)) {
-    await launch(url);
+  if (await canLaunchUrl(Uri.parse(url))) {
+    await launchUrl(Uri.parse(url));
   } else {
     throw 'Could not launch $url';
   }

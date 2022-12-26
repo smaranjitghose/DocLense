@@ -1,16 +1,16 @@
 import 'dart:io';
 
-import 'package:doclense/about.dart';
+import 'package:doclense/screens/about.dart';
 import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/home.dart';
-import 'package:doclense/image_view.dart';
-import 'package:doclense/multi_select_delete.dart';
-import 'package:doclense/pdf_conversion.dart';
-import 'package:doclense/pdf_preview_screen.dart';
+import 'package:doclense/screens/home.dart';
+import 'package:doclense/ui_components/image_view.dart';
+import 'package:doclense/ui_components/multi_select_delete.dart';
+import 'package:doclense/ui_components/pdf_conversion.dart';
+import 'package:doclense/screens/pdf_preview_screen.dart';
 import 'package:doclense/providers/image_list.dart';
-import 'package:doclense/settings/contact_developers.dart';
-import 'package:doclense/settings/settings.dart';
-import 'package:doclense/starred_documents.dart';
+import 'package:doclense/screens/settings/contact_developers.dart';
+import 'package:doclense/screens/settings/settings.dart';
+import 'package:doclense/screens/starred_documents.dart';
 import 'package:flutter/material.dart';
 // import 'package:folder_picker/folder_picker.dart';
 import 'package:image/image.dart' as image_lib;

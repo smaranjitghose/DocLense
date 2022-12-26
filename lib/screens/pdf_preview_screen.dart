@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:doclense/configs/app_typography.dart';
+import 'package:doclense/constants/appstrings.dart';
 import 'package:flutter/material.dart';
 import 'package:pdf/pdf.dart';
 import 'package:printing/printing.dart';
@@ -32,7 +34,10 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Pdf preview"),
+        title: Text(
+          S.pdfPreview,
+          style: AppText.h4b,
+        ),
       ),
       body: PdfPreview(
         canDebug: false,

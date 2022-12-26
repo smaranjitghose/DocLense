@@ -1,5 +1,10 @@
 import 'dart:io';
 
+import 'package:doclense/configs/app_dimensions.dart';
+import 'package:doclense/configs/app_typography.dart';
+import 'package:doclense/configs/space.dart';
+import 'package:doclense/configs/styles.dart';
+import 'package:doclense/constants/appstrings.dart';
 import 'package:doclense/constants/route_constants.dart';
 import 'package:doclense/providers/image_list.dart';
 import 'package:doclense/utils/image_converter.dart' as image_converter;
@@ -39,10 +44,6 @@ class _PDFConversion extends State<PDFConversion> {
   final pw.Document pdf = pw.Document();
   void writeOnPdf() {
     for (var i = 0; i < widget.list.imagelist.length; i++) {
-      // PdfImage image = PdfImage.file(
-      //   pdf.document,
-      //   bytes: File(widget.list.imagepath[i]).readAsBytesSync(),
-      // );
       pdf.addPage(pw.Page(
           pageFormat: PdfPageFormat.a4.copyWith(
             marginTop: 0,
@@ -51,7 +52,6 @@ class _PDFConversion extends State<PDFConversion> {
             marginRight: 0,
           ),
           build: (pw.Context context) {
-            // ignore: deprecated_member_use
             return pw.Expanded(
                 // change this line to this:
                 child: pw.Image(
@@ -98,10 +98,11 @@ class _PDFConversion extends State<PDFConversion> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-      });
+    Future.delayed(const Duration(seconds: 1), () {
+      if (mounted)
+        setState(() {
+          _isLoading = false;
+        });
     });
   }
 
@@ -109,11 +110,9 @@ class _PDFConversion extends State<PDFConversion> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Name Your PDF',
-          style: TextStyle(
-            fontSize: 22,
-          ),
+        title: Text(
+          S.nameYourPdf,
+          style: AppText.b1b,
         ),
         actions: [
           GestureDetector(
@@ -121,36 +120,27 @@ class _PDFConversion extends State<PDFConversion> {
               await getPermissions();
               await getStorage();
               print("External : $externalDirectory");
-              // await FilesystemPicker.open(
-              //         context: context, rootDirectory: externalDirectory!)
-              //     .then((folderPath) {
-              //   if (folderPath != null)
-              //     setState(() => pickedDirectory = Directory(folderPath));
-              // });
+
               Directory? folderDir = await FolderPicker.pick(
                   allowFolderCreation: true,
                   context: context,
                   rootDirectory: externalDirectory!,
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))));
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(AppDimensions.normalize(5)),
+                    ),
+                  ));
               if (folderDir != null)
                 setState(() => pickedDirectory = folderDir);
-            }
-            // Navigator.of(context).pushNamed(
-            //   RouteConstants.folderPickerPage,
-            //   arguments: {
-            //     'rootDirectory': externalDirectory,
-            //     'action': (BuildContext context, Directory folder) async {
-            //       print("Picked directory $folder");
-            //       setState(() => pickedDirectory = folder);
-            //       Navigator.of(context).pop();
-            //     }
-            //   },
-            // );
-            ,
-            child: const Padding(
-              padding: EdgeInsets.only(left: 16, right: 16),
-              child: Icon(Icons.folder_open),
+            },
+            child: Padding(
+              padding: Space.h1!,
+              child: Icon(
+                Icons.folder_open,
+                size: AppDimensions.font(
+                  12,
+                ),
+              ),
             ),
           ),
         ],
@@ -159,48 +149,27 @@ class _PDFConversion extends State<PDFConversion> {
           ? const SpinKitRotatingCircle(
               color: Colors.blue,
             )
-          : Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: TextField(
-                    controller: myController,
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      labelText: 'Pdf Name',
-                      labelStyle: TextStyle(color: Colors.grey[500]),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
-                        borderSide:
-                            BorderSide(width: 2, color: Colors.grey[500]!),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20)),
-                        borderSide:
-                            BorderSide(width: 2, color: Colors.grey[500]!),
-                      ),
-                    ),
-                  ),
+          : Container(
+              alignment: Alignment.center,
+              padding: Space.h1,
+              child: TextField(
+                controller: myController,
+                autofocus: true,
+                decoration: InputDecoration(
+                  labelText: S.pdfName,
+                  labelStyle: TextStyle(color: Colors.grey[500]),
+                  focusedBorder: AppStyles().textFieldBorder,
+                  enabledBorder: AppStyles().textFieldBorder,
                 ),
               ),
             ),
       floatingActionButton: FloatingActionButton(
+        mini: true,
         onPressed: () {
-          // if (name == null) {
-          //   AlertDialog(
-          //       backgroundColor: Colors.blueGrey[800],
-          //       content: Text(
-          //         "Enter PDF Name",
-          //         style: TextStyle(color: Colors.white),
-          //       ));
-          // } else
           FocusScope.of(context).unfocus();
           _pushSaved();
         },
-        child: const Icon(Icons.arrow_forward, size: 40),
+        child: Icon(Icons.arrow_forward, size: AppDimensions.font(12)),
       ),
     );
   }

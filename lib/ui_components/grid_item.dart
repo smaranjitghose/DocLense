@@ -1,13 +1,15 @@
+import 'package:doclense/configs/app_dimensions.dart';
+import 'package:doclense/configs/space.dart';
 import 'package:flutter/material.dart';
 
 import 'multi_select_delete.dart';
 
 class GridItem extends StatefulWidget {
-  final Item item;
-  final ValueChanged<bool> isSelected;
-
   const GridItem({Key? key, required this.item, required this.isSelected})
       : super(key: key);
+
+  final ValueChanged<bool> isSelected;
+  final Item item;
 
   @override
   _GridItemState createState() => _GridItemState();
@@ -32,17 +34,18 @@ class _GridItemState extends State<GridItem> {
             color: Colors.black.withOpacity(isSelected ? 0.9 : 0),
             colorBlendMode: BlendMode.color,
             fit: BoxFit.fill, //Determines the size ratio of the gridimage
-            width: 320,
-            height: 320,
+            width: AppDimensions.width(50),
+            height: AppDimensions.width(50),
           ),
           if (isSelected)
-            const Align(
+            Container(
               alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  Icons.check_circle,
-                  color: Colors.black,
+              padding: Space.all(),
+              child: Icon(
+                Icons.check_circle,
+                color: Colors.black,
+                size: AppDimensions.font(
+                  11,
                 ),
               ),
             )

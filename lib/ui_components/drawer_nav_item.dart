@@ -1,3 +1,5 @@
+import 'package:doclense/configs/app_dimensions.dart';
+import 'package:doclense/configs/app_typography.dart';
 import 'package:flutter/material.dart';
 
 class DrawerNavItem extends StatelessWidget {
@@ -16,10 +18,10 @@ class DrawerNavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: callback,
-      leading: Icon(iconData),
+      leading: Icon(iconData, size: AppDimensions.font(13)),
       title: Text(
         navItemTitle,
-        style: const TextStyle(fontSize: 18),
+        style: AppText.b2,
       ),
     );
   }
