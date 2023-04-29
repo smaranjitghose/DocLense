@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:camera/camera.dart';
 import 'package:doclense/configs/app_dimensions.dart';
 import 'package:doclense/configs/app_typography.dart';
 import 'package:doclense/configs/space.dart';
