@@ -49,7 +49,7 @@ dev_dependencies:
   # flutter_test:
   #   sdk: flutter
   hive_generator: ^2.0.0
-lint: ^1.10.0
+lint: ^2.1.2
 
 flutter_icons:
   android: true
