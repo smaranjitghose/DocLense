@@ -57,6 +57,22 @@ flutter_icons:
   ios: true
   image_path: "assets/app_icon.png"
 
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/app_icon.png
+  branding: assets/doclense.png
+  color_dark: "000000"
+  image_dark: assets/app_icon.png
+  branding_dark: assets/doclense.png
+
+  android_12:
+    image: assets/app_icon.png
+    icon_background_color: "#ffffff"
+    image_dark: assets/app_icon.png
+    icon_background_color_dark: "#000000"
+
+  web: false
+
 flutter:
   uses-material-design: true
   assets:
