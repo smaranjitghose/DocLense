@@ -49,6 +49,7 @@ dev_dependencies:
   # flutter_test:
   #   sdk: flutter
   hive_generator: ^2.0.0
+  flutter_native_splash: ^2.2.16
 lint: ^2.1.2
 
 flutter_icons:
