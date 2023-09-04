@@ -1,12 +1,11 @@
-import 'package:doclense/configs/app_dimensions.dart';
-import 'package:doclense/configs/space.dart';
-import 'package:flutter/material.dart';
+import "package:doclense/configs/app_dimensions.dart";
+import "package:doclense/configs/space.dart";
+import "package:flutter/material.dart";
 
-import 'multi_select_delete.dart';
+import "package:doclense/ui_components/multi_select_delete.dart";
 
 class GridItem extends StatefulWidget {
-  const GridItem({Key? key, required this.item, required this.isSelected})
-      : super(key: key);
+  const GridItem({required this.item, required this.isSelected, super.key});
 
   final ValueChanged<bool> isSelected;
   final Item item;
@@ -19,8 +18,7 @@ class _GridItemState extends State<GridItem> {
   bool isSelected = false;
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
+  Widget build(BuildContext context) => InkWell(
       onTap: () {
         setState(() {
           isSelected = !isSelected;
@@ -50,9 +48,8 @@ class _GridItemState extends State<GridItem> {
               ),
             )
           else
-            Container()
+            Container(),
         ],
       ),
     );
-  }
 }

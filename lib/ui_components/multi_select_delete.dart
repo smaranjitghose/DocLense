@@ -1,23 +1,22 @@
-import 'dart:io';
+import "dart:io";
 
-import 'package:doclense/configs/app_dimensions.dart';
-import 'package:doclense/configs/app_typography.dart';
-import 'package:doclense/configs/space.dart';
-import 'package:doclense/configs/ui.dart';
-import 'package:doclense/constants/appstrings.dart';
-import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/ui_components/grid_item.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:gallery_saver/gallery_saver.dart';
-import 'package:image_picker/image_picker.dart';
-
-import '../providers/image_list.dart';
+import "package:doclense/configs/app_dimensions.dart";
+import "package:doclense/configs/app_typography.dart";
+import "package:doclense/configs/space.dart";
+import "package:doclense/configs/ui.dart";
+import "package:doclense/constants/appstrings.dart";
+import "package:doclense/constants/route_constants.dart";
+import "package:doclense/providers/image_list.dart";
+import "package:doclense/ui_components/grid_item.dart";
+import "package:flutter/material.dart";
+import "package:flutter_spinkit/flutter_spinkit.dart";
+import "package:gallery_saver/gallery_saver.dart";
+import "package:image_picker/image_picker.dart";
 
 class MultiDelete extends StatefulWidget {
-  final ImageList imageList;
 
-  const MultiDelete(this.imageList);
+  const MultiDelete(this.imageList, {super.key});
+  final ImageList imageList;
 
   @override
   _MultiDeleteState createState() => _MultiDeleteState();
@@ -27,7 +26,7 @@ class _MultiDeleteState extends State<MultiDelete> {
   List<Item>? itemList;
   List<Item>? selectedList;
   File? imageFile;
-  final picker = ImagePicker();
+  final ImagePicker picker = ImagePicker();
 
   bool _isLoading = true;
 
@@ -39,22 +38,20 @@ class _MultiDeleteState extends State<MultiDelete> {
         const Duration(seconds: 1),
         () => setState(() {
               _isLoading = false;
-            }));
+            }),);
   }
 
   void loadList() {
-    itemList = [];
-    selectedList = [];
+    itemList = <Item>[];
+    selectedList = <Item>[];
     for (int i = 0; i < (widget.imageList.length()); i++) {
       itemList?.add(Item(widget.imageList.imagelist.elementAt(i), i));
     }
   }
 
-  Future<void> _showChoiceDialogDel(BuildContext context) {
-    return showDialog(
+  Future<void> _showChoiceDialogDel(BuildContext context) => showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
+        builder: (BuildContext context) => AlertDialog(
             backgroundColor: Colors.blueGrey[800],
             title: Text(
               S.deleteSelected,
@@ -70,12 +67,12 @@ class _MultiDeleteState extends State<MultiDelete> {
                         for (int i = 0; i < selectedList!.length; i++) {
                           final int idx = widget.imageList.imagelist.indexOf(
                               itemList![itemList!.indexOf(selectedList![i])]
-                                  .imageUrl);
+                                  .imageUrl,);
                           widget.imageList.imagelist.removeAt(idx);
                           widget.imageList.imagepath.removeAt(idx);
                           itemList!.remove(selectedList![i]);
                         }
-                        selectedList = [];
+                        selectedList = <Item>[];
                       });
                       Navigator.pop(context);
                     },
@@ -99,15 +96,11 @@ class _MultiDeleteState extends State<MultiDelete> {
                 ],
               ),
             ),
-          );
-        });
-  }
+          ),);
 
-  Future<void> _showChoiceDialogHome(BuildContext context) {
-    return showDialog(
+  Future<void> _showChoiceDialogHome(BuildContext context) => showDialog(
         context: context,
-        builder: (BuildContext ctx) {
-          return AlertDialog(
+        builder: (BuildContext ctx) => AlertDialog(
             backgroundColor: Colors.blueGrey[800],
             title: Text(
               S.deleteWarning,
@@ -120,18 +113,18 @@ class _MultiDeleteState extends State<MultiDelete> {
                   GestureDetector(
                     onTap: () {
                       for (int i = 0; i < itemList!.length; i++) {
-                        print('i = $i');
+                        print("i = $i");
                         print(widget.imageList.imagelist.length);
                         final int idx = widget.imageList.imagelist.indexOf(
                             itemList![itemList!.indexOf(itemList![i])]
-                                .imageUrl);
+                                .imageUrl,);
                         widget.imageList.imagelist.removeAt(idx);
                         widget.imageList.imagepath.removeAt(idx);
                         // itemList.remove(idx);
                         itemList!.removeAt(idx);
                       }
 
-                      Navigator.of(context).popUntil((route) => route.isFirst);
+                      Navigator.of(context).popUntil((Route route) => route.isFirst);
                     },
                     child: Text(
                       S.yes,
@@ -153,50 +146,46 @@ class _MultiDeleteState extends State<MultiDelete> {
                 ],
               ),
             ),
-          );
-        });
-  }
+          ),);
 
   Future<void> _openGallery() async {
-    XFile? picture = await picker.pickImage(source: ImageSource.gallery);
+    final XFile? picture = await picker.pickImage(source: ImageSource.gallery);
     setState(() {
       if (picture != null) imageFile = File(picture.path);
     });
     if (imageFile != null) {
-      Navigator.of(context).pushNamed(
+      await Navigator.of(context).pushNamed(
         RouteConstants.imageView,
-        arguments: {
-          'imageFile': imageFile,
-          'imageList': widget.imageList,
+        arguments: <String, Object?>{
+          "imageFile": imageFile,
+          "imageList": widget.imageList,
         },
       );
     }
   }
 
   Future<void> _openCamera() async {
-    XFile? picture = await picker.pickImage(source: ImageSource.camera);
+    final XFile? picture = await picker.pickImage(source: ImageSource.camera);
     setState(() {
       if (picture != null) imageFile = File(picture.path);
     });
 
     if (imageFile != null) {
-      GallerySaver.saveImage(imageFile!.path)
-          .then((value) => print("Image Saved"));
-      Navigator.of(context).pushNamed(
+      await GallerySaver.saveImage(imageFile!.path)
+          .then((bool? value) => print("Image Saved"));
+      await Navigator.of(context).pushNamed(
         RouteConstants.imageView,
-        arguments: {
-          'imageFile': imageFile,
-          'imageList': widget.imageList,
+        arguments: <String, Object?>{
+          "imageFile": imageFile,
+          "imageList": widget.imageList,
         },
       );
     }
   }
 
-  Future<void> _showChoiceDialogAdd(BuildContext context) {
-    return showDialog(
+  Future<void> _showChoiceDialogAdd(BuildContext context) => showDialog(
         context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
+        builder: (BuildContext context) => AlertDialog(
             backgroundColor: Colors.blueGrey[800],
             title: Text(
               S.addMorePages,
@@ -230,13 +219,10 @@ class _MultiDeleteState extends State<MultiDelete> {
                 ],
               ),
             ),
-          );
-        });
-  }
+          ),);
 
   @override
-  Widget build(BuildContext context) {
-    return WillPopScope(
+  Widget build(BuildContext context) => WillPopScope(
       onWillPop: () async {
         if (itemList!.isNotEmpty) {
           setState(() {
@@ -259,9 +245,8 @@ class _MultiDeleteState extends State<MultiDelete> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: UI.width! >= 640 ? 3 : 2,
                       crossAxisSpacing: 4,
-                      mainAxisSpacing: 4),
-                  itemBuilder: (context, index) {
-                    return Card(
+                      mainAxisSpacing: 4,),
+                  itemBuilder: (BuildContext context, int index) => Card(
                       elevation: 10,
                       child: GridItem(
                           item: itemList![index],
@@ -275,9 +260,8 @@ class _MultiDeleteState extends State<MultiDelete> {
                             });
                             print("$index : $value");
                           },
-                          key: Key(itemList![index].rank.toString())),
-                    );
-                  }),
+                          key: Key(itemList![index].rank.toString()),),
+                    ),),
           floatingActionButton: FloatingActionButton(
             onPressed: () {},
             child: IconButton(
@@ -289,12 +273,10 @@ class _MultiDeleteState extends State<MultiDelete> {
                 Icons.add,
               ),
             ),
-          )),
+          ),),
     );
-  }
 
-  AppBar getAppBar() {
-    return AppBar(
+  AppBar getAppBar() => AppBar(
       leading: IconButton(
         onPressed: () {
           if (itemList!.isNotEmpty) {
@@ -321,7 +303,7 @@ class _MultiDeleteState extends State<MultiDelete> {
               icon: const Icon(Icons.delete),
               onPressed: () {
                 _showChoiceDialogDel(context);
-              }),
+              },),
         IconButton(
             icon: const Icon(Icons.picture_as_pdf),
             onPressed: () {
@@ -329,20 +311,19 @@ class _MultiDeleteState extends State<MultiDelete> {
                 RouteConstants.pdfConversionScreen,
                 arguments: widget.imageList,
               );
-            }),
+            },),
         IconButton(
             icon: const Icon(Icons.home),
             onPressed: () {
               _showChoiceDialogHome(context);
-            })
+            },),
       ],
     );
-  }
 }
 
 class Item {
-  File imageUrl;
-  int rank;
 
   Item(this.imageUrl, this.rank);
+  File imageUrl;
+  int rank;
 }

@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-
-import 'app_dimensions.dart';
+import "package:doclense/configs/app_dimensions.dart";
+import "package:flutter/material.dart";
 
 class AppText {
   static TextStyle? btn;
@@ -28,9 +27,9 @@ class AppText {
   static TextStyle? l2b;
 
   static init() {
-    const b = FontWeight.bold;
+    const FontWeight b = FontWeight.bold;
 
-    const baseStyle = TextStyle(//fontFamily:
+    const TextStyle baseStyle = TextStyle(//fontFamily:
         );
 
     h1 = baseStyle.copyWith(fontSize: AppDimensions.font(22));
@@ -60,23 +59,17 @@ class AppText {
 }
 
 extension SuperTextStyles on TextStyle {
-  TextStyle cl(Color color) {
-    return copyWith(
+  TextStyle cl(Color color) => copyWith(
       color: color,
     );
-  }
 
-  TextStyle s([double? size]) {
-    return copyWith(
+  TextStyle s([double? size]) => copyWith(
       fontSize: size ?? fontSize,
     );
-  }
 
-  TextStyle tsc([double multiplier = 1.0]) {
-    return copyWith(
+  TextStyle tsc([double multiplier = 1.0]) => copyWith(
       fontSize: fontSize! * multiplier,
     );
-  }
 
   TextStyle w(int i) {
     FontWeight w = FontWeight.w400;

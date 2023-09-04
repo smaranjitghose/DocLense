@@ -1,37 +1,40 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:doclense/configs/app_dimensions.dart';
-import 'package:doclense/configs/app_typography.dart';
-import 'package:doclense/configs/space.dart';
-import 'package:doclense/configs/styles.dart';
-import 'package:doclense/constants/appstrings.dart';
-import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/env.dart';
-import 'package:doclense/ui_components/main_drawer.dart';
-import 'package:doclense/providers/image_list.dart';
-import 'package:doclense/providers/theme_provider.dart';
-import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
-import 'package:doclense/utils/image_converter.dart' as image_converter;
-import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-import 'package:easy_folder_picker/FolderPicker.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:gallery_saver/gallery_saver.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:provider/provider.dart';
-import 'package:quick_actions/quick_actions.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import "dart:async";
+import "dart:io";
+
+import "package:doclense/configs/app_dimensions.dart";
+import "package:doclense/configs/app_typography.dart";
+import "package:doclense/configs/space.dart";
+import "package:doclense/configs/styles.dart";
+import "package:doclense/constants/appstrings.dart";
+import "package:doclense/constants/route_constants.dart";
+import "package:doclense/env.dart";
+import "package:doclense/providers/image_list.dart";
+import "package:doclense/providers/theme_provider.dart";
+import "package:doclense/ui_components/double_back_to_close_snackbar.dart";
+import "package:doclense/ui_components/main_drawer.dart";
+import "package:doclense/utils/image_converter.dart" as image_converter;
+import "package:double_back_to_close_app/double_back_to_close_app.dart";
+import "package:easy_folder_picker/FolderPicker.dart";
+import "package:flutter/material.dart";
+import "package:flutter_spinkit/flutter_spinkit.dart";
+import "package:gallery_saver/gallery_saver.dart";
+import "package:hive_flutter/hive_flutter.dart";
+import "package:image_picker/image_picker.dart";
+import "package:open_file/open_file.dart";
+import "package:path_provider/path_provider.dart";
+import "package:permission_handler/permission_handler.dart";
+import "package:provider/provider.dart";
+import "package:quick_actions/quick_actions.dart";
+import "package:share_plus/share_plus.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 enum IconOptions { share }
 
 enum DeviceType { phone, tablet }
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -41,16 +44,17 @@ class _HomeState extends State<Home> {
   Future setSharedPreferences() async {
     final SharedPreferences sharedPreferences =
         await SharedPreferences.getInstance();
-    if (sharedPreferences.getStringList('savedFiles') == null) {
-      sharedPreferences.setStringList('savedFiles', []);
-      return [];
+    if (sharedPreferences.getStringList("savedFiles") == null) {
+      await sharedPreferences.setStringList("savedFiles", <String>[]);
+      return <dynamic>[];
     } else {
-      return sharedPreferences.getStringList('savedFiles');
+      return sharedPreferences.getStringList("savedFiles");
     }
   }
 
   bool getDeviceType() {
-    final data = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
+    final MediaQueryData data =
+        MediaQueryData.fromView(WidgetsBinding.instance.window);
     if (data.size.shortestSide < 550) {
       return false;
     } else {
@@ -59,7 +63,7 @@ class _HomeState extends State<Home> {
   }
 
   ImageList images = ImageList();
-  QuickActions quickActions = QuickActions();
+  QuickActions quickActions = const QuickActions();
 
   void _navigate(String routeName) {
     Navigator.of(context).pushNamed(routeName);
@@ -67,7 +71,7 @@ class _HomeState extends State<Home> {
 
   // File imageFile;
 
-  final picker = ImagePicker();
+  final ImagePicker picker = ImagePicker();
 
   Future<void> getImage(ImageSource imageSource) async {
     final XFile? imageFile = await picker.pickImage(source: imageSource);
@@ -78,15 +82,15 @@ class _HomeState extends State<Home> {
     // final localFile = await tmpFile.copy('${appDir.path}/$fileName');
 
     if (imageSource == ImageSource.camera) {
-      GallerySaver.saveImage(tmpFile.path)
-          .then((value) => print("Image Saved"));
+      await GallerySaver.saveImage(tmpFile.path)
+          .then((bool? value) => print("Image Saved"));
     }
 
-    Navigator.of(context).pushNamed(
+    await Navigator.of(context).pushNamed(
       RouteConstants.imageView,
-      arguments: {
-        'imageFile': tmpFile,
-        'imageList': images,
+      arguments: <String, Object>{
+        "imageFile": tmpFile,
+        "imageList": images,
       },
     );
   }
@@ -103,33 +107,40 @@ class _HomeState extends State<Home> {
     tablet = getDeviceType();
     quickActions.initialize((String shortcutType) {
       switch (shortcutType) {
-        case 'about':
+        case "about":
           return _navigate(RouteConstants.aboutAppScreen);
-        case 'starredDocument':
+        case "starredDocument":
           return _navigate(RouteConstants.starredDocumentsScreen);
-        case 'setting':
+        case "setting":
           return _navigate(RouteConstants.settingsScreen);
 
         default:
-          MaterialPageRoute(builder: (_) {
-            return Scaffold(
+          MaterialPageRoute(
+            builder: (_) => Scaffold(
               body: Center(
-                child: Text('No Page defined for $shortcutType'),
+                child: Text("No Page defined for $shortcutType"),
               ),
-            );
-          });
+            ),
+          );
       }
     });
 
     quickActions.setShortcutItems(<ShortcutItem>[
       const ShortcutItem(
-          type: 'about', localizedTitle: 'About DocLense', icon: 'info'),
+        type: "about",
+        localizedTitle: "About DocLense",
+        icon: "info",
+      ),
       const ShortcutItem(
-          type: 'starredDocument',
-          localizedTitle: 'Starred Documents',
-          icon: 'starred'),
+        type: "starredDocument",
+        localizedTitle: "Starred Documents",
+        icon: "starred",
+      ),
       const ShortcutItem(
-          type: 'setting', localizedTitle: 'Settings', icon: 'setting'),
+        type: "setting",
+        localizedTitle: "Settings",
+        icon: "setting",
+      ),
     ]);
 
     Future.delayed(
@@ -144,10 +155,10 @@ class _HomeState extends State<Home> {
 
   bool isStarred(Box<dynamic> pdfsBox, int index) {
     final File file = File(pdfsBox.getAt(0)[index][0] as String);
-    final path = file.path;
+    final String path = file.path;
 
-    final List<dynamic> files = Hive.box('starred').getAt(0) as List<dynamic>;
-    final List<dynamic> starredDocs = [];
+    final List<dynamic> files = Hive.box("starred").getAt(0) as List<dynamic>;
+    final List<dynamic> starredDocs = <dynamic>[];
     for (int i = 0; i < files.length; i++) {
       starredDocs.add(files[i][0]);
     }
@@ -160,10 +171,11 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    final DarkThemeProvider themeChange =
+        Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
-      drawer: MainDrawer(),
+      drawer: const MainDrawer(),
       appBar: AppBar(
         title: Center(
           child: Text(
@@ -200,8 +212,9 @@ class _HomeState extends State<Home> {
           : DoubleBackToCloseApp(
               snackBar: doubleBackToCloseSnackBar(),
               child: ValueListenableBuilder(
-                valueListenable: Hive.box('pdfs').listenable(),
-                builder: (context, Box<dynamic> pdfsBox, widget) {
+                valueListenable: Hive.box("pdfs").listenable(),
+                builder: (BuildContext context, Box<dynamic> pdfsBox,
+                    Widget? widget) {
                   if (pdfsBox.getAt(0).length == 0) {
                     return Center(
                       child: Text(
@@ -212,14 +225,16 @@ class _HomeState extends State<Home> {
                   }
                   return ListView.builder(
                     itemCount: pdfsBox.getAt(0).length as int,
-                    itemBuilder: (context, index) {
+                    itemBuilder: (BuildContext context, int index) {
                       final Image previewImage =
                           image_converter.base64StringToImage(
-                              pdfsBox.getAt(0)[index][2] as String);
+                        pdfsBox.getAt(0)[index][2] as String,
+                      );
 
                       return GestureDetector(
                         onTap: () async {
-                          OpenFile.open(pdfsBox.getAt(0)[index][0] as String);
+                          await OpenFile.open(
+                              pdfsBox.getAt(0)[index][0] as String);
                         },
                         child: Container(
                           padding: Space.all(),
@@ -233,7 +248,7 @@ class _HomeState extends State<Home> {
                                 ? Colors.grey[700]
                                 : Colors.white,
                             child: Row(
-                              children: [
+                              children: <Widget>[
                                 Container(
                                   width: AppDimensions.width(25),
                                   padding: Space.all(),
@@ -243,47 +258,50 @@ class _HomeState extends State<Home> {
                                   child: Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
-                                    children: [
+                                    children: <Widget>[
                                       Padding(
                                         padding: Space.all(0.4),
                                         child: Text(
                                           (pdfsBox.getAt(0)[index][0] as String)
-                                              .split('/')
+                                              .split("/")
                                               .last,
                                           style: AppText.b1,
                                         ),
                                       ),
                                       Text(
-                                        '${pdfsBox.getAt(0)[index][1]}',
+                                        "${pdfsBox.getAt(0)[index][1]}",
                                         style: AppText.l1,
                                       ),
                                       Space.y!,
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
-                                        children: [
+                                        children: <Widget>[
                                           IconButton(
-                                              icon: Icon(
-                                                Icons.share,
-                                                color: themeChange.darkTheme
-                                                    ? Colors.white70
-                                                    : Colors.grey,
-                                                size: AppDimensions.font(8),
-                                              ),
-                                              onPressed: () async {
-                                                final File file = File(
-                                                    await pdfsBox.getAt(
-                                                        0)[index][0] as String);
+                                            icon: Icon(
+                                              Icons.share,
+                                              color: themeChange.darkTheme
+                                                  ? Colors.white70
+                                                  : Colors.grey,
+                                              size: AppDimensions.font(8),
+                                            ),
+                                            onPressed: () async {
+                                              final File file = File(
+                                                await pdfsBox.getAt(
+                                                  0,
+                                                )[index][0] as String,
+                                              );
 
-                                                final path = file.path;
+                                              final String path = file.path;
 
-                                                print(path);
+                                              print(path);
 
-                                                Share.shareXFiles(
-                                                  [XFile(path)],
-                                                  text: S.yourPDF,
-                                                );
-                                              }),
+                                              await Share.shareXFiles(
+                                                <XFile>[XFile(path)],
+                                                text: S.yourPDF,
+                                              );
+                                            },
+                                          ),
                                           IconButton(
                                             icon: Icon(
                                               Icons.delete,
@@ -294,7 +312,10 @@ class _HomeState extends State<Home> {
                                             ),
                                             onPressed: () async {
                                               _onDelete(
-                                                  context, pdfsBox, index);
+                                                context,
+                                                pdfsBox,
+                                                index,
+                                              );
                                             },
                                           ),
                                           IconButton(
@@ -307,7 +328,10 @@ class _HomeState extends State<Home> {
                                             ),
                                             onPressed: () {
                                               _onRename(
-                                                  context, pdfsBox, index);
+                                                context,
+                                                pdfsBox,
+                                                index,
+                                              );
                                             },
                                           ),
                                           IconButton(
@@ -320,7 +344,10 @@ class _HomeState extends State<Home> {
                                             ),
                                             onPressed: () async {
                                               await _onFileMove(
-                                                  pdfsBox, index, context);
+                                                pdfsBox,
+                                                index,
+                                                context,
+                                              );
                                             },
                                           ),
                                           IconButton(
@@ -335,14 +362,17 @@ class _HomeState extends State<Home> {
                                             ),
                                             onPressed: () async {
                                               await _onStarred(
-                                                  pdfsBox, index, context);
+                                                pdfsBox,
+                                                index,
+                                                context,
+                                              );
                                             },
-                                          )
+                                          ),
                                         ],
                                       ),
                                     ],
                                   ),
-                                )
+                                ),
                               ],
                             ),
                           ),
@@ -364,7 +394,7 @@ class _HomeState extends State<Home> {
                 Icons.camera_alt,
               ),
               onPressed: () async {
-                getImage(ImageSource.camera);
+                await getImage(ImageSource.camera);
               },
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -378,7 +408,7 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 getImage(ImageSource.gallery);
               },
-            )
+            ),
           ],
         ),
       ),
@@ -386,24 +416,27 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> _onStarred(
-      Box<dynamic> pdfsBox, int index, BuildContext context) async {
+    Box<dynamic> pdfsBox,
+    int index,
+    BuildContext context,
+  ) async {
     print(isStarred(pdfsBox, index));
     final File file = File(await pdfsBox.getAt(0)[index][0] as String);
-    final path = file.path;
+    final String path = file.path;
     final date = pdfsBox.getAt(0)[index][1];
     final imagePreview = pdfsBox.getAt(0)[index][2];
 
-    final List<dynamic> files = Hive.box('starred').getAt(0) as List<dynamic>;
+    final List<dynamic> files = Hive.box("starred").getAt(0) as List<dynamic>;
 
-    final List<dynamic> starredDocs = [];
+    final List<dynamic> starredDocs = <dynamic>[];
 
     for (int i = 0; i < files.length; i++) {
       starredDocs.add(files[i][0]);
     }
     if (starredDocs.contains(path)) {
       for (int i = 0; i < starredDocs.length; i++) {
-        if (Hive.box('starred').getAt(0)[i][0] == path) {
-          Hive.box('starred').getAt(0).removeAt(i);
+        if (Hive.box("starred").getAt(0)[i][0] == path) {
+          Hive.box("starred").getAt(0).removeAt(i);
           break;
         }
       }
@@ -416,10 +449,10 @@ class _HomeState extends State<Home> {
           ),
         ),
       );
-      print('Already fav');
+      print("Already fav");
     } else {
-      files.add([path, date, imagePreview]);
-      Hive.box('starred').putAt(0, files);
+      files.add(<dynamic>[path, date, imagePreview]);
+      await Hive.box("starred").putAt(0, files);
       print("STARRED : ${Hive.box('starred').getAt(0)}");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -434,51 +467,56 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> _onFileMove(
-      Box<dynamic> pdfsBox, int index, BuildContext context) async {
-    final status = await Permission.storage.status;
+    Box<dynamic> pdfsBox,
+    int index,
+    BuildContext context,
+  ) async {
+    final PermissionStatus status = await Permission.storage.status;
     if (!status.isGranted) {
       await Permission.storage.request();
     }
     final String oldPath = pdfsBox.getAt(0)[index][0] as String;
     String newPath;
-    Directory? extDir = await getExternalStorageDirectory();
+    final Directory? extDir = await getExternalStorageDirectory();
     final String path = extDir!.path;
     final Directory directory = Directory(path);
 
-    Directory? folderDir = await FolderPicker.pick(
-        allowFolderCreation: true,
-        context: context,
-        rootDirectory: directory,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(10))));
+    final Directory? folderDir = await FolderPicker.pick(
+      allowFolderCreation: true,
+      context: context,
+      rootDirectory: directory,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+    );
 
     if (folderDir != null) {
       newPath =
           '${folderDir.path}/${(pdfsBox.getAt(0)[index][0] as String).split('/').last}';
       print(newPath);
       final List<dynamic> starred =
-          Hive.box('starred').getAt(0) as List<dynamic>;
-      final List<dynamic> finalStarred = [];
+          Hive.box("starred").getAt(0) as List<dynamic>;
+      final List<dynamic> finalStarred = <dynamic>[];
       for (int i = 0; i < starred.length; i++) {
         finalStarred.add(starred[i][0]);
       }
       final File sourceFile = File(oldPath);
       if (finalStarred.contains(pdfsBox.getAt(0)[index][0])) {
-        debugPrint('yes');
+        debugPrint("yes");
         for (int i = 0; i < finalStarred.length; i++) {
-          if (Hive.box('starred').getAt(0)[i][0] == sourceFile.path) {
-            print('yes');
+          if (Hive.box("starred").getAt(0)[i][0] == sourceFile.path) {
+            print("yes");
             await sourceFile.copy(newPath);
             await sourceFile.delete();
 
-            Hive.box('starred').getAt(0)[i][0] = newPath;
+            Hive.box("starred").getAt(0)[i][0] = newPath;
             pdfsBox.getAt(0)[index][0] = newPath;
             final List<dynamic> editedList =
-                Hive.box('starred').getAt(0) as List<dynamic>;
-            Hive.box('starred').putAt(0, editedList);
+                Hive.box("starred").getAt(0) as List<dynamic>;
+            await Hive.box("starred").putAt(0, editedList);
             final List<dynamic> pdfEditedList =
                 pdfsBox.getAt(0) as List<dynamic>;
-            pdfsBox.putAt(0, pdfEditedList);
+            await pdfsBox.putAt(0, pdfEditedList);
             break;
           }
         }
@@ -497,156 +535,157 @@ class _HomeState extends State<Home> {
     TextEditingController pdfName;
 
     showDialog(
-        context: context,
-        builder: (BuildContext dialogContext) {
-          pdfName = TextEditingController();
-          return AlertDialog(
-            title: Text(S.rename,
-                textAlign: TextAlign.center, style: AppText.b1b!),
-            content: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    controller: pdfName,
-                    decoration: InputDecoration(
-                      labelText: S.rename,
-                      labelStyle: TextStyle(color: Colors.grey[500]),
-                      focusedBorder: AppStyles().textFieldBorder,
-                      enabledBorder: AppStyles().textFieldBorder,
-                    ),
-                  ),
-                  Space.y!,
-                  ElevatedButton(
-                    onPressed: () async {
-                      final List<dynamic> starred =
-                          Hive.box('starred').getAt(0) as List<dynamic>;
-                      final List<dynamic> finalStarred = [];
-                      for (int i = 0; i < starred.length; i++) {
-                        finalStarred.add(starred[i][0]);
-                      }
-                      print("PDFS : ${Hive.box('pdfs').getAt(0)}");
-                      final File sourceFile =
-                          File(pdfsBox.getAt(0)[index][0] as String);
-                      setState(() {
-                        if (finalStarred.contains(pdfsBox.getAt(0)[index][0])) {
-                          print('yes');
-                          for (int i = 0; i < finalStarred.length; i++) {
-                            if (Hive.box('starred').getAt(0)[i][0] ==
-                                sourceFile.path) {
-                              print('yes');
-                              final List<String> path =
-                                  (Hive.box('starred').getAt(0)[i][0] as String)
-                                      .split('/');
-                              path.last = "${pdfName.text}.pdf";
-                              Hive.box('starred').getAt(0)[i][0] =
-                                  path.join('/');
-                              final List<dynamic> editedList =
-                                  Hive.box('starred').getAt(0) as List<dynamic>;
-                              Hive.box('starred').putAt(0, editedList);
-                              break;
-                            }
-                          }
+      context: context,
+      builder: (BuildContext dialogContext) {
+        pdfName = TextEditingController();
+        return AlertDialog(
+          title: Text(
+            S.rename,
+            textAlign: TextAlign.center,
+            style: AppText.b1b,
+          ),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextField(
+                controller: pdfName,
+                decoration: InputDecoration(
+                  labelText: S.rename,
+                  labelStyle: TextStyle(color: Colors.grey[500]),
+                  focusedBorder: AppStyles().textFieldBorder,
+                  enabledBorder: AppStyles().textFieldBorder,
+                ),
+              ),
+              Space.y!,
+              ElevatedButton(
+                onPressed: () async {
+                  final List<dynamic> starred =
+                      Hive.box("starred").getAt(0) as List<dynamic>;
+                  final List<dynamic> finalStarred = <dynamic>[];
+                  for (int i = 0; i < starred.length; i++) {
+                    finalStarred.add(starred[i][0]);
+                  }
+                  print("PDFS : ${Hive.box('pdfs').getAt(0)}");
+                  final File sourceFile =
+                      File(pdfsBox.getAt(0)[index][0] as String);
+                  setState(() {
+                    if (finalStarred.contains(pdfsBox.getAt(0)[index][0])) {
+                      print("yes");
+                      for (int i = 0; i < finalStarred.length; i++) {
+                        if (Hive.box("starred").getAt(0)[i][0] ==
+                            sourceFile.path) {
+                          print("yes");
+                          final List<String> path =
+                              (Hive.box("starred").getAt(0)[i][0] as String)
+                                  .split("/");
+                          path.last = "${pdfName.text}.pdf";
+                          Hive.box("starred").getAt(0)[i][0] = path.join("/");
+                          final List<dynamic> editedList =
+                              Hive.box("starred").getAt(0) as List<dynamic>;
+                          Hive.box("starred").putAt(0, editedList);
+                          break;
                         }
-                        final List<String> path = pdfsBox
-                            .getAt(0)[index][0]
-                            .split('/') as List<String>;
-                        path.last = "${pdfName.text}.pdf";
-                        pdfsBox.getAt(0)[index][0] = path.join('/');
-                      });
-                      sourceFile
-                          .renameSync(pdfsBox.getAt(0)[index][0] as String);
-                      print("PDFS : ${Hive.box('pdfs').getAt(0)}");
-                      final List<dynamic> editedList =
-                          pdfsBox.getAt(0) as List<dynamic>;
-                      pdfsBox.putAt(0, editedList);
-                      Navigator.pop(dialogContext);
-                    },
-                    child: Text(
-                      S.save,
-                      style: AppText.b1,
-                    ),
-                  ),
-                ]),
-          );
-        });
+                      }
+                    }
+                    final List<String> path =
+                        pdfsBox.getAt(0)[index][0].split("/") as List<String>;
+                    path.last = "${pdfName.text}.pdf";
+                    pdfsBox.getAt(0)[index][0] = path.join("/");
+                  });
+                  sourceFile.renameSync(pdfsBox.getAt(0)[index][0] as String);
+                  print("PDFS : ${Hive.box('pdfs').getAt(0)}");
+                  final List<dynamic> editedList =
+                      pdfsBox.getAt(0) as List<dynamic>;
+                  await pdfsBox.putAt(0, editedList);
+                  Navigator.pop(dialogContext);
+                },
+                child: Text(
+                  S.save,
+                  style: AppText.b1,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 
   void _onDelete(BuildContext context, Box<dynamic> pdfsBox, int index) {
     showDialog(
-        context: context,
-        builder: (BuildContext ctx) {
-          return AlertDialog(
-            backgroundColor: Colors.blueGrey[800],
-            title: Text(
-              S.deleteConfirmText,
-              textAlign: TextAlign.center,
-              style: AppText.b1!.cl(
-                Colors.white,
-              ),
-            ),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  GestureDetector(
-                      onTap: () {
-                        final File sourceFile =
-                            File(pdfsBox.getAt(0)[index][0] as String);
-                        print(sourceFile.path);
-                        sourceFile.delete();
-                        final List<dynamic> starredFiles =
-                            Hive.box('starred').getAt(0) as List<dynamic>;
-                        setState(() {
-                          pdfsBox.getAt(0).removeAt(index);
+      context: context,
+      builder: (BuildContext ctx) => AlertDialog(
+        backgroundColor: Colors.blueGrey[800],
+        title: Text(
+          S.deleteConfirmText,
+          textAlign: TextAlign.center,
+          style: AppText.b1!.cl(
+            Colors.white,
+          ),
+        ),
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              GestureDetector(
+                onTap: () {
+                  final File sourceFile =
+                      File(pdfsBox.getAt(0)[index][0] as String);
+                  print(sourceFile.path);
+                  sourceFile.delete();
+                  final List<dynamic> starredFiles =
+                      Hive.box("starred").getAt(0) as List<dynamic>;
+                  setState(() {
+                    pdfsBox.getAt(0).removeAt(index);
+                    final List<dynamic> editedList =
+                        pdfsBox.getAt(0) as List<dynamic>;
+                    pdfsBox.putAt(0, editedList);
+                    final List<dynamic> finalStarredFiles = <dynamic>[];
+                    for (int i = 0; i < starredFiles.length; i++) {
+                      finalStarredFiles.add(starredFiles[i][0]);
+                    }
+                    if (finalStarredFiles.contains(sourceFile.path)) {
+                      print("yes");
+                      for (int i = 0; i < finalStarredFiles.length; i++) {
+                        if (Hive.box("starred").getAt(0)[i][0] ==
+                            sourceFile.path) {
+                          print("yes");
+                          Hive.box("starred").getAt(0).removeAt(i);
                           final List<dynamic> editedList =
-                              pdfsBox.getAt(0) as List<dynamic>;
-                          pdfsBox.putAt(0, editedList);
-                          final List<dynamic> finalStarredFiles = [];
-                          for (int i = 0; i < starredFiles.length; i++) {
-                            finalStarredFiles.add(starredFiles[i][0]);
-                          }
-                          if (finalStarredFiles.contains(sourceFile.path)) {
-                            print('yes');
-                            for (int i = 0; i < finalStarredFiles.length; i++) {
-                              if (Hive.box('starred').getAt(0)[i][0] ==
-                                  sourceFile.path) {
-                                print('yes');
-                                Hive.box('starred').getAt(0).removeAt(i);
-                                final List<dynamic> editedList =
-                                    Hive.box('starred').getAt(0)
-                                        as List<dynamic>;
-                                Hive.box('starred').putAt(0, editedList);
-                                break;
-                              }
-                            }
-                          }
-                        });
-                        Navigator.of(ctx).pop();
-                      },
-                      child: Text(
-                        S.yes,
-                        textAlign: TextAlign.center,
-                        style: AppText.b1!.cl(
-                          Colors.white,
-                        ),
-                      )),
-                  Space.y!,
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(ctx).pop();
-                    },
-                    child: Text(
-                      S.no,
-                      textAlign: TextAlign.center,
-                      style: AppText.b1!.cl(
-                        Colors.white,
-                      ),
-                    ),
+                              Hive.box("starred").getAt(0) as List<dynamic>;
+                          Hive.box("starred").putAt(0, editedList);
+                          break;
+                        }
+                      }
+                    }
+                  });
+                  Navigator.of(ctx).pop();
+                },
+                child: Text(
+                  S.yes,
+                  textAlign: TextAlign.center,
+                  style: AppText.b1!.cl(
+                    Colors.white,
                   ),
-                ],
+                ),
               ),
-            ),
-          );
-        });
+              Space.y!,
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(ctx).pop();
+                },
+                child: Text(
+                  S.no,
+                  textAlign: TextAlign.center,
+                  style: AppText.b1!.cl(
+                    Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

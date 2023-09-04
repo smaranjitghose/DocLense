@@ -1,17 +1,16 @@
-import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:doclense/configs/app_dimensions.dart';
-import 'package:doclense/configs/app_typography.dart';
-import 'package:doclense/constants/appstrings.dart';
-import 'package:doclense/constants/assets.dart';
-import 'package:doclense/constants/route_constants.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:hive/hive.dart';
-import 'package:introduction_screen/introduction_screen.dart';
-
-import 'home.dart';
-import '../models/preferences.dart';
-import '../providers/theme_provider.dart';
+import "package:animated_splash_screen/animated_splash_screen.dart";
+import "package:doclense/configs/app_dimensions.dart";
+import "package:doclense/configs/app_typography.dart";
+import "package:doclense/constants/appstrings.dart";
+import "package:doclense/constants/assets.dart";
+import "package:doclense/constants/route_constants.dart";
+import "package:doclense/models/preferences.dart";
+import "package:doclense/providers/theme_provider.dart";
+import "package:doclense/screens/home.dart";
+import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
+import "package:hive/hive.dart";
+import "package:introduction_screen/introduction_screen.dart";
 
 class IntoScreen extends StatefulWidget {
   const IntoScreen({super.key});
@@ -38,25 +37,25 @@ class _IntoScreenState extends State<IntoScreen> {
   // Checks if the user is opening the app for the first time.
   Future<bool> checkFirstTime() async {
     final UserPreferences userPreferences =
-        Hive.box('preferences').getAt(0) as UserPreferences;
+        Hive.box("preferences").getAt(0) as UserPreferences;
     return userPreferences.firstTime;
   }
 
   // Sets the firstTime flag to false , so that next time the user opens the ap
   // the Introduction Screen wont be shown.
   void setFirstTime() {
-    Hive.box('preferences').putAt(0, UserPreferences(firstTime: false));
+    Hive.box("preferences").putAt(0, UserPreferences(firstTime: false));
   }
 
   @override
   Widget build(BuildContext context) {
-    TextStyle buttonStyle = AppText.b2!.w(6).cl(Colors.black);
+    final TextStyle buttonStyle = AppText.b2!.w(6).cl(Colors.black);
     return AnimatedSplashScreen(
       backgroundColor:
           themeChangeProvider.darkTheme ? Colors.grey[900]! : Colors.white,
       splash: Padding(
         padding: EdgeInsets.fromLTRB(AppDimensions.width(10),
-            AppDimensions.normalize(1), AppDimensions.normalize(1), 0),
+            AppDimensions.normalize(1), AppDimensions.normalize(1), 0,),
         child: SvgPicture.asset(
           themeChangeProvider.darkTheme
               ? Assets.doclenselight
@@ -65,14 +64,13 @@ class _IntoScreenState extends State<IntoScreen> {
       ),
       nextScreen: FutureBuilder(
           future: checkFirstTime(),
-          builder: (context, AsyncSnapshot<bool> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             if (snapshot.hasData) {
               if (snapshot.data == false) {
-                return Home();
+                return const Home();
               } else {
                 return IntroductionScreen(
-                  showNextButton: true,
-                  pages: [
+                  pages: <PageViewModel>[
                     PageViewModel(
                         title: "",
                         bodyWidget: Text(
@@ -90,7 +88,7 @@ class _IntoScreenState extends State<IntoScreen> {
                               fit: BoxFit.fitWidth,
                             ),
                           ),
-                        )),
+                        ),),
                     PageViewModel(
                         title: "",
                         bodyWidget: Text(
@@ -104,7 +102,7 @@ class _IntoScreenState extends State<IntoScreen> {
                             Assets.scanImg,
                             fit: BoxFit.fitWidth,
                           ),
-                        ))
+                        ),),
                   ],
                   onDone: () {
                     setFirstTime();
@@ -129,7 +127,7 @@ class _IntoScreenState extends State<IntoScreen> {
                 child: CircularProgressIndicator(),
               );
             }
-          }),
+          },),
       // nextScreen: Home(),
       splashTransition: SplashTransition.rotationTransition,
       duration: 4000,

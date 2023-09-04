@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-
-import 'app_dimensions.dart';
-import 'app_typography.dart';
-import 'space.dart';
-import 'ui.dart';
+import "package:doclense/configs/app_dimensions.dart";
+import "package:doclense/configs/app_typography.dart";
+import "package:doclense/configs/space.dart";
+import "package:doclense/configs/ui.dart";
+import "package:flutter/material.dart";
 
 class App {
   static bool? isLtr;

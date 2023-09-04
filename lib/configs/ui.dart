@@ -1,5 +1,5 @@
-import 'dart:math';
-import 'package:flutter/widgets.dart';
+import "dart:math";
+import "package:flutter/widgets.dart";
 
 class UI {
   static MediaQueryData? _mediaQueryData;
@@ -42,12 +42,12 @@ class UI {
         _mediaQueryData!.padding.left + _mediaQueryData!.padding.right;
     _safeAreaVertical =
         _mediaQueryData!.padding.top + _mediaQueryData!.padding.bottom;
-    safeWidth = (width! - _safeAreaHorizontal!);
-    safeHeight = (height! - _safeAreaVertical!);
+    safeWidth = width! - _safeAreaHorizontal!;
+    safeHeight = height! - _safeAreaVertical!;
   }
 
   static initChecks(MediaQueryData query) {
-    var size = query.size;
+    final Size size = query.size;
     diagonal = sqrt((size.width * size.width) + (size.height * size.height));
     xxs = size.width > 300;
     xs = size.width > 360;

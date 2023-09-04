@@ -1,5 +1,5 @@
-import 'package:doclense/services/shared_preferences.dart';
-import 'package:flutter/material.dart';
+import "package:doclense/services/shared_preferences.dart";
+import "package:flutter/material.dart";
 
 class DarkThemeProvider with ChangeNotifier {
   SharedPreferencesService darkThemePreference = SharedPreferencesService();

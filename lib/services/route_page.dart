@@ -1,81 +1,81 @@
-import 'dart:io';
+import "dart:io";
 
-import 'package:doclense/screens/about.dart';
-import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/screens/home.dart';
-import 'package:doclense/ui_components/image_view.dart';
-import 'package:doclense/ui_components/multi_select_delete.dart';
-import 'package:doclense/ui_components/pdf_conversion.dart';
-import 'package:doclense/screens/pdf_preview_screen.dart';
-import 'package:doclense/providers/image_list.dart';
-import 'package:doclense/screens/settings/contact_developers.dart';
-import 'package:doclense/screens/settings/settings.dart';
-import 'package:doclense/screens/starred_documents.dart';
-import 'package:flutter/material.dart';
+import "package:doclense/constants/route_constants.dart";
+import "package:doclense/providers/image_list.dart";
+import "package:doclense/screens/about.dart";
+import "package:doclense/screens/home.dart";
+import "package:doclense/screens/pdf_preview_screen.dart";
+import "package:doclense/screens/settings/contact_developers.dart";
+import "package:doclense/screens/settings/settings.dart";
+import "package:doclense/screens/starred_documents.dart";
+import "package:doclense/ui_components/image_view.dart";
+import "package:doclense/ui_components/multi_select_delete.dart";
+import "package:doclense/ui_components/pdf_conversion.dart";
+import "package:flutter/material.dart";
 // import 'package:folder_picker/folder_picker.dart';
-import 'package:image/image.dart' as image_lib;
-import 'package:photofilters/photofilters.dart';
+import "package:image/image.dart" as image_lib;
+import "package:photofilters/photofilters.dart";
 
 Route generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case RouteConstants.homeScreen:
       return pageBuilder(
-        screen: Home(),
+        screen: const Home(),
       );
     case RouteConstants.settingsScreen:
       return pageBuilder(
-        screen: SettingsScreen(),
+        screen: const SettingsScreen(),
       );
     case RouteConstants.starredDocumentsScreen:
       return pageBuilder(
-        screen: Starred(),
+        screen: const Starred(),
       );
     case RouteConstants.aboutAppScreen:
       return pageBuilder(
-        screen: About(),
+        screen: const About(),
       );
     case RouteConstants.multiDelete:
-      final args = settings.arguments as ImageList;
+      final ImageList args = settings.arguments! as ImageList;
       return pageBuilder(
         screen: MultiDelete(args),
       );
 
     case RouteConstants.imageView:
-      final args = settings.arguments as Map;
+      final Map args = settings.arguments! as Map;
       return pageBuilder(
         screen: Imageview(
-          args['imageFile'] as File,
-          args['imageList'] as ImageList,
+          args["imageFile"] as File,
+          args["imageList"] as ImageList,
         ),
       );
     case RouteConstants.contactDeveloperScreen:
       return pageBuilder(
-        screen: ContactDeveloperScreen(),
+        screen: const ContactDeveloperScreen(),
       );
     case RouteConstants.photoFilterSelector:
-      final args = settings.arguments as Map<String, Object>;
+      final Map<String, Object> args = settings.arguments! as Map<String, Object>;
       return pageBuilder(
         screen: PhotoFilterSelector(
-          title: args['title'] as Widget,
-          filters: args['filters'] as List<Filter>,
-          image: args['image'] as image_lib.Image,
-          filename: args['fileName'] as String,
-          fit: args['fit'] as BoxFit,
-          appBarColor: args['appBarColor'] as Color,
-          loader: args['loader'] as Widget,
+          title: args["title"]! as Widget,
+          filters: args["filters"]! as List<Filter>,
+          image: args["image"]! as image_lib.Image,
+          filename: args["fileName"]! as String,
+          fit: args["fit"]! as BoxFit,
+          appBarColor: args["appBarColor"]! as Color,
+          loader: args["loader"]! as Widget,
         ),
       );
     case RouteConstants.pdfConversionScreen:
-      final args = settings.arguments as ImageList;
+      final ImageList args = settings.arguments! as ImageList;
       return pageBuilder(
         screen: PDFConversion(args),
       );
     case RouteConstants.pdfPreviewScreen:
-      final args = settings.arguments as Map<String, Object>;
+      final Map<String, Object> args = settings.arguments! as Map<String, Object>;
       return pageBuilder(
         screen: PdfPreviewScreen(
-          path: args['path'] as String,
-          name: args['name'] as String,
+          path: args["path"]! as String,
+          name: args["name"]! as String,
         ),
       );
     // case RouteConstants.folderPickerPage:
@@ -90,7 +90,7 @@ Route generateRoute(RouteSettings settings) {
     default:
       return pageBuilder(
         screen: const Text(
-          'Unknown Screen. Please restart the app.',
+          "Unknown Screen. Please restart the app.",
           textAlign: TextAlign.center,
         ),
       );
@@ -99,10 +99,8 @@ Route generateRoute(RouteSettings settings) {
 
 PageRouteBuilder pageBuilder({
   required Widget screen,
-}) {
-  return PageRouteBuilder(
-    pageBuilder: (c, a1, a2) => screen,
-    transitionsBuilder: (c, anim, a2, child) =>
+}) => PageRouteBuilder(
+    pageBuilder: (BuildContext c, Animation<double> a1, Animation<double> a2) => screen,
+    transitionsBuilder: (BuildContext c, Animation<double> anim, Animation<double> a2, Widget child) =>
         FadeTransition(opacity: anim, child: child),
   );
-}

@@ -1,17 +1,17 @@
-import 'dart:async';
-import 'dart:io';
+import "dart:async";
+import "dart:io";
 
-import 'package:doclense/configs/app_typography.dart';
-import 'package:doclense/constants/appstrings.dart';
-import 'package:flutter/material.dart';
-import 'package:pdf/pdf.dart';
-import 'package:printing/printing.dart';
+import "package:doclense/configs/app_typography.dart";
+import "package:doclense/constants/appstrings.dart";
+import "package:flutter/material.dart";
+import "package:pdf/pdf.dart";
+import "package:printing/printing.dart";
 // import 'package:flutter_full_pdf_viewer/flutter_full_pdf_viewer.dart';
 
 class PdfPreviewScreen extends StatefulWidget {
+  const PdfPreviewScreen({required this.path, required this.name, super.key});
   final String path;
   final String name;
-  const PdfPreviewScreen({required this.path, required this.name});
 
   @override
   _PdfPreviewScreenState createState() => _PdfPreviewScreenState();
@@ -26,7 +26,7 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
 
   void homePageTimer() {
     Timer(const Duration(), () {
-      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.of(context).popUntil((Route route) => route.isFirst);
     });
   }
 
@@ -45,16 +45,14 @@ class _PdfPreviewScreenState extends State<PdfPreviewScreen> {
         canChangePageFormat: false,
         allowPrinting: false,
         allowSharing: false,
-        pageFormats: <String, PdfPageFormat>{
-          'A4': PdfPageFormat.a4,
-          'Letter': PdfPageFormat.letter,
-          'A3': PdfPageFormat.a3,
-          'A5': PdfPageFormat.a5,
-          'Standard': PdfPageFormat.standard,
+        pageFormats: const <String, PdfPageFormat>{
+          "A4": PdfPageFormat.a4,
+          "Letter": PdfPageFormat.letter,
+          "A3": PdfPageFormat.a3,
+          "A5": PdfPageFormat.a5,
+          "Standard": PdfPageFormat.standard,
         },
-        build: (PdfPageFormat format) {
-          return File(widget.path).readAsBytes();
-        },
+        build: (PdfPageFormat format) => File(widget.path).readAsBytes(),
         // onPrinted: _showPrintedToast,
         // onShared: _showSharedToast,
       ),
