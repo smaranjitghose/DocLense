@@ -213,8 +213,11 @@ class _HomeState extends State<Home> {
               snackBar: doubleBackToCloseSnackBar(),
               child: ValueListenableBuilder(
                 valueListenable: Hive.box("pdfs").listenable(),
-                builder: (BuildContext context, Box<dynamic> pdfsBox,
-                    Widget? widget) {
+                builder: (
+                  BuildContext context,
+                  Box<dynamic> pdfsBox,
+                  Widget? widget,
+                ) {
                   if (pdfsBox.getAt(0).length == 0) {
                     return Center(
                       child: Text(
@@ -234,7 +237,8 @@ class _HomeState extends State<Home> {
                       return GestureDetector(
                         onTap: () async {
                           await OpenFile.open(
-                              pdfsBox.getAt(0)[index][0] as String);
+                            pdfsBox.getAt(0)[index][0] as String,
+                          );
                         },
                         child: Container(
                           padding: Space.all(),

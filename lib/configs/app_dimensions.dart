@@ -63,14 +63,17 @@ class AppDimensions {
   }
 
   /// Use this method for creating responsive Space between widgets
-  static double space([double multiplier = 1.0]) => AppDimensions.padding! * 3 * multiplier;
+  static double space([double multiplier = 1.0]) =>
+      AppDimensions.padding! * 3 * multiplier;
 
   /// Use this method for creating responsive Widget Sizes
   /// Note: For Exact width and height never use it
-  static double normalize(double unit) => (AppDimensions.ratio * unit * 0.77) + unit;
+  static double normalize(double unit) =>
+      (AppDimensions.ratio * unit * 0.77) + unit;
 
   /// Use this method for creating responsive Fonts
-  static double font(double unit) => (AppDimensions.ratio * unit * 0.125) + unit * 1.90;
+  static double font(double unit) =>
+      (AppDimensions.ratio * unit * 0.125) + unit * 1.90;
 
   /// Use this method for getting responsive width
   /// Note: 4.8 is just for handling failure case

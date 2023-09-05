@@ -1,3 +1,4 @@
+import "dart:async";
 import "dart:io";
 
 import "package:doclense/configs/app.dart";
@@ -24,28 +25,27 @@ Future<void> main() async {
   await Hive.openBox("pdfs");
   await Hive.openBox("starred");
   Hive.registerAdapter(UserPreferencesAdapter());
-  final Box res = await Hive.openBox("preferences");
+  final Box<dynamic> res = await Hive.openBox<dynamic>("preferences");
   try {
     res.getAt(0) as UserPreferences;
-  } catch (e) {
-    print("Exception");
+  } on Exception {
     await res.add(UserPreferences(firstTime: true, darkTheme: false));
   }
 
   try {
     Hive.box("pdfs").getAt(0);
-  } catch (e) {
+  } on Exception {
     await Hive.box("pdfs").add(<dynamic>[]);
   }
 
   try {
     Hive.box("starred").getAt(0);
-  } catch (e) {
+  } on Exception {
     await Hive.box("starred").add(<dynamic>[]);
   }
 
   final UserPreferences r = res.getAt(0) as UserPreferences;
-  print("First Time : ${r.firstTime}");
+  debugPrint("First Time : ${r.firstTime}");
 
   runApp(
     const MyApp(),
@@ -56,23 +56,24 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
-  _MyAppState createState() => _MyAppState();
+  MyAppState createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   final GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   @override
   void dispose() {
-    Hive.box("preferences").close();
-    Hive.box("pdfs").close();
-    Hive.close();
+    unawaited(Hive.box("preferences").close());
+    unawaited(Hive.box("pdfs").close());
+    unawaited(Hive.close());
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) => ChangeNotifierProvider(
+  Widget build(BuildContext context) =>
+      ChangeNotifierProvider<DarkThemeProvider>(
         create: (_) => themeChangeProvider,
         child: Consumer<DarkThemeProvider>(
           builder:
