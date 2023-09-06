@@ -1,6 +1,6 @@
-import "package:flutter/material.dart";
-import "package:doclense/configs/ui.dart";
 import "package:doclense/configs/app_dimensions.dart";
+import "package:doclense/configs/ui.dart";
+import "package:flutter/material.dart";
 
 class Space {
   static Widget? x;
@@ -69,9 +69,9 @@ class Space {
 
 extension SuperEdgeInsets on EdgeInsets {
   EdgeInsets sv() => copyWith(
-      top: top + UI.padding!.top,
-      bottom: bottom + UI.padding!.bottom,
-    );
+        top: top + UI.padding!.top,
+        bottom: bottom + UI.padding!.bottom,
+      );
 
   EdgeInsets st() => copyWith(top: top + UI.padding!.top);
 

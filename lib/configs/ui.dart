@@ -1,8 +1,9 @@
 import "dart:math";
+
 import "package:flutter/widgets.dart";
 
 class UI {
-  static MediaQueryData? _mediaQueryData;
+  static late MediaQueryData? _mediaQueryData;
   static double? width;
   static double? height;
   static double? horizontal;
@@ -10,8 +11,8 @@ class UI {
   static EdgeInsets? padding;
   static EdgeInsets? vi;
 
-  static double? _safeAreaHorizontal;
-  static double? _safeAreaVertical;
+  static late double? _safeAreaHorizontal;
+  static late double? _safeAreaVertical;
   static double? safeWidth;
   static double? safeHeight;
 
@@ -46,7 +47,7 @@ class UI {
     safeHeight = height! - _safeAreaVertical!;
   }
 
-  static initChecks(MediaQueryData query) {
+  static void initChecks(MediaQueryData query) {
     final Size size = query.size;
     diagonal = sqrt((size.width * size.width) + (size.height * size.height));
     xxs = size.width > 300;

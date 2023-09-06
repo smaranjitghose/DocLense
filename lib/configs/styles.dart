@@ -1,6 +1,5 @@
-import "package:flutter/material.dart";
-
 import "package:doclense/configs/app_dimensions.dart";
+import "package:flutter/material.dart";
 
 class AppStyles {
   final OutlineInputBorder textFieldBorder = OutlineInputBorder(

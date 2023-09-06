@@ -26,7 +26,7 @@ class AppText {
   static TextStyle? l2;
   static TextStyle? l2b;
 
-  static init() {
+  static void init() {
     const FontWeight b = FontWeight.bold;
 
     const TextStyle baseStyle = TextStyle(//fontFamily:
@@ -60,16 +60,16 @@ class AppText {
 
 extension SuperTextStyles on TextStyle {
   TextStyle cl(Color color) => copyWith(
-      color: color,
-    );
+        color: color,
+      );
 
   TextStyle s([double? size]) => copyWith(
-      fontSize: size ?? fontSize,
-    );
+        fontSize: size ?? fontSize,
+      );
 
   TextStyle tsc([double multiplier = 1.0]) => copyWith(
-      fontSize: fontSize! * multiplier,
-    );
+        fontSize: fontSize! * multiplier,
+      );
 
   TextStyle w(int i) {
     FontWeight w = FontWeight.w400;
