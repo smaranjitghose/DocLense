@@ -1,3 +1,4 @@
+import "dart:async";
 import "dart:io";
 
 import "package:doclense/configs/app_dimensions.dart";
@@ -23,10 +24,10 @@ class PDFConversion extends StatefulWidget {
   const PDFConversion(this.list, {super.key});
   final ImageList list;
   @override
-  _PDFConversion createState() => _PDFConversion();
+  PDFConversionState createState() => PDFConversionState();
 }
 
-class _PDFConversion extends State<PDFConversion> {
+class PDFConversionState extends State<PDFConversion> {
   //DocumentObject document;
   String? name;
   final TextEditingController myController = TextEditingController();
@@ -44,7 +45,8 @@ class _PDFConversion extends State<PDFConversion> {
   final pw.Document pdf = pw.Document();
   void writeOnPdf() {
     for (int i = 0; i < widget.list.imagelist.length; i++) {
-      pdf.addPage(pw.Page(
+      pdf.addPage(
+        pw.Page(
           pageFormat: PdfPageFormat.a4.copyWith(
             marginTop: 0,
             marginBottom: 0,
@@ -52,10 +54,15 @@ class _PDFConversion extends State<PDFConversion> {
             marginRight: 0,
           ),
           build: (pw.Context context) => pw.Expanded(
-                // change this line to this:
-                child: pw.Image(
-                    pw.MemoryImage(
-                        File(widget.list.imagepath[i]).readAsBytesSync(),),),),),);
+            // change this line to this:
+            child: pw.Image(
+              pw.MemoryImage(
+                File(widget.list.imagepath[i]).readAsBytesSync(),
+              ),
+            ),
+          ),
+        ),
+      );
     }
   }
 
@@ -64,13 +71,17 @@ class _PDFConversion extends State<PDFConversion> {
     final Directory? directory = await getExternalStorageDirectory();
     //Get directory path
     final String? path = directory?.path;
-    if (path == null) return;
+    if (path == null) {
+      return;
+    }
     //Create an empty file to write PDF data
     final String filePath = "$path/$name.pdf";
-    final File file = File(filePath);
-    //Write PDF data
-    //await file.writeAsBytes(bytes, flush: true);
-    file.writeAsBytesSync(await pdf.save());
+    // final File file = File(filePath)
+    //   //Write PDF data
+    //   //await file.writeAsBytes(bytes, flush: true);
+    //   ..writeAsBytesSync(
+    //     await pdf.save(),
+    //   );
     //document.pdfPath = path;
     //Open the PDF document in mobile
     await OpenFile.open(filePath);
@@ -82,11 +93,11 @@ class _PDFConversion extends State<PDFConversion> {
         .base64StringFromImage(widget.list.imagelist[0].readAsBytesSync());
     files.add(<String>[filePath, formatter, previewImage]);
     await Hive.box("pdfs").putAt(0, files);
-    print("PDFS : ${Hive.box('pdfs').getAt(0)}");
+    debugPrint("PDFS : ${Hive.box('pdfs').getAt(0)}");
 
     // Clearing the image list once the PDF is created and saved
     for (int i = 0; i < widget.list.imagelist.length; i++) {
-      print("i = $i");
+      debugPrint("i = $i");
       widget.list.imagelist.removeAt(i);
       widget.list.imagepath.removeAt(i);
     }
@@ -95,7 +106,7 @@ class _PDFConversion extends State<PDFConversion> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1), () {
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       if (mounted) {
         setState(() {
           _isLoading = false;
@@ -106,70 +117,72 @@ class _PDFConversion extends State<PDFConversion> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        title: Text(
-          S.nameYourPdf,
-          style: AppText.b1b,
-        ),
-        actions: <Widget>[
-          GestureDetector(
-            onTap: () async {
-              await getPermissions();
-              await getStorage();
-              print("External : $externalDirectory");
-
-              final Directory? folderDir = await FolderPicker.pick(
-                  allowFolderCreation: true,
-                  context: context,
-                  rootDirectory: externalDirectory!,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(AppDimensions.normalize(5)),
-                    ),
-                  ),);
-              if (folderDir != null) {
-                setState(() => pickedDirectory = folderDir);
-              }
-            },
-            child: Padding(
-              padding: Space.h1!,
-              child: Icon(
-                Icons.folder_open,
-                size: AppDimensions.font(
-                  12,
-                ),
-              ),
-            ),
+        appBar: AppBar(
+          title: Text(
+            S.nameYourPdf,
+            style: AppText.b1b,
           ),
-        ],
-      ),
-      body: _isLoading
-          ? const SpinKitRotatingCircle(
-              color: Colors.blue,
-            )
-          : Container(
-              alignment: Alignment.center,
-              padding: Space.h1,
-              child: TextField(
-                controller: myController,
-                autofocus: true,
-                decoration: InputDecoration(
-                  labelText: S.pdfName,
-                  labelStyle: TextStyle(color: Colors.grey[500]),
-                  focusedBorder: AppStyles().textFieldBorder,
-                  enabledBorder: AppStyles().textFieldBorder,
+          actions: <Widget>[
+            GestureDetector(
+              onTap: () async {
+                await getPermissions();
+                await getStorage().whenComplete(() async {
+                  debugPrint("External : $externalDirectory");
+
+                  final Directory? folderDir = await FolderPicker.pick(
+                    allowFolderCreation: true,
+                    context: context,
+                    rootDirectory: externalDirectory!,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(AppDimensions.normalize(5)),
+                      ),
+                    ),
+                  );
+                  if (folderDir != null) {
+                    setState(() => pickedDirectory = folderDir);
+                  }
+                });
+              },
+              child: Padding(
+                padding: Space.h1!,
+                child: Icon(
+                  Icons.folder_open,
+                  size: AppDimensions.font(
+                    12,
+                  ),
                 ),
               ),
             ),
-      floatingActionButton: FloatingActionButton(
-        mini: true,
-        onPressed: () {
-          FocusScope.of(context).unfocus();
-          _pushSaved();
-        },
-        child: Icon(Icons.arrow_forward, size: AppDimensions.font(12)),
-      ),
-    );
+          ],
+        ),
+        body: _isLoading
+            ? const SpinKitRotatingCircle(
+                color: Colors.blue,
+              )
+            : Container(
+                alignment: Alignment.center,
+                padding: Space.h1,
+                child: TextField(
+                  controller: myController,
+                  autofocus: true,
+                  decoration: InputDecoration(
+                    labelText: S.pdfName,
+                    labelStyle: TextStyle(color: Colors.grey[500]),
+                    focusedBorder: AppStyles().textFieldBorder,
+                    enabledBorder: AppStyles().textFieldBorder,
+                  ),
+                ),
+              ),
+        floatingActionButton: FloatingActionButton(
+          mini: true,
+          onPressed: () async {
+            FocusScope.of(context).unfocus();
+            await _pushSaved();
+          },
+          child: Icon(Icons.arrow_forward, size: AppDimensions.font(12)),
+        ),
+      );
 
   Future<void> getPermissions() async {
     final PermissionStatus permissions = await Permission.storage.status;
@@ -180,7 +193,15 @@ class _PDFConversion extends State<PDFConversion> {
       // case PermissionStatus.always:
       //   request = false;
       //   break;
-      default:
+
+      case PermissionStatus.denied:
+        request = true;
+      case PermissionStatus.restricted:
+        request = true;
+      case PermissionStatus.limited:
+        request = true;
+      case PermissionStatus.permanentlyDenied:
+        request = true;
     }
     if (request) {
       await Permission.storage.request();
@@ -199,21 +220,26 @@ class _PDFConversion extends State<PDFConversion> {
     writeOnPdf();
     await savePdf();
     //Documents.add(document);
-    Directory documentDirectory = await getApplicationDocumentsDirectory();
+    await getApplicationDocumentsDirectory()
+        .then((Directory documentDirectory) {
+      if (pickedDirectory != null) {
+        documentDirectory = pickedDirectory!;
+      }
 
-    if (pickedDirectory != null) documentDirectory = pickedDirectory!;
+      final String documentPath = documentDirectory.path;
+      //document.documentPath = documentPath;
+      final String fullPath = "$documentPath/$name.pdf";
+      debugPrint(fullPath);
 
-    final String documentPath = documentDirectory.path;
-    //document.documentPath = documentPath;
-    final String fullPath = "$documentPath/$name.pdf";
-    print(fullPath);
-
-    await Navigator.of(context).pushNamed(
-      RouteConstants.pdfPreviewScreen,
-      arguments: <String, String>{
-        "path": fullPath,
-        "name": name ?? "Pdf Preview",
-      },
-    );
+      unawaited(
+        Navigator.of(context).pushNamed(
+          RouteConstants.pdfPreviewScreen,
+          arguments: <String, String>{
+            "path": fullPath,
+            "name": name ?? "Pdf Preview",
+          },
+        ),
+      );
+    });
   }
 }

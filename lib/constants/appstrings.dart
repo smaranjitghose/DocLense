@@ -33,8 +33,8 @@ class S {
 
   static const String aboutApp = "About App";
 
-  static const String appAbout =
-      "DocLense is the one place for all your documents!\n\nYou can now click, upload, crop, rotate and do so\nmuch more!\n\nSo whether it is your college assignment or the\noffice document you want to digitalize, stop\nworrying and just use";
+  static const String appAbout = """
+DocLense is the one place for all your documents!\n\nYou can now click, upload, crop, rotate and do so\nmuch more!\n\nSo whether it is your college assignment or the\noffice document you want to digitalize, stop\nworrying and just use""";
 
   static const String doclense = "Doclense";
 
@@ -112,8 +112,4 @@ class S {
   // static final String a = '';
 
   // static final String a = '';
-
 }
-
-
-// static final String a = '';

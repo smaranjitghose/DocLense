@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:animated_splash_screen/animated_splash_screen.dart";
 import "package:doclense/configs/app_dimensions.dart";
 import "package:doclense/configs/app_typography.dart";
@@ -25,7 +27,7 @@ class _IntoScreenState extends State<IntoScreen> {
   @override
   void initState() {
     super.initState();
-    getCurrentAppTheme();
+    unawaited(getCurrentAppTheme());
   }
 
   Future<void> getCurrentAppTheme() async {
@@ -43,8 +45,8 @@ class _IntoScreenState extends State<IntoScreen> {
 
   // Sets the firstTime flag to false , so that next time the user opens the ap
   // the Introduction Screen wont be shown.
-  void setFirstTime() {
-    Hive.box("preferences").putAt(0, UserPreferences(firstTime: false));
+  Future<void> setFirstTime() async {
+    await Hive.box("preferences").putAt(0, UserPreferences(firstTime: false));
   }
 
   @override
@@ -54,80 +56,86 @@ class _IntoScreenState extends State<IntoScreen> {
       backgroundColor:
           themeChangeProvider.darkTheme ? Colors.grey[900]! : Colors.white,
       splash: Padding(
-        padding: EdgeInsets.fromLTRB(AppDimensions.width(10),
-            AppDimensions.normalize(1), AppDimensions.normalize(1), 0,),
+        padding: EdgeInsets.fromLTRB(
+          AppDimensions.width(10),
+          AppDimensions.normalize(1),
+          AppDimensions.normalize(1),
+          0,
+        ),
         child: SvgPicture.asset(
           themeChangeProvider.darkTheme
               ? Assets.doclenselight
               : Assets.doclenselight,
         ),
       ),
-      nextScreen: FutureBuilder(
-          future: checkFirstTime(),
-          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data == false) {
-                return const Home();
-              } else {
-                return IntroductionScreen(
-                  pages: <PageViewModel>[
-                    PageViewModel(
-                        title: "",
-                        bodyWidget: Text(
-                          S.appMadeInIndia,
-                          style: AppText.h4b,
-                          textAlign: TextAlign.center,
-                        ),
-                        image: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding:
-                                EdgeInsets.only(left: AppDimensions.width(8)),
-                            child: SvgPicture.asset(
-                              Assets.doclenselight,
-                              fit: BoxFit.fitWidth,
-                            ),
-                          ),
-                        ),),
-                    PageViewModel(
-                        title: "",
-                        bodyWidget: Text(
-                          S.scanDocuments,
-                          style: AppText.h4b,
-                          textAlign: TextAlign.center,
-                        ),
-                        image: Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Image.asset(
-                            Assets.scanImg,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),),
-                  ],
-                  onDone: () {
-                    setFirstTime();
-                    Navigator.of(context).pushReplacementNamed(
-                      RouteConstants.homeScreen,
-                    );
-                  },
-                  showSkipButton: true,
-                  skip: Text(S.skip, style: buttonStyle),
-                  onSkip: () {
-                    setFirstTime();
-                    Navigator.of(context).pushReplacementNamed(
-                      RouteConstants.homeScreen,
-                    );
-                  },
-                  next: Text(S.next, style: buttonStyle),
-                  done: Text(S.done, style: buttonStyle),
-                );
-              }
+      nextScreen: FutureBuilder<bool>(
+        future: checkFirstTime(),
+        builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data == false) {
+              return const Home();
             } else {
-              return const Center(
-                child: CircularProgressIndicator(),
+              return IntroductionScreen(
+                pages: <PageViewModel>[
+                  PageViewModel(
+                    title: "",
+                    bodyWidget: Text(
+                      S.appMadeInIndia,
+                      style: AppText.h4b,
+                      textAlign: TextAlign.center,
+                    ),
+                    image: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: AppDimensions.width(8)),
+                        child: SvgPicture.asset(
+                          Assets.doclenselight,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    ),
+                  ),
+                  PageViewModel(
+                    title: "",
+                    bodyWidget: Text(
+                      S.scanDocuments,
+                      style: AppText.h4b,
+                      textAlign: TextAlign.center,
+                    ),
+                    image: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Image.asset(
+                        Assets.scanImg,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  ),
+                ],
+                onDone: () {
+                  setFirstTime();
+                  Navigator.of(context).pushReplacementNamed(
+                    RouteConstants.homeScreen,
+                  );
+                },
+                showSkipButton: true,
+                skip: Text(S.skip, style: buttonStyle),
+                onSkip: () {
+                  setFirstTime();
+                  Navigator.of(context).pushReplacementNamed(
+                    RouteConstants.homeScreen,
+                  );
+                },
+                next: Text(S.next, style: buttonStyle),
+                done: Text(S.done, style: buttonStyle),
               );
             }
-          },),
+          } else {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
       // nextScreen: Home(),
       splashTransition: SplashTransition.rotationTransition,
       duration: 4000,

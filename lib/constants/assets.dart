@@ -39,8 +39,4 @@ class Assets {
 // static final String a="";
 
 // static final String a="";
-
 }
-
-
-// static final String a="";

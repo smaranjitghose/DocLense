@@ -17,11 +17,11 @@ class ContactDeveloperScreen extends StatefulWidget {
   const ContactDeveloperScreen({super.key});
 
   @override
-  _ContactDeveloperScreenState createState() => _ContactDeveloperScreenState();
+  ContactDeveloperScreenState createState() => ContactDeveloperScreenState();
 }
 
-class _ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
-  List jsonContributors = <dynamic>[];
+class ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
+  List<dynamic> jsonContributors = <dynamic>[];
 
   int year = 2021;
 

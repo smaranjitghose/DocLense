@@ -26,7 +26,6 @@ import "package:permission_handler/permission_handler.dart";
 import "package:provider/provider.dart";
 import "package:quick_actions/quick_actions.dart";
 import "package:share_plus/share_plus.dart";
-import "package:shared_preferences/shared_preferences.dart";
 
 enum IconOptions { share }
 
@@ -36,25 +35,24 @@ class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
-  _HomeState createState() => _HomeState();
+  HomeState createState() => HomeState();
 }
 
-class _HomeState extends State<Home> {
+class HomeState extends State<Home> {
   bool tablet = false;
-  Future setSharedPreferences() async {
-    final SharedPreferences sharedPreferences =
-        await SharedPreferences.getInstance();
-    if (sharedPreferences.getStringList("savedFiles") == null) {
-      await sharedPreferences.setStringList("savedFiles", <String>[]);
-      return <dynamic>[];
-    } else {
-      return sharedPreferences.getStringList("savedFiles");
-    }
-  }
+  // Future<List?>? setSharedPreferences() async {
+  //   final SharedPreferences sharedPreferences =
+  //       await SharedPreferences.getInstance();
+  //   if (sharedPreferences.getStringList("savedFiles") == null) {
+  //     await sharedPreferences.setStringList("savedFiles", <String>[]);
+  //     return <dynamic>[];
+  //   } else {
+  //     return sharedPreferences.getStringList("savedFiles");
+  //   }
+  // }
 
   bool getDeviceType() {
-    final MediaQueryData data =
-        MediaQueryData.fromView(WidgetsBinding.instance.window);
+    final MediaQueryData data = MediaQueryData.fromView(View.of(context));
     if (data.size.shortestSide < 550) {
       return false;
     } else {
@@ -66,7 +64,7 @@ class _HomeState extends State<Home> {
   QuickActions quickActions = const QuickActions();
 
   void _navigate(String routeName) {
-    Navigator.of(context).pushNamed(routeName);
+    unawaited(Navigator.of(context).pushNamed(routeName));
   }
 
   // File imageFile;
@@ -75,7 +73,9 @@ class _HomeState extends State<Home> {
 
   Future<void> getImage(ImageSource imageSource) async {
     final XFile? imageFile = await picker.pickImage(source: imageSource);
-    if (imageFile == null) return;
+    if (imageFile == null) {
+      return;
+    }
     final File tmpFile = File(imageFile.path);
     // final appDir = await syspaths.getApplicationDocumentsDirectory();
     // final fileName = path.basename(imageFile.path);
@@ -83,9 +83,10 @@ class _HomeState extends State<Home> {
 
     if (imageSource == ImageSource.camera) {
       await GallerySaver.saveImage(tmpFile.path)
-          .then((bool? value) => print("Image Saved"));
+          .then((bool? value) => debugPrint("Image Saved"));
     }
 
+    // ignore: use_build_context_synchronously
     await Navigator.of(context).pushNamed(
       RouteConstants.imageView,
       arguments: <String, Object>{
@@ -105,48 +106,48 @@ class _HomeState extends State<Home> {
     //   print('Saved : $savedPdfs');
     // });
     tablet = getDeviceType();
-    quickActions.initialize((String shortcutType) {
-      switch (shortcutType) {
-        case "about":
-          return _navigate(RouteConstants.aboutAppScreen);
-        case "starredDocument":
-          return _navigate(RouteConstants.starredDocumentsScreen);
-        case "setting":
-          return _navigate(RouteConstants.settingsScreen);
+    unawaited(
+      quickActions.initialize((String shortcutType) {
+        switch (shortcutType) {
+          case "about":
+            return _navigate(RouteConstants.aboutAppScreen);
+          case "starredDocument":
+            return _navigate(RouteConstants.starredDocumentsScreen);
+          case "setting":
+            return _navigate(RouteConstants.settingsScreen);
 
-        default:
-          MaterialPageRoute(
-            builder: (_) => Scaffold(
-              body: Center(
-                child: Text("No Page defined for $shortcutType"),
+          default:
+            MaterialPageRoute<dynamic>(
+              builder: (_) => Scaffold(
+                body: Center(
+                  child: Text("No Page defined for $shortcutType"),
+                ),
               ),
-            ),
-          );
-      }
-    });
+            );
+        }
+      }),
+    );
 
-    quickActions.setShortcutItems(<ShortcutItem>[
-      const ShortcutItem(
-        type: "about",
-        localizedTitle: "About DocLense",
-        icon: "info",
-      ),
-      const ShortcutItem(
-        type: "starredDocument",
-        localizedTitle: "Starred Documents",
-        icon: "starred",
-      ),
-      const ShortcutItem(
-        type: "setting",
-        localizedTitle: "Settings",
-        icon: "setting",
-      ),
-    ]);
-
-    Future.delayed(
-        const Duration(
-          seconds: 1,
-        ), () {
+    unawaited(
+      quickActions.setShortcutItems(<ShortcutItem>[
+        const ShortcutItem(
+          type: "about",
+          localizedTitle: "About DocLense",
+          icon: "info",
+        ),
+        const ShortcutItem(
+          type: "starredDocument",
+          localizedTitle: "Starred Documents",
+          icon: "starred",
+        ),
+        const ShortcutItem(
+          type: "setting",
+          localizedTitle: "Settings",
+          icon: "setting",
+        ),
+      ]),
+    );
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       setState(() {
         _isLoading = false;
       });
@@ -211,7 +212,7 @@ class _HomeState extends State<Home> {
             )
           : DoubleBackToCloseApp(
               snackBar: doubleBackToCloseSnackBar(),
-              child: ValueListenableBuilder(
+              child: ValueListenableBuilder<Box<dynamic>>(
                 valueListenable: Hive.box("pdfs").listenable(),
                 builder: (
                   BuildContext context,
