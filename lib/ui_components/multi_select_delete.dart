@@ -124,8 +124,7 @@ class MultiDeleteState extends State<MultiDelete> {
                     }
 
                     Navigator.of(context)
-                        // ignore: always_specify_types
-                        .popUntil((Route route) => route.isFirst);
+                        .popUntil((Route<dynamic> route) => route.isFirst);
                   },
                   child: Text(
                     S.yes,

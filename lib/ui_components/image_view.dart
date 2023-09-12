@@ -25,10 +25,10 @@ class Imageview extends StatefulWidget {
   final ImageList list;
 
   @override
-  _ImageviewState createState() => _ImageviewState();
+  ImageviewState createState() => ImageviewState();
 }
 
-class _ImageviewState extends State<Imageview> {
+class ImageviewState extends State<Imageview> {
   CroppedFile? cropped;
   bool _isLoading = true;
   List<File> files = <File>[];
@@ -38,7 +38,7 @@ class _ImageviewState extends State<Imageview> {
   void initState() {
     super.initState();
     files.add(widget.file);
-    Future.delayed(const Duration(seconds: 1), () {
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       setState(() {
         _isLoading = false;
       });
@@ -46,7 +46,9 @@ class _ImageviewState extends State<Imageview> {
   }
 
   Future<void> cropimage(File file, Color appBarColor, Color bgColor) async {
-    if (await file.exists()) {
+    // ignore: avoid_slow_async_io
+    final bool isExits = await file.exists();
+    if (isExits) {
       cropped = await ImageCropper().cropImage(
         sourcePath: file.path,
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
@@ -110,12 +112,13 @@ class _ImageviewState extends State<Imageview> {
       filterfile = widget.file;
     }
 
-//    imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    //   imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     final String fileName = basename(filterfile.path);
     image_lib.Image? image =
         image_lib.decodeImage(filterfile.readAsBytesSync());
     image = image_lib.copyResize(image!, width: 600);
-    final Map imagefile = (await Navigator.of(context).pushNamed(
+    final Map<String, dynamic> imagefile =
+        (await Navigator.of(context).pushNamed(
       RouteConstants.photoFilterSelector,
       arguments: <String, Object>{
         "title": const Text("Apply Filter"),
@@ -131,7 +134,7 @@ class _ImageviewState extends State<Imageview> {
         ),
         "fit": BoxFit.contain,
       },
-    ))! as Map;
+    ))! as Map<String, dynamic>;
     if (imagefile.containsKey("image_filtered")) {
       setState(() {
         // widget.file = imagefile['image_filtered'] as File;
@@ -139,7 +142,7 @@ class _ImageviewState extends State<Imageview> {
 
         index++;
       });
-      print(filterfile.path);
+      debugPrint(filterfile.path);
     }
   }
 
@@ -161,7 +164,7 @@ class _ImageviewState extends State<Imageview> {
                     widget.list.imagepath = <String>[];
 
                     Navigator.of(context)
-                        .popUntil((Route route) => route.isFirst);
+                        .popUntil((Route<dynamic> route) => route.isFirst);
                   },
                   child: Text(
                     S.yes,
@@ -222,8 +225,8 @@ class _ImageviewState extends State<Imageview> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           TextButton(
-                            onPressed: () {
-                              _showChoiceDialogHome(context);
+                            onPressed: () async {
+                              await _showChoiceDialogHome(context);
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -248,13 +251,16 @@ class _ImageviewState extends State<Imageview> {
                               onPressed: () {
                                 //Navigator.of(context).pop();
                                 if (index == 0) {
-                                  print("no undo possible");
-                                  //implement disabled undo if no undo is possible
+                                  debugPrint("no undo possible");
+                                  // ignore: lines_longer_than_80_chars
+                                  // implement disabled undo if no undo is possible
                                 } else {
                                   setState(() {
                                     index--;
                                     files.removeLast();
-                                    print(widget.list.imagelist.length);
+                                    debugPrint(
+                                      widget.list.imagelist.length.toString(),
+                                    );
                                     // widget.list.imagepath.removeLast();
                                   });
                                 }
@@ -279,11 +285,19 @@ class _ImageviewState extends State<Imageview> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (files.isNotEmpty) {
-                                cropimage(files[index], appBarColor, bgColor);
+                                await cropimage(
+                                  files[index],
+                                  appBarColor,
+                                  bgColor,
+                                );
                               } else {
-                                cropimage(widget.file, appBarColor, bgColor);
+                                await cropimage(
+                                  widget.file,
+                                  appBarColor,
+                                  bgColor,
+                                );
                               }
                             },
                             child: Column(
@@ -304,8 +318,8 @@ class _ImageviewState extends State<Imageview> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {
-                              getFilterImage(context, appBarColor);
+                            onPressed: () async {
+                              await getFilterImage(context, appBarColor);
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -325,7 +339,7 @@ class _ImageviewState extends State<Imageview> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (files.isNotEmpty) {
                                 widget.list.imagelist.add(files[index]);
                                 widget.list.imagepath.add(files[index].path);
@@ -333,7 +347,7 @@ class _ImageviewState extends State<Imageview> {
                                 widget.list.imagelist.add(widget.file);
                                 widget.list.imagepath.add(widget.file.path);
                               }
-                              Navigator.of(context).pushNamed(
+                              await Navigator.of(context).pushNamed(
                                 RouteConstants.multiDelete,
                                 arguments: widget.list,
                               );

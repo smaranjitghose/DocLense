@@ -22,6 +22,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   http: ^0.13.0
+  image: ^4.0.17
   image_cropper: ^3.0.3
   image_picker: ^0.8.7+4
   intl: ^0.18.0
