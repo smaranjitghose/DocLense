@@ -11,7 +11,12 @@ class DarkThemeProvider with ChangeNotifier {
 
   set darkTheme(bool? value) {
     _darkTheme = value ?? false;
-    unawaited(darkThemePreference.setSharedPreferenceValue("themeMode", value));
+    unawaited(
+      darkThemePreference.setSharedPreferenceValue(
+        "themeMode",
+        value,
+      ),
+    );
     notifyListeners();
   }
 }
