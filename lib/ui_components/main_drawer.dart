@@ -19,13 +19,14 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DarkThemeProvider themeChange = Provider.of<DarkThemeProvider>(context);
+    final DarkThemeProvider themeChange =
+        Provider.of<DarkThemeProvider>(context);
 
     return Drawer(
       child: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            Container(
+            ColoredBox(
               color: themeChange.darkTheme ? Colors.black : Colors.white10,
               child: Column(
                 children: <Widget>[
@@ -57,23 +58,24 @@ class MainDrawer extends StatelessWidget {
             DrawerNavItem(
               iconData: Icons.home,
               navItemTitle: S.home,
-              callback: () {
-                Navigator.of(context).pushReplacementNamed(
+              callback: () async {
+                await Navigator.of(context).pushReplacementNamed(
                   RouteConstants.homeScreen,
                 );
               },
             ),
             DrawerNavItem(
-                iconData: Icons.stars_rounded,
-                navItemTitle: S.starredDocuments,
-                callback: () {
-                  Navigator.of(context).pushReplacementNamed(
-                    RouteConstants.starredDocumentsScreen,
-                  );
-                },),
+              iconData: Icons.stars_rounded,
+              navItemTitle: S.starredDocuments,
+              callback: () async {
+                await Navigator.of(context).pushReplacementNamed(
+                  RouteConstants.starredDocumentsScreen,
+                );
+              },
+            ),
             DrawerNavItem(
-              callback: () {
-                Navigator.of(context).pushReplacementNamed(
+              callback: () async {
+                await Navigator.of(context).pushReplacementNamed(
                   RouteConstants.settingsScreen,
                 );
               },
@@ -86,8 +88,8 @@ class MainDrawer extends StatelessWidget {
             DrawerNavItem(
               iconData: Icons.info,
               navItemTitle: S.aboutApp,
-              callback: () {
-                Navigator.of(context).pushReplacementNamed(
+              callback: () async {
+                await Navigator.of(context).pushReplacementNamed(
                   RouteConstants.aboutAppScreen,
                 );
               },
@@ -95,31 +97,37 @@ class MainDrawer extends StatelessWidget {
             DrawerNavItem(
               navItemTitle: S.rateus,
               iconData: Icons.star_rate,
-              callback: () {
+              callback: () async {
                 Navigator.of(context).pop();
-                showDialog<void>(
-                    context: context,
-                    builder: (BuildContext context) => RatingDialog(
-                        image: Padding(
-                          padding: EdgeInsets.fromLTRB(
-                              AppDimensions.normalize(10), 0, 0, 0,),
-                          child: themeChange.darkTheme
-                              ? SvgPicture.asset(Assets.doclensewhiteSvg)
-                              : SvgPicture.asset(Assets.doclenselightSvg),
-                        ),
-                        title: const Text(
-                          S.howWasExperience,
-                          textAlign: TextAlign.center,
-                        ),
-                        onSubmitted: (RatingDialogResponse RatingDialogResponse) {
-                          _launchURL();
-                        },
-                        submitButtonText: S.submit,
-                        message: const Text(
-                          S.letUsKnow,
-                          textAlign: TextAlign.center,
-                        ),
-                      ),);
+                await showDialog<void>(
+                  context: context,
+                  builder: (BuildContext context) => RatingDialog(
+                    image: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                        AppDimensions.normalize(10),
+                        0,
+                        0,
+                        0,
+                      ),
+                      child: themeChange.darkTheme
+                          ? SvgPicture.asset(Assets.doclensewhiteSvg)
+                          : SvgPicture.asset(Assets.doclenselightSvg),
+                    ),
+                    title: const Text(
+                      S.howWasExperience,
+                      textAlign: TextAlign.center,
+                    ),
+                    onSubmitted:
+                        (RatingDialogResponse ratingDialogResponse) async {
+                      await _launchURL();
+                    },
+                    submitButtonText: S.submit,
+                    message: const Text(
+                      S.letUsKnow,
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                );
               },
             ),
             Divider(
@@ -128,8 +136,8 @@ class MainDrawer extends StatelessWidget {
             DrawerNavItem(
               navItemTitle: S.shareTheApp,
               iconData: Icons.share,
-              callback: () {
-                Share.share(S.shareMessage, subject: Env.appname);
+              callback: () async {
+                await Share.share(S.shareMessage, subject: Env.appname);
               },
             ),
             // ListTile(
@@ -151,11 +159,11 @@ class MainDrawer extends StatelessWidget {
 }
 
 Future<void> _launchURL() async {
-  const String url =
-      "https://github.com/smaranjitghose/DocLense"; //!paste link of app once uploaded on play store
+  const String url = "https://github.com/smaranjitghose/DocLense";
+  //!paste link of app once uploaded on play store
   if (await canLaunchUrl(Uri.parse(url))) {
     await launchUrl(Uri.parse(url));
   } else {
-    throw "Could not launch $url";
+    debugPrint("Could not launch $url");
   }
 }
