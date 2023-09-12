@@ -16,7 +16,7 @@ import "package:flutter/material.dart";
 import "package:image/image.dart" as image_lib;
 import "package:photofilters/photofilters.dart";
 
-Route generateRoute(RouteSettings settings) {
+Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case RouteConstants.homeScreen:
       return pageBuilder(
@@ -41,11 +41,12 @@ Route generateRoute(RouteSettings settings) {
       );
 
     case RouteConstants.imageView:
-      final Map args = settings.arguments! as Map;
+      final Map<String, Object> args =
+          settings.arguments! as Map<String, Object>;
       return pageBuilder(
         screen: Imageview(
-          args["imageFile"] as File,
-          args["imageList"] as ImageList,
+          args["imageFile"]! as File,
+          args["imageList"]! as ImageList,
         ),
       );
     case RouteConstants.contactDeveloperScreen:
@@ -53,7 +54,8 @@ Route generateRoute(RouteSettings settings) {
         screen: const ContactDeveloperScreen(),
       );
     case RouteConstants.photoFilterSelector:
-      final Map<String, Object> args = settings.arguments! as Map<String, Object>;
+      final Map<String, Object> args =
+          settings.arguments! as Map<String, Object>;
       return pageBuilder(
         screen: PhotoFilterSelector(
           title: args["title"]! as Widget,
@@ -71,7 +73,8 @@ Route generateRoute(RouteSettings settings) {
         screen: PDFConversion(args),
       );
     case RouteConstants.pdfPreviewScreen:
-      final Map<String, Object> args = settings.arguments! as Map<String, Object>;
+      final Map<String, Object> args =
+          settings.arguments! as Map<String, Object>;
       return pageBuilder(
         screen: PdfPreviewScreen(
           path: args["path"]! as String,
@@ -83,7 +86,8 @@ Route generateRoute(RouteSettings settings) {
     //   return pageBuilder(
     //     screen: FolderPickerPage(
     //       action:
-    //           args['action'] as Future<void> Function(BuildContext, Directory),
+    //           args['action'] as Future<void>
+    //    Function(BuildContext, Directory),
     //       rootDirectory: args['rootDirectory'] as Directory,
     //     ),
     //   );
@@ -97,10 +101,18 @@ Route generateRoute(RouteSettings settings) {
   }
 }
 
-PageRouteBuilder pageBuilder({
+PageRouteBuilder<dynamic> pageBuilder({
   required Widget screen,
-}) => PageRouteBuilder(
-    pageBuilder: (BuildContext c, Animation<double> a1, Animation<double> a2) => screen,
-    transitionsBuilder: (BuildContext c, Animation<double> anim, Animation<double> a2, Widget child) =>
-        FadeTransition(opacity: anim, child: child),
-  );
+}) =>
+    PageRouteBuilder<dynamic>(
+      pageBuilder:
+          (BuildContext c, Animation<double> a1, Animation<double> a2) =>
+              screen,
+      transitionsBuilder: (
+        BuildContext c,
+        Animation<double> anim,
+        Animation<double> a2,
+        Widget child,
+      ) =>
+          FadeTransition(opacity: anim, child: child),
+    );

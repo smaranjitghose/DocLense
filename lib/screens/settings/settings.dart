@@ -17,10 +17,10 @@ class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  SettingsScreenState createState() => SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class SettingsScreenState extends State<SettingsScreen> {
   String? theme;
   bool adjustBorders = true;
   bool textOcr = true;
@@ -33,14 +33,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
     bool swithValue = themeChange.darkTheme;
 
     Future<void> userFeedback() async {
-      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-      Wiredash.of(context)
-        ..setBuildProperties(
-          buildNumber: packageInfo.buildNumber,
-          buildVersion: packageInfo.version,
-        )
-        ..show();
+      await PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+        Wiredash.of(context)
+          ..setBuildProperties(
+            buildNumber: packageInfo.buildNumber,
+            buildVersion: packageInfo.version,
+          )
+          ..show();
+      });
     }
 
     return Scaffold(
@@ -106,8 +106,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _SettingsTile(
               themeChange: themeChange,
-              onTap: () {
-                Navigator.of(context).pushNamed(
+              onTap: () async {
+                await Navigator.of(context).pushNamed(
                   RouteConstants.contactDeveloperScreen,
                 );
               },

@@ -19,13 +19,14 @@ class Starred extends StatefulWidget {
   const Starred({super.key});
 
   @override
-  _StarredState createState() => _StarredState();
+  StarredState createState() => StarredState();
 }
 
-class _StarredState extends State<Starred> {
+class StarredState extends State<Starred> {
   @override
   Widget build(BuildContext context) {
-    final DarkThemeProvider themeChange = Provider.of<DarkThemeProvider>(context);
+    final DarkThemeProvider themeChange =
+        Provider.of<DarkThemeProvider>(context);
     return Scaffold(
       drawer: const MainDrawer(),
       appBar: AppBar(
@@ -49,23 +50,27 @@ class _StarredState extends State<Starred> {
       ),
       body: DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
-        child: ValueListenableBuilder<Box>(
+        child: ValueListenableBuilder<Box<dynamic>>(
           valueListenable: Hive.box("starred").listenable(),
-          builder: (BuildContext context, Box starredBox, Widget? widget) {
-            if (starredBox.getAt(0).length == 0) {
+          builder:
+              (BuildContext context, Box<dynamic> starredBox, Widget? widget) {
+            if ((starredBox.getAt(0) as List<dynamic>).isEmpty) {
               return const Center(
                 child: Text("No PDFs Starred Yet !! "),
               );
             }
             return ListView.builder(
-              itemCount: starredBox.getAt(0).length as int,
+              itemCount: (starredBox.getAt(0) as List<dynamic>).length,
               itemBuilder: (BuildContext context, int index) {
                 final Image previewImage = image_converter.base64StringToImage(
-                    starredBox.getAt(0)[index][2] as String,);
+                  (starredBox.getAt(0) as List<dynamic>)[index][2] as String,
+                );
                 return GestureDetector(
-                  onTap: () {
-                    print("tapped");
-                    OpenFile.open(starredBox.getAt(0)[index][0] as String);
+                  onTap: () async {
+                    debugPrint("tapped");
+                    await OpenFile.open(
+                      starredBox.getAt(0)[index][0] as String,
+                    );
                   },
                   child: Padding(
                     padding: Space.all(0.75),
@@ -111,32 +116,36 @@ class _StarredState extends State<Starred> {
                                         0.1,
                                   ),
                                   IconButton(
-                                      icon: Icon(
-                                        Icons.share,
-                                        color: themeChange.darkTheme
-                                            ? Colors.white70
-                                            : Colors.grey,
-                                        size: AppDimensions.font(8),
-                                      ),
-                                      onPressed: () async {
-                                        await _onShare(starredBox, index);
-                                      },),
+                                    icon: Icon(
+                                      Icons.share,
+                                      color: themeChange.darkTheme
+                                          ? Colors.white70
+                                          : Colors.grey,
+                                      size: AppDimensions.font(8),
+                                    ),
+                                    onPressed: () async {
+                                      await _onShare(starredBox, index);
+                                    },
+                                  ),
                                   IconButton(
-                                      icon: Icon(
-                                        Icons.star,
-                                        color: themeChange.darkTheme
-                                            ? Colors.white70
-                                            : Colors.grey,
-                                        size: AppDimensions.font(8),
-                                      ),
-                                      onPressed: () async {
-                                        _onStarred(index, context);
-                                      },),
+                                    icon: Icon(
+                                      Icons.star,
+                                      color: themeChange.darkTheme
+                                          ? Colors.white70
+                                          : Colors.grey,
+                                      size: AppDimensions.font(8),
+                                    ),
+                                    onPressed: () async {
+                                      await _onStarred(index, context);
+                                    },
+                                  ),
                                   IconButton(
-                                    icon: Icon(Icons.more_vert,
-                                        color: themeChange.darkTheme
-                                            ? Colors.white70
-                                            : Colors.grey,),
+                                    icon: Icon(
+                                      Icons.more_vert,
+                                      color: themeChange.darkTheme
+                                          ? Colors.white70
+                                          : Colors.grey,
+                                    ),
                                     onPressed: () async {},
                                   ),
                                 ],
@@ -156,7 +165,7 @@ class _StarredState extends State<Starred> {
     );
   }
 
-  void _onStarred(int index, BuildContext context) {
+  Future<void> _onStarred(int index, BuildContext context) async {
     setState(() {
       Hive.box("starred").getAt(0).removeAt(index);
     });
@@ -175,7 +184,7 @@ class _StarredState extends State<Starred> {
 
     final String path = file.path;
 
-    print(path);
+    debugPrint(path);
 
     await Share.shareXFiles(
       <XFile>[XFile(path)],
