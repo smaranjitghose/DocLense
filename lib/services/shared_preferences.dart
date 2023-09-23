@@ -1,5 +1,4 @@
-import 'package:shared_preferences/shared_preferences.dart';
-
+import "package:shared_preferences/shared_preferences.dart";
 
 class SharedPreferencesService {
   Future<dynamic> getSharedPreferenceValue(String key) async {
@@ -7,7 +6,11 @@ class SharedPreferencesService {
     return prefs.get(key);
   }
 
- Future<void> setSharedPreferenceValue(String key, dynamic value) async {
+  Future<void> setSharedPreferenceValue(
+    String key,
+    // ignore: always_specify_types, type_annotate_public_apis
+    value,
+  ) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
 
     if (value is String) {

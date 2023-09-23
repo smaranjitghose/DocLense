@@ -1,3 +1,4 @@
+// ignore_for_file: lines_longer_than_80_chars
 // import 'package:flutter/material.dart';
 // import 'package:hive/hive.dart';
 // import 'package:open_file/open_file.dart';
