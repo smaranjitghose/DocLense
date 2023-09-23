@@ -112,18 +112,20 @@ class _IntoScreenState extends State<IntoScreen> {
                     ),
                   ),
                 ],
-                onDone: () {
-                  setFirstTime();
-                  Navigator.of(context).pushReplacementNamed(
-                    RouteConstants.homeScreen,
-                  );
+                onDone: () async {
+                  await setFirstTime().whenComplete(() {
+                    Navigator.of(context).pushReplacementNamed(
+                      RouteConstants.homeScreen,
+                    );
+                  });
                 },
                 showSkipButton: true,
                 skip: Text(S.skip, style: buttonStyle),
-                onSkip: () {
-                  setFirstTime();
-                  Navigator.of(context).pushReplacementNamed(
-                    RouteConstants.homeScreen,
+                onSkip: () async {
+                  await setFirstTime().whenComplete(
+                    () => Navigator.of(context).pushReplacementNamed(
+                      RouteConstants.homeScreen,
+                    ),
                   );
                 },
                 next: Text(S.next, style: buttonStyle),
