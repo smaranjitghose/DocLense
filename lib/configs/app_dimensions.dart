@@ -1,5 +1,3 @@
-import "dart:ui" as ui;
-
 import "package:doclense/configs/ui.dart";
 import "package:flutter/material.dart";
 
@@ -52,7 +50,7 @@ class AppDimensions {
 
   static String inString() {
     final double x = UI.width! / UI.height!;
-    final Size ps = ui.window.physicalSize;
+    final Size ps = UI.physicalSize!;
     return """
       Width: ${UI.width} | ${ps.width}
       Height: ${UI.height} | ${ps.height}
@@ -82,4 +80,8 @@ class AppDimensions {
   /// Use this method for getting responsive height
   /// Note: 7.2 is just for handling failure case
   static double height(double percentage) => (UI.vertical ?? 7.2) * percentage;
+
+  /// For Responsive Circular Border Radius
+  static BorderRadius borRadius(double radius) =>
+      BorderRadius.circular(normalize(radius));
 }

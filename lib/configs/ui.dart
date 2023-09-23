@@ -8,9 +8,12 @@ class UI {
   static double? height;
   static double? horizontal;
   static double? vertical;
-  static EdgeInsets? padding;
-  static EdgeInsets? vi;
 
+  /// Padding Before Keyboard raise
+  static EdgeInsets? padding;
+
+  /// Padding After Keyboard raise
+  static EdgeInsets? vi;
   static late double? _safeAreaHorizontal;
   static late double? _safeAreaVertical;
   static double? safeWidth;
@@ -27,6 +30,9 @@ class UI {
   static bool? xl;
   static bool? xlg;
   static bool? xxlg;
+
+  static bool isPortrait = false;
+  static Size? physicalSize;
 
   static void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
@@ -45,6 +51,10 @@ class UI {
         _mediaQueryData!.padding.top + _mediaQueryData!.padding.bottom;
     safeWidth = width! - _safeAreaHorizontal!;
     safeHeight = height! - _safeAreaVertical!;
+
+    ///
+    isPortrait = (width ?? 0) < 600;
+    physicalSize = View.of(context).physicalSize;
   }
 
   static void initChecks(MediaQueryData query) {
