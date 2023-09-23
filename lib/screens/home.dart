@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls, use_build_context_synchronously
+
 import "dart:async";
 import "dart:io";
 
@@ -86,7 +88,6 @@ class HomeState extends State<Home> {
           .then((bool? value) => debugPrint("Image Saved"));
     }
 
-    // ignore: use_build_context_synchronously
     await Navigator.of(context).pushNamed(
       RouteConstants.imageView,
       arguments: <String, Object>{
@@ -299,7 +300,7 @@ class HomeState extends State<Home> {
 
                                               final String path = file.path;
 
-                                              print(path);
+                                              debugPrint(path);
 
                                               await Share.shareXFiles(
                                                 <XFile>[XFile(path)],
@@ -316,7 +317,7 @@ class HomeState extends State<Home> {
                                               size: AppDimensions.font(8),
                                             ),
                                             onPressed: () async {
-                                              _onDelete(
+                                              await _onDelete(
                                                 context,
                                                 pdfsBox,
                                                 index,
@@ -331,8 +332,8 @@ class HomeState extends State<Home> {
                                                   : Colors.grey,
                                               size: AppDimensions.font(8),
                                             ),
-                                            onPressed: () {
-                                              _onRename(
+                                            onPressed: () async {
+                                              await _onRename(
                                                 context,
                                                 pdfsBox,
                                                 index,
@@ -410,8 +411,8 @@ class HomeState extends State<Home> {
               icon: const Icon(
                 Icons.image,
               ),
-              onPressed: () {
-                getImage(ImageSource.gallery);
+              onPressed: () async {
+                await getImage(ImageSource.gallery);
               },
             ),
           ],
@@ -425,11 +426,11 @@ class HomeState extends State<Home> {
     int index,
     BuildContext context,
   ) async {
-    print(isStarred(pdfsBox, index));
+    debugPrint(isStarred(pdfsBox, index).toString());
     final File file = File(await pdfsBox.getAt(0)[index][0] as String);
     final String path = file.path;
-    final date = pdfsBox.getAt(0)[index][1];
-    final imagePreview = pdfsBox.getAt(0)[index][2];
+    final dynamic date = pdfsBox.getAt(0)[index][1];
+    final dynamic imagePreview = pdfsBox.getAt(0)[index][2];
 
     final List<dynamic> files = Hive.box("starred").getAt(0) as List<dynamic>;
 
@@ -454,11 +455,11 @@ class HomeState extends State<Home> {
           ),
         ),
       );
-      print("Already fav");
+      debugPrint("Already fav");
     } else {
       files.add(<dynamic>[path, date, imagePreview]);
       await Hive.box("starred").putAt(0, files);
-      print("STARRED : ${Hive.box('starred').getAt(0)}");
+      debugPrint("STARRED : ${Hive.box('starred').getAt(0)}");
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -498,7 +499,7 @@ class HomeState extends State<Home> {
     if (folderDir != null) {
       newPath =
           '${folderDir.path}/${(pdfsBox.getAt(0)[index][0] as String).split('/').last}';
-      print(newPath);
+      debugPrint(newPath);
       final List<dynamic> starred =
           Hive.box("starred").getAt(0) as List<dynamic>;
       final List<dynamic> finalStarred = <dynamic>[];
@@ -510,7 +511,7 @@ class HomeState extends State<Home> {
         debugPrint("yes");
         for (int i = 0; i < finalStarred.length; i++) {
           if (Hive.box("starred").getAt(0)[i][0] == sourceFile.path) {
-            print("yes");
+            debugPrint("yes");
             await sourceFile.copy(newPath);
             await sourceFile.delete();
 
@@ -526,7 +527,7 @@ class HomeState extends State<Home> {
           }
         }
       } else {
-        print("Newpath: $newPath");
+        debugPrint("Newpath: $newPath");
         await sourceFile.copy(newPath);
         await sourceFile.delete();
         setState(() {
@@ -536,10 +537,14 @@ class HomeState extends State<Home> {
     }
   }
 
-  void _onRename(BuildContext context, Box<dynamic> pdfsBox, int index) {
+  Future<void> _onRename(
+    BuildContext context,
+    Box<dynamic> pdfsBox,
+    int index,
+  ) async {
     TextEditingController pdfName;
 
-    showDialog(
+    await showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
         pdfName = TextEditingController();
@@ -571,20 +576,20 @@ class HomeState extends State<Home> {
                   for (int i = 0; i < starred.length; i++) {
                     finalStarred.add(starred[i][0]);
                   }
-                  print("PDFS : ${Hive.box('pdfs').getAt(0)}");
+                  debugPrint("PDFS : ${Hive.box('pdfs').getAt(0)}");
                   final File sourceFile =
                       File(pdfsBox.getAt(0)[index][0] as String);
                   setState(() {
                     if (finalStarred.contains(pdfsBox.getAt(0)[index][0])) {
-                      print("yes");
+                      debugPrint("yes");
                       for (int i = 0; i < finalStarred.length; i++) {
                         if (Hive.box("starred").getAt(0)[i][0] ==
                             sourceFile.path) {
-                          print("yes");
+                          debugPrint("yes");
                           final List<String> path =
                               (Hive.box("starred").getAt(0)[i][0] as String)
-                                  .split("/");
-                          path.last = "${pdfName.text}.pdf";
+                                  .split("/")
+                                ..last = "${pdfName.text}.pdf";
                           Hive.box("starred").getAt(0)[i][0] = path.join("/");
                           final List<dynamic> editedList =
                               Hive.box("starred").getAt(0) as List<dynamic>;
@@ -594,12 +599,12 @@ class HomeState extends State<Home> {
                       }
                     }
                     final List<String> path =
-                        pdfsBox.getAt(0)[index][0].split("/") as List<String>;
-                    path.last = "${pdfName.text}.pdf";
+                        (pdfsBox.getAt(0)[index][0].split("/") as List<String>)
+                          ..last = "${pdfName.text}.pdf";
                     pdfsBox.getAt(0)[index][0] = path.join("/");
                   });
                   sourceFile.renameSync(pdfsBox.getAt(0)[index][0] as String);
-                  print("PDFS : ${Hive.box('pdfs').getAt(0)}");
+                  debugPrint("PDFS : ${Hive.box('pdfs').getAt(0)}");
                   final List<dynamic> editedList =
                       pdfsBox.getAt(0) as List<dynamic>;
                   await pdfsBox.putAt(0, editedList);
@@ -617,8 +622,12 @@ class HomeState extends State<Home> {
     );
   }
 
-  void _onDelete(BuildContext context, Box<dynamic> pdfsBox, int index) {
-    showDialog(
+  Future<void> _onDelete(
+    BuildContext context,
+    Box<dynamic> pdfsBox,
+    int index,
+  ) async {
+    await showDialog(
       context: context,
       builder: (BuildContext ctx) => AlertDialog(
         backgroundColor: Colors.blueGrey[800],
@@ -636,7 +645,7 @@ class HomeState extends State<Home> {
                 onTap: () {
                   final File sourceFile =
                       File(pdfsBox.getAt(0)[index][0] as String);
-                  print(sourceFile.path);
+                  debugPrint(sourceFile.path);
                   sourceFile.delete();
                   final List<dynamic> starredFiles =
                       Hive.box("starred").getAt(0) as List<dynamic>;
@@ -650,11 +659,11 @@ class HomeState extends State<Home> {
                       finalStarredFiles.add(starredFiles[i][0]);
                     }
                     if (finalStarredFiles.contains(sourceFile.path)) {
-                      print("yes");
+                      debugPrint("yes");
                       for (int i = 0; i < finalStarredFiles.length; i++) {
                         if (Hive.box("starred").getAt(0)[i][0] ==
                             sourceFile.path) {
-                          print("yes");
+                          debugPrint("yes");
                           Hive.box("starred").getAt(0).removeAt(i);
                           final List<dynamic> editedList =
                               Hive.box("starred").getAt(0) as List<dynamic>;

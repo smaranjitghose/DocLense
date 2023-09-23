@@ -69,6 +69,7 @@ class _IntoScreenState extends State<IntoScreen> {
         ),
       ),
       nextScreen: FutureBuilder<bool>(
+        // ignore: discarded_futures
         future: checkFirstTime(),
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.hasData) {
