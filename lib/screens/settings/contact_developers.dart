@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import "dart:async";
 import "dart:convert";
 import "dart:developer";
@@ -34,7 +36,7 @@ class ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
 
       if (response.statusCode == 200) {
         setState(() {
-          jsonContributors = json.decode(response.body) as List;
+          jsonContributors = json.decode(response.body) as List<dynamic>;
         });
       } else {
         await Fluttertoast.showToast(
@@ -56,7 +58,7 @@ class ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
   @override
   void initState() {
     super.initState();
-    _fetchContributors();
+    unawaited(_fetchContributors());
   }
 
   @override
@@ -278,8 +280,8 @@ class ContactDeveloperScreenState extends State<ContactDeveloperScreen> {
     if (await canLaunchUrl(Uri.parse(url))) {
       await launchUrl(Uri.parse(url));
     } else {
-      print("Could not launch $url");
-      throw "Could not launch $url";
+      debugPrint("Could not launch $url");
+      // throw "Could not launch $url";
     }
   }
 }

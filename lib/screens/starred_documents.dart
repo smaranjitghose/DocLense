@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_dynamic_calls
+
 import "dart:io";
 
 import "package:doclense/configs/app_dimensions.dart";
