@@ -18,7 +18,7 @@ final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   colorScheme: const ColorScheme.dark(
     secondary: Colors.white,
-    background: Color(0xFF212121),
+    surface: Color(0xFF212121),
   ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     foregroundColor: Colors.black,
@@ -68,5 +68,5 @@ final ThemeData lightTheme = ThemeData(
   ),
   colorScheme: const ColorScheme.light(
     secondary: Colors.black,
-  ).copyWith(background: Colors.blueGrey[100]),
+  ).copyWith(surface: Colors.blueGrey[100]),
 );

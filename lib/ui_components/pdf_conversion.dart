@@ -202,6 +202,8 @@ class PDFConversionState extends State<PDFConversion> {
         request = true;
       case PermissionStatus.permanentlyDenied:
         request = true;
+      case PermissionStatus.provisional:
+        request = true;
     }
     if (request) {
       await Permission.storage.request();

@@ -35,11 +35,11 @@ class SettingsScreenState extends State<SettingsScreen> {
     Future<void> userFeedback() async {
       await PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
         Wiredash.of(context)
-          ..setBuildProperties(
-            buildNumber: packageInfo.buildNumber,
-            buildVersion: packageInfo.version,
-          )
-          ..show();
+            // ..setBuildProperties(
+            //   buildNumber: packageInfo.buildNumber,
+            //   buildVersion: packageInfo.version,
+            // )
+            .show();
       });
     }
 
