@@ -20,7 +20,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
   switch (settings.name) {
     case RouteConstants.homeScreen:
       return pageBuilder(
-        screen: const Home(),
+        screen: const HomeScreen(),
       );
     case RouteConstants.settingsScreen:
       return pageBuilder(

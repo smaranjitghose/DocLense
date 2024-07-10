@@ -97,7 +97,7 @@ class MultiDeleteState extends State<MultiDelete> {
         ),
       );
 
-  Future<void> _showChoiceDialogHome(BuildContext context) => showDialog(
+  Future<void> _showChoiceDialogHomeScreen(BuildContext context) => showDialog(
         context: context,
         builder: (BuildContext ctx) => AlertDialog(
           backgroundColor: Colors.blueGrey[800],
@@ -327,7 +327,7 @@ class MultiDeleteState extends State<MultiDelete> {
           IconButton(
             icon: const Icon(Icons.home),
             onPressed: () async {
-              await _showChoiceDialogHome(context);
+              await _showChoiceDialogHomeScreen(context);
             },
           ),
         ],

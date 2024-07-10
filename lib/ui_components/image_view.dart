@@ -146,7 +146,7 @@ class ImageviewState extends State<Imageview> {
     }
   }
 
-  Future<void> _showChoiceDialogHome(BuildContext context) => showDialog(
+  Future<void> _showChoiceDialogHomeScreen(BuildContext context) => showDialog(
         context: context,
         builder: (BuildContext ctx) => AlertDialog(
           backgroundColor: Colors.blueGrey[800],
@@ -226,7 +226,7 @@ class ImageviewState extends State<Imageview> {
                         children: <Widget>[
                           TextButton(
                             onPressed: () async {
-                              await _showChoiceDialogHome(context);
+                              await _showChoiceDialogHomeScreen(context);
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -33,29 +33,19 @@ enum IconOptions { share }
 
 enum DeviceType { phone, tablet }
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  HomeState createState() => HomeState();
+  HomeScreenState createState() => HomeScreenState();
 }
 
-class HomeState extends State<Home> {
+class HomeScreenState extends State<HomeScreen> {
   bool tablet = false;
-  // Future<List?>? setSharedPreferences() async {
-  //   final SharedPreferences sharedPreferences =
-  //       await SharedPreferences.getInstance();
-  //   if (sharedPreferences.getStringList("savedFiles") == null) {
-  //     await sharedPreferences.setStringList("savedFiles", <String>[]);
-  //     return <dynamic>[];
-  //   } else {
-  //     return sharedPreferences.getStringList("savedFiles");
-  //   }
-  // }
 
   bool getDeviceType() {
-    final MediaQueryData data = MediaQueryData.fromView(View.of(context));
-    if (data.size.shortestSide < 550) {
+    final Size data = MediaQuery.sizeOf(context);
+    if (data.shortestSide < 550) {
       return false;
     } else {
       return true;
@@ -69,8 +59,6 @@ class HomeState extends State<Home> {
     unawaited(Navigator.of(context).pushNamed(routeName));
   }
 
-  // File imageFile;
-
   final ImagePicker picker = ImagePicker();
 
   Future<void> getImage(ImageSource imageSource) async {
@@ -79,9 +67,6 @@ class HomeState extends State<Home> {
       return;
     }
     final File tmpFile = File(imageFile.path);
-    // final appDir = await syspaths.getApplicationDocumentsDirectory();
-    // final fileName = path.basename(imageFile.path);
-    // final localFile = await tmpFile.copy('${appDir.path}/$fileName');
 
     if (imageSource == ImageSource.camera) {
       await GallerySaver.saveImage(tmpFile.path)
@@ -102,13 +87,10 @@ class HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    // setSharedPreferences().then((value) {
-    //   savedPdfs = value;
-    //   print('Saved : $savedPdfs');
-    // });
-    tablet = getDeviceType();
-    unawaited(
-      quickActions.initialize((String shortcutType) {
+
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) async {
+      tablet = getDeviceType();
+      await quickActions.initialize((String shortcutType) {
         switch (shortcutType) {
           case "about":
             return _navigate(RouteConstants.aboutAppScreen);
@@ -126,11 +108,8 @@ class HomeState extends State<Home> {
               ),
             );
         }
-      }),
-    );
-
-    unawaited(
-      quickActions.setShortcutItems(<ShortcutItem>[
+      });
+      await quickActions.setShortcutItems(<ShortcutItem>[
         const ShortcutItem(
           type: "about",
           localizedTitle: "About DocLense",
@@ -146,9 +125,8 @@ class HomeState extends State<Home> {
           localizedTitle: "Settings",
           icon: "setting",
         ),
-      ]),
-    );
-    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
+      ]);
+
       setState(() {
         _isLoading = false;
       });

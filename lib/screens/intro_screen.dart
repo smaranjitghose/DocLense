@@ -74,7 +74,7 @@ class _IntroScreenState extends State<IntroScreen> {
         builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data == false) {
-              return const Home();
+              return const HomeScreen();
             } else {
               return IntroductionScreen(
                 pages: <PageViewModel>[
@@ -139,7 +139,7 @@ class _IntroScreenState extends State<IntroScreen> {
           }
         },
       ),
-      // nextScreen: Home(),
+      // nextScreen: HomeScreen(),
       splashTransition: SplashTransition.rotationTransition,
       duration: 4000,
     );
