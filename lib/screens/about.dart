@@ -1,83 +1,91 @@
-import 'package:doclense/configs/app_dimensions.dart';
-import 'package:doclense/configs/app_typography.dart';
-import 'package:doclense/configs/space.dart';
-import 'package:doclense/configs/ui.dart';
-import 'package:doclense/constants/appstrings.dart';
-import 'package:doclense/constants/assets.dart';
-import 'package:doclense/ui_components/main_drawer.dart';
-import 'package:doclense/providers/theme_provider.dart';
-import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
-import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
+import "package:doclense/configs/app_dimensions.dart";
+import "package:doclense/configs/app_typography.dart";
+import "package:doclense/configs/space.dart";
+import "package:doclense/configs/ui.dart";
+import "package:doclense/constants/appstrings.dart";
+import "package:doclense/constants/assets.dart";
+import "package:doclense/providers/theme_provider.dart";
+import "package:doclense/ui_components/double_back_to_close_snackbar.dart";
+import "package:doclense/ui_components/main_drawer.dart";
+import "package:double_back_to_close_app/double_back_to_close_app.dart";
+import "package:flutter/material.dart";
+import "package:flutter_svg/flutter_svg.dart";
+import "package:provider/provider.dart";
 
 class About extends StatefulWidget {
+  const About({super.key});
+
   @override
-  _AboutState createState() => _AboutState();
+  AboutState createState() => AboutState();
 }
 
-class _AboutState extends State<About> {
+class AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    final DarkThemeProvider themeChange =
+        Provider.of<DarkThemeProvider>(context);
 
     return Scaffold(
-      drawer: MainDrawer(),
+      drawer: const MainDrawer(),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           S.aboutApp,
         ),
       ),
       body: DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             children: <Widget>[
-              Container(
-                clipBehavior: Clip.none,
+              SizedBox(
                 height: UI.height! / 1.45,
-                child: Stack(clipBehavior: Clip.none, children: [
-                  if (themeChange.darkTheme)
-                    Positioned(
-                      top: 0,
-                      child: SvgPicture.asset(
-                        Assets.curveSvg,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: <Widget>[
+                    if (themeChange.darkTheme)
+                      Positioned(
+                        top: 0,
+                        child: SvgPicture.asset(
+                          Assets.curveSvg,
+                        ),
+                      )
+                    else
+                      Positioned(
+                        top: 0,
+                        child: SvgPicture.asset(
+                          Assets.curvelightSvg,
+                        ),
                       ),
-                    )
-                  else
+                    Padding(
+                      padding: EdgeInsets.only(left: AppDimensions.width(10)),
+                      child: themeChange.darkTheme
+                          ? SvgPicture.asset(
+                              Assets.doclensewhiteSvg,
+                            )
+                          : SvgPicture.asset(
+                              Assets.doclenselightSvg,
+                            ),
+                    ),
                     Positioned(
-                      top: 0,
-                      child: SvgPicture.asset(
-                        Assets.curvelightSvg,
+                      bottom: 0,
+                      child: Container(
+                        alignment: Alignment.center,
+                        width: UI.width,
+                        padding: Space.h! / 2.0,
+                        child: Text(
+                          S.appAbout,
+                          textAlign: TextAlign.center,
+                          style: AppText.b1,
+                        ),
                       ),
                     ),
-                  Padding(
-                    padding: EdgeInsets.only(left: AppDimensions.width(10)),
-                    child: themeChange.darkTheme
-                        ? SvgPicture.asset(
-                            Assets.doclensewhiteSvg,
-                          )
-                        : SvgPicture.asset(
-                            Assets.doclenselightSvg,
-                          ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    child: Container(
-                      alignment: Alignment.center,
-                      width: UI.width!,
-                      padding: Space.h! / 2.0,
-                      child: Text(S.appAbout,
-                          textAlign: TextAlign.center, style: AppText.b1),
-                    ),
-                  ),
-                ]),
+                  ],
+                ),
               ),
               Space.y1!,
               Text(
-                S.doclense + '!',
+                "${S.doclense}!",
                 style: AppText.h3b,
               ),
               SizedBox(
@@ -85,7 +93,7 @@ class _AboutState extends State<About> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
+                children: <Widget>[
                   SvgPicture.asset(
                     Assets.undrawSvg,
                     height: AppDimensions.height(15),
@@ -93,7 +101,7 @@ class _AboutState extends State<About> {
                   SvgPicture.asset(
                     Assets.undrawUpSvg,
                     height: AppDimensions.height(15),
-                  )
+                  ),
                 ],
               ),
               Space.y2!,

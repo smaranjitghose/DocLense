@@ -1,25 +1,26 @@
-import 'package:doclense/configs/app_dimensions.dart';
-import 'package:doclense/configs/app_typography.dart';
-import 'package:doclense/configs/space.dart';
-import 'package:doclense/constants/appstrings.dart';
-import 'package:doclense/constants/route_constants.dart';
-import 'package:doclense/ui_components/main_drawer.dart';
-import 'package:doclense/ui_components/double_back_to_close_snackbar.dart';
-import 'package:double_back_to_close_app/double_back_to_close_app.dart';
-import 'package:flutter/material.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:provider/provider.dart';
-import 'package:wiredash/wiredash.dart';
-
-import '../../providers/theme_provider.dart';
-import 'setting_text.dart';
+import "package:doclense/configs/app_dimensions.dart";
+import "package:doclense/configs/app_typography.dart";
+import "package:doclense/configs/space.dart";
+import "package:doclense/constants/appstrings.dart";
+import "package:doclense/constants/route_constants.dart";
+import "package:doclense/providers/theme_provider.dart";
+import "package:doclense/screens/settings/setting_text.dart";
+import "package:doclense/ui_components/double_back_to_close_snackbar.dart";
+import "package:doclense/ui_components/main_drawer.dart";
+import "package:double_back_to_close_app/double_back_to_close_app.dart";
+import "package:flutter/material.dart";
+import "package:package_info_plus/package_info_plus.dart";
+import "package:provider/provider.dart";
+import "package:wiredash/wiredash.dart";
 
 class SettingsScreen extends StatefulWidget {
+  const SettingsScreen({super.key});
+
   @override
-  _SettingsScreenState createState() => _SettingsScreenState();
+  SettingsScreenState createState() => SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class SettingsScreenState extends State<SettingsScreen> {
   String? theme;
   bool adjustBorders = true;
   bool textOcr = true;
@@ -27,30 +28,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
-    var swithValue = themeChange.darkTheme;
+    final DarkThemeProvider themeChange =
+        Provider.of<DarkThemeProvider>(context);
+    bool swithValue = themeChange.darkTheme;
 
     Future<void> userFeedback() async {
-      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
-
-      Wiredash.of(context)
-        ..setBuildProperties(
-          buildNumber: packageInfo.buildNumber,
-          buildVersion: packageInfo.version,
-        )
-        ..show();
+      await PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
+        Wiredash.of(context)
+            // ..setBuildProperties(
+            //   buildNumber: packageInfo.buildNumber,
+            //   buildVersion: packageInfo.version,
+            // )
+            .show();
+      });
     }
 
     return Scaffold(
-      drawer: MainDrawer(),
+      drawer: const MainDrawer(),
       appBar: AppBar(
-        title: Text(S.preferences),
+        title: const Text(S.preferences),
       ),
       body: DoubleBackToCloseApp(
         snackBar: doubleBackToCloseSnackBar(),
         child: ListView(
           padding: Space.all(),
-          children: [
+          children: <Widget>[
             Space.y1!,
             Text(
               S.appThemeOptions.toUpperCase(),
@@ -59,7 +61,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Space.y!,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
+              children: <Widget>[
                 Expanded(
                   child: Container(
                     color: themeChange.darkTheme
@@ -68,8 +70,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     height: AppDimensions.font(25),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SettingText(text: S.darkMode),
+                      children: <Widget>[
+                        const SettingText(text: S.darkMode),
                         Switch(
                           activeColor: themeChange.darkTheme
                               ? Colors.white
@@ -82,7 +84,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             });
                             //print("Dark Mode");
                           },
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -104,8 +106,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             _SettingsTile(
               themeChange: themeChange,
-              onTap: () {
-                Navigator.of(context).pushNamed(
+              onTap: () async {
+                await Navigator.of(context).pushNamed(
                   RouteConstants.contactDeveloperScreen,
                 );
               },
@@ -121,12 +123,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
 class _SettingsTile extends StatelessWidget {
   const _SettingsTile({
-    Key? key,
     required this.themeChange,
     required this.onTap,
     required this.title,
     required this.iconData,
-  }) : super(key: key);
+  });
 
   final DarkThemeProvider themeChange;
   final Function onTap;
@@ -134,27 +135,25 @@ class _SettingsTile extends StatelessWidget {
   final IconData iconData;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: themeChange.darkTheme ? Colors.black45 : Colors.grey[200],
-      height: AppDimensions.font(25),
-      margin: Space.vf(0.3),
-      child: InkWell(
-        onTap: () => onTap(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            SettingText(text: title.toUpperCase()),
-            Expanded(
-              child: Icon(
-                iconData,
-                size: AppDimensions.font(15),
-                color: themeChange.darkTheme ? Colors.white : Colors.blue,
+  Widget build(BuildContext context) => Container(
+        color: themeChange.darkTheme ? Colors.black45 : Colors.grey[200],
+        height: AppDimensions.font(25),
+        margin: Space.vf(0.3),
+        child: InkWell(
+          onTap: () => onTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              SettingText(text: title.toUpperCase()),
+              Expanded(
+                child: Icon(
+                  iconData,
+                  size: AppDimensions.font(15),
+                  color: themeChange.darkTheme ? Colors.white : Colors.blue,
+                ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

@@ -1,5 +1,5 @@
-import 'package:doclense/configs/app_typography.dart';
-import 'package:flutter/material.dart';
+import "package:doclense/configs/app_typography.dart";
+import "package:flutter/material.dart";
 
 class AppTheme {
   static const Color primaryColor = Colors.white;
@@ -7,17 +7,23 @@ class AppTheme {
 
 TextStyle appbarStyle = AppText.b2b != null
     ? AppText.b2b!.cl(Colors.white)
-    : TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold);
+    : const TextStyle(
+        color: Colors.white,
+        fontSize: 22,
+        fontWeight: FontWeight.bold,
+      );
 
-final darkTheme = ThemeData(
+final ThemeData darkTheme = ThemeData(
   primaryColor: Colors.black,
   brightness: Brightness.dark,
-  backgroundColor: const Color(0xFF212121),
   colorScheme: const ColorScheme.dark(
     secondary: Colors.white,
+    surface: Color(0xFF212121),
   ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      foregroundColor: Colors.black, backgroundColor: AppTheme.primaryColor),
+    foregroundColor: Colors.black,
+    backgroundColor: AppTheme.primaryColor,
+  ),
   dividerColor: Colors.black12,
   inputDecorationTheme: const InputDecorationTheme(
     focusedBorder: OutlineInputBorder(
@@ -28,21 +34,20 @@ final darkTheme = ThemeData(
     color: Colors.white,
   ),
   appBarTheme: AppBarTheme(
-      elevation: 0,
-      color: Colors.black,
-      titleTextStyle: appbarStyle,
-      toolbarTextStyle: appbarStyle),
+    elevation: 0,
+    color: Colors.black,
+    titleTextStyle: appbarStyle,
+    toolbarTextStyle: appbarStyle,
+  ),
 );
 
-final lightTheme = ThemeData(
+final ThemeData lightTheme = ThemeData(
   primaryColor: AppTheme.primaryColor,
   brightness: Brightness.light,
-  backgroundColor: Colors.blueGrey[100],
-  colorScheme: const ColorScheme.light(
-    secondary: Colors.black,
-  ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
-      foregroundColor: Colors.white, backgroundColor: Colors.blue[600]),
+    foregroundColor: Colors.white,
+    backgroundColor: Colors.blue[600],
+  ),
   dividerColor: AppTheme.primaryColor,
   inputDecorationTheme: const InputDecorationTheme(
     focusedBorder: OutlineInputBorder(
@@ -61,4 +66,7 @@ final lightTheme = ThemeData(
     titleTextStyle: appbarStyle,
     toolbarTextStyle: appbarStyle,
   ),
+  colorScheme: const ColorScheme.light(
+    secondary: Colors.black,
+  ).copyWith(surface: Colors.blueGrey[100]),
 );

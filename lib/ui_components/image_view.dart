@@ -1,45 +1,44 @@
-import 'dart:io';
+import "dart:io";
 
-import 'package:doclense/configs/app_dimensions.dart';
-import 'package:doclense/configs/app_typography.dart';
-import 'package:doclense/configs/space.dart';
-import 'package:doclense/constants/appstrings.dart';
-import 'package:doclense/constants/route_constants.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:image/image.dart' as image_lib;
-import 'package:image_cropper/image_cropper.dart';
-import 'package:path/path.dart';
-import 'package:photofilters/filters/preset_filters.dart';
-import 'package:provider/provider.dart';
-
-import '../providers/image_list.dart';
-import '../providers/theme_provider.dart';
+import "package:doclense/configs/app_dimensions.dart";
+import "package:doclense/configs/app_typography.dart";
+import "package:doclense/configs/space.dart";
+import "package:doclense/constants/appstrings.dart";
+import "package:doclense/constants/route_constants.dart";
+import "package:doclense/providers/image_list.dart";
+import "package:doclense/providers/theme_provider.dart";
+import "package:flutter/material.dart";
+import "package:flutter_spinkit/flutter_spinkit.dart";
+import "package:image/image.dart" as image_lib;
+import "package:image_cropper/image_cropper.dart";
+import "package:path/path.dart";
+import "package:photofilters/filters/preset_filters.dart";
+import "package:provider/provider.dart";
 
 class Imageview extends StatefulWidget {
+  const Imageview(
+    this.file,
+    this.list, {
+    super.key,
+  });
   final File file;
   final ImageList list;
 
-  const Imageview(
-    this.file,
-    this.list,
-  );
-
   @override
-  _ImageviewState createState() => _ImageviewState();
+  ImageviewState createState() => ImageviewState();
 }
 
-class _ImageviewState extends State<Imageview> {
+class ImageviewState extends State<Imageview> {
   CroppedFile? cropped;
   bool _isLoading = true;
-  List<File> files = [];
+  List<File> files = <File>[];
   int index = 0;
 
   @override
   void initState() {
     super.initState();
     files.add(widget.file);
-    Future.delayed(const Duration(seconds: 1), () {
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) {
       setState(() {
         _isLoading = false;
       });
@@ -47,12 +46,14 @@ class _ImageviewState extends State<Imageview> {
   }
 
   Future<void> cropimage(File file, Color appBarColor, Color bgColor) async {
-    if (await file.exists()) {
+    // ignore: avoid_slow_async_io
+    final bool isExits = await file.exists();
+    if (isExits) {
       cropped = await ImageCropper().cropImage(
         sourcePath: file.path,
         aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
         compressQuality: 80,
-        uiSettings: [
+        uiSettings: <PlatformUiSettings>[
           AndroidUiSettings(
             statusBarColor: appBarColor,
             toolbarColor: appBarColor,
@@ -111,85 +112,87 @@ class _ImageviewState extends State<Imageview> {
       filterfile = widget.file;
     }
 
-//    imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    //   imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
     final String fileName = basename(filterfile.path);
-    var image = image_lib.decodeImage(filterfile.readAsBytesSync());
+    image_lib.Image? image =
+        image_lib.decodeImage(filterfile.readAsBytesSync());
     image = image_lib.copyResize(image!, width: 600);
-    final Map? imagefile = await Navigator.of(context).pushNamed(
+    final Map<String, dynamic> imagefile =
+        (await Navigator.of(context).pushNamed(
       RouteConstants.photoFilterSelector,
-      arguments: {
-        'title': const Text("Apply Filter"),
-        'image': image,
-        'appBarColor': appBarColor,
-        'filters': presetFiltersList,
-        'fileName': fileName,
-        'loader': const Center(
-            child: CircularProgressIndicator(
-          backgroundColor: Colors.teal,
-          strokeWidth: 2,
-        )),
-        'fit': BoxFit.contain,
+      arguments: <String, Object>{
+        "title": const Text("Apply Filter"),
+        "image": image,
+        "appBarColor": appBarColor,
+        "filters": presetFiltersList,
+        "fileName": fileName,
+        "loader": const Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.teal,
+            strokeWidth: 2,
+          ),
+        ),
+        "fit": BoxFit.contain,
       },
-    ) as Map;
-    if (imagefile != null && imagefile.containsKey('image_filtered')) {
+    ))! as Map<String, dynamic>;
+    if (imagefile.containsKey("image_filtered")) {
       setState(() {
         // widget.file = imagefile['image_filtered'] as File;
-        files.add(imagefile['image_filtered'] as File);
+        files.add(imagefile["image_filtered"] as File);
 
         index++;
       });
-      print(filterfile.path);
+      debugPrint(filterfile.path);
     }
   }
 
-  Future<void> _showChoiceDialogHome(BuildContext context) {
-    return showDialog(
+  Future<void> _showChoiceDialogHomeScreen(BuildContext context) => showDialog(
         context: context,
-        builder: (BuildContext ctx) {
-          return AlertDialog(
-            backgroundColor: Colors.blueGrey[800],
-            title: Text(
-              S.deleteWarning,
-              textAlign: TextAlign.center,
-              style: AppText.b1!.cl(Colors.white),
-            ),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: <Widget>[
-                  GestureDetector(
-                    onTap: () {
-                      widget.list.imagelist = [];
-                      widget.list.imagepath = [];
+        builder: (BuildContext ctx) => AlertDialog(
+          backgroundColor: Colors.blueGrey[800],
+          title: Text(
+            S.deleteWarning,
+            textAlign: TextAlign.center,
+            style: AppText.b1!.cl(Colors.white),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    widget.list.imagelist = <File>[];
+                    widget.list.imagepath = <String>[];
 
-                      Navigator.of(context).popUntil((route) => route.isFirst);
-                    },
-                    child: Text(
-                      S.yes,
-                      textAlign: TextAlign.center,
-                      style: AppText.b1!.cl(Colors.white),
-                    ),
+                    Navigator.of(context)
+                        .popUntil((Route<dynamic> route) => route.isFirst);
+                  },
+                  child: Text(
+                    S.yes,
+                    textAlign: TextAlign.center,
+                    style: AppText.b1!.cl(Colors.white),
                   ),
-                  Space.y!,
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(ctx).pop();
-                    },
-                    child: Text(
-                      S.no,
-                      textAlign: TextAlign.center,
-                      style: AppText.b1!.cl(Colors.white),
-                    ),
+                ),
+                Space.y!,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: Text(
+                    S.no,
+                    textAlign: TextAlign.center,
+                    style: AppText.b1!.cl(Colors.white),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
-        });
-  }
+          ),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
-    final themeChange = Provider.of<DarkThemeProvider>(context);
+    final DarkThemeProvider themeChange =
+        Provider.of<DarkThemeProvider>(context);
 
     final Color appBarColor =
         themeChange.darkTheme ? Colors.black : Colors.blue[600]!;
@@ -222,8 +225,8 @@ class _ImageviewState extends State<Imageview> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           TextButton(
-                            onPressed: () {
-                              _showChoiceDialogHome(context);
+                            onPressed: () async {
+                              await _showChoiceDialogHomeScreen(context);
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -248,13 +251,16 @@ class _ImageviewState extends State<Imageview> {
                               onPressed: () {
                                 //Navigator.of(context).pop();
                                 if (index == 0) {
-                                  print("no undo possible");
-                                  //implement disabled undo if no undo is possible
+                                  debugPrint("no undo possible");
+                                  // ignore: lines_longer_than_80_chars
+                                  // implement disabled undo if no undo is possible
                                 } else {
                                   setState(() {
                                     index--;
                                     files.removeLast();
-                                    print(widget.list.imagelist.length);
+                                    debugPrint(
+                                      widget.list.imagelist.length.toString(),
+                                    );
                                     // widget.list.imagepath.removeLast();
                                   });
                                 }
@@ -279,11 +285,19 @@ class _ImageviewState extends State<Imageview> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (files.isNotEmpty) {
-                                cropimage(files[index], appBarColor, bgColor);
+                                await cropimage(
+                                  files[index],
+                                  appBarColor,
+                                  bgColor,
+                                );
                               } else {
-                                cropimage(widget.file, appBarColor, bgColor);
+                                await cropimage(
+                                  widget.file,
+                                  appBarColor,
+                                  bgColor,
+                                );
                               }
                             },
                             child: Column(
@@ -304,8 +318,8 @@ class _ImageviewState extends State<Imageview> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {
-                              getFilterImage(context, appBarColor);
+                            onPressed: () async {
+                              await getFilterImage(context, appBarColor);
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -325,7 +339,7 @@ class _ImageviewState extends State<Imageview> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {
+                            onPressed: () async {
                               if (files.isNotEmpty) {
                                 widget.list.imagelist.add(files[index]);
                                 widget.list.imagepath.add(files[index].path);
@@ -333,7 +347,7 @@ class _ImageviewState extends State<Imageview> {
                                 widget.list.imagelist.add(widget.file);
                                 widget.list.imagepath.add(widget.file.path);
                               }
-                              Navigator.of(context).pushNamed(
+                              await Navigator.of(context).pushNamed(
                                 RouteConstants.multiDelete,
                                 arguments: widget.list,
                               );

@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
-import 'ui.dart';
-import 'app_dimensions.dart';
+import "package:doclense/configs/app_dimensions.dart";
+import "package:doclense/configs/ui.dart";
+import "package:flutter/material.dart";
 
 class Space {
   static Widget? x;
@@ -68,34 +68,20 @@ class Space {
 }
 
 extension SuperEdgeInsets on EdgeInsets {
-  EdgeInsets sv() {
-    return copyWith(
-      top: top + UI.padding!.top,
-      bottom: bottom + UI.padding!.bottom,
-    );
-  }
+  EdgeInsets sv() => copyWith(
+        top: top + UI.padding!.top,
+        bottom: bottom + UI.padding!.bottom,
+      );
 
-  EdgeInsets st() {
-    return copyWith(top: top + UI.padding!.top);
-  }
+  EdgeInsets st() => copyWith(top: top + UI.padding!.top);
 
-  EdgeInsets sb() {
-    return copyWith(bottom: bottom + UI.padding!.bottom);
-  }
+  EdgeInsets sb() => copyWith(bottom: bottom + UI.padding!.bottom);
 
-  EdgeInsets b(double no) {
-    return copyWith(bottom: AppDimensions.space(no));
-  }
+  EdgeInsets b(double no) => copyWith(bottom: AppDimensions.space(no));
 
-  EdgeInsets t(double no) {
-    return copyWith(top: AppDimensions.space(no));
-  }
+  EdgeInsets t(double no) => copyWith(top: AppDimensions.space(no));
 
-  EdgeInsets l(double no) {
-    return copyWith(left: AppDimensions.space(no));
-  }
+  EdgeInsets l(double no) => copyWith(left: AppDimensions.space(no));
 
-  EdgeInsets r(double no) {
-    return copyWith(right: AppDimensions.space(no));
-  }
+  EdgeInsets r(double no) => copyWith(right: AppDimensions.space(no));
 }
