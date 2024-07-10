@@ -14,14 +14,14 @@ import "package:flutter_svg/flutter_svg.dart";
 import "package:hive/hive.dart";
 import "package:introduction_screen/introduction_screen.dart";
 
-class IntoScreen extends StatefulWidget {
-  const IntoScreen({super.key});
+class IntroScreen extends StatefulWidget {
+  const IntroScreen({super.key});
 
   @override
-  State<IntoScreen> createState() => _IntoScreenState();
+  State<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _IntoScreenState extends State<IntoScreen> {
+class _IntroScreenState extends State<IntroScreen> {
   DarkThemeProvider themeChangeProvider = DarkThemeProvider();
 
   @override

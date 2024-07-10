@@ -1,4 +1,5 @@
 import "dart:async";
+import "dart:developer";
 import "dart:io";
 
 import "package:doclense/configs/app.dart";
@@ -28,20 +29,24 @@ Future<void> main() async {
   final Box<dynamic> res = await Hive.openBox<dynamic>("preferences");
   try {
     res.getAt(0) as UserPreferences;
-  } on Exception {
+  } on Exception catch (e) {
     await res.add(UserPreferences(firstTime: true, darkTheme: false));
+
+    log("Exception $e");
   }
 
   try {
     Hive.box("pdfs").getAt(0);
-  } on Exception {
+  } on Exception catch (e) {
     await Hive.box("pdfs").add(<dynamic>[]);
+    log("Exception $e");
   }
 
   try {
     Hive.box("starred").getAt(0);
-  } on Exception {
+  } on Exception catch (e) {
     await Hive.box("starred").add(<dynamic>[]);
+    log("Exception $e");
   }
 
   final UserPreferences r = res.getAt(0) as UserPreferences;
@@ -67,6 +72,7 @@ class MyAppState extends State<MyApp> {
   void dispose() {
     unawaited(Hive.box("preferences").close());
     unawaited(Hive.box("pdfs").close());
+    unawaited(Hive.box("preferences").close());
     unawaited(Hive.close());
     super.dispose();
   }
@@ -91,7 +97,7 @@ class MyAppState extends State<MyApp> {
                 navigatorKey: _navigatorKey,
                 debugShowCheckedModeBanner: false,
                 theme: (themeChangeProvider.darkTheme) ? darkTheme : lightTheme,
-                home: const IntoScreen(),
+                home: const IntroScreen(),
                 builder: (BuildContext context, Widget? child) {
                   App.init(context);
                   return child ?? const Scaffold();
