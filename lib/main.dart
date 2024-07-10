@@ -28,7 +28,9 @@ Future<void> main() async {
   Hive.registerAdapter(UserPreferencesAdapter());
   final Box<dynamic> res = await Hive.openBox<dynamic>("preferences");
   try {
-    res.getAt(0) as UserPreferences;
+    if (res.isEmpty) {
+      await res.add(UserPreferences(firstTime: true, darkTheme: false));
+    }
   } on Exception catch (e) {
     await res.add(UserPreferences(firstTime: true, darkTheme: false));
 
@@ -36,14 +38,18 @@ Future<void> main() async {
   }
 
   try {
-    Hive.box("pdfs").getAt(0);
+    if (Hive.box("pdfs").isEmpty) {
+      await Hive.box("pdfs").add(<dynamic>[]);
+    }
   } on Exception catch (e) {
     await Hive.box("pdfs").add(<dynamic>[]);
     log("Exception $e");
   }
 
   try {
-    Hive.box("starred").getAt(0);
+    if (Hive.box("starred").isEmpty) {
+      await Hive.box("starred").add(<dynamic>[]);
+    }
   } on Exception catch (e) {
     await Hive.box("starred").add(<dynamic>[]);
     log("Exception $e");
