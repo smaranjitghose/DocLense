@@ -12,10 +12,6 @@ TextStyle appbarStyle = AppText.b2b != null
 final darkTheme = ThemeData(
   primaryColor: Colors.black,
   brightness: Brightness.dark,
-  backgroundColor: const Color(0xFF212121),
-  colorScheme: const ColorScheme.dark(
-    secondary: Colors.white,
-  ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
       foregroundColor: Colors.black, backgroundColor: AppTheme.primaryColor),
   dividerColor: Colors.black12,
@@ -31,16 +27,14 @@ final darkTheme = ThemeData(
       elevation: 0,
       color: Colors.black,
       titleTextStyle: appbarStyle,
-      toolbarTextStyle: appbarStyle),
+      toolbarTextStyle: appbarStyle), colorScheme: const ColorScheme.dark(
+    secondary: Colors.white,
+  ).copyWith(background: const Color(0xFF212121)),
 );
 
 final lightTheme = ThemeData(
   primaryColor: AppTheme.primaryColor,
   brightness: Brightness.light,
-  backgroundColor: Colors.blueGrey[100],
-  colorScheme: const ColorScheme.light(
-    secondary: Colors.black,
-  ),
   floatingActionButtonTheme: FloatingActionButtonThemeData(
       foregroundColor: Colors.white, backgroundColor: Colors.blue[600]),
   dividerColor: AppTheme.primaryColor,
@@ -60,5 +54,7 @@ final lightTheme = ThemeData(
     ),
     titleTextStyle: appbarStyle,
     toolbarTextStyle: appbarStyle,
-  ),
+  ), colorScheme: const ColorScheme.light(
+    secondary: Colors.black,
+  ).copyWith(background: Colors.blueGrey[100]),
 );
