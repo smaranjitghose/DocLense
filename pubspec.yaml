@@ -31,7 +31,6 @@ dependencies:
   path: ^1.8.2
   path_provider: ^2.0.11
   pdf: ^3.8.4
-  pdf_viewer_plugin: ^2.0.1
   permission_handler: ^10.2.0
   photofilters: ^3.0.1
   printing: ^5.9.3
